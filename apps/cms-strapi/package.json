@@ -17,13 +17,13 @@
     "pg": "^8.11.3"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "NoscAi GmbH"
   },
   "strapi": {
     "uuid": "bd8b284e-439e-4c14-8b4d-1bf779f5dd53"
   },
   "engines": {
-    "node": ">=16.0.0 <=20.x.x",
+    "node": "16.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT"
