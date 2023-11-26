@@ -30,6 +30,5 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-console.log("[LOG] ::: DATABASE CONFIGURATION :::", db)
 
 module.exports = db;
