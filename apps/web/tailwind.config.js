@@ -7,6 +7,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      spacing: {
+        "sz-12": "12px",
+        "sz-16": "16px",
+        "sz-20": "20px",
+        "sz-24": "24px",
+        "sz-32": "32px",
+        "sz-40": "40px",
+        "sz-42": "42px",
+      },
       colors: {
         primary: {
           50: "#fef4f1",
@@ -22,6 +31,14 @@ module.exports = {
           950: "#750035",
         },
       },
+    },
+    fontSize: {
+      "fs-base": "16px",
+      "fs-18": "18px",
+      "fs-20": "20px",
+      "fs-24": "24px",
+      "fs-40": "40px",
+      "fs-64": "64px",
     },
     plugins: [],
   },
