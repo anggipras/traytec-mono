@@ -1,5 +1,6 @@
 import "styles/globals.css";
 import type { AppProps } from "next/app";
+import Layout from "../modules/layout/templates";
 
 // Define an interface for components that have a getLayout property
 interface ComponentWithLayout {
@@ -16,7 +17,11 @@ function MyApp({ Component, pageProps }: ExtendedAppProps) {
     return Component.getLayout(<Component {...pageProps} />);
   }
 
-  return <Component {...pageProps} />;
+  return (
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  );
 }
 
 export default MyApp;
