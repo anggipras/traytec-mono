@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       spacing: {
         "sz-12": "12px",
+        "sz-14": "14px",
         "sz-16": "16px",
         "sz-20": "20px",
         "sz-24": "24px",
@@ -30,6 +31,9 @@ module.exports = {
           900: "#8b0e3c",
           950: "#750035",
         },
+      },
+      lineHeight: {
+        "lh-26": "26px",
       },
     },
     fontSize: {
