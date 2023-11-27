@@ -15,7 +15,7 @@ const footerComponent = () => {
         className="absolute right-0 top-0 max-w-[594px]"
         src={require("@/assets/images/common/img_bg_footer_right.svg")}
       />
-      <div className="flex flex-col items-center text-center max-w-[874px] my-[60px] z-10">
+      <div className="flex flex-col items-center text-center max-w-[874px] my-sz-60 z-10">
         <div className="text-fs-40 mb-sz-20">Contact us for more details</div>
         <div className="text-fs-base">
           Choose according to what you want to ask then click continue and fill
@@ -58,9 +58,9 @@ const footerComponent = () => {
         </div>
       </div>
       <div className="w-[100%]">
-        <hr className="text-white h-2 mx-[60px]" />
+        <hr className="text-white h-2 mx-sz-60" />
       </div>
-      <div className="w-[100%] px-[60px] pt-[80px] pb-sz-24">
+      <div className="w-[100%] px-sz-60 pt-[80px] pb-sz-24">
         <div className="flex justify-between">
           <div className="max-w-[275px]">
             <Image
