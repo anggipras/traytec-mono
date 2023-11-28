@@ -21,18 +21,18 @@ const Hero: React.FC = () => {
         />
       </div>
 
-      <div className="flex relative flex-col justify-center text-center lg:text-start items-center lg:items-start mx-[60px] h-full max-w-[738px] text-white">
-        <div className="w-fit px-sz-14 py-[8px] bg-primary-100 rounded-md mb-sz-16">
+      <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start mx-15 h-full max-w-[738px] text-white">
+        <div className="w-fit px-3.5 py-2 bg-primary-100 rounded-md mb-4">
           Let`s work with Traytech
         </div>
-        <div className="text-[32px] lg:text-[64px] lg:leading-[72px] mb-sz-16 lg:mb-sz-24">
+        <div className="typo-h1 mb-4 medium:mb-6">
           Service provider for high quality Plastic
         </div>
-        <div className="text-[16px] lg:text-[20px] leading-[26px] mb-sz-16 lg:mb-sz-24">
+        <div className="typo-copy-lg leading-6.5 mb-4 medium:mb-6">
           Service Provider Manufacturing Trays, inserts, workpiece containers,
           lids and more from a variety of plastics for all applications
         </div>
-        <div className="buttonCustom w-fit bg-white px-sz-24 py-sz-14 text-primary-950 rounded-[50px]">
+        <div className="buttonCustom w-fit bg-white px-6 py-3.5 text-primary-950 rounded-[50px]">
           Find out your needs
         </div>
       </div>

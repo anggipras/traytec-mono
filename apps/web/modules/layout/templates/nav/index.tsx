@@ -74,13 +74,13 @@ export default function NavBar() {
   };
 
   return (
-    <div className="flex sticky top-0 z-20 justify-between items-center h-[88px] bg-white px-sz-24 py-sz-14 lg:px-sz-60 lg:py-sz-24">
+    <div className="flex sticky top-0 z-20 justify-between items-center h-[88px] bg-white px-6 py-3.5 small:px-15 small:py-6">
       <Image
         alt="navbar_logo"
-        className="max-w-[121px] h-auto lg:max-w-full"
+        className="max-w-[121px] h-auto small:max-w-full"
         src={require("@/assets/images/common/img_header_logo.png")}
       />
-      <div className="hidden lg:flex">
+      <div className="hidden small:flex">
         {navbarMenu.map((val, menuIdx) => {
           return (
             <div
@@ -93,11 +93,11 @@ export default function NavBar() {
                 setOpenMenu(-1);
               }}
             >
-              <div className="flex items-center cursor-pointer text-custom-gray p-sz-10">
+              <div className="flex items-center cursor-pointer text-custom-gray p-2.5">
                 <div>{val.menuName}</div>
                 <Image
                   alt="navbar_menu_arrow"
-                  className="w-sz-20 ml-[5px]"
+                  className="w-5 ml-1"
                   src={require("@/assets/images/icons/ic_arrow_down.svg")}
                 />
               </div>
@@ -107,13 +107,13 @@ export default function NavBar() {
                   className="flex overflow-hidden absolute left-0 z-20 origin-top-left rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   role="menu"
                 >
-                  <div className="w-sz-14 bg-primary-950" />
+                  <div className="w-3.5 bg-primary-950" />
                   <div className="min-w-[200px]" role="none">
                     {navbarMenu[openMenu].submenu.map((value, idx) => {
                       return (
                         <div
                           aria-hidden="true"
-                          className="flex items-center cursor-pointer hover:bg-custom-red-100 px-sz-10 py-[8px] gap-1"
+                          className="flex items-center cursor-pointer hover:bg-custom-red-100 px-2.5 py-2 gap-1"
                           id={`submenu-item-${idx}`}
                           key={value}
                           onClick={() => {
@@ -121,7 +121,7 @@ export default function NavBar() {
                           }}
                           role="menuitem"
                         >
-                          <div className="text-base hidden lg:block">
+                          <div className="text-base hidden small:block">
                             {value}
                           </div>
                         </div>
@@ -138,7 +138,7 @@ export default function NavBar() {
         <div className="relative inline-block">
           <div
             aria-hidden="true"
-            className="flex items-center px-sz-10 py-[8px] border-solid border-custom-gray border-[1px] rounded-[60px] gap-1"
+            className="flex items-center px-2.5 py-2 border-solid border-custom-gray border rounded-[60px] gap-1"
             onBlur={() => {
               setOpenLang(false);
             }}
@@ -154,20 +154,20 @@ export default function NavBar() {
           >
             <Image
               alt="navbar_lang"
-              className="w-sz-24 rounded-[80px]"
+              className="w-6 rounded-[80px]"
               src={require("@/assets/images/common/img_example_lang.png")}
             />
             <Image
               alt="navbar_menu_arrow"
-              className="w-sz-20"
+              className="w-5"
               src={require("@/assets/images/icons/ic_arrow_down.svg")}
             />
-            <div className="text-base hidden lg:block">GER</div>
+            <div className="text-base hidden small:block">GER</div>
           </div>
 
           {openLang ? (
             <div
-              className="absolute right-0 z-20 mt-2 w-[100%] origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+              className="absolute right-0 z-20 mt-2 w-full origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               role="menu"
             >
               <div className="py-1" role="none">
@@ -175,7 +175,7 @@ export default function NavBar() {
                   return (
                     <div
                       aria-hidden="true"
-                      className="flex items-center px-sz-10 py-[8px] gap-1"
+                      className="flex items-center px-2.5 py-2 gap-1"
                       id={`menu-item-${idx}`}
                       key={val.country}
                       onClick={() => {
@@ -185,15 +185,15 @@ export default function NavBar() {
                     >
                       <Image
                         alt="navbar_lang"
-                        className="w-sz-24 rounded-[80px]"
+                        className="w-6 rounded-[80px]"
                         src={val.image}
                       />
                       <Image
                         alt="navbar_menu_arrow"
-                        className="w-sz-20"
+                        className="w-5"
                         src={require("@/assets/images/icons/ic_arrow_down.svg")}
                       />
-                      <div className="text-base hidden lg:block">
+                      <div className="text-base hidden small:block">
                         {val.country}
                       </div>
                     </div>
@@ -205,7 +205,7 @@ export default function NavBar() {
         </div>
         <Image
           alt="navbar_hmb"
-          className="w-sz-32 ml-[4px] lg:hidden"
+          className="w-8 ml-1 small:hidden"
           src={require("@/assets/images/icons/ic_hamburger.svg")}
         />
       </div>
