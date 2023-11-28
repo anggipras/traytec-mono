@@ -45,6 +45,12 @@ module.exports = {
         "lh-26": "26px",
       },
     },
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+    },
     fontSize: {
       "fs-base": "16px",
       "fs-18": "18px",

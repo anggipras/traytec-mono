@@ -2,11 +2,9 @@
 
 const homePage = () => {
   return (
-    <main>
-      <h1 className="text-3xl font-bold underline text-primary-900">
-        Hello world
-      </h1>
-    </main>
+    <h1 className="text-3xl font-bold underline text-primary-900">
+      Hello world
+    </h1>
   );
 };
 
