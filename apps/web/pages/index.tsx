@@ -3,9 +3,17 @@ import type { ReactHTML } from "react";
 function Page() {
   return (
     <main>
-      <h1 className="text-3xl font-bold underline text-primary-900">
-        Hello world
-      </h1>
+      <h1 className="typo-h1">Hello world</h1>
+      <h2 className="typo-h2">This is a monorepo with Next.js.</h2>
+      <p className="typo-copy-normal">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+      </p>
+      <p className="typo-copy-small">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+      </p>
+      <p className="typo-copy-intro">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+      </p>
     </main>
   );
 }
