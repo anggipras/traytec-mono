@@ -7,17 +7,27 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        heading: ["Poppins", "sans-serif"],
+        copy: ["Inter", "sans-serif"],
+        quote: ["Inter", "sans-serif"],
+        topline: ["Inter", "sans-serif"],
+        button: ["Poppins", "sans-serif"],
+        header: ["Poppins", "sans-serif"],
+        sans: ["Inter", "sans-serif"],
+      },
+      fontSize: {
+        '6xl':'64px' , // H1 desktop
+        '4xl':'40px', // H2 desktop
+        '3xl':'32px', // H1 mobile
+      },
+      lineHeight: {
+        '6.5': '26px',
+      },
       spacing: {
-        "sz-10": "10px",
-        "sz-12": "12px",
-        "sz-14": "14px",
-        "sz-16": "16px",
-        "sz-20": "20px",
-        "sz-24": "24px",
-        "sz-32": "32px",
-        "sz-40": "40px",
-        "sz-42": "42px",
-        "sz-60": "60px",
+        // Additional spacings for desktop
+        '15': '60px',  // 60px
+        '32.5': '130px'// 130px
       },
       colors: {
         primary: {
@@ -41,23 +51,29 @@ module.exports = {
           "red-950": "#64002D",
         },
       },
-      lineHeight: {
-        "lh-26": "26px",
+      maxWidth: {
+        xs: "92px",
+        sm: "204px",
+        md: "315px",
+        lg: "427px",
+        xl: "538px",
+        "2xl": "650px",
+        "3xl": "762px",
+        desktop: "1320px",
+        "desktop-half": "660px",
+        "8xl": "100rem",
       },
-    },
-    screens: {
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-    },
-    fontSize: {
-      "fs-base": "16px",
-      "fs-18": "18px",
-      "fs-20": "20px",
-      "fs-24": "24px",
-      "fs-40": "40px",
-      "fs-64": "64px",
+      screens: {
+        "2xsmall": "320px",
+        xsmall: "512px",
+        small: "1024px",
+        medium: "1280px",
+        large: "1440px",
+        xlarge: "1680px",
+        "2xlarge": "1920px",
+        "3xlarge": "2560px",
+        "4xlarge": "3840px",
+      },
     },
     plugins: [],
   },
