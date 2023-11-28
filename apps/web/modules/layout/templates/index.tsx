@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import React from "react";
+import NavbarTemplate from "modules/layout/templates/nav";
 import FooterTemplate from "modules/layout/templates/footer";
 
 export default function RootLayout({
@@ -9,7 +10,7 @@ export default function RootLayout({
 }) {
   return (
     <div>
-      <div>NAVBAR</div>
+      <NavbarTemplate />
       {children}
       <FooterTemplate />
     </div>
