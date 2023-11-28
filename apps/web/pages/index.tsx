@@ -1,10 +1,13 @@
 // import type { ReactHTML } from "react";
+import Head from "@/modules/common/components/head";
+import HomeTemplate from "@/modules/home/templates";
 
-const homePage = () => {
+const HomePage = () => {
   return (
-    <h1 className="text-3xl font-bold underline text-primary-900">
-      Hello world
-    </h1>
+    <>
+      <Head description="this is desc" title="this is title" />
+      <HomeTemplate />
+    </>
   );
 };
 
@@ -12,4 +15,4 @@ const homePage = () => {
 //   return <>{page}</>;
 // };
 
-export default homePage;
+export default HomePage;

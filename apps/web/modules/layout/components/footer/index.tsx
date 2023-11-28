@@ -79,7 +79,7 @@ export default function FooterComponent() {
             </div>
           </div>
         </div>
-        <div className="hidden lg:block bg-primary-950 px-sz-24 py-sz-14 text-white rounded-[50px] mt-sz-40">
+        <div className="buttonCustom hidden lg:block bg-primary-950 px-sz-24 py-sz-14 text-white rounded-[50px] mt-sz-40">
           Continue
         </div>
       </div>
