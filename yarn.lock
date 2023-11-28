@@ -12837,7 +12837,7 @@ turbo-windows-arm64@1.10.16:
 
 turbo@latest:
   version "1.10.16"
-  resolved "https://registry.yarnpkg.com/turbo/-/turbo-1.10.16.tgz#51601a65a3aa56d1b9d9cb9a2ab3a5a2eab41e19"
+  resolved "https://registry.npmjs.org/turbo/-/turbo-1.10.16.tgz"
   integrity sha512-2CEaK4FIuSZiP83iFa9GqMTQhroW2QryckVqUydmg4tx78baftTOS0O+oDAhvo9r9Nit4xUEtC1RAHoqs6ZEtg==
   optionalDependencies:
     turbo-darwin-64 "1.10.16"

@@ -1,6 +1,6 @@
-import type { ReactHTML } from "react";
+// import type { ReactHTML } from "react";
 
-function Page() {
+const homePage = () => {
   return (
     <main>
       <h1 className="typo-h1">Hello world</h1>
@@ -16,10 +16,10 @@ function Page() {
       </p>
     </main>
   );
-}
-
-Page.getLayout = function PageLayout(page: ReactHTML) {
-  return <>{page}</>;
 };
 
-export default Page;
+// Page.getLayout = function PageLayout(page: ReactHTML) {
+//   return <>{page}</>;
+// };
+
+export default homePage;
