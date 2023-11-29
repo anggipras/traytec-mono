@@ -28,7 +28,7 @@ const Hero: React.FC = () => {
         <div className="typo-h1 mb-4 medium:mb-6">
           Service provider for high quality Plastic
         </div>
-        <div className="typo-copy-lg leading-6.5 mb-4 medium:mb-6">
+        <div className="typo-copy-intro leading-6.5 mb-4 medium:mb-6">
           Service Provider Manufacturing Trays, inserts, workpiece containers,
           lids and more from a variety of plastics for all applications
         </div>

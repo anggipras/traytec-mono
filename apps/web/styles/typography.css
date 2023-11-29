@@ -58,11 +58,11 @@
   }
 
   /* Paragraph */
-  .typo-copy-lg {
+  .typo-copy-intro {
     @apply font-copy text-base font-normal leading-6.5;
   }
   @screen medium {
-    .typo-copy-lg {
+    .typo-copy-intro {
       @apply text-xl leading-8;
     }
   }

@@ -38,6 +38,10 @@ const CertificateSection: React.FC = () => {
   );
   return (
     <div className="mx-15">
+      <div className="w-fit px-3.5 py-2 bg-primary-100 rounded-md">
+        Certificates
+      </div>
+      <div className="typo-h2 mb-10 mt-4">Certificates and Awards</div>
       <div className="flex flex-wrap gap-5">
         {certificateData.map((val) => {
           return (

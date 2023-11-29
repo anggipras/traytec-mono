@@ -5,7 +5,6 @@ type Props = {
   children: React.ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-// eslint-disable-next-line -- Temporarily avoids the lint error problem. See issue XXX.
 const LayoutContainer: React.FC<Props> = ({
   children,
   className,
