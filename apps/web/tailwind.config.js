@@ -17,17 +17,17 @@ module.exports = {
         sans: ["Inter", "sans-serif"],
       },
       fontSize: {
-        '6xl':'64px' , // H1 desktop
-        '4xl':'40px', // H2 desktop
-        '3xl':'32px', // H1 mobile
+        "6xl": "64px", // H1 desktop
+        "4xl": "40px", // H2 desktop
+        "3xl": "32px", // H1 mobile
       },
       lineHeight: {
-        '6.5': '26px',
+        6.5: "26px",
       },
       spacing: {
         // Additional spacings for desktop
-        '15': '60px',  // 60px
-        '32.5': '130px'// 130px
+        15: "60px", // 60px
+        32.5: "130px", // 130px
       },
       colors: {
         primary: {
@@ -45,10 +45,6 @@ module.exports = {
         },
         custom: {
           gray: "#5B6267",
-          "red-100": "#96004314",
-          "red-800": "#960043",
-          "red-900": "#730033",
-          "red-950": "#64002D",
         },
       },
       maxWidth: {

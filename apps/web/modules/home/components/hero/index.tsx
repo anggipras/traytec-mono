@@ -22,7 +22,7 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start mx-15 h-full max-w-[738px] text-white">
-        <div className="w-fit px-3.5 py-2 bg-primary-100 rounded-md mb-4">
+        <div className="w-fit px-3.5 py-2 bg-white bg-opacity-25 rounded-md mb-4">
           Let`s work with Traytech
         </div>
         <div className="typo-h1 mb-4 medium:mb-6">

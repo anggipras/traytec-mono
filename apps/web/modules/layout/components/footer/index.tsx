@@ -134,14 +134,14 @@ const FooterComponent = () => {
             </div>
           </div>
           <div className="flex flex-col medium:flex-row medium:justify-between">
-            <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 text-fs-16 mr-5">
+            <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal mr-5">
               <div className="typo-h5 mb-2">Navigation</div>
               <a href="a">Products</a>
               <a href="a">Domain</a>
               <a href="a">Company Information</a>
               <a href="a">Career Section</a>
             </div>
-            <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 text-fs-16 max-w-[275px]">
+            <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal max-w-[275px]">
               <div className="typo-h5 mb-2">Contact</div>
               {contactFooter.map((val) => {
                 return (
@@ -161,7 +161,7 @@ const FooterComponent = () => {
           </div>
         </div>
         <div className="flex flex-col-reverse medium:flex-row medium:justify-between text-center leading-6.5 mt-[77px]">
-          <div className="mt-3.5 medium:mt-0 text-fs-16">
+          <div className="mt-3.5 medium:mt-0 typo-copy-normal">
             traytec GmbH 2023. All rights reserved.
           </div>
           <div className="typo-copy-normal">
