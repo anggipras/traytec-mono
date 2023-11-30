@@ -71,7 +71,7 @@ const TestimonialSection: React.FC = () => {
   return (
     <div className="flex flex-col mx-6 medium:mx-15 my-10 medium:my-32.5">
       <div className="flex flex-col text-center medium:text-start items-center medium:items-stretch">
-        <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-[50px] text-rose-800">
+        <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
           Testimonial
         </div>
         <div className="typo-h2 mb-6 mt-4 max-w-xl">
@@ -97,7 +97,6 @@ const TestimonialSection: React.FC = () => {
           </div>
         </div>
       </div>
-      {}
       <div
         className={`${
           screenWidth > 1279

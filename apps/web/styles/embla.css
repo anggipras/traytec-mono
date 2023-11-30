@@ -19,6 +19,11 @@
   --slide-size: 100%;
   --slide-height: 19rem;
 }
+.embla_industry {
+  --slide-spacing: 1rem;
+  --slide-size: 50%;
+  --slide-height: 19rem;
+}
 .embla__viewport {
   overflow: hidden;
 }

@@ -4,7 +4,7 @@ import React from "react";
 
 const Hero: React.FC = () => {
   return (
-    <div className="relative max-w-full h-[720px] max-h-screen">
+    <div className="relative w-full h-[720px] max-h-screen">
       <Image
         alt="hero_image"
         layout="fill"
@@ -13,10 +13,11 @@ const Hero: React.FC = () => {
         src="https://assets.hongkiat.com/uploads/nature-photography/nature-photography-mountain-sky.jpg"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-primary-950 to-transparent" />
-      <div className="absolute top-0 left-0">
+      <div className="absolute medium:inset-y-0 -left-48 medium:left-0">
         <Image
           alt="bg_hero_left"
-          className="max-w-full h-auto"
+          className="w-full h-full"
+          objectFit="cover"
           src={require("@/assets/images/common/img_bg_hero_left.svg")}
         />
       </div>
@@ -32,7 +33,7 @@ const Hero: React.FC = () => {
           Service Provider Manufacturing Trays, inserts, workpiece containers,
           lids and more from a variety of plastics for all applications
         </div>
-        <div className="buttonCustom w-fit bg-white px-6 py-3.5 text-primary-950 rounded-[50px]">
+        <div className="buttonCustom w-fit bg-white px-6 py-3.5 text-primary-950 rounded-full">
           Find out your needs
         </div>
       </div>

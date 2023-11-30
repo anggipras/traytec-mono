@@ -82,7 +82,7 @@ const FooterComponent = () => {
             </div>
           </div>
         </div>
-        <div className="buttonCustom hidden medium:block bg-primary-950 px-6 py-3.5 text-white rounded-[50px] mt-10">
+        <div className="buttonCustom hidden medium:block bg-primary-950 px-6 py-3.5 text-white rounded-full mt-10">
           Continue
         </div>
       </div>

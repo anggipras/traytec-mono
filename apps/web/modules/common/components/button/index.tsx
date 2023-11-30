@@ -58,7 +58,7 @@ const Button = ({
     return (
       <div className={clsx("flex items-start", className, sizeClassname)}>
         <button {...props} className={spacingClassname}>
-          <div className="flex items-center typo-header border-b border-current gap-x-4 transition-all duration-300 group hover:pl-sm hover:pr-xs">
+          <div className="flex items-center typo-header border-b border-current gap-x-4 transition-all duration-300 group hover:px-4">
             <span>{children}</span>
             {/* <ArrowRightIcon
               className={clsx(

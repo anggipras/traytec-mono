@@ -1,0 +1,169 @@
+import type { EmblaOptionsType } from "embla-carousel-react";
+import useEmblaCarousel from "embla-carousel-react";
+import Image from "next/image";
+import React, { useCallback, useEffect, useState } from "react";
+import { flushSync } from "react-dom";
+import Button from "@/modules/common/components/button";
+import {
+  PrevButton,
+  NextButton,
+  usePrevNextButtons,
+} from "@/modules/common/components/carousel/next-prev-btn";
+
+const OPTIONS: EmblaOptionsType = { loop: true };
+const OPTIONS_MOBILE: EmblaOptionsType = {
+  align: "start",
+  containScroll: false,
+  loop: true,
+};
+const SLIDE_COUNT = 5;
+const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+
+const TWEEN_FACTOR = 4.2;
+
+const numberWithinRange = (number: number, min: number, max: number): number =>
+  Math.min(Math.max(number, min), max);
+
+const IndustrySection: React.FC = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
+  const [emblaRefMob, emblaApiMob] = useEmblaCarousel(OPTIONS_MOBILE);
+  const [tweenValues, setTweenValues] = useState<number[]>([]);
+  const [screenWidth, setScreenWidth] = useState(0);
+
+  const onScroll = useCallback(() => {
+    if (!emblaApi) return;
+
+    const engine = emblaApi.internalEngine();
+    const scrollProgress = emblaApi.scrollProgress();
+
+    const styles = emblaApi.scrollSnapList().map((scrollSnap, index) => {
+      let diffToTarget = scrollSnap - scrollProgress;
+
+      if (engine.options.loop) {
+        engine.slideLooper.loopPoints.forEach((loopItem) => {
+          const target = loopItem.target();
+          if (index === loopItem.index && target !== 0) {
+            const sign = Math.sign(target);
+            if (sign === -1) diffToTarget = scrollSnap - (1 + scrollProgress);
+            if (sign === 1) diffToTarget = scrollSnap + (1 - scrollProgress);
+          }
+        });
+      }
+      const tweenValue = 1 - Math.abs(diffToTarget * TWEEN_FACTOR);
+      return numberWithinRange(tweenValue, 0, 1);
+    });
+    setTweenValues(styles);
+  }, [emblaApi, setTweenValues]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    onScroll();
+    emblaApi.on("scroll", () => {
+      flushSync(() => {
+        onScroll();
+      });
+    });
+    emblaApi.on("reInit", onScroll);
+  }, [emblaApi, onScroll]);
+
+  const basedOnScreenSize = screenWidth > 1279 ? emblaApi : emblaApiMob;
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick,
+  } = usePrevNextButtons(basedOnScreenSize);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return (
+    <div className="flex flex-col mx-6 medium:mx-0 my-10 medium:my-32.5">
+      <div className="flex flex-col text-center items-center mb-10">
+        <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
+          Industry Service
+        </div>
+        <div className="typo-h2 mb-6 mt-4 max-w-xl">Choose Your Needs</div>
+        <div className="flex justify-between items-center">
+          <div className="typo-copy-normal text-gray-400 max-w-[670px]">
+            Provider of services for making trays, inserts, workpiece
+            containers, lids, etc. for industry according to our wishes
+          </div>
+        </div>
+      </div>
+      <div className="relative">
+        <div
+          className={`${
+            screenWidth > 1279 ? "embla_industry" : "embla_testimonial_mobile"
+          }`}
+        >
+          <div
+            className="embla__viewport"
+            ref={screenWidth > 1279 ? emblaRef : emblaRefMob}
+          >
+            <div className="embla__container">
+              {SLIDES.map((index) => (
+                <div
+                  className="embla__slide"
+                  key={index}
+                  style={{
+                    ...(tweenValues.length && { opacity: tweenValues[index] }),
+                  }}
+                >
+                  <div className="px-0 medium:px-12">
+                    <div className="flex flex-col justify-center items-center bg-gray-50 rounded-3xl p-6">
+                      <div className="flex justify-center items-center p-3 medium:p-10 rounded-full w-fit bg-white mt-3 mb-4">
+                        <Image
+                          alt="ex-icon-industry"
+                          className="w-8 medium:w-24"
+                          src={require("@/assets/images/common/img_example_tools.png")}
+                        />
+                      </div>
+                      <div className="typo-h4">Automotive</div>
+                      <div className="typo-copy-normal text-gray-400 text-center medium:text-start">
+                        Innovative design for beauty product storage and easy
+                        access
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-0 bottom-0 left-0 right-[650px]">
+          <PrevButton disabled={prevBtnDisabled} onClick={onPrevButtonClick} />
+        </div>
+        <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-0 bottom-0 left-[650px] right-0">
+          <NextButton disabled={nextBtnDisabled} onClick={onNextButtonClick} />
+        </div>
+      </div>
+      <div className="embla__buttons flex medium:hidden justify-center gap-3 w-full mt-5">
+        <PrevButton disabled={prevBtnDisabled} onClick={onPrevButtonClick} />
+        <NextButton disabled={nextBtnDisabled} onClick={onNextButtonClick} />
+      </div>
+      <div className="hidden medium:flex justify-center">
+        <Button
+          className="bg-primary-950 px-6 py-3.5 w-fit text-white rounded-full mt-10"
+          size="medium"
+          type="button"
+          variant="text"
+        >
+          <span className="">Contact Us</span>
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default IndustrySection;

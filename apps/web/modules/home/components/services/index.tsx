@@ -26,7 +26,7 @@ const ServicesSection: React.FC = () => {
   return (
     <div className="flex flex-col mx-6 medium:ml-15 medium:mr-0 my-10 medium:my-32.5">
       <div className="flex flex-col text-center medium:text-start items-center medium:items-stretch medium:mr-15">
-        <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-[50px] text-rose-800">
+        <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
           How to order procces
         </div>
         <div className="typo-h2 mb-6 mt-4">How it work</div>

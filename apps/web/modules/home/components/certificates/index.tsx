@@ -38,7 +38,7 @@ const CertificateSection: React.FC = () => {
   );
   return (
     <div className="flex flex-col items-center mx-6 medium:mx-15">
-      <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-[50px] text-rose-800">
+      <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
         Certificates
       </div>
       <div className="typo-h2 mb-10 mt-4">Certificates and Awards</div>
@@ -54,7 +54,7 @@ const CertificateSection: React.FC = () => {
                 />
               </div>
               <div className="typo-h4 mb-4">DIN EN ISO 9001:2015 DE</div>
-              <div className="typo-copy-normal">
+              <div className="typo-copy-normal text-gray-400">
                 Frame stacking trays are designed with a frame system to store
                 more workpieces per footprint
               </div>
