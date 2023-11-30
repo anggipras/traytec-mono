@@ -6,6 +6,7 @@ import Image from "next/image";
 interface UsePrevNextButtonsType {
   prevBtnDisabled: boolean;
   nextBtnDisabled: boolean;
+  countSlider: number;
   onPrevButtonClick: () => void;
   onNextButtonClick: () => void;
 }
@@ -15,16 +16,19 @@ export const usePrevNextButtons = (
 ): UsePrevNextButtonsType => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
+  const [countSlider, setCountSlider] = useState(1);
 
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollPrev();
-  }, [emblaApi]);
+    setCountSlider(countSlider - 1);
+  }, [countSlider, emblaApi]);
 
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollNext();
-  }, [emblaApi]);
+    setCountSlider(countSlider + 1);
+  }, [countSlider, emblaApi]);
 
   const onSelect = useCallback((emblaApiCallback: EmblaCarouselType) => {
     setPrevBtnDisabled(!emblaApiCallback.canScrollPrev());
@@ -42,6 +46,7 @@ export const usePrevNextButtons = (
   return {
     prevBtnDisabled,
     nextBtnDisabled,
+    countSlider,
     onPrevButtonClick,
     onNextButtonClick,
   };

@@ -8,7 +8,16 @@
   --slide-spacing: 1rem;
   --slide-size: 315px;
   --slide-height: 19rem;
-  padding: 1.6rem 0;
+}
+.embla_testimonial_desktop {
+  --slide-spacing: 1rem;
+  --slide-size: 427px;
+  --slide-height: 19rem;
+}
+.embla_testimonial_mobile {
+  --slide-spacing: 1rem;
+  --slide-size: 100%;
+  --slide-height: 19rem;
 }
 .embla__viewport {
   overflow: hidden;
@@ -46,9 +55,9 @@
   display: flex;
   align-items: center;
   position: relative;
-  top: 50%;
+  /* top: 50%;
   transform: translateY(-50%);
-  left: 1.6rem;
+  left: 1.6rem; */
 }
 .embla__button {
   z-index: 1;
