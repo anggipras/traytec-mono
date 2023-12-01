@@ -102,11 +102,7 @@ const IndustrySection: React.FC = () => {
         </div>
       </div>
       <div className="relative">
-        <div
-          className={`${
-            screenWidth > 1279 ? "embla_industry" : "embla_testimonial_mobile"
-          }`}
-        >
+        <div className={`${screenWidth > 1279 ? "embla_industry" : "embla"}`}>
           <div
             className="embla__viewport"
             ref={screenWidth > 1279 ? emblaRef : emblaRefMob}

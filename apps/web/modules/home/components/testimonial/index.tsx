@@ -99,9 +99,7 @@ const TestimonialSection: React.FC = () => {
       </div>
       <div
         className={`${
-          screenWidth > 1279
-            ? `embla_testimonial_desktop`
-            : `embla_testimonial_mobile`
+          screenWidth > 1279 ? `embla_testimonial_desktop` : `embla`
         } pt-6 pb-4 medium:pt-10 medium:pb-0`}
       >
         {slideComponent()}

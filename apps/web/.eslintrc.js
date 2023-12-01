@@ -8,5 +8,6 @@ module.exports = {
     "no-console": "off",
     "react/function-component-definition": "off",
     "react/button-has-type": "off",
+    "react/no-array-index-key": "off",
   },
 };
