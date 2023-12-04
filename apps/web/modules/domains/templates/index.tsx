@@ -1,9 +1,127 @@
 import Image from "next/image";
-import React from "react";
+import React, { useMemo } from "react";
 import SubHeader from "@/modules/common/components/sub-header";
 import Button from "@/modules/common/components/button";
 
 const DomainTemplate: React.FC = () => {
+  const domainData = useMemo(
+    () => [
+      {
+        title: "Automotive Industries",
+        desc: "For the automotive industry traytec manufactures disposable and reusable trays",
+        image: require("@/assets/images/common/img_example_product.png"),
+      },
+      {
+        title: "Electronics",
+        desc: "Electrically conductive honeycomb backings",
+        image: require("@/assets/images/common/img_example_product.png"),
+      },
+      {
+        title: "Food",
+        desc: "TRAY FOR FOOD TRANSPORTATION",
+        image: require("@/assets/images/common/img_example_product.png"),
+      },
+      {
+        title: "Medicine & Pharmaceutical",
+        desc: "TRAYS FOR SENSITIVE MEDICAL AND PHARMACEUTICAL PRODUCTS",
+        image: require("@/assets/images/common/img_example_product.png"),
+      },
+      {
+        title: "Display",
+        desc: "DISPLAY'S FOR VARIOUS APPLICATIONS",
+        image: require("@/assets/images/common/img_example_product.png"),
+      },
+      {
+        title: "test1",
+        desc: "TRAY FOR FOOD TRANSPORTATION",
+        image: require("@/assets/images/common/img_example_product.png"),
+      },
+      {
+        title: "test2",
+        desc: "TRAYS FOR SENSITIVE MEDICAL AND PHARMACEUTICAL PRODUCTS",
+        image: require("@/assets/images/common/img_example_product.png"),
+      },
+      {
+        title: "test3",
+        desc: "DISPLAY'S FOR VARIOUS APPLICATIONS",
+        image: require("@/assets/images/common/img_example_product.png"),
+      },
+    ],
+    []
+  );
+
+  let checkSpanCond = false;
+  const checkSpanComponent = (idx: number) => {
+    if (idx >= 2 && (idx - 2) % 4 === 0) {
+      checkSpanCond = true;
+      return "col-start-1 col-span-2 bg-white border border-gray-200";
+    }
+    if (checkSpanCond) {
+      checkSpanCond = false;
+      return "col-start-3 col-span-3 bg-gray-100";
+    }
+
+    if (idx % 2 === 0) {
+      return "col-start-1 col-span-3 bg-gray-100";
+    }
+    return "col-start-4 col-span-2 bg-white border border-gray-200";
+  };
+
+  let checkButtonCond = false;
+  const checkButtonStyle = (idx: number) => {
+    if (idx >= 2 && (idx - 2) % 4 === 0) {
+      checkButtonCond = true;
+      return "bg-white border border-primary-950 text-primary-950";
+    }
+    if (checkButtonCond) {
+      checkButtonCond = false;
+      return "bg-primary-950 text-white";
+    }
+
+    if (idx % 2 === 0) {
+      return "bg-primary-950 text-white";
+    }
+    return "bg-white border border-primary-950 text-primary-950";
+  };
+
+  const domainComponent = (
+    val: { title: string; desc: string },
+    idx: number
+  ) => {
+    return (
+      <div
+        className={`flex relative rounded-3xl overflow-hidden ${checkSpanComponent(
+          idx
+        )}`}
+        key={idx}
+      >
+        <div className="absolute top-0 left-[50%] h-full">
+          <Image
+            alt="domain_product"
+            className="max-w-none w-auto h-full"
+            src={require("@/assets/images/common/img_example_product.png")}
+          />
+        </div>
+        <div className="px-6 py-20 w-[50%]">
+          <div className="typo-h3">{val.title}</div>
+          <div className="typo-copy-normal text-gray-500 mt-4 mb-5">
+            {val.title.toLocaleLowerCase()}
+          </div>
+          <Button
+            className={`px-6 py-3.5 w-fit rounded-full ${checkButtonStyle(
+              idx
+            )}`}
+            size="medium"
+            type="button"
+            variant="text"
+          >
+            <span className="">See more Product</span>
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div>
       <SubHeader title="Our Industry" />
@@ -16,57 +134,11 @@ const DomainTemplate: React.FC = () => {
           lids, etc. for industry according to our wishes.
         </div>
       </div>
-      <div className="flex mx-15 gap-5">
-        {/* 1st row, 1st column */}
-        <div className="flex relative bg-gray-100 rounded-3xl max-w-[60%] overflow-hidden">
-          <div className="absolute top-0 left-[50%] h-full">
-            <Image
-              alt="domain_product"
-              className="max-w-none w-auto h-full"
-              src={require("@/assets/images/common/img_example_product.png")}
-            />
-          </div>
-          <div className="px-6 py-20 w-[50%]">
-            <div className="typo-h3">Automotive Industries</div>
-            <div className="typo-copy-normal text-gray-500 mt-4 mb-5">
-              For the automotive industry traytec manufactures disposable and
-              reusable trays
-            </div>
-            <Button
-              className="bg-primary-950 px-6 py-3.5 w-fit text-white rounded-full"
-              size="medium"
-              type="button"
-              variant="text"
-            >
-              <span className="">See more Product</span>
-            </Button>
-          </div>
-        </div>
-
-        {/* 1st row, 1st column */}
-        <div className="flex relative bg-white border border-gray-200 rounded-3xl max-w-[40%] overflow-hidden">
-          <div className="absolute top-0 left-[50%] h-full">
-            <Image
-              alt="domain_product"
-              className="max-w-none w-auto h-full"
-              src={require("@/assets/images/common/img_example_product.png")}
-            />
-          </div>
-          <div className="px-6 py-20 w-[50%]">
-            <div className="typo-h3">Automotive Industries</div>
-            <div className="typo-copy-normal text-gray-500 mt-4 mb-5">
-              For the automotive industry traytec manufactures disposable and
-              reusable trays
-            </div>
-            <Button
-              className="bg-white border border-primary-950 px-6 py-3.5 w-fit text-primary-950 rounded-full"
-              size="medium"
-              type="button"
-              variant="text"
-            >
-              <span className="">See more Product</span>
-            </Button>
-          </div>
+      <div className="mx-15 gap-5 mb-32.5">
+        <div className="grid grid-flow-col grid-cols-5 gap-5">
+          {domainData.map((val, idx) => {
+            return domainComponent(val, idx);
+          })}
         </div>
       </div>
     </div>
