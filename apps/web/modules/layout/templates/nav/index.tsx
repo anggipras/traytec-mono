@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment -- Need to disable eslint for read src path of image */
 import Image from "next/image";
 import React, { useState, useMemo } from "react";
-import LayoutContainer from "../../components/layout-container";
 
 export default function NavBar() {
   const [openLang, setOpenLang] = useState(false);
@@ -75,8 +73,8 @@ export default function NavBar() {
   };
 
   return (
-    <LayoutContainer>
-      <div className="flex sticky top-0 z-20 justify-between items-center h-[88px] bg-white px-6 py-3.5 small:px-15 small:py-6">
+    <div className="sticky top-0 z-20 mx-auto w-full bg-gray-50">
+      <div className="flex justify-between items-center h-[88px] px-6 py-3.5 small:px-15 small:py-6">
         <Image
           alt="navbar_logo"
           className="max-w-[121px] h-auto small:max-w-full"
@@ -212,6 +210,6 @@ export default function NavBar() {
           />
         </div>
       </div>
-    </LayoutContainer>
+    </div>
   );
 }
