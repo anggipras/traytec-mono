@@ -1,20 +1,22 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment -- Need to disable eslint for read src path of image */
 import Image from "next/image";
 import React, { useState, useMemo } from "react";
-import LayoutContainer from "../../components/layout-container";
+import { useRouter } from "next/router";
 
 export default function NavBar() {
+  const router = useRouter();
+
   const [openLang, setOpenLang] = useState(false);
+  const [langIdx, setLangIdx] = useState(0);
   const [openMenu, setOpenMenu] = useState(-1);
   const webLang = useMemo(
     () => [
       {
         image: require("@/assets/images/common/img_example_lang.png"),
-        country: "EN",
+        country: "GER",
       },
       {
         image: require("@/assets/images/common/img_example_lang.png"),
-        country: "GER",
+        country: "EN",
       },
     ],
     []
@@ -22,6 +24,7 @@ export default function NavBar() {
   const navbarMenu = useMemo(
     () => [
       {
+        path: "/products",
         menuName: "Products",
         submenu: [
           "Customer frame system",
@@ -32,7 +35,8 @@ export default function NavBar() {
         ],
       },
       {
-        menuName: "Domain",
+        path: "/domains",
+        menuName: "Domains",
         submenu: [
           "Customer frame system",
           "Container inserts",
@@ -42,6 +46,7 @@ export default function NavBar() {
         ],
       },
       {
+        path: "/about",
         menuName: "Company Information",
         submenu: [
           "Customer frame system",
@@ -52,6 +57,7 @@ export default function NavBar() {
         ],
       },
       {
+        path: "/career",
         menuName: "Career Section",
         submenu: [
           "Customer frame system",
@@ -65,8 +71,9 @@ export default function NavBar() {
     []
   );
 
-  const setLangSelected = (val: string) => {
-    console.log("val", val);
+  const setLangSelected = (idx: number) => {
+    setOpenLang(false);
+    setLangIdx(idx);
   };
 
   const setSubMenu = (val: string) => {
@@ -75,8 +82,8 @@ export default function NavBar() {
   };
 
   return (
-    <LayoutContainer>
-      <div className="flex sticky top-0 z-20 justify-between items-center h-[88px] bg-white px-6 py-3.5 small:px-15 small:py-6">
+    <div className="sticky top-0 z-20 mx-auto w-full max-w-desktop bg-gray-50">
+      <div className="flex justify-between items-center h-[88px] px-6 py-3.5 small:px-15 small:py-6">
         <Image
           alt="navbar_logo"
           className="max-w-[121px] h-auto small:max-w-full"
@@ -96,12 +103,36 @@ export default function NavBar() {
                 }}
               >
                 <div className="flex items-center cursor-pointer text-gray-700 p-2.5">
-                  <div>{val.menuName}</div>
-                  <Image
-                    alt="navbar_menu_arrow"
-                    className="w-5 ml-1"
-                    src={require("@/assets/images/icons/ic_arrow_down.svg")}
-                  />
+                  <div
+                    className={`${
+                      router.pathname.includes(val.path)
+                        ? "text-primary-950"
+                        : "text-gray-700"
+                    }`}
+                  >
+                    {val.menuName}
+                  </div>
+                  <div className="ml-1">
+                    <svg
+                      fill="none"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6 8L10 12L14 8"
+                        stroke={`${
+                          router.pathname.includes(val.path)
+                            ? "#730033"
+                            : "#12090D"
+                        }`}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.2"
+                      />
+                    </svg>
+                  </div>
                 </div>
 
                 {openMenu !== -1 && openMenu === menuIdx ? (
@@ -137,26 +168,17 @@ export default function NavBar() {
           })}
         </div>
         <div className="flex">
-          <div className="relative inline-block">
+          <div className="relative inline-block cursor-pointer">
             <div
               aria-hidden="true"
-              className="flex items-center px-2.5 py-2 border-solid border-custom-gray border rounded-[60px] gap-1"
-              onBlur={() => {
-                setOpenLang(false);
-              }}
+              className="flex items-center px-2.5 py-2 border-solid border-gray-200 border rounded-[60px] gap-1"
               onClick={() => {
-                setOpenLang(true);
-              }}
-              onKeyUp={() => {
-                setOpenLang(true);
-              }}
-              onMouseOut={() => {
-                setOpenLang(false);
+                setOpenLang(!openLang);
               }}
             >
               <Image
                 alt="navbar_lang"
-                className="w-6 rounded-[80px]"
+                className="w-6 rounded-full"
                 src={require("@/assets/images/common/img_example_lang.png")}
               />
               <Image
@@ -164,44 +186,46 @@ export default function NavBar() {
                 className="w-5"
                 src={require("@/assets/images/icons/ic_arrow_down.svg")}
               />
-              <div className="text-base hidden small:block">GER</div>
+              <div className="text-base hidden small:block">
+                {webLang[langIdx].country}
+              </div>
             </div>
 
             {openLang ? (
               <div
-                className="absolute right-0 z-20 mt-2 w-full origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                className="absolute w-28 right-0 mt-2 z-20 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                 role="menu"
               >
-                <div className="py-1" role="none">
-                  {webLang.map((val, idx) => {
-                    return (
-                      <div
-                        aria-hidden="true"
-                        className="flex items-center px-2.5 py-2 gap-1"
-                        id={`menu-item-${idx}`}
-                        key={val.country}
-                        onClick={() => {
-                          setLangSelected(val.country);
-                        }}
-                        role="menuitem"
-                      >
-                        <Image
-                          alt="navbar_lang"
-                          className="w-6 rounded-[80px]"
-                          src={val.image}
-                        />
+                {webLang.map((val, idx) => {
+                  return (
+                    <div
+                      aria-hidden="true"
+                      className="flex w-full justify-between items-center px-2.5 py-2 gap-1"
+                      id={`menu-item-${idx}`}
+                      key={val.country}
+                      onClick={() => {
+                        setLangSelected(idx);
+                      }}
+                      role="menuitem"
+                    >
+                      <div className="text-base hidden small:block">
+                        {val.country}
+                      </div>
+                      <div className="flex">
                         <Image
                           alt="navbar_menu_arrow"
                           className="w-5"
                           src={require("@/assets/images/icons/ic_arrow_down.svg")}
                         />
-                        <div className="text-base hidden small:block">
-                          {val.country}
-                        </div>
+                        <Image
+                          alt="navbar_lang"
+                          className="w-6 rounded-full"
+                          src={val.image}
+                        />
                       </div>
-                    );
-                  })}
-                </div>
+                    </div>
+                  );
+                })}
               </div>
             ) : null}
           </div>
@@ -212,6 +236,6 @@ export default function NavBar() {
           />
         </div>
       </div>
-    </LayoutContainer>
+    </div>
   );
 }

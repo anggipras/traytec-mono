@@ -10,7 +10,15 @@ const ProductHero = () => {
         Frame stacking trays are designed with a frame system to store more
         workpieces per footprint.
       </div>
-      <div>{/* It's gonna be video section */}</div>
+      <div className="px-0 medium:px-44 w-full">
+        <iframe
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          height="517"
+          src="https://www.youtube.com/embed/C7OQHIpDlvA"
+          title="ntaps"
+          width="100%"
+        />
+      </div>
     </div>
   );
 };

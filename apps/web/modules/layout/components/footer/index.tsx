@@ -1,27 +1,38 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment -- Need to disable eslint for read src path of image */
 import Image from "next/image";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 
 const FooterComponent = () => {
+  const [activeFooter, setActiveFooter] = useState(-1);
+  const footerSelection = useMemo(
+    () => [
+      {
+        icon: require("@/assets/images/icons/ic_setting.png"),
+        title: "Integration",
+        desc: "Contact us for further and clearer information, about our company and others",
+      },
+      {
+        icon: require("@/assets/images/icons/ic_career.png"),
+        title: "Career",
+        desc: "Contact us for more specific and clearer careers",
+      },
+    ],
+    []
+  );
   const contactFooter = useMemo(
     () => [
       {
-        id: 1,
         image: require("@/assets/images/icons/ic_location.svg"),
         ctn: "traytec GmbHBudapester Str. 348455 Bad Bentheim",
       },
       {
-        id: 2,
         image: require("@/assets/images/icons/ic_phone.svg"),
         ctn: "+49 (0)5924/99717-0",
       },
       {
-        id: 3,
         image: require("@/assets/images/icons/ic_phone.svg"),
         ctn: "+49 (0)5924/99717-10",
       },
       {
-        id: 4,
         image: require("@/assets/images/icons/ic_email.svg"),
         ctn: "info@traytec.de",
       },
@@ -54,35 +65,38 @@ const FooterComponent = () => {
           in your biodata and message later
         </div>
         <div className="flex flex-col medium:flex-row mt-6 medium:mt-10 gap-4 medium:gap-5">
-          <div className="medium:flex-1 rounded-2xl medium:rounded-3xl bg-primary-950 px-6 py-[50px] medium:px-8 medium:py-[88px]">
-            <div className="flex justify-start items-center mb-4.5 medium:mb-6">
-              <Image
-                alt="ic_setting"
-                className="w-12 mr-3"
-                src={require("@/assets/images/icons/ic_setting.png")}
-              />
-              <div className="typo-h5">Integration</div>
-            </div>
-            <div className="text-start typo-copy-normal leading-6.5">
-              Contact us for further and clearer information, about our company
-              and others
-            </div>
-          </div>
-          <div className="medium:flex-1 rounded-2xl medium:rounded-3xl bg-primary-950 px-6 py-[50px] medium:px-8 medium:py-[88px]">
-            <div className="flex justify-start items-center mb-4.5 medium:mb-6">
-              <Image
-                alt="ic_career"
-                className="w-12 mr-3"
-                src={require("@/assets/images/icons/ic_career.png")}
-              />
-              <div className="typo-h5">Career</div>
-            </div>
-            <div className="text-start typo-copy-normal leading-6.5">
-              Contact us for more specific and clearer careers
-            </div>
-          </div>
+          {footerSelection.map((val, idx) => {
+            return (
+              <div
+                className={`${
+                  activeFooter === idx ? "bg-primary-800" : "bg-primary-950"
+                } medium:flex-1 cursor-pointer rounded-2xl medium:rounded-3xl px-6 py-[50px] medium:px-8 medium:py-[88px]`}
+                key={idx}
+                onClick={() => {
+                  setActiveFooter(idx);
+                }}
+                onKeyUp={() => {
+                  setActiveFooter(idx);
+                }}
+                role="button"
+                tabIndex={idx}
+              >
+                <div className="flex justify-start items-center mb-4.5 medium:mb-6">
+                  <Image
+                    alt="footer_selection"
+                    className="w-12 mr-3"
+                    src={val.icon}
+                  />
+                  <div className="typo-h5">{val.title}</div>
+                </div>
+                <div className="text-start typo-copy-normal leading-6.5">
+                  {val.desc}
+                </div>
+              </div>
+            );
+          })}
         </div>
-        <div className="buttonCustom hidden medium:block bg-primary-950 px-6 py-3.5 text-white rounded-full mt-10">
+        <div className="buttonCustom cursor-pointer hidden medium:block bg-primary-950 px-6 py-3.5 text-white rounded-full mt-10 hover:bg-white hover:text-primary-950">
           Continue
         </div>
       </div>
@@ -143,9 +157,9 @@ const FooterComponent = () => {
             </div>
             <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal max-w-[275px]">
               <div className="typo-h5 mb-2">Contact</div>
-              {contactFooter.map((val) => {
+              {contactFooter.map((val, idx) => {
                 return (
-                  <div className="flex" key={`contact-footer-${val.id}`}>
+                  <div className="flex" key={`contact-footer-${idx}`}>
                     <div className="self-start mr-2">
                       <Image
                         alt="footer_ic_location"
