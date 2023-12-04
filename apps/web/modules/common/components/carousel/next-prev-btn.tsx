@@ -13,8 +13,8 @@ interface UsePrevNextButtonsType {
 
 export const usePrevNextButtons = (
   emblaApi: EmblaCarouselType | undefined,
-  dataLength: number,
-  optionLoop: boolean | undefined
+  dataLength?: number,
+  optionLoop?: boolean
 ): UsePrevNextButtonsType => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
@@ -25,7 +25,9 @@ export const usePrevNextButtons = (
     emblaApi.scrollPrev();
 
     if (optionLoop) {
-      setCountSlider(countSlider === 0 ? dataLength - 1 : countSlider - 1);
+      setCountSlider(
+        countSlider === 0 && dataLength ? dataLength - 1 : countSlider - 1
+      );
     } else {
       setCountSlider(countSlider - 1);
     }
@@ -36,7 +38,9 @@ export const usePrevNextButtons = (
     emblaApi.scrollNext();
 
     if (optionLoop) {
-      setCountSlider(countSlider === dataLength - 1 ? 0 : countSlider + 1);
+      if (dataLength) {
+        setCountSlider(countSlider === dataLength - 1 ? 0 : countSlider + 1);
+      }
     } else {
       setCountSlider(countSlider + 1);
     }

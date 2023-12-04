@@ -150,10 +150,10 @@ const FooterComponent = () => {
           <div className="flex flex-col medium:flex-row medium:justify-between">
             <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal mr-5">
               <div className="typo-h5 mb-2">Navigation</div>
-              <a href="a">Products</a>
-              <a href="a">Domain</a>
-              <a href="a">Company Information</a>
-              <a href="a">Career Section</a>
+              <a href="/products">Products</a>
+              <a href="/domains">Domain</a>
+              <a href="/about">Company Information</a>
+              <a href="/career">Career Section</a>
             </div>
             <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal max-w-[275px]">
               <div className="typo-h5 mb-2">Contact</div>
