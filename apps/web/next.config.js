@@ -1,6 +1,6 @@
 module.exports = {
   images: {
-    domains: ["tailwindui.com", "assets.hongkiat.com"],
+    domains: ["tailwindui.com"],
   },
   reactStrictMode: true,
   transpilePackages: ["ui"],

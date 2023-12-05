@@ -1,19 +1,37 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment -- Need to disable eslint for read src path of image */
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Hero: React.FC = () => {
+  useEffect(() => {
+    if (document.getElementById("heroHomeVideo")) {
+      document.getElementById("heroHomeVideo").play();
+    }
+  }, []);
+
   return (
-    <div className="relative w-full h-[720px] max-h-screen">
-      <Image
-        alt="hero_image"
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
-        src="https://assets.hongkiat.com/uploads/nature-photography/nature-photography-mountain-sky.jpg"
-      />
+    <div className="relative w-full h-[720px] max-h-screen overflow-hidden">
+      {/* <iframe
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        frameBorder="0"
+        height="720"
+        src="https://www.youtube.com/embed/z7uwg0ljdT0?si=3f7J6HJendZZ7yIs&autoplay=1&loop=1&&muted=1&rel=0"
+        title="Traytec Intro"
+        width="100%"
+      /> */}
+      <div className="absolute top-0 w-full">
+        <video
+          className="h-full w-full"
+          id="heroHomeVideo"
+          loop
+          muted
+          playsInline
+        >
+          <source src="/videos/traytec_home.mp4" type="video/mp4" />
+        </video>
+      </div>
       <div className="absolute inset-0 bg-gradient-to-r from-primary-950 to-transparent" />
-      <div className="absolute medium:inset-y-0 -left-48 medium:left-0">
+      <div className="absolute max-w-desktop top-0 bottom-0 -left-48 medium:left-0">
         <Image
           alt="bg_hero_left"
           className="w-full h-full"
@@ -22,19 +40,21 @@ const Hero: React.FC = () => {
         />
       </div>
 
-      <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start mx-15 h-full max-w-[738px] text-white">
-        <div className="w-fit px-3.5 py-2 bg-white bg-opacity-25 rounded-md mb-4">
-          Let`s work with Traytech
-        </div>
-        <div className="typo-h1 mb-4 medium:mb-6">
-          Service provider for high quality Plastic
-        </div>
-        <div className="typo-copy-intro leading-6.5 mb-4 medium:mb-6">
-          Service Provider Manufacturing Trays, inserts, workpiece containers,
-          lids and more from a variety of plastics for all applications
-        </div>
-        <div className="buttonCustom w-fit bg-white px-6 py-3.5 text-primary-950 rounded-full">
-          Find out your needs
+      <div className="absolute inset-0 max-w-desktop mx-auto h-full">
+        <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start mx-15 h-full max-w-3xl text-white">
+          <div className="w-fit px-3.5 py-2 bg-white bg-opacity-25 rounded-md mb-4">
+            Let`s work with Traytech
+          </div>
+          <div className="typo-h1 mb-4 medium:mb-6">
+            Service provider for high quality Plastic
+          </div>
+          <div className="typo-copy-intro leading-6.5 mb-4 medium:mb-6">
+            Service Provider Manufacturing Trays, inserts, workpiece containers,
+            lids and more from a variety of plastics for all applications
+          </div>
+          <div className="buttonCustom w-fit bg-white px-6 py-3.5 text-primary-950 rounded-full">
+            Find out your needs
+          </div>
         </div>
       </div>
     </div>
