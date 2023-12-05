@@ -1,0 +1,122 @@
+@tailwind components;
+
+@layer components {
+  /* Button Sizes */
+  .btn-small {
+    @apply text-[14px];
+  }
+  .btn-medium {
+    @apply text-[16px];
+  }
+  .btn-large {
+    @apply text-[18px];
+  }
+
+  .btn-spacing-small {
+    @apply px-4 py-3;
+  }
+
+  .btn-spacing-medium {
+    @apply px-6 py-4;
+  }
+
+  .btn-spacing-large {
+    @apply px-8 py-5;
+  }
+
+  .btn {
+    @apply flex items-center justify-center focus:outline-none focus:shadow-md uppercase tracking-wider font-button rounded-md;
+  }
+
+  /* Primary Button */
+  .btn-primary {
+    @apply bg-primary-200 text-primary-800;
+  }
+  .btn-primary:hover {
+    @apply bg-primary-700 text-white;
+  }
+  .btn-primary:disabled {
+    @apply bg-gray-200 text-gray-400;
+  }
+
+  /* Secondary Button */
+  .btn-secondary {
+    @apply bg-white/60 text-accent-dark border border-accent-dark;
+  }
+  .btn-secondary:hover {
+    @apply text-accent-default border-accent-default;
+  }
+  .btn-secondary:disabled {
+    @apply bg-gray-200 text-gray-400;
+  }
+
+  /* Tertiary Button */
+  .btn-tertiary {
+    @apply bg-accent-light text-primary-900;
+  }
+  .btn-tertiary:hover {
+    @apply bg-accent-dark;
+  }
+  .btn-tertiary:disabled {
+    @apply bg-gray-200 text-gray-400;
+  }
+
+  /* Danger Button */
+  .btn-danger {
+    @apply bg-gray-50 text-rose-500 border border-gray-200;
+  }
+  .btn-danger:hover {
+    @apply bg-gray-100;
+  }
+  .btn-danger:active {
+    @apply bg-gray-200;
+  }
+  .btn-danger:disabled {
+    @apply bg-gray-50 text-gray-300;
+  }
+
+  /* Nuclear Button */
+  .btn-nuclear {
+    @apply bg-rose-500 text-gray-50;
+  }
+  .btn-nuclear:hover {
+    @apply bg-rose-400;
+  }
+  .btn-nuclear:active {
+    @apply bg-rose-600;
+  }
+  .btn-nuclear:disabled {
+    @apply bg-gray-200 text-gray-400;
+  }
+
+  /* Ghost Button */
+  .btn-ghost {
+    @apply bg-transparent text-gray-900;
+  }
+  .btn-ghost:hover {
+    @apply bg-gray-50;
+  }
+  .btn-ghost:active {
+    @apply bg-gray-50 text-primary-600;
+  }
+  .btn-ghost:focus {
+    @apply border-primary-600;
+  }
+  .btn-ghost:disabled {
+    @apply bg-transparent text-gray-300;
+  }
+
+  /* Trust Button */
+  .btn-trust {
+    @apply text-white bg-blue-600;
+  }
+  .btn-trust:hover {
+    @apply bg-blue-800;
+  }
+  .btn-trust:active {
+    @apply bg-blue-800;
+  }
+  .btn-trust:disabled {
+    @apply bg-gray-200 text-gray-400;
+  }
+}
