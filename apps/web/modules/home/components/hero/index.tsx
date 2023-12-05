@@ -3,29 +3,27 @@ import React, { useEffect } from "react";
 
 const Hero: React.FC = () => {
   useEffect(() => {
-    if (document.getElementById("heroHomeVideo")) {
-      document.getElementById("heroHomeVideo").play();
+    const videoElement = document.getElementById(
+      "heroHomeVideo"
+    ) as HTMLVideoElement | null;
+    if (videoElement) {
+      videoElement.play();
     }
   }, []);
 
   return (
     <div className="relative w-full h-[720px] max-h-screen overflow-hidden">
-      {/* <iframe
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-        frameBorder="0"
-        height="720"
-        src="https://www.youtube.com/embed/z7uwg0ljdT0?si=3f7J6HJendZZ7yIs&autoplay=1&loop=1&&muted=1&rel=0"
-        title="Traytec Intro"
-        width="100%"
-      /> */}
-      <div className="absolute top-0 w-full">
+      <div
+        className="relative w-full overflow-hidden"
+        style={{ height: "720px" }}
+      >
         <video
-          className="h-full w-full"
+          className="absolute top-0 left-0 w-full h-full"
           id="heroHomeVideo"
           loop
           muted
           playsInline
+          style={{ objectFit: "cover", objectPosition: "center" }}
         >
           <source src="/videos/traytec_home.mp4" type="video/mp4" />
         </video>
