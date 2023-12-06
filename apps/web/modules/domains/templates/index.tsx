@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
 import SubHeader from "@/modules/common/components/sub-header";
 import Button from "@/modules/common/components/button";
+import LayoutContainer from "@/modules/layout/components/layout-container";
 
 const DomainTemplate: React.FC = () => {
   const [screenWidth, setScreenWidth] = useState(0);
@@ -152,25 +153,27 @@ const DomainTemplate: React.FC = () => {
   };
 
   return (
-    <div>
+    <>
       <SubHeader title="Our Industry" />
-      <div className="flex flex-col items-center mx-auto my-10">
-        <div className="typo-h2 mb-4 px-6 medium:px-0 text-center medium:text-center">
-          Select your desired industry
+      <LayoutContainer>
+        <div className="flex flex-col items-center mx-auto my-10">
+          <div className="typo-h2 mb-4 px-6 medium:px-0 text-center medium:text-center">
+            Select your desired industry
+          </div>
+          <div className="typo-copy-normal mb-6 text-gray-400 px-6 medium:px-0 text-center medium:text-center">
+            Provider of services for making trays, inserts, workpiece
+            containers, lids, etc. for industry according to our wishes.
+          </div>
         </div>
-        <div className="typo-copy-normal mb-6 text-gray-400 px-6 medium:px-0 text-center medium:text-center">
-          Provider of services for making trays, inserts, workpiece containers,
-          lids, etc. for industry according to our wishes.
+        <div className="mx-6 medium:mx-15 gap-4 medium:gap-5 mb-10 medium:mb-32.5">
+          <div className="grid grid-flow-col grid-cols-5 gap-5">
+            {domainData.map((val, idx) => {
+              return domainComponent(val, idx);
+            })}
+          </div>
         </div>
-      </div>
-      <div className="mx-6 medium:mx-15 gap-4 medium:gap-5 mb-10 medium:mb-32.5">
-        <div className="grid grid-flow-col grid-cols-5 gap-5">
-          {domainData.map((val, idx) => {
-            return domainComponent(val, idx);
-          })}
-        </div>
-      </div>
-    </div>
+      </LayoutContainer>
+    </>
   );
 };
 
