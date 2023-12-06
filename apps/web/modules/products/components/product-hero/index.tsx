@@ -13,10 +13,9 @@ const ProductHero = () => {
       <div className="px-0 medium:px-44 w-full">
         <iframe
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          height="517"
-          src="https://www.youtube.com/embed/C7OQHIpDlvA"
-          title="ntaps"
-          width="100%"
+          className="w-full aspect-video medium:rounded-3xl"
+          src="https://www.youtube.com/embed/z7uwg0ljdT0?rel=0"
+          title="product_hero_video"
         />
       </div>
     </div>
