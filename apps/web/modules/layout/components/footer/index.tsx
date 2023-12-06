@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React, { useMemo, useState } from "react";
 import LayoutContainer from "@/modules/layout/components/layout-container";
 
@@ -154,10 +155,10 @@ const FooterComponent = () => {
               <div className="flex flex-col medium:flex-row medium:justify-between">
                 <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal mr-5">
                   <div className="typo-h5 mb-2">Navigation</div>
-                  <a href="/products">Products</a>
-                  <a href="/domains">Domain</a>
-                  <a href="/about">Company Information</a>
-                  <a href="/career">Career Section</a>
+                  <Link href="/products">Products</Link>
+                  <Link href="/domains">Domain</Link>
+                  <Link href="/about">Company Information</Link>
+                  <Link href="/career">Career Section</Link>
                 </div>
                 <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal max-w-[275px]">
                   <div className="typo-h5 mb-2">Contact</div>

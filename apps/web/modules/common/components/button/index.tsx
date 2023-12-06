@@ -108,14 +108,14 @@ const Button = ({
           {variant === "primary" && (
             <div
               className={clsx(
-                "relative rounded-r-md px-2 small:px-4 h-full flex items-center",
+                "relative rounded-r-md px-2 medium:px-4 h-full flex items-center",
                 {
                   "bg-gray-200": props.disabled,
                   "bg-primary-600 hover:bg-primary-700": !props.disabled,
                 }
               )}
             >
-              {/* <ArrowRightIcon className="h-4 w-4 small:h-5 small:w-5 text-white" /> */}
+              {/* <ArrowRightIcon className="h-4 w-4 medium:h-5 medium:w-5 text-white" /> */}
             </div>
           )}
         </div>

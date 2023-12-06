@@ -85,36 +85,46 @@ export default function NavBar() {
   return (
     <div className="sticky top-0 z-20 bg-gray-50">
       <LayoutContainer>
-        <div className="flex justify-between items-center h-[88px] px-6 py-3.5 small:px-15 small:py-6">
+        <div className="flex justify-between items-center h-[88px] px-6 py-3.5 medium:px-15 medium:py-6">
           <Image
             alt="navbar_logo"
-            className="max-w-[121px] h-auto small:max-w-full"
+            className="max-w-[121px] h-auto medium:max-w-[183px]"
             src={require("@/assets/images/common/img_header_logo.png")}
           />
-          <div className="hidden small:flex">
+          <div className="hidden medium:flex">
             {navbarMenu.map((val, menuIdx) => {
               return (
                 <div
                   className="relative inline-block"
                   key={`menu-${val.menuName}`}
-                  onMouseEnter={() => {
-                    setOpenMenu(menuIdx);
-                  }}
-                  onMouseLeave={() => {
-                    setOpenMenu(-1);
-                  }}
                 >
                   <div className="flex items-center cursor-pointer text-gray-700 p-2.5">
                     <div
+                      aria-hidden="true"
                       className={`${
                         router.pathname.includes(val.path)
                           ? "text-primary-950"
                           : "text-gray-700"
                       }`}
+                      onClick={() => {
+                        void router.push(val.path);
+                      }}
                     >
                       {val.menuName}
                     </div>
-                    <div className="ml-1">
+                    <div
+                      aria-hidden="true"
+                      className="ml-1"
+                      onClick={() => {
+                        setOpenMenu(menuIdx !== -1 ? menuIdx : -1);
+                      }}
+                      onMouseEnter={() => {
+                        setOpenMenu(menuIdx);
+                      }}
+                      onMouseLeave={() => {
+                        setOpenMenu(-1);
+                      }}
+                    >
                       <svg
                         fill="none"
                         height="20"
@@ -156,7 +166,7 @@ export default function NavBar() {
                               }}
                               role="menuitem"
                             >
-                              <div className="text-base hidden small:block">
+                              <div className="text-base hidden medium:block">
                                 {value}
                               </div>
                             </div>
@@ -188,7 +198,7 @@ export default function NavBar() {
                   className="w-5"
                   src={require("@/assets/images/icons/ic_arrow_down.svg")}
                 />
-                <div className="text-base hidden small:block">
+                <div className="text-base hidden medium:block">
                   {webLang[langIdx].country}
                 </div>
               </div>
@@ -210,7 +220,7 @@ export default function NavBar() {
                         }}
                         role="menuitem"
                       >
-                        <div className="text-base hidden small:block">
+                        <div className="text-base hidden medium:block">
                           {val.country}
                         </div>
                         <div className="flex">
@@ -233,7 +243,7 @@ export default function NavBar() {
             </div>
             <Image
               alt="navbar_hmb"
-              className="w-8 ml-1 small:hidden"
+              className="w-8 ml-1 medium:hidden"
               src={require("@/assets/images/icons/ic_hamburger.svg")}
             />
           </div>

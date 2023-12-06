@@ -112,12 +112,12 @@ const DomainTemplate: React.FC = () => {
   ) => {
     return (
       <div
-        className={`flex max-medium:flex-col relative rounded-3xl medium:overflow-hidden ${checkSpanComponent(
+        className={`flex max-medium:flex-col max-medium:items-center relative rounded-3xl medium:overflow-hidden ${checkSpanComponent(
           idx
         )}`}
         key={idx}
       >
-        <div className="absolute top-0 medium:bottom-0 left-0">
+        <div className="absolute medium:bottom-0 left-0">
           <Image
             alt="bg_domain_card"
             className="w-full h-full"
