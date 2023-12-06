@@ -1,9 +1,10 @@
 import Image from "next/image";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import SubHeader from "@/modules/common/components/sub-header";
 import Button from "@/modules/common/components/button";
 
 const DomainTemplate: React.FC = () => {
+  const [screenWidth, setScreenWidth] = useState(0);
   const domainData = useMemo(
     () => [
       {
@@ -50,32 +51,52 @@ const DomainTemplate: React.FC = () => {
     []
   );
 
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   let checkSpanCond = false;
   const checkSpanComponent = (idx: number) => {
-    if (idx >= 2 && (idx - 2) % 4 === 0) {
-      checkSpanCond = true;
-      return "col-start-1 col-span-2 bg-white border border-gray-200";
-    }
-    if (checkSpanCond) {
-      checkSpanCond = false;
-      return "col-start-3 col-span-3 bg-gray-100";
-    }
+    if (screenWidth > 1279) {
+      if (idx >= 2 && (idx - 2) % 4 === 0) {
+        checkSpanCond = true;
+        return "col-start-1 col-span-2 bg-white border border-gray-200";
+      }
+      if (checkSpanCond) {
+        checkSpanCond = false;
+        return "col-start-3 col-span-3 bg-gray-100";
+      }
 
-    if (idx % 2 === 0) {
-      return "col-start-1 col-span-3 bg-gray-100";
+      if (idx % 2 === 0) {
+        return "col-start-1 col-span-3 bg-gray-100";
+      }
+      return "col-start-4 col-span-2 bg-white border border-gray-200";
     }
-    return "col-start-4 col-span-2 bg-white border border-gray-200";
+    if (idx % 2 === 0) {
+      return "col-start-1 col-span-5 bg-gray-100";
+    }
+    return "col-start-1 col-span-5 bg-white border border-gray-200";
   };
 
   let checkButtonCond = false;
   const checkButtonStyle = (idx: number) => {
-    if (idx >= 2 && (idx - 2) % 4 === 0) {
-      checkButtonCond = true;
-      return "bg-white border border-primary-950 text-primary-950";
-    }
-    if (checkButtonCond) {
-      checkButtonCond = false;
-      return "bg-primary-950 text-white";
+    if (screenWidth > 1279) {
+      if (idx >= 2 && (idx - 2) % 4 === 0) {
+        checkButtonCond = true;
+        return "bg-white border border-primary-950 text-primary-950";
+      }
+      if (checkButtonCond) {
+        checkButtonCond = false;
+        return "bg-primary-950 text-white";
+      }
     }
 
     if (idx % 2 === 0) {
@@ -90,19 +111,20 @@ const DomainTemplate: React.FC = () => {
   ) => {
     return (
       <div
-        className={`flex relative rounded-3xl overflow-hidden ${checkSpanComponent(
+        className={`flex max-medium:flex-col relative rounded-3xl medium:overflow-hidden ${checkSpanComponent(
           idx
         )}`}
         key={idx}
       >
-        <div className="absolute top-0 left-[50%] h-full">
+        <div className="absolute top-0 medium:bottom-0 left-0">
           <Image
-            alt="domain_product"
-            className="max-w-none w-auto h-full"
-            src={require("@/assets/images/common/img_example_product.png")}
+            alt="bg_domain_card"
+            className="w-full h-full"
+            objectFit="cover"
+            src={require("@/assets/images/common/img_bg_domain_card.svg")}
           />
         </div>
-        <div className="px-6 py-20 w-[50%]">
+        <div className="max-medium:flex max-medium:flex-col max-medium:items-center px-4 pt-15 medium:px-6 medium:py-20 w-full medium:w-[50%]">
           <div className="typo-h3">{val.title}</div>
           <div className="typo-copy-normal text-gray-500 mt-4 mb-5">
             {val.title.toLocaleLowerCase()}
@@ -117,6 +139,13 @@ const DomainTemplate: React.FC = () => {
           >
             <span className="">See more Product</span>
           </Button>
+        </div>
+        <div className="mb-10 medium:mb-0 medium:absolute top-0 medium:left-[50%] medium:h-full">
+          <Image
+            alt="domain_product"
+            className="medium:max-w-none w-auto medium:h-full"
+            src={require("@/assets/images/common/img_example_product.png")}
+          />
         </div>
       </div>
     );
@@ -134,7 +163,7 @@ const DomainTemplate: React.FC = () => {
           lids, etc. for industry according to our wishes.
         </div>
       </div>
-      <div className="mx-15 gap-5 mb-32.5">
+      <div className="mx-6 medium:mx-15 gap-4 medium:gap-5 mb-10 medium:mb-32.5">
         <div className="grid grid-flow-col grid-cols-5 gap-5">
           {domainData.map((val, idx) => {
             return domainComponent(val, idx);
