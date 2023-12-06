@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React, { useState, useMemo } from "react";
 import { useRouter } from "next/router";
+import LayoutContainer from "@/modules/layout/components/layout-container";
 
 export default function NavBar() {
   const router = useRouter();
@@ -83,7 +84,7 @@ export default function NavBar() {
 
   return (
     <div className="sticky top-0 z-20 bg-gray-50">
-      <div className="mx-auto max-w-desktop w-full">
+      <LayoutContainer>
         <div className="flex justify-between items-center h-[88px] px-6 py-3.5 small:px-15 small:py-6">
           <Image
             alt="navbar_logo"
@@ -237,7 +238,7 @@ export default function NavBar() {
             />
           </div>
         </div>
-      </div>
+      </LayoutContainer>
     </div>
   );
 }
