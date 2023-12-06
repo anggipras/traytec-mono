@@ -113,7 +113,9 @@ const IndustrySection: React.FC = () => {
                   className="embla__slide"
                   key={index}
                   style={{
-                    ...(tweenValues.length && { opacity: tweenValues[index] }),
+                    ...(screenWidth > 1279
+                      ? tweenValues.length && { opacity: tweenValues[index] }
+                      : null),
                   }}
                 >
                   <div className="px-0 medium:px-12">

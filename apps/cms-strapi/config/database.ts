@@ -17,20 +17,33 @@ db = ({ env }) => ({
 console.log("process.env.NODE_ENV", process.env.NODE_ENV);
 
 if (process.env.NODE_ENV === "production") {
+  const parse = require("pg-connection-string").parse;
+
+  console.log(
+    ">>>>>>>>>>>>>>>>>>>> Parsed DB config ::::::::::",
+    parse(process.env.DATABASE_URL),
+  );
+
+  const { host, port, database, user, password } = parse(
+    process.env.DATABASE_URL,
+  );
+
   db = ({ env }) => ({
     connection: {
       client: "postgres",
       connection: {
-        host: env("DATABASE_HOST", "localhost"),
-        port: env.int("DATABASE_PORT", 5435),
-        database: env("DATABASE_NAME", "medical-aesthetix-strapi"),
-        user: env("DATABASE_USERNAME", "postgres"),
-        password: env("DATABASE_PASSWORD", "docker"),
-        ssl: env.bool("DATABASE_SSL", false),
+        host,
+        port,
+        database,
+        user,
+        password,
+        ssl: {
+          ca: env("DATABASE_CA"),
+        },
       },
+      debug: false,
     },
   });
 }
-
 
 module.exports = db;

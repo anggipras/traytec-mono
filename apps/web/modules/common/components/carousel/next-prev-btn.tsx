@@ -38,9 +38,9 @@ export const usePrevNextButtons = (
     emblaApi.scrollNext();
 
     if (optionLoop) {
-      if (dataLength) {
-        setCountSlider(countSlider === dataLength - 1 ? 0 : countSlider + 1);
-      }
+      setCountSlider(
+        dataLength && countSlider === dataLength - 1 ? 0 : countSlider + 1
+      );
     } else {
       setCountSlider(countSlider + 1);
     }
