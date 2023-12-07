@@ -1,4 +1,5 @@
 import Card from "@/modules/common/components/card";
+import SectionHeader from "@/modules/common/components/section-header";
 import React, { useState } from "react";
 
 const CompanyTeam = () => {
@@ -27,13 +28,11 @@ const CompanyTeam = () => {
 
   return (
     <div className="flex flex-col items-center mx-auto mt-32.5 w-full">
-      <div className="typo-h2 mb-4 px-6 medium:px-0 text-center">
-        Meet Our Team
-      </div>
-      <div className="typo-copy-normal max-w-2xl mb-6 text-gray-400 px-6 medium:px-0 text-center">
-        Provider of services for making trays, inserts, workpiece containers,
-        lids, etc. for industry according to our wishes
-      </div>
+      <SectionHeader
+        desc="Provider of services for making trays, inserts, workpiece containers,
+        lids, etc. for industry according to our wishes"
+        title="Meet Our Team"
+      />
       <div className="grid grid-cols-2 medium:grid-cols-4 gap-5 medium:mt-10">
         {companyTeam.map((val, idx) => {
           return (

@@ -16,7 +16,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = (props) => {
       ) : null}
       <div className="typo-h2 px-6 medium:px-0 text-center">{props.title}</div>
       {props.desc ? (
-        <div className="typo-copy-normal max-w-2xl mt-4 text-gray-400 px-6 medium:px-0 text-center">
+        <div className="typo-copy-normal max-w-2xl mt-5 text-gray-400 px-6 medium:px-0 text-center">
           {props.desc}
         </div>
       ) : null}
