@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import Card from "@/modules/common/components/card";
+import SectionHeader from "@/modules/common/components/section-header";
 
 const CertificateSection: React.FC = () => {
   const certificateData = useMemo(
@@ -37,11 +38,8 @@ const CertificateSection: React.FC = () => {
   );
   return (
     <div className="flex flex-col items-center mx-6 medium:mx-15">
-      <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
-        Certificates
-      </div>
-      <div className="typo-h2 mb-10 mt-4">Certificates and Awards</div>
-      <div className="grid grid-cols-2 medium:grid-cols-4 gap-5">
+      <SectionHeader intro="Certificates" title="Certificates and Awards" />
+      <div className="grid grid-cols-2 medium:grid-cols-4 gap-5 mt-10">
         {certificateData.map((val, idx) => {
           return (
             <Card
