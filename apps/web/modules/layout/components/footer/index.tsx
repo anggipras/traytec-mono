@@ -157,7 +157,7 @@ const FooterComponent = () => {
                   <div className="typo-h5 mb-2">Navigation</div>
                   <Link href="/products">Products</Link>
                   <Link href="/domains">Domain</Link>
-                  <Link href="/about">Company Information</Link>
+                  <Link href="/company">Company Information</Link>
                   <Link href="/career">Career Section</Link>
                 </div>
                 <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal max-w-[275px]">

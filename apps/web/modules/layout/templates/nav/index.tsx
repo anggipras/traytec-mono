@@ -47,7 +47,7 @@ export default function NavBar() {
         ],
       },
       {
-        path: "/about",
+        path: "/company",
         menuName: "Company Information",
         submenu: [
           "Customer frame system",

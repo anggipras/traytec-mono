@@ -1,0 +1,55 @@
+import Card from "@/modules/common/components/card";
+import React, { useState } from "react";
+
+const CompanyTeam = () => {
+  const [companyTeam] = useState([
+    {
+      team_name: "Holger Hesselink",
+      team_role: "Managing director.",
+      team_image: require("@/assets/images/common/img_example_company_team.jpeg"),
+    },
+    {
+      team_name: "Holger Hesselink",
+      team_role: "Managing director.",
+      team_image: require("@/assets/images/common/img_example_company_team.jpeg"),
+    },
+    {
+      team_name: "Holger Hesselink",
+      team_role: "Managing director.",
+      team_image: require("@/assets/images/common/img_example_company_team.jpeg"),
+    },
+    {
+      team_name: "Holger Hesselink",
+      team_role: "Managing director.",
+      team_image: require("@/assets/images/common/img_example_company_team.jpeg"),
+    },
+  ]);
+
+  return (
+    <div className="flex flex-col items-center mx-auto mt-32.5 w-full">
+      <div className="typo-h2 mb-4 px-6 medium:px-0 text-center">
+        Meet Our Team
+      </div>
+      <div className="typo-copy-normal max-w-2xl mb-6 text-gray-400 px-6 medium:px-0 text-center">
+        Provider of services for making trays, inserts, workpiece containers,
+        lids, etc. for industry according to our wishes
+      </div>
+      <div className="grid grid-cols-2 medium:grid-cols-4 gap-5 medium:mt-10">
+        {companyTeam.map((val, idx) => {
+          return (
+            <Card
+              image={val.team_image}
+              imgClass="px-0 mb-4"
+              key={idx}
+              subcontent={val.team_role}
+              title={val.team_name}
+              titleClass="typo-h4"
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default CompanyTeam;
