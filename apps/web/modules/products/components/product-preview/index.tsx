@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access -- test */
 import React, { useMemo } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import type { EmblaOptionsType } from "embla-carousel-react";
@@ -9,6 +8,7 @@ import {
   usePrevNextButtons,
 } from "@/modules/common/components/carousel/next-prev-btn";
 import Card from "@/modules/common/components/card";
+import LayoutContainer from "@/modules/layout/components/layout-container";
 
 const OPTIONS: EmblaOptionsType = {
   align: "start",
@@ -107,8 +107,8 @@ const ProductPreview: React.FC = () => {
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi, productData.length, OPTIONS.loop);
   return (
-    <div className="mx-6 my-10 medium:mx-15 medium:my-32.5">
-      <div className="flex max-medium:flex-col relative justify-center py-10 medium:p-0">
+    <LayoutContainer>
+      <div className="flex max-medium:flex-col relative justify-center py-10 medium:p-0 mx-6 medium:mx-0">
         <div className="hidden medium:flex absolute left-0 top-0">
           <Image
             alt="bg_linear"
@@ -177,21 +177,23 @@ const ProductPreview: React.FC = () => {
           <NextButton disabled={nextBtnDisabled} onClick={onNextButtonClick} />
         </div>
       </div>
-      <div className="grid grid-cols-2 medium:grid-cols-4 gap-5 medium:gap-y-8 medium:mt-10">
-        {productData.map((val, idx) => {
-          return (
-            <Card
-              image={val.image}
-              imgClass="px-0 mb-6"
-              key={idx}
-              subcontent={val.subdescription}
-              title={val.title}
-              titleClass="typo-h5"
-            />
-          );
-        })}
+      <div className="mx-6 my-10 medium:mx-15 medium:my-32.5">
+        <div className="grid grid-cols-2 medium:grid-cols-4 gap-5 medium:gap-y-8 medium:mt-10">
+          {productData.map((val, idx) => {
+            return (
+              <Card
+                image={val.image}
+                imgClass="px-0 mb-6"
+                key={idx}
+                subcontent={val.subdescription}
+                title={val.title}
+                titleClass="typo-h5"
+              />
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </LayoutContainer>
   );
 };
 

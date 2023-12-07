@@ -4,10 +4,10 @@ import ProductPreview from "@/modules/products/components/product-preview";
 
 const ProductTemplate: React.FC = () => {
   return (
-    <div>
+    <>
       <ProductHero />
       <ProductPreview />
-    </div>
+    </>
   );
 };
 

@@ -9,6 +9,7 @@ import {
   NextButton,
   usePrevNextButtons,
 } from "@/modules/common/components/carousel/next-prev-btn";
+import SectionHeader from "@/modules/common/components/section-header";
 
 const OPTIONS: EmblaOptionsType = { loop: true };
 const OPTIONS_MOBILE: EmblaOptionsType = {
@@ -88,20 +89,14 @@ const IndustrySection: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col mx-6 medium:mx-0 my-10 medium:my-32.5">
-      <div className="flex flex-col text-center items-center mb-10">
-        <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
-          Industry Service
-        </div>
-        <div className="typo-h2 mb-6 mt-4 max-w-xl">Choose Your Needs</div>
-        <div className="flex justify-between items-center">
-          <div className="typo-copy-normal text-gray-400 max-w-[670px]">
-            Provider of services for making trays, inserts, workpiece
-            containers, lids, etc. for industry according to our wishes
-          </div>
-        </div>
-      </div>
-      <div className="relative">
+    <div className="flex flex-col my-10 medium:my-32.5">
+      <SectionHeader
+        desc="Provider of services for making trays, inserts, workpiece
+            containers, lids, etc. for industry according to our wishes"
+        intro="Industry Service"
+        title="Choose Your Needs"
+      />
+      <div className="relative mx-6 medium:mx-0 mt-10">
         <div className={`${screenWidth > 1279 ? "embla_industry" : "embla"}`}>
           <div
             className="embla__viewport"
