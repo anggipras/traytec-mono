@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import Card from "@/modules/common/components/card";
 import SectionHeader from "@/modules/common/components/section-header";
-import React, { useState } from "react";
 
 const CompanyTeam = () => {
   const [companyTeam] = useState([
