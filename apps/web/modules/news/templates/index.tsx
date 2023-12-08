@@ -3,6 +3,9 @@ import LayoutContainer from "@/modules/layout/components/layout-container";
 import SubHeader from "@/modules/common/components/sub-header";
 import NewsHeadline from "@/modules/news/components/news-headline";
 import NewsList from "@/modules/news/components/news-list";
+import SearchBox from "@/modules/common/components/search-box";
+import NativeSelect from "@/modules/common/components/native-select";
+import Pagination from "@/modules/common/components/pagination";
 
 const NewsTemplate = () => {
   const newsData = useMemo(
@@ -57,14 +60,35 @@ const NewsTemplate = () => {
     ],
     []
   );
+
+  const [active, setActive] = React.useState(1);
+
+  const activeHandler = (clickedActive) => {
+    setActive(parseInt(clickedActive));
+  };
+
   return (
     <>
       <SubHeader title="Our News" />
       <LayoutContainer>
         <div className="mt-20 mx-15 mb-32.5">
+          <div className="flex w-full justify-between">
+            <NativeSelect placeholder="All Categories">
+              <option value="test1">Test 1</option>
+              <option value="test2">Test 2</option>
+              <option value="test3">Test 3</option>
+            </NativeSelect>
+            <SearchBox placeholder="Search..." type="text" />
+          </div>
           <NewsHeadline newsData={newsData} />
           <div className="border border-gray-100 w-full my-12" />
           <NewsList newsData={newsData} />
+          <Pagination
+            active={active}
+            onClickHandler={activeHandler}
+            size={99}
+            step={2}
+          />
         </div>
       </LayoutContainer>
     </>

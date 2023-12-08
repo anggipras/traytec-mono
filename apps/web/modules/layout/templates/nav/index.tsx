@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useState, useMemo } from "react";
 import { useRouter } from "next/router";
 import LayoutContainer from "@/modules/layout/components/layout-container";
+import ChevronDown from "@/modules/common/icons/chevron-down";
 
 export default function NavBar() {
   const router = useRouter();
@@ -125,25 +126,13 @@ export default function NavBar() {
                         setOpenMenu(-1);
                       }}
                     >
-                      <svg
-                        fill="none"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        width="20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6 8L10 12L14 8"
-                          stroke={`${
-                            router.pathname.includes(val.path)
-                              ? "#730033"
-                              : "#12090D"
-                          }`}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="1.2"
-                        />
-                      </svg>
+                      <ChevronDown
+                        color={
+                          router.pathname.includes(val.path)
+                            ? "#730033"
+                            : "#12090D"
+                        }
+                      />
                     </div>
                   </div>
 
@@ -193,11 +182,7 @@ export default function NavBar() {
                   className="w-6 rounded-full"
                   src={require("@/assets/images/common/img_example_lang.png")}
                 />
-                <Image
-                  alt="navbar_menu_arrow"
-                  className="w-5"
-                  src={require("@/assets/images/icons/ic_arrow_down.svg")}
-                />
+                <ChevronDown />
                 <div className="text-base hidden medium:block">
                   {webLang[langIdx].country}
                 </div>
@@ -224,11 +209,7 @@ export default function NavBar() {
                           {val.country}
                         </div>
                         <div className="flex">
-                          <Image
-                            alt="navbar_menu_arrow"
-                            className="w-5"
-                            src={require("@/assets/images/icons/ic_arrow_down.svg")}
-                          />
+                          <ChevronDown />
                           <Image
                             alt="navbar_lang"
                             className="w-6 rounded-full"

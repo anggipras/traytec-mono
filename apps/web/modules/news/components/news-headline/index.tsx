@@ -12,7 +12,7 @@ interface NewsData {
 
 const NewsHeadline: React.FC<NewsData> = ({ newsData }) => {
   return (
-    <div className="grid grid-flow-col grid-cols-4 grid-rows-2 gap-5">
+    <div className="grid grid-flow-col grid-cols-4 grid-rows-2 gap-5 mt-10">
       {newsData
         .filter((_, idx) => idx < 5)
         .map((val, idx) => {
