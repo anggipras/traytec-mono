@@ -33,7 +33,16 @@ const PaginationSection = (props: PaginationProps) => {
   }
 
   return (
-    <div className="flex items-center list-none select-none">
+    <div className="flex justify-center items-center list-none select-none">
+      <div
+        aria-hidden="true"
+        className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full mr-3 prev arrow-icon"
+        onClick={() => {
+          onClickHandler(1);
+        }}
+      >
+        &#x2039;
+      </div>
       {active > 1 ? (
         <div
           aria-hidden="true"
@@ -136,6 +145,15 @@ const PaginationSection = (props: PaginationProps) => {
           &#8250;
         </div>
       )}
+      <div
+        aria-hidden="true"
+        className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ml-3 next arrow-icon"
+        onClick={() => {
+          onClickHandler(size);
+        }}
+      >
+        &#8250;
+      </div>
     </div>
   );
 };
