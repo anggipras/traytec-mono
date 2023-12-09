@@ -2,26 +2,29 @@ import { clsx } from "clsx";
 import Image from "next/image";
 import React from "react";
 
-interface CardProps {
-  image: string;
+type CardProps = {
+  image?: string;
   title: string;
   smallContent?: string;
   subcontent: string;
-  imgClass: string;
+  imgClass?: string;
   imgStyle?: string;
   titleClass: string;
-}
+  cursor?: string;
+} & React.HTMLAttributes<HTMLDivElement>;
 
 const Card: React.FC<CardProps> = ({ ...props }) => {
   return (
-    <div className="flex flex-col">
-      <div className={props.imgClass}>
-        <Image
-          alt="card-img"
-          className={clsx("max-w-full h-auto", props.imgStyle)}
-          src={props.image}
-        />
-      </div>
+    <div aria-hidden className={clsx("flex flex-col", props.cursor)} {...props}>
+      {props.image ? (
+        <div className={props.imgClass}>
+          <Image
+            alt="card-img"
+            className={clsx("max-w-full h-auto", props.imgStyle)}
+            src={props.image}
+          />
+        </div>
+      ) : null}
       {props.smallContent ? (
         <div className="mb-3 text-gray-300">{props.smallContent}</div>
       ) : null}

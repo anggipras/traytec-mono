@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 import Card from "@/modules/common/components/card";
 
 interface NewsData {
@@ -7,10 +8,13 @@ interface NewsData {
     smallContent?: string;
     desc: string;
     image: string;
+    slug: string;
   }[];
 }
 
 const NewsHeadline: React.FC<NewsData> = ({ newsData }) => {
+  const router = useRouter();
+
   return (
     <div className="grid grid-flow-col grid-cols-4 grid-rows-2 gap-5 mt-10">
       {newsData
@@ -24,9 +28,13 @@ const NewsHeadline: React.FC<NewsData> = ({ newsData }) => {
               key={idx}
             >
               <Card
+                cursor="cursor-pointer"
                 image={val.image}
                 imgClass="px-0 mb-6"
                 imgStyle="rounded-3xl"
+                onClick={() => {
+                  router.push(`/news/${val.slug}`);
+                }}
                 smallContent={val.smallContent ?? ""}
                 subcontent={val.desc}
                 title={val.title}
