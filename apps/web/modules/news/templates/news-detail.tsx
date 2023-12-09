@@ -66,9 +66,9 @@ const NewsDetailTemplate = () => {
 
   return (
     <LayoutContainer>
-      <div className="mx-[140px] mt-10 mb-32.5">
+      <div className="mx-[200px] mt-10 mb-32.5">
         <div className="typo-h2">{sampleNewsDetail.title}</div>
-        <div className="typo-copy-normal my-3">
+        <div className="typo-copy-normal text-gray-400 my-3">
           {sampleNewsDetail.createdDate}
         </div>
         <div className="flex gap-5">
@@ -78,7 +78,11 @@ const NewsDetailTemplate = () => {
                 className="self-center rounded-full border border-gray-100 p-2"
                 key={idx}
               >
-                <Image alt="footer_socmed_fb" className="w-8" src={val.icon} />
+                <Image
+                  alt="socmed_news_detail"
+                  className="w-8"
+                  src={val.icon}
+                />
               </div>
             );
           })}
@@ -96,7 +100,7 @@ const NewsDetailTemplate = () => {
           </div>
         </div>
         <div className="flex mt-10 gap-5">
-          <div className="typo-copy-normal max-w-3xl">
+          <div className="typo-copy-normal max-w-2xl">
             {sampleNewsDetail.desc}
           </div>
           <div>
