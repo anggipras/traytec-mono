@@ -12,6 +12,9 @@
     "tsconfig": "*",
     "turbo": "latest"
   },
+  "resolutions": {
+    "graphql": "15.8.0"
+  },
   "name": "traytec-mono",
   "packageManager": "yarn@1.22.19",
   "workspaces": [
