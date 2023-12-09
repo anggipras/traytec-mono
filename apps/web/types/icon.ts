@@ -1,4 +1,6 @@
 export type IconProps = {
   color?: string;
-  size?: string | number;
+  size?: string;
+  direction?: string;
+  doubleIcon?: boolean;
 } & React.SVGAttributes<SVGElement>;

@@ -1,5 +1,5 @@
 import React from "react";
-import ChevronDown from "@/modules/common/icons/chevron-down";
+import ChevronIcon from "@/modules/common/icons/chevron";
 
 type NativeSelectProps = {
   placeholder: string;
@@ -14,7 +14,7 @@ const NativeSelect = ({
   return (
     <div className="flex relative border border-gray-200 justify-between items-center rounded-full w-fit pl-6 py-3.5">
       <span className="absolute right-4">
-        <ChevronDown />
+        <ChevronIcon />
       </span>
       <select
         {...props}

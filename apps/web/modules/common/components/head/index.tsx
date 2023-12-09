@@ -23,7 +23,7 @@ const Head: React.FC<HeadProps> = ({
   const defaultImgUrl = "";
   return (
     <NextHead>
-      <title>{`${title ?? ""} | Traytect`}</title>
+      <title>{`${title ?? ""} | Traytec`}</title>
       <meta content={title ? title : ""} property="name" />
       {!description && <meta content={description} name="description" />}
       <meta content={image ?? defaultImgUrl} property="image" />

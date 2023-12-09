@@ -25,14 +25,14 @@ const NewsList: React.FC<NewsData> = ({ newsData }) => {
               <Card
                 cursor="cursor-pointer"
                 image={val.image}
-                imgClass="px-0 mb-6"
-                imgStyle="rounded-3xl"
+                imgclass="px-0 mb-6"
+                imgstyle="rounded-3xl"
                 onClick={() => {
                   router.push(`/news/${val.slug}`);
                 }}
                 subcontent={val.desc}
                 title={val.title}
-                titleClass="typo-h4"
+                titleclass="typo-h4"
               />
             </div>
           );

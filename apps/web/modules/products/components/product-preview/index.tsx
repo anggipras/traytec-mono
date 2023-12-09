@@ -183,11 +183,11 @@ const ProductPreview: React.FC = () => {
             return (
               <Card
                 image={val.image}
-                imgClass="px-0 mb-6"
+                imgclass="px-0 mb-6"
                 key={idx}
                 subcontent={val.subdescription}
                 title={val.title}
-                titleClass="typo-h5"
+                titleclass="typo-h5"
               />
             );
           })}

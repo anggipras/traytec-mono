@@ -44,11 +44,11 @@ const CertificateSection: React.FC = () => {
           return (
             <Card
               image={val.image}
-              imgClass="px-5 mb-6"
+              imgclass="px-5 mb-6"
               key={idx}
               subcontent={val.subcontent}
               title={val.title}
-              titleClass="typo-h4"
+              titleclass="typo-h4"
             />
           );
         })}

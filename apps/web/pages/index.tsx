@@ -1,11 +1,10 @@
-// import type { ReactHTML } from "react";
 import Head from "@/modules/common/components/head";
 import HomeTemplate from "@/modules/home/templates";
 
 const HomePage = () => {
   return (
     <>
-      <Head description="this is desc" title="this is title" />
+      <Head description="Bad Bentheim" title="traytec GmbH" />
       <HomeTemplate />
     </>
   );

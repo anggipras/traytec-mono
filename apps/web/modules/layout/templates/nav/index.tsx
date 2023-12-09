@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useState, useMemo } from "react";
 import { useRouter } from "next/router";
 import LayoutContainer from "@/modules/layout/components/layout-container";
-import ChevronDown from "@/modules/common/icons/chevron-down";
+import ChevronIcon from "@/modules/common/icons/chevron";
 
 export default function NavBar() {
   const router = useRouter();
@@ -98,6 +98,12 @@ export default function NavBar() {
                 <div
                   className="relative inline-block"
                   key={`menu-${val.menuName}`}
+                  onMouseEnter={() => {
+                    setOpenMenu(menuIdx);
+                  }}
+                  onMouseLeave={() => {
+                    setOpenMenu(-1);
+                  }}
                 >
                   <div className="flex items-center cursor-pointer text-gray-700 p-2.5">
                     <div
@@ -109,6 +115,7 @@ export default function NavBar() {
                       }`}
                       onClick={() => {
                         void router.push(val.path);
+                        setOpenMenu(-1)
                       }}
                     >
                       {val.menuName}
@@ -119,14 +126,8 @@ export default function NavBar() {
                       onClick={() => {
                         setOpenMenu(menuIdx !== -1 ? menuIdx : -1);
                       }}
-                      onMouseEnter={() => {
-                        setOpenMenu(menuIdx);
-                      }}
-                      onMouseLeave={() => {
-                        setOpenMenu(-1);
-                      }}
                     >
-                      <ChevronDown
+                      <ChevronIcon
                         color={
                           router.pathname.includes(val.path)
                             ? "#730033"
@@ -182,7 +183,7 @@ export default function NavBar() {
                   className="w-6 rounded-full"
                   src={require("@/assets/images/common/img_example_lang.png")}
                 />
-                <ChevronDown />
+                <ChevronIcon />
                 <div className="text-base hidden medium:block">
                   {webLang[langIdx].country}
                 </div>
@@ -209,7 +210,7 @@ export default function NavBar() {
                           {val.country}
                         </div>
                         <div className="flex">
-                          <ChevronDown />
+                          <ChevronIcon />
                           <Image
                             alt="navbar_lang"
                             className="w-6 rounded-full"

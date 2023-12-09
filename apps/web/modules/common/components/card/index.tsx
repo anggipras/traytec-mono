@@ -5,11 +5,11 @@ import React from "react";
 type CardProps = {
   image?: string;
   title: string;
-  smallContent?: string;
+  smallcontent?: string;
   subcontent: string;
-  imgClass?: string;
-  imgStyle?: string;
-  titleClass: string;
+  imgclass?: string;
+  imgstyle?: string;
+  titleclass: string;
   cursor?: string;
 } & React.HTMLAttributes<HTMLDivElement>;
 
@@ -17,18 +17,18 @@ const Card: React.FC<CardProps> = ({ ...props }) => {
   return (
     <div aria-hidden className={clsx("flex flex-col", props.cursor)} {...props}>
       {props.image ? (
-        <div className={props.imgClass}>
+        <div className={props.imgclass}>
           <Image
             alt="card-img"
-            className={clsx("max-w-full h-auto", props.imgStyle)}
+            className={clsx("max-w-full h-auto", props.imgstyle)}
             src={props.image}
           />
         </div>
       ) : null}
-      {props.smallContent ? (
-        <div className="mb-3 text-gray-300">{props.smallContent}</div>
+      {props.smallcontent ? (
+        <div className="mb-3 text-gray-300">{props.smallcontent}</div>
       ) : null}
-      <div className={clsx("mb-4", props.titleClass)}>{props.title}</div>
+      <div className={clsx("mb-4", props.titleclass)}>{props.title}</div>
       <div className="typo-copy-normal text-gray-400">{props.subcontent}</div>
     </div>
   );

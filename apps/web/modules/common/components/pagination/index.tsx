@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion -- Remove non null assertion for pagination */
 import React from "react";
+import ChevronIcon from "@/modules/common/icons/chevron";
 
 interface PaginationProps {
   active: number;
@@ -41,7 +42,7 @@ const PaginationSection = (props: PaginationProps) => {
           onClickHandler(1);
         }}
       >
-        &#x2039;
+        <ChevronIcon direction="left" doubleIcon />
       </div>
       {active > 1 ? (
         <div
@@ -51,11 +52,11 @@ const PaginationSection = (props: PaginationProps) => {
             onClickHandler(active - 1);
           }}
         >
-          &#x2039;
+          <ChevronIcon direction="left" />
         </div>
       ) : (
         <div className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full mr-6 prev arrow-icon disabled">
-          &#x2039;
+          <ChevronIcon direction="left" />
         </div>
       )}
       {size > showingNumbers + startNumber ? (
@@ -138,11 +139,11 @@ const PaginationSection = (props: PaginationProps) => {
             onClickHandler(active + 1);
           }}
         >
-          &#8250;
+          <ChevronIcon direction="right" />
         </div>
       ) : (
         <div className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ml-6 next arrow-icon disabled">
-          &#8250;
+          <ChevronIcon direction="right" />
         </div>
       )}
       <div
@@ -152,7 +153,7 @@ const PaginationSection = (props: PaginationProps) => {
           onClickHandler(size);
         }}
       >
-        &#8250;
+        <ChevronIcon direction="right" doubleIcon />
       </div>
     </div>
   );

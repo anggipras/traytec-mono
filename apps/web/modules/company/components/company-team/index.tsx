@@ -38,11 +38,11 @@ const CompanyTeam = () => {
           return (
             <Card
               image={val.team_image}
-              imgClass="px-0 mb-4"
+              imgclass="px-0 mb-4"
               key={idx}
               subcontent={val.team_role}
               title={val.team_name}
-              titleClass="typo-h4"
+              titleclass="typo-h4"
             />
           );
         })}
