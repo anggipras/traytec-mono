@@ -9,7 +9,7 @@ const CompanyTemplate = () => {
     <>
       <SubHeader title="About Us" />
       <LayoutContainer>
-        <div className="mt-20 mx-15 mb-32.5">
+        <div className="my-10 mx-6 medium:mt-20 medium:mx-15 medium:mb-32.5">
           <CompanyDesc />
           <CompanyTeam />
         </div>
