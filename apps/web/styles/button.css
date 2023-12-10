@@ -25,15 +25,15 @@
   }
 
   .btn {
-    @apply flex items-center justify-center focus:outline-none focus:shadow-md uppercase tracking-wider font-button rounded-md;
+    @apply flex items-center justify-center focus:outline-none rounded-full;
   }
 
   /* Primary Button */
   .btn-primary {
-    @apply bg-primary-200 text-primary-800;
+    @apply bg-white text-primary-950 border border-primary-950;
   }
   .btn-primary:hover {
-    @apply bg-primary-700 text-white;
+    @apply bg-primary-950 text-white;
   }
   .btn-primary:disabled {
     @apply bg-gray-200 text-gray-400;
@@ -41,17 +41,17 @@
 
   /* Secondary Button */
   .btn-secondary {
-    @apply bg-white/60 text-accent-dark border border-accent-dark;
+    @apply bg-primary-950 text-white;
   }
   .btn-secondary:hover {
-    @apply text-accent-default border-accent-default;
+    @apply bg-white text-primary-950;
   }
   .btn-secondary:disabled {
     @apply bg-gray-200 text-gray-400;
   }
 
   /* Tertiary Button */
-  .btn-tertiary {
+  /* .btn-tertiary {
     @apply bg-accent-light text-primary-900;
   }
   .btn-tertiary:hover {
@@ -59,10 +59,10 @@
   }
   .btn-tertiary:disabled {
     @apply bg-gray-200 text-gray-400;
-  }
+  } */
 
   /* Danger Button */
-  .btn-danger {
+  /* .btn-danger {
     @apply bg-gray-50 text-rose-500 border border-gray-200;
   }
   .btn-danger:hover {
@@ -73,10 +73,10 @@
   }
   .btn-danger:disabled {
     @apply bg-gray-50 text-gray-300;
-  }
+  } */
 
   /* Nuclear Button */
-  .btn-nuclear {
+  /* .btn-nuclear {
     @apply bg-rose-500 text-gray-50;
   }
   .btn-nuclear:hover {
@@ -87,10 +87,10 @@
   }
   .btn-nuclear:disabled {
     @apply bg-gray-200 text-gray-400;
-  }
+  } */
 
   /* Ghost Button */
-  .btn-ghost {
+  /* .btn-ghost {
     @apply bg-transparent text-gray-900;
   }
   .btn-ghost:hover {
@@ -104,10 +104,10 @@
   }
   .btn-ghost:disabled {
     @apply bg-transparent text-gray-300;
-  }
+  } */
 
   /* Trust Button */
-  .btn-trust {
+  /* .btn-trust {
     @apply text-white bg-blue-600;
   }
   .btn-trust:hover {
@@ -118,5 +118,5 @@
   }
   .btn-trust:disabled {
     @apply bg-gray-200 text-gray-400;
-  }
+  } */
 }

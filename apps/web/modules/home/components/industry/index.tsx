@@ -145,13 +145,8 @@ const IndustrySection: React.FC = () => {
         <PrevButton disabled={prevBtnDisabled} onClick={onPrevButtonClick} />
         <NextButton disabled={nextBtnDisabled} onClick={onNextButtonClick} />
       </div>
-      <div className="hidden medium:flex justify-center">
-        <Button
-          className="bg-primary-950 px-6 py-3.5 w-fit text-white rounded-full mt-10"
-          size="medium"
-          type="button"
-          variant="text"
-        >
+      <div className="hidden medium:flex justify-center mt-10">
+        <Button size="medium" variant="secondary">
           <span className="">Contact Us</span>
         </Button>
       </div>

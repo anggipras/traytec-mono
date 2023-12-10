@@ -113,7 +113,7 @@ const NewsDetailTemplate = () => {
                       cursor="cursor-pointer"
                       subcontent={val.desc}
                       title={val.title}
-                      titleClass="typo-h5"
+                      titleclass="typo-h5"
                     />
                   </div>
                 </Link>

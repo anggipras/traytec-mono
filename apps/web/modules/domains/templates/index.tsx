@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
 import SubHeader from "@/modules/common/components/sub-header";
-import Button from "@/modules/common/components/button";
 import LayoutContainer from "@/modules/layout/components/layout-container";
 import SectionHeader from "@/modules/common/components/section-header";
 
@@ -131,16 +130,13 @@ const DomainTemplate: React.FC = () => {
           <div className="typo-copy-normal text-gray-500 mt-4 mb-5">
             {val.title.toLocaleLowerCase()}
           </div>
-          <Button
+          <div
             className={`px-6 py-3.5 w-fit rounded-full ${checkButtonStyle(
               idx
             )}`}
-            size="medium"
-            type="button"
-            variant="text"
           >
             <span className="">See more Product</span>
-          </Button>
+          </div>
         </div>
         <div className="mb-10 medium:mb-0 medium:absolute top-0 medium:left-[50%] medium:h-full">
           <Image
