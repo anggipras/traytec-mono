@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_integrationen_formulars",
+  "info": {
+    "displayName": "formular"
+  },
+  "options": {},
+  "attributes": {
+    "formular": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::formular.formular"
+    },
+    "sichtbar": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

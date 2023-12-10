@@ -43,6 +43,20 @@
         }
       },
       "component": "shared.seo"
+    },
+    "inhalte": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "dynamiczone",
+      "components": [
+        "heros.hero-1",
+        "slider.horizontaler-slider",
+        "slider.horizontaler-slider-fokus",
+        "integrationen.formular"
+      ]
     }
   }
 }

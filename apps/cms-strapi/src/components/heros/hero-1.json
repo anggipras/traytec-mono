@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_heros_hero_1s",
+  "info": {
+    "displayName": "Hero 1",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "ueberschrift": {
+      "displayName": "Heading",
+      "type": "component",
+      "repeatable": false,
+      "component": "utils.heading"
+    },
+    "hintergrund": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
+    },
+    "button": {
+      "displayName": "Button",
+      "type": "component",
+      "repeatable": true,
+      "component": "utils.button"
+    },
+    "sichtbar": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

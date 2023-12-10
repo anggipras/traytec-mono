@@ -27,6 +27,11 @@
         "form.uhrzeit"
       ],
       "required": true
+    },
+    "ueberschrift": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utils.heading"
     }
   }
 }

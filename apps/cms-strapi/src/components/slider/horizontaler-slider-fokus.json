@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_slider_horizontaler_slider_fokus",
+  "info": {
+    "displayName": "Horizontaler Slider - Fokus auf eine Karte",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "ueberschrift": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utils.heading"
+    },
+    "cards": {
+      "displayName": "Slider - Card 2",
+      "type": "component",
+      "repeatable": true,
+      "component": "slider.slider-card-2"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utils.button"
+    },
+    "sichtbar": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

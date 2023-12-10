@@ -10,7 +10,7 @@ module.exports = ({ env }) => ({
       allowedLevels: 3,
       gql: {
         enabled: true,
-        navigationItemRelated: ["Seite", "Produkt", "Industrie"],
+        navigationItemRelated: ["Seiten", "Produkte", "Industrien"],
       },
     },
   },
@@ -35,6 +35,7 @@ module.exports = ({ env }) => ({
     resolve: "./src/plugins/strapi-plugin-react-editorjs",
   },
   upload: {
+    enabled: true,
     config: {
       provider: "strapi-provider-upload-do",
       providerOptions: {
