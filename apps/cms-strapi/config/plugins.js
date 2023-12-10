@@ -4,59 +4,18 @@ module.exports = ({ env }) => ({
       jwtSecret: env("ADMIN_JWT_SECRET"),
     },
   },
-  seo: {
-    enabled: true,
-  },
-  editorjs: {
-    enabled: true,
-    resolve: "./src/plugins/strapi-plugin-react-editorjs",
-  },
   navigation: {
     enabled: true,
     config: {
-      additionalFields: [
-        // { name: "icon", type: "string", label: "icon_url", enabled: true },
-        // {
-        //   name: "link_type",
-        //   label: "link_type",
-        //   type: "select",
-        //   options: ["text", "icon", "icon_and_text"],
-        //   enabled: true,
-        // },
-      ],
-      // contentTypes: ["api::produkt.produkt", "api::industrie.industrie"],
-      // contentTypesNameFields: {
-      //   "api::produkt.produkt": ["titel"],
-      //   "api::industrie.industrie": ["titel"],
-      // },
-      // contentTypesPopulate: {
-      //   "api::faq-category.faq-category": ["faqs"],
-      //   "api::faq.faq": [],
-      //   "api::product-collection.product-collection": ["products"],
-      //   "api::product.product": [],
-      //   "api::single-page.single-page": [],
-      //   "api::study-category.study-category": ["studies"],
-      //   "api::study.study": [],
-      // },
-      // pathDefaultFields: {
-      //   "api::produkt.produkt": ["slug"],
-      //   "api::industrie.industrie": ["slug"],
-      // },
       allowedLevels: 3,
       gql: {
-        // navigationItemRelated: [
-        //   "FaqCategory",
-        //   "Faq",
-        //   "ProductCollection",
-        //   "Product",
-        //   "SinglePage",
-        //   "StudyCategory",
-        //   "Study",
-        // ],
+        enabled: true,
+        navigationItemRelated: ["Seite", "Produkt", "Industrie"],
       },
     },
   },
   graphql: {
+    enabled: true,
     config: {
       endpoint: "/graphql",
       shadowCRUD: true,
@@ -67,6 +26,13 @@ module.exports = ({ env }) => ({
         tracing: false,
       },
     },
+  },
+  seo: {
+    enabled: true,
+  },
+  editorjs: {
+    enabled: true,
+    resolve: "./src/plugins/strapi-plugin-react-editorjs",
   },
   upload: {
     config: {

@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "google_bewertungen",
+  "info": {
+    "singularName": "google-bewertung",
+    "pluralName": "google-bewertungen",
+    "displayName": "Google Bewertungen",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "reviewId": {
+      "type": "string"
+    },
+    "reviewer": {
+      "displayName": "Google - Reviewer",
+      "type": "component",
+      "repeatable": false,
+      "component": "utils.google-reviewer"
+    },
+    "starRating": {
+      "type": "enumeration",
+      "enum": [
+        "STAR_RATING_UNSPECIFIED",
+        "ONE",
+        "TWO ",
+        "THREE ",
+        "FOUR",
+        "FIVE"
+      ]
+    },
+    "comment": {
+      "type": "text"
+    },
+    "createTime": {
+      "type": "string"
+    },
+    "updateTime": {
+      "type": "string"
+    }
+  }
+}

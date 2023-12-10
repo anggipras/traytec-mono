@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_form_data",
+  "info": {
+    "displayName": "Datum",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "frage": {
+      "type": "richtext"
+    },
+    "notwendig": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

@@ -13058,7 +13058,7 @@ std-env@^3.0.1:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.6.0.tgz#94807562bddc68fa90f2e02c5fd5b6865bb4e98e"
   integrity sha512-aFZ19IgVmhdB2uX599ve2kE6BIE3YMnQ6Gp6BURhW/oIzpXGKr878TQfAQZn1+i0Flcc/UKUy1gOlcfaUBCryg==
 
-strapi-plugin-navigation@^2.2.11:
+strapi-plugin-navigation@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/strapi-plugin-navigation/-/strapi-plugin-navigation-2.3.1.tgz#b064299ff5f462db5bb65dd9e9dee093c20ee254"
   integrity sha512-kGZ5axF+Iclg12BNy7D/HhFmcER4DL3y/Zkf954O9h9QZc6dGsr+R1eXzEOyktoJlwMFcZseOxX7EXss4ixj8Q==

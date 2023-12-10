@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "formulare",
+  "info": {
+    "singularName": "formular",
+    "pluralName": "formulare",
+    "displayName": "Formulare",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titel": {
+      "type": "string"
+    },
+    "Fragen": {
+      "type": "dynamiczone",
+      "components": [
+        "form.text-form",
+        "form.long-text",
+        "form.antwortmoeglichkeit",
+        "form.datum-uhrzeit",
+        "form.datum",
+        "form.multiple-choice",
+        "form.uhrzeit"
+      ],
+      "required": true
+    }
+  }
+}

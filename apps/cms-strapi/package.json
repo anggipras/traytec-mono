@@ -19,7 +19,7 @@
     "codemirror": "5.65.11",
     "pg": "^8.8.0",
     "pg-connection-string": "^2.6.2",
-    "strapi-plugin-navigation": "^2.2.11",
+    "strapi-plugin-navigation": "^2.3.1",
     "strapi-provider-upload-do": "^3.6.6"
   },
   "author": {
