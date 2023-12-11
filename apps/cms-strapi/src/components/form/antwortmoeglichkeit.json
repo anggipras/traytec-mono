@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_form_antwortmoeglichkeits",
+  "info": {
+    "displayName": "Antwortmöglichkeit",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "antwort": {
+      "type": "richtext"
+    }
+  }
+}

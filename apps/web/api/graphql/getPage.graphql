@@ -1,0 +1,11 @@
+query getPage {
+  seiten {
+    data {
+      attributes {
+        titel
+        slug
+      }
+      id
+    }
+  }
+}
