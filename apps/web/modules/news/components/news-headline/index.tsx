@@ -16,22 +16,29 @@ const NewsHeadline: React.FC<NewsData> = ({ newsData }) => {
   const router = useRouter();
 
   return (
-    <div className="grid grid-flow-col grid-cols-4 grid-rows-2 gap-5 mt-10">
+    <div className="grid medium:grid-flow-col grid-cols-1 medium:grid-cols-4 medium:grid-rows-2 gap-5 mt-6 medium:mt-10">
       {newsData
         .filter((_, idx) => idx < 5)
         .map((val, idx) => {
           return (
             <div
               className={`${
-                idx === 0 ? "col-span-2 row-span-2" : "col-span-1"
+                idx === 0
+                  ? "medium:col-span-2 medium:row-span-2"
+                  : "medium:col-span-1"
               }`}
               key={idx}
             >
               <Card
+                additionalclass={`${
+                  idx > 0 ? "flex-row gap-6" : "flex-col"
+                } medium:flex-col`}
                 cursor="cursor-pointer"
                 image={val.image}
                 imgclass="px-0 mb-6"
-                imgstyle="rounded-3xl"
+                imgstyle={`rounded-xl medium:rounded-3xl ${
+                  idx > 0 ? "max-w-[150px]" : "w-full"
+                } medium:max-w-full`}
                 onClick={() => {
                   router.push(`/news/${val.slug}`);
                 }}

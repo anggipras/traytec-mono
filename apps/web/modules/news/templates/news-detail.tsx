@@ -66,7 +66,7 @@ const NewsDetailTemplate = () => {
 
   return (
     <LayoutContainer>
-      <div className="mx-[200px] mt-10 mb-32.5">
+      <div className="mx-6 my-10 medium:mx-[200px] medium:mt-10 medium:mb-32.5">
         <div className="typo-h2">{sampleNewsDetail.title}</div>
         <div className="typo-copy-normal text-gray-400 my-3">
           {sampleNewsDetail.createdDate}
@@ -80,14 +80,14 @@ const NewsDetailTemplate = () => {
               >
                 <Image
                   alt="socmed_news_detail"
-                  className="w-8"
+                  className="w-6 medium:w-8"
                   src={val.icon}
                 />
               </div>
             );
           })}
         </div>
-        <div className="flex flex-col items-center mt-10">
+        <div className="flex flex-col items-center mt-6 medium:mt-10">
           <div className="rounded-3xl">
             <Image
               alt="news-detail--headline-img"
@@ -95,22 +95,24 @@ const NewsDetailTemplate = () => {
               src={sampleNewsDetail.image}
             />
           </div>
-          <div className="typo-copy-normal text-gray-400 italic mt-4">
+          <div className="typo-copy-normal text-gray-400 text-center italic mt-4">
             {sampleNewsDetail.imgDesc}
           </div>
         </div>
-        <div className="flex mt-10 gap-5">
-          <div className="typo-copy-normal max-w-2xl">
+        <div className="flex flex-col medium:flex-row mt-6 medium:mt-10 gap-5">
+          <div className="typo-copy-normal text-gray-500 w-full">
             {sampleNewsDetail.desc}
           </div>
-          <div>
+          <div className="w-full medium:max-w-[250px]">
             <div className="typo-h4 mb-2">Latest News</div>
             {sampleLatestNews.map((val, idx) => {
               return (
                 <Link href={`/news/${val.slug}`} key={idx}>
                   <div className="py-4 border-b border-gray-200">
                     <Card
+                      additionalclass="flex-col"
                       cursor="cursor-pointer"
+                      imgstyle="max-w-full"
                       subcontent={val.desc}
                       title={val.title}
                       titleclass="typo-h5"
