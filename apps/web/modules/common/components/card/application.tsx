@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return -- disable require on return func */
 import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/navigation";
@@ -21,13 +20,17 @@ const ApplicationCard = ({
 }: AppCardProps) => {
   const router = useRouter();
 
-  const appCardIcon = (property: string): string => {
+  const appCardIcon = (property: string, val: string) => {
     if (property === "job_position") {
       return require("@/assets/images/icons/ic_clock.svg");
     } else if (property === "salary") {
       return require("@/assets/images/icons/ic_dollar.svg");
+    } else if (property === "vacant") {
+      if (val === "open") {
+        return require("@/assets/images/icons/ic_check_green.svg");
+      }
+      return require("@/assets/images/icons/ic_close.svg");
     }
-    return require("@/assets/images/icons/ic_check_green.svg");
   };
 
   return (
@@ -47,7 +50,7 @@ const ApplicationCard = ({
                 <Image
                   alt="ic-app-card"
                   className="w-full h-full"
-                  src={appCardIcon(property)}
+                  src={appCardIcon(property, val)}
                 />
               </div>
               <div className="typo-copy-normal text-gray-500 capitalize ml-2">

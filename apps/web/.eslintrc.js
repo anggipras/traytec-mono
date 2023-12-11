@@ -6,6 +6,7 @@ module.exports = {
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
     "import/no-extraneous-dependencies": "off",
     "no-console": "off",
     "react/function-component-definition": "off",

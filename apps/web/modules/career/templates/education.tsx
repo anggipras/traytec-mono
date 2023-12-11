@@ -4,6 +4,7 @@ import SubHeader from "@/modules/common/components/sub-header";
 import LayoutContainer from "@/modules/layout/components/layout-container";
 import SectionHeader from "@/modules/common/components/section-header";
 import DescriptionHeading from "@/modules/common/section/description-heading";
+import Card from "@/modules/common/components/card";
 
 const EducationTemplate = () => {
   const educationList = useMemo(
@@ -56,6 +57,32 @@ const EducationTemplate = () => {
     []
   );
 
+  const specialBenefit = useMemo(
+    () => [
+      {
+        title: "Benefit 1",
+        desc: "Innovative design for beauty product storage and easy access",
+        image: require("@/assets/images/common/img_example_company_team.jpeg"),
+      },
+      {
+        title: "Benefit 2",
+        desc: "Innovative design for beauty product storage and easy access",
+        image: require("@/assets/images/common/img_example_company_team.jpeg"),
+      },
+      {
+        title: "Benefit 3",
+        desc: "Innovative design for beauty product storage and easy access",
+        image: require("@/assets/images/common/img_example_company_team.jpeg"),
+      },
+      {
+        title: "Benefit 4",
+        desc: "Innovative design for beauty product storage and easy access",
+        image: require("@/assets/images/common/img_example_company_team.jpeg"),
+      },
+    ],
+    []
+  );
+
   const educationDesc = {
     title: "Description",
     description:
@@ -79,6 +106,31 @@ const EducationTemplate = () => {
             image={educationDesc.image}
             title={educationDesc.title}
             titleclass="typo-h4"
+          />
+          <div className="my-20 medium:my-32.5">
+            <SectionHeader
+              desc="Provider of services for making trays, inserts, workpiece containers, lids, etc. for industry according to our wishes"
+              title="Special Benefit"
+            />
+            <div className="grid grid-cols-2 medium:grid-cols-4 mt-10 gap-5">
+              {specialBenefit.map((val, idx) => (
+                <Card
+                  additionalclass="flex-col justify-center items-center"
+                  image={val.image}
+                  imgclass="mb-3 border-4 border-gray-100 rounded-full overflow-hidden"
+                  imgstyle="w-[154px] h-[154px] medium:w-[180px] medium:h-[180px] rounded-full object-cover"
+                  key={idx}
+                  subcontent={val.desc}
+                  textposition="text-center"
+                  title={val.title}
+                  titleclass="typo-h4"
+                />
+              ))}
+            </div>
+          </div>
+          <SectionHeader
+            desc="Provider of services for making trays, inserts, workpiece containers, lids, etc. for industry according to our wishes"
+            title="Program Education/Ausbildung"
           />
           <EducationList educationList={educationList} />
         </div>

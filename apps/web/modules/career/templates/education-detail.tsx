@@ -1,15 +1,16 @@
 import React from "react";
 import DetailPageComponent from "@/modules/career/components/detail-page";
 
-const CareerDetailTemplate = () => {
-  const sampleCareerDetail = {
+const EducationDetailTemplate = () => {
+  const sampleEducationDetail = {
     createdDate: "Des 1, 2023",
-    title: "Shift manager",
+    title: "Industrial business management assistant",
     desc: "The company traytec GmbH in Bad Bentheim / Gildehaus produces high-quality trays made of plastic in the automotive, food and medical industries using the so-called “deep-drawing process”.",
-    slug: "career-1",
+    slug: "education-1",
     detail: {
       job_position: "full time",
       salary: "negotiable",
+      vacant: "open",
     },
     desc_detail: [
       {
@@ -27,14 +28,14 @@ const CareerDetailTemplate = () => {
 
   return (
     <DetailPageComponent
-      createdDate={sampleCareerDetail.createdDate}
-      desc={sampleCareerDetail.desc}
-      desc_detail={sampleCareerDetail.desc_detail}
-      detail={sampleCareerDetail.detail}
-      slug={sampleCareerDetail.slug}
-      title={sampleCareerDetail.title}
+      createdDate={sampleEducationDetail.createdDate}
+      desc={sampleEducationDetail.desc}
+      desc_detail={sampleEducationDetail.desc_detail}
+      detail={sampleEducationDetail.detail}
+      slug={sampleEducationDetail.slug}
+      title={sampleEducationDetail.title}
     />
   );
 };
 
-export default CareerDetailTemplate;
+export default EducationDetailTemplate;

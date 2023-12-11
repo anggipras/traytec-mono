@@ -12,9 +12,13 @@ type CardProps = {
   titleclass: string;
   cursor?: string;
   additionalclass?: string;
+  textposition?: "text-center" | "text-start";
 } & React.HTMLAttributes<HTMLDivElement>;
 
-const Card: React.FC<CardProps> = ({ ...props }) => {
+const Card: React.FC<CardProps> = ({
+  textposition = "text-start",
+  ...props
+}) => {
   return (
     <div
       aria-hidden
@@ -30,7 +34,7 @@ const Card: React.FC<CardProps> = ({ ...props }) => {
           />
         </div>
       ) : null}
-      <div>
+      <div className={clsx("flex flex-col", textposition)}>
         {props.smallcontent ? (
           <div className="mb-3 text-gray-300">{props.smallcontent}</div>
         ) : null}
