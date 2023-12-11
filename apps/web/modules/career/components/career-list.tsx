@@ -13,7 +13,7 @@ interface CareerData {
 
 const CareerList = ({ ...props }: CareerData) => {
   return (
-    <div className="flex flex-col my-10 gap-4">
+    <div className="flex flex-col my-6 medium:my-10 gap-6 medium:gap-4">
       {props.careerData.map((val, idx) => (
         <ApplicationCard
           createdDate={val.createdDate}
