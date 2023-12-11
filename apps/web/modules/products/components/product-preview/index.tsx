@@ -182,8 +182,10 @@ const ProductPreview: React.FC = () => {
           {productData.map((val, idx) => {
             return (
               <Card
+                additionalclass="flex-col"
                 image={val.image}
                 imgclass="px-0 mb-6"
+                imgstyle="max-w-full"
                 key={idx}
                 subcontent={val.subdescription}
                 title={val.title}

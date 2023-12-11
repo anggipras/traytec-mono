@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion -- Remove non null assertion for pagination */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ChevronIcon from "@/modules/common/icons/chevron";
 
 interface PaginationProps {
@@ -10,10 +10,23 @@ interface PaginationProps {
 }
 
 const PaginationSection = (props: PaginationProps) => {
+  const [screenWidth, setScreenWidth] = useState(0);
   const { active, size, step, onClickHandler } = props;
 
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const showingNumbers = step * 2 + 1;
-  let startNumber = 2;
+  let startNumber = screenWidth > 1279 ? 2 : 1;
   let startArrayNumber = props.step;
 
   let needStartDots = false;
@@ -29,15 +42,15 @@ const PaginationSection = (props: PaginationProps) => {
     needEndDots = size > active + step + 1;
 
     if (size < active + step + 1) {
-      startArrayNumber = size - showingNumbers;
+      startArrayNumber = size - showingNumbers + (screenWidth < 1280 ? 1 : 0);
     }
   }
 
   return (
-    <div className="flex justify-center items-center list-none select-none">
+    <div className="flex justify-center items-center list-none select-none w-full">
       <div
         aria-hidden="true"
-        className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full mr-3 prev arrow-icon"
+        className="hidden medium:flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full mr-3 prev arrow-icon"
         onClick={() => {
           onClickHandler(1);
         }}
@@ -63,7 +76,7 @@ const PaginationSection = (props: PaginationProps) => {
         <div className="flex gap-3.5">
           <div
             aria-hidden="true"
-            className={`flex justify-center items-center border border-gray-200 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ${
+            className={`hidden medium:flex justify-center items-center border border-gray-200 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ${
               active === 1 ? "bg-primary-950 text-white" : "text-gray-500"
             }`}
             onClick={(e) => {
@@ -73,7 +86,9 @@ const PaginationSection = (props: PaginationProps) => {
             1
           </div>
 
-          {needStartDots ? <span className="self-end">...</span> : null}
+          {needStartDots ? (
+            <span className="hidden medium:flex self-end">...</span>
+          ) : null}
           {Array.from({ length: showingNumbers }, (_, i) => {
             const contentNumber = needStartDots
               ? startArrayNumber
@@ -97,10 +112,12 @@ const PaginationSection = (props: PaginationProps) => {
               </div>
             );
           })}
-          {needEndDots ? <span className="self-end">...</span> : null}
+          {needEndDots ? (
+            <span className="hidden medium:flex self-end">...</span>
+          ) : null}
           <div
             aria-hidden="true"
-            className={`flex justify-center items-center border border-gray-200 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ${
+            className={`hidden medium:flex justify-center items-center border border-gray-200 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ${
               active === size ? "bg-primary-950 text-white" : "text-gray-500"
             }`}
             onClick={(e) => {
@@ -148,7 +165,7 @@ const PaginationSection = (props: PaginationProps) => {
       )}
       <div
         aria-hidden="true"
-        className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ml-3 next arrow-icon"
+        className="hidden medium:flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ml-3 next arrow-icon"
         onClick={() => {
           onClickHandler(size);
         }}

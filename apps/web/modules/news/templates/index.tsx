@@ -80,8 +80,8 @@ const NewsTemplate = () => {
     <>
       <SubHeader title="Our News" />
       <LayoutContainer>
-        <div className="mt-20 mx-15 mb-32.5">
-          <div className="flex w-full justify-between">
+        <div className="my-10 mx-6 medium:mt-20 medium:mx-15 medium:mb-32.5">
+          <div className="flex flex-col medium:flex-row w-full gap-4 medium:gap-0 medium:justify-between">
             <NativeSelect placeholder="All Categories">
               <option value="test1">Test 1</option>
               <option value="test2">Test 2</option>
@@ -90,14 +90,16 @@ const NewsTemplate = () => {
             <SearchBox placeholder="Search..." type="text" />
           </div>
           <NewsHeadline newsData={newsData} />
-          <div className="border border-gray-100 w-full my-12" />
+          <div className="border border-gray-100 w-full my-10 medium:my-12" />
           <NewsList newsData={newsData} />
-          <Pagination
-            active={active}
-            onClickHandler={activeHandler}
-            size={99}
-            step={2}
-          />
+          <div>
+            <Pagination
+              active={active}
+              onClickHandler={activeHandler}
+              size={10}
+              step={1}
+            />
+          </div>
         </div>
       </LayoutContainer>
     </>
