@@ -29,10 +29,10 @@ const CareerDetailTemplate = () => {
 
   return (
     <LayoutContainer>
-      <div className="flex justify-between mx-15 mt-10 mb-32.5 gap-5">
+      <div className="flex flex-col medium:flex-row justify-between mx-6 my-10 medium:mx-15 medium:mt-10 medium:mb-32.5 gap-20 medium:gap-5">
         <div className="flex flex-col w-full">
           <div className="typo-h2">{sampleCareerDetail.title}</div>
-          <div className="flex gap-5 my-5">
+          <div className="flex gap-5 my-6 medium:my-5">
             {Object.entries(sampleCareerDetail.detail).map(
               ([property, val]) => (
                 <div className="flex items-center" key={property}>
@@ -59,15 +59,15 @@ const CareerDetailTemplate = () => {
           </div>
           <div className="border border-gray-100 w-full mt-6" />
           {sampleCareerDetail.desc_detail.map((val, idx) => (
-            <div className="mt-8" key={idx}>
-              <div className="typo-h4 mb-5">{val.title}</div>
+            <div className="mt-6 medium:mt-8" key={idx}>
+              <div className="typo-h4 mb-6 medium:mb-5">{val.title}</div>
               <div className="typo-copy-normal text-gray-400">
                 {val.content}
               </div>
             </div>
           ))}
         </div>
-        <div className="flex flex-col px-10 py-6 bg-gray-50 rounded-3xl w-full max-w-lg h-fit">
+        <div className="flex flex-col px-10 py-6 bg-gray-50 rounded-3xl w-full medium:max-w-lg h-fit">
           <div className="typo-h4">Interested to work with us ?</div>
           <div className="typo-copy-normal text-gray-400 mt-4 mb-6">
             provide your complete application documents and click apply
