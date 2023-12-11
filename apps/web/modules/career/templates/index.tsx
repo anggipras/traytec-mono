@@ -61,16 +61,16 @@ const CareerTemplate = () => {
 
   return (
     <>
-      <div className="bg-gray-50 py-10">
+      <div className="bg-gray-50 py-10 px-6 medium:px-15">
         <SectionHeader
           desc="Trays opens the door to inspiring careers, where every individual has the opportunity to develop and reach their maximum potential"
           title="Join the Traytec Team An Inspiring Career Opportunity"
         />
       </div>
       <LayoutContainer>
-        <div className="mt-10 mx-15 mb-32.5">
-          <div className="flex w-full justify-between">
-            <div className="flex gap-6">
+        <div className="my-10 mx-6 medium:mx-15 medium:mb-32.5">
+          <div className="flex flex-col medium:flex-row medium:justify-between w-full gap-4 medium:gap-0">
+            <div className="flex flex-col medium:flex-row gap-4 medium:gap-6">
               <NativeSelect placeholder="All Careers">
                 <option value="allcareer1">All Career 1</option>
                 <option value="allcareer2">All Career 2</option>
@@ -88,8 +88,8 @@ const CareerTemplate = () => {
           <PaginationSection
             active={active}
             onClickHandler={activeHandler}
-            size={20}
-            step={2}
+            size={10}
+            step={1}
           />
         </div>
       </LayoutContainer>

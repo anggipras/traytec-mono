@@ -5,7 +5,7 @@ type SearchBoxProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 const SearchBox: React.FC<SearchBoxProps> = ({ ...props }) => {
   return (
-    <div className="flex border border-gray-200 justify-between items-center rounded-full max-w-md px-6 py-3.5">
+    <div className="flex border border-gray-200 justify-between items-center rounded-full w-full medium:max-w-md px-6 py-3.5">
       <input
         autoCapitalize="off"
         autoComplete="off"

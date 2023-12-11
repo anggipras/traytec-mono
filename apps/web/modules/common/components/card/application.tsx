@@ -15,8 +15,8 @@ const ApplicationCard = ({ ...props }: AppCardProps) => {
   const router = useRouter();
 
   return (
-    <div className="flex w-full justify-between items-center px-10 py-6 rounded-3xl bg-gray-50">
-      <div>
+    <div className="flex flex-col medium:flex-row justify-between items-center gap-6 medium:gap-0 p-6 medium:px-10 medium:py-6 rounded-3xl bg-gray-50 w-full">
+      <div className="w-full">
         <div className="typo-copy-normal text-gray-500 mb-4">
           {props.createdDate}
         </div>
@@ -43,7 +43,7 @@ const ApplicationCard = ({ ...props }: AppCardProps) => {
           ))}
         </div>
       </div>
-      <div className="flex gap-4 justify-end w-full">
+      <div className="flex gap-4 justify-start medium:justify-end w-full">
         <Button
           onClick={() => {
             router.push(props.detailPath);

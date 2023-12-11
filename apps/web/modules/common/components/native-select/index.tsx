@@ -12,7 +12,7 @@ const NativeSelect = ({
   ...props
 }: NativeSelectProps) => {
   return (
-    <div className="flex relative border border-gray-200 justify-between items-center rounded-full w-fit pl-6 py-3.5">
+    <div className="flex relative border border-gray-200 justify-between items-center rounded-full w-full medium:w-fit pl-6 py-3.5">
       <span className="absolute right-4">
         <ChevronIcon />
       </span>

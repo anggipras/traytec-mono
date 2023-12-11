@@ -43,8 +43,10 @@ const CertificateSection: React.FC = () => {
         {certificateData.map((val, idx) => {
           return (
             <Card
+              additionalclass="flex-col"
               image={val.image}
               imgclass="px-5 mb-6"
+              imgstyle="max-w-full"
               key={idx}
               subcontent={val.subcontent}
               title={val.title}
