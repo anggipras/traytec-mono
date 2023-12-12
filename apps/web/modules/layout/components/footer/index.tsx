@@ -8,7 +8,7 @@ const FooterComponent = () => {
       {
         id: 1,
         image: require("@/assets/images/icons/ic_location.svg"),
-        ctn: "traytec GmbHBudapester Str. 348455 Bad Bentheim",
+        ctn: "traytec GmbH Budapester Str. 348455 Bad Bentheim",
       },
       {
         id: 2,
