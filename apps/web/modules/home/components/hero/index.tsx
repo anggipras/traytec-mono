@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="absolute inset-0 max-w-desktop mx-auto h-full">
-        <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start mx-15 h-full max-w-3xl text-white">
+        <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start mx-15 h-full max-w-3xl text-white mx-auto">
           <div className="w-fit px-3.5 py-2 bg-white bg-opacity-25 rounded-md mb-4">
             Let`s work with traytec
           </div>
