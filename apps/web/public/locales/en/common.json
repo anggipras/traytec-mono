@@ -7,17 +7,17 @@
       "BUTTON": "Find out your needs"
     },
     "SECTION_HEADING": {
-      "INTRO": "Industry Service",
-      "TITLE": "Choose Your Needs",
-      "DESCRIPTION": "Provider of services for making trays, inserts, workpiece containers, lids, etc. for industry according to our wishes"
+      "INTRO": "{{sectionHeadingIntro}}",
+      "TITLE": "{{sectionHeadingTitle}}",
+      "DESCRIPTION": "{{sectionHeadingDesc}}"
     }
   },
   "PAGES": {
     "HOME_PAGE": {
       "PROCESS": {
-        "INTRO": "How to order proccess",
-        "TITLE": "How it works",
-        "SUBTITLE": "Service Provider Manufacturing Trays, inserts, workpiece containers, lids and more from a variety of plastics for all applications",
+        "INTRO": "{{processIntro}}",
+        "TITLE": "{{processTitle}}",
+        "SUBTITLE": "{{processSubtitle}}",
         "LIST": {
           "TITLE": "{{listTitle}}",
           "DESCRIPTION": "{{listDesc}}"

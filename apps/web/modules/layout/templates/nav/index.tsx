@@ -1,30 +1,39 @@
-import Image from "next/image";
 import React, { useState, useMemo } from "react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import LayoutContainer from "@/modules/layout/components/layout-container";
 import ChevronIcon from "@/modules/common/icons/chevron";
 
-export default function NavBar() {
+interface LocaleList {
+  id: number;
+  name: string;
+  code: string;
+  createdAt: string;
+  updatedAt: string;
+  isDefault: boolean;
+}
+
+interface NavbarTemplateProps {
+  navbarvalue?: {
+    localeList?: LocaleList[];
+  };
+}
+
+const NavBarTemplate = ({ navbarvalue }: NavbarTemplateProps) => {
   const router = useRouter();
+  const webLang: LocaleList[] = navbarvalue?.localeList || [
+    {
+      id: 0,
+      name: "",
+      code: "",
+      createdAt: "",
+      updatedAt: "",
+      isDefault: false,
+    },
+  ];
 
   const [openLang, setOpenLang] = useState(false);
-  const [langIdx, setLangIdx] = useState(0);
   const [openMenu, setOpenMenu] = useState(-1);
-  const webLang = useMemo(
-    () => [
-      {
-        image: require("@/assets/images/common/img_example_lang.png"),
-        country: "GER",
-        flag: "de",
-      },
-      {
-        image: require("@/assets/images/common/img_example_lang.png"),
-        country: "EN",
-        flag: "en",
-      },
-    ],
-    []
-  );
   const navbarMenu = useMemo(
     () => [
       {
@@ -77,7 +86,6 @@ export default function NavBar() {
 
   const setLangSelected = (idx: number, flag: string) => {
     setOpenLang(false);
-    setLangIdx(idx);
     void router.push(router.asPath, router.asPath, { locale: flag });
   };
 
@@ -85,6 +93,48 @@ export default function NavBar() {
     console.log("val", val);
     setOpenMenu(-1);
   };
+
+  const localeOptions = (val: LocaleList, idx: number) => {
+    const localeCodeFlag = val.code === "en" ? "gb" : val.code;
+    const src = `/flags/1x1/${localeCodeFlag.toLowerCase()}.svg`;
+    const alt = `${localeCodeFlag}_flag`;
+
+    return (
+      <div
+        aria-hidden="true"
+        className="flex w-full justify-between items-center px-2.5 py-2 gap-1"
+        id={`menu-item-${idx}`}
+        key={val.name}
+        onClick={() => {
+          setLangSelected(idx, val.code);
+        }}
+        role="menuitem"
+      >
+        <div className="text-base hidden medium:block">
+          {localeCodeFlag.toLocaleUpperCase()}
+        </div>
+        <div className="flex">
+          <ChevronIcon />
+          <Image
+            alt={alt}
+            className="rounded-full"
+            height={24}
+            src={src}
+            width={24}
+          />
+        </div>
+      </div>
+    );
+  };
+
+  const currentFlag = useMemo(() => {
+    const localeCodeFlag =
+      router.locale === "en" ? "gb" : router.locale || "de";
+    const src = `/flags/1x1/${localeCodeFlag.toLowerCase()}.svg`;
+    const alt = `${localeCodeFlag}_flag`;
+
+    return { src, alt, localeCodeFlag };
+  }, [router.locale]);
 
   return (
     <div className="sticky top-0 z-20 bg-gray-50">
@@ -182,13 +232,15 @@ export default function NavBar() {
                 }}
               >
                 <Image
-                  alt="navbar_lang"
-                  className="w-6 rounded-full"
-                  src={require("@/assets/images/common/img_example_lang.png")}
+                  alt={currentFlag.alt}
+                  className="rounded-full"
+                  height={24}
+                  src={currentFlag.src}
+                  width={24}
                 />
                 <ChevronIcon />
                 <div className="text-base hidden medium:block">
-                  {webLang[langIdx].country}
+                  {currentFlag.localeCodeFlag.toLocaleUpperCase()}
                 </div>
               </div>
 
@@ -198,30 +250,7 @@ export default function NavBar() {
                   role="menu"
                 >
                   {webLang.map((val, idx) => {
-                    return (
-                      <div
-                        aria-hidden="true"
-                        className="flex w-full justify-between items-center px-2.5 py-2 gap-1"
-                        id={`menu-item-${idx}`}
-                        key={val.country}
-                        onClick={() => {
-                          setLangSelected(idx, val.flag);
-                        }}
-                        role="menuitem"
-                      >
-                        <div className="text-base hidden medium:block">
-                          {val.country}
-                        </div>
-                        <div className="flex">
-                          <ChevronIcon />
-                          <Image
-                            alt="navbar_lang"
-                            className="w-6 rounded-full"
-                            src={val.image}
-                          />
-                        </div>
-                      </div>
-                    );
+                    return localeOptions(val, idx);
                   })}
                 </div>
               ) : null}
@@ -236,4 +265,6 @@ export default function NavBar() {
       </LayoutContainer>
     </div>
   );
-}
+};
+
+export default NavBarTemplate;

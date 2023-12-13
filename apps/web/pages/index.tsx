@@ -16,7 +16,6 @@ const HomePage = () => {
 // };
 
 export async function getStaticProps({ locale }) {
-  console.log('locale',locale);
   const initialLocale = locale ?? "de";
   const namespaces = ["common"];
 
@@ -24,7 +23,7 @@ export async function getStaticProps({ locale }) {
     props: {
       ...(await serverSideTranslations(initialLocale, namespaces)),
     },
-    revalidate: 3600
+    revalidate: 3600,
   };
 }
 

@@ -54,14 +54,21 @@ const ServicesSection: React.FC = () => {
     <div className="flex flex-col mx-6 medium:ml-15 medium:mr-0 my-10 medium:my-32.5">
       <div className="flex flex-col text-center medium:text-start items-center medium:items-stretch medium:mr-15">
         <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
-          {t("PAGES.HOME_PAGE.PROCESS.INTRO")}
+          {t("PAGES.HOME_PAGE.PROCESS.INTRO", {
+            processIntro: "How to order proccess",
+          })}
         </div>
         <div className="typo-h2 mb-6 mt-4">
-          {t("PAGES.HOME_PAGE.PROCESS.TITLE")}
+          {t("PAGES.HOME_PAGE.PROCESS.TITLE", {
+            processTitle: "How it works",
+          })}
         </div>
         <div className="flex justify-between items-center">
           <div className="typo-copy-normal text-gray-400 max-w-[670px]">
-            {t("PAGES.HOME_PAGE.PROCESS.SUBTITLE")}
+            {t("PAGES.HOME_PAGE.PROCESS.SUBTITLE", {
+              processSubtitle:
+                "Service Provider Manufacturing Trays, inserts, workpiece containers, lids and more from a variety of plastics for all applications",
+            })}
           </div>
           <div className="embla__buttons hidden medium:flex gap-4">
             <PrevButton

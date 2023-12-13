@@ -111,9 +111,9 @@ const IndustrySection: React.FC = () => {
   return (
     <div className="flex flex-col my-10 medium:my-32.5">
       <SectionHeader
-        desc="COMPONENTS.SECTION_HEADING.DESCRIPTION"
-        intro="COMPONENTS.SECTION_HEADING.INTRO"
-        title="COMPONENTS.SECTION_HEADING.TITLE"
+        desc="Provider of services for making trays, inserts, workpiece containers, lids, etc. for industry according to our wishes"
+        intro="Industry Service"
+        title="Choose Your Needs"
       />
       <div className="relative mx-6 medium:mx-0 mt-10">
         <div className={`${screenWidth > 1279 ? "embla_industry" : "embla"}`}>
