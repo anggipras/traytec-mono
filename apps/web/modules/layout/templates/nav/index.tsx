@@ -15,10 +15,12 @@ export default function NavBar() {
       {
         image: require("@/assets/images/common/img_example_lang.png"),
         country: "GER",
+        flag: "de",
       },
       {
         image: require("@/assets/images/common/img_example_lang.png"),
         country: "EN",
+        flag: "en",
       },
     ],
     []
@@ -73,9 +75,10 @@ export default function NavBar() {
     []
   );
 
-  const setLangSelected = (idx: number) => {
+  const setLangSelected = (idx: number, flag: string) => {
     setOpenLang(false);
     setLangIdx(idx);
+    void router.push(router.asPath, router.asPath, { locale: flag });
   };
 
   const setSubMenu = (val: string) => {
@@ -115,7 +118,7 @@ export default function NavBar() {
                       }`}
                       onClick={() => {
                         void router.push(val.path);
-                        setOpenMenu(-1)
+                        setOpenMenu(-1);
                       }}
                     >
                       {val.menuName}
@@ -202,7 +205,7 @@ export default function NavBar() {
                         id={`menu-item-${idx}`}
                         key={val.country}
                         onClick={() => {
-                          setLangSelected(idx);
+                          setLangSelected(idx, val.flag);
                         }}
                         role="menuitem"
                       >

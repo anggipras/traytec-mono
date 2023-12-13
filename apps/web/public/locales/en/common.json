@@ -1,0 +1,28 @@
+{
+  "COMPONENTS": {
+    "HERO": {
+      "INTRO": "Let`s work with Traytech",
+      "TITLE": "Service provider for high quality Plastic",
+      "SUBTITLE": "Service Provider Manufacturing Trays, inserts, workpiece containers, lids and more from a variety of plastics for all applications",
+      "BUTTON": "Find out your needs"
+    },
+    "SECTION_HEADING": {
+      "INTRO": "Industry Service",
+      "TITLE": "Choose Your Needs",
+      "DESCRIPTION": "Provider of services for making trays, inserts, workpiece containers, lids, etc. for industry according to our wishes"
+    }
+  },
+  "PAGES": {
+    "HOME_PAGE": {
+      "PROCESS": {
+        "INTRO": "How to order proccess",
+        "TITLE": "How it works",
+        "SUBTITLE": "Service Provider Manufacturing Trays, inserts, workpiece containers, lids and more from a variety of plastics for all applications",
+        "LIST": {
+          "TITLE": "{{listTitle}}",
+          "DESCRIPTION": "{{listDesc}}"
+        }
+      }
+    }
+  }
+}

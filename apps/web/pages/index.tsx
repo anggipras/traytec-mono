@@ -1,3 +1,4 @@
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "@/modules/common/components/head";
 import HomeTemplate from "@/modules/home/templates";
 
@@ -13,5 +14,18 @@ const HomePage = () => {
 // Page.getLayout = function PageLayout(page: ReactHTML) {
 //   return <>{page}</>;
 // };
+
+export async function getStaticProps({ locale }) {
+  console.log('locale',locale);
+  const initialLocale = locale ?? "de";
+  const namespaces = ["common"];
+
+  return {
+    props: {
+      ...(await serverSideTranslations(initialLocale, namespaces)),
+    },
+    revalidate: 3600
+  };
+}
 
 export default HomePage;

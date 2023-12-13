@@ -1,7 +1,7 @@
 import "styles/globals.css";
 import type { AppProps } from "next/app";
-// import { Inter, Poppins } from "next/font/google";
-import Layout from "../modules/layout/templates";
+import { appWithTranslation } from "next-i18next";
+import Layout from "@/modules/layout/templates";
 
 // Define an interface for components that have a getLayout property
 interface ComponentWithLayout {
@@ -13,7 +13,7 @@ type ExtendedAppProps = AppProps & {
   Component: React.ComponentType & ComponentWithLayout;
 };
 
-function MyApp({ Component, pageProps }: ExtendedAppProps) {
+const MyApp = ({ Component, pageProps }: ExtendedAppProps) => {
   if (Component.getLayout) {
     return Component.getLayout(<Component {...pageProps} />);
   }
@@ -23,6 +23,6 @@ function MyApp({ Component, pageProps }: ExtendedAppProps) {
       <Component {...pageProps} />
     </Layout>
   );
-}
+};
 
-export default MyApp;
+export default appWithTranslation(MyApp);
