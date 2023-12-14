@@ -110,11 +110,13 @@ const FooterComponent = () => {
           <div className="w-full px-6 medium:px-15 pt-11 :pt-20 pb-6">
             <div className="flex flex-col medium:flex-row medium:justify-between">
               <div className="flex flex-col items-center self-center medium:items-start max-w-[275px] gap-6 medium:gap-10">
-                <Image
-                  alt="footer_logo"
-                  className="max-w-[183px]"
-                  src={require("@/assets/images/common/img_footer_logo.png")}
-                />
+                <Link href="/">
+                  <Image
+                    alt="footer_logo"
+                    className="max-w-[183px]"
+                    src={require("@/assets/images/common/img_footer_logo.png")}
+                  />
+                </Link>
                 <div className="leading-6.5 text-center medium:text-start">
                   Company manufacturing Trays, inserts, workpiece containers,
                   lids, etc. Made from a variety of plastics for all

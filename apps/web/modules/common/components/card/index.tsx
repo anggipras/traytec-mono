@@ -27,11 +27,7 @@ const Card: React.FC<CardProps> = ({
     >
       {props.image ? (
         <div className={props.imgclass}>
-          <Image
-            alt="card-img"
-            className={clsx("h-auto", props.imgstyle)}
-            src={props.image}
-          />
+          <Image alt="card-img" className={props.imgstyle} src={props.image} />
         </div>
       ) : null}
       <div className={clsx("flex flex-col", textposition)}>

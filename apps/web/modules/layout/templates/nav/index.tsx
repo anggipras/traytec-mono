@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import LayoutContainer from "@/modules/layout/components/layout-container";
 import ChevronIcon from "@/modules/common/icons/chevron";
+import Link from "next/link";
 
 interface LocaleList {
   id: number;
@@ -110,7 +111,7 @@ const NavBarTemplate = ({ navbarvalue }: NavbarTemplateProps) => {
         }}
         role="menuitem"
       >
-        <div className="text-base hidden medium:block">
+        <div className="flex text-copy-normal">
           {localeCodeFlag.toLocaleUpperCase()}
         </div>
         <div className="flex">
@@ -140,11 +141,13 @@ const NavBarTemplate = ({ navbarvalue }: NavbarTemplateProps) => {
     <div className="sticky top-0 z-20 bg-gray-50">
       <LayoutContainer>
         <div className="flex justify-between items-center h-[88px] px-6 py-3.5 medium:px-15 medium:py-6">
-          <Image
-            alt="navbar_logo"
-            className="max-w-[121px] h-auto medium:max-w-[183px]"
-            src={require("@/assets/images/common/img_header_logo.png")}
-          />
+          <Link href="/">
+            <Image
+              alt="navbar_logo"
+              className="max-w-[121px] h-auto medium:max-w-[183px]"
+              src={require("@/assets/images/common/img_header_logo.png")}
+            />
+          </Link>
           <div className="hidden medium:flex">
             {navbarMenu.map((val, menuIdx) => {
               return (
