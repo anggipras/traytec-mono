@@ -1,0 +1,19 @@
+overwrite: true
+schema: "http://127.0.0.1:1337/graphql"
+documents: "api/graphql/*.graphql"
+generates:
+  generated/graphql.tsx:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      reactApolloVersion: 3
+      withHooks: true
+      withHOC: false
+      withComponent: false
+      exportFragmentSpreadSubTypes: true
+      documentMode: graphQLTag
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

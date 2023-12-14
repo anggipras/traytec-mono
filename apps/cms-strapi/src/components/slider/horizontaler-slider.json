@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_slider_horizontaler_sliders",
+  "info": {
+    "displayName": "Horizontaler Slider",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "uberschrift": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utils.heading"
+    },
+    "cards": {
+      "displayName": "Slider - Card",
+      "type": "component",
+      "repeatable": true,
+      "component": "slider.slider-card"
+    },
+    "sichtbar": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

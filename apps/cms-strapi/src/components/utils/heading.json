@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_utils_headings",
+  "info": {
+    "displayName": "Heading",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "topline": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "typ": {
+      "type": "enumeration",
+      "enum": [
+        "H1",
+        "H2"
+      ],
+      "default": "H2",
+      "required": true
+    },
+    "text": {
+      "type": "richtext"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_form_text_forms",
+  "info": {
+    "displayName": "Text - Lang",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "frage": {
+      "type": "richtext",
+      "required": true
+    },
+    "notwendig": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
