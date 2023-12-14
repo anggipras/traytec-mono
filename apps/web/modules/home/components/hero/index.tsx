@@ -42,7 +42,7 @@ const Hero = () => {
       </div>
 
       <div className="absolute inset-0 max-w-desktop mx-auto h-full">
-        <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start h-full max-w-3xl text-white mx-auto">
+        <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start h-full max-w-3xl text-white mx-auto medium:mx-0">
           <div className="w-fit px-3.5 py-2 bg-white bg-opacity-25 rounded-md mb-4">
             {t("COMPONENTS.HERO.INTRO")}
           </div>
