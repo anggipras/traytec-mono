@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_utils_grid_elements",
+  "info": {
+    "displayName": "Grid Element"
+  },
+  "options": {},
+  "attributes": {
+    "bild": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "titel": {
+      "type": "string"
+    },
+    "text": {
+      "type": "richtext"
+    }
+  }
+}

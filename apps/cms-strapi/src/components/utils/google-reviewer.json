@@ -1,17 +1,18 @@
 {
   "collectionName": "components_utils_google_reviewers",
   "info": {
-    "displayName": "Google - Reviewer"
+    "displayName": "Reviewer",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "profilePhotoUrl": {
+    "photo_url": {
       "type": "string"
     },
-    "displayName": {
+    "name": {
       "type": "string"
     },
-    "isAnonymous": {
+    "ist_anonym": {
       "type": "boolean"
     }
   }

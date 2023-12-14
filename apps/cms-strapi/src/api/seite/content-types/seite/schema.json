@@ -55,7 +55,8 @@
         "heros.hero-1",
         "slider.horizontaler-slider",
         "slider.horizontaler-slider-fokus",
-        "integrationen.formular"
+        "integrationen.formular",
+        "listen.grid-liste"
       ]
     }
   }
