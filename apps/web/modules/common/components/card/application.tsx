@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/navigation";
@@ -9,13 +10,13 @@ type AppCardProps = {
   desc: string;
   detailPath: string;
   parentflex?: "flex-col" | "flex-row";
-  buttonposition?: "justify-start" | "justify-end";
+  buttonposition?: "medium:justify-start" | "medium:justify-end";
   detail: { job_position: string; salary: string };
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const ApplicationCard = ({
   parentflex = "flex-row",
-  buttonposition = "justify-end",
+  buttonposition = "medium:justify-end",
   ...props
 }: AppCardProps) => {
   const router = useRouter();
@@ -61,7 +62,7 @@ const ApplicationCard = ({
         </div>
       </div>
       <div
-        className={`flex gap-4 justify-start medium:${buttonposition} w-full mt-6`}
+        className={clsx("flex gap-4 justify-start w-full mt-6", buttonposition)}
       >
         <Button
           onClick={() => {

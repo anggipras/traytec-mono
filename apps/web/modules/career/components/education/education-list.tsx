@@ -16,7 +16,7 @@ const EducationList = ({ ...props }: EducationData) => {
     <div className="grid medium:grid-cols-2 mt-6 medium:mt-10 gap-6 medium:gap-5">
       {props.educationList.map((val, idx) => (
         <ApplicationCard
-          buttonposition="justify-start"
+          buttonposition="medium:justify-start"
           createdDate={val.createdDate}
           desc={val.desc}
           detail={val.detail}
