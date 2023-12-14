@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_form_multiple_choices",
+  "info": {
+    "displayName": "Multiple Choice"
+  },
+  "options": {},
+  "attributes": {
+    "frage": {
+      "type": "richtext"
+    },
+    "notwendig": {
+      "type": "boolean",
+      "default": false
+    },
+    "moeglichkeit": {
+      "displayName": "Antwortmöglichkeit",
+      "type": "component",
+      "repeatable": true,
+      "component": "form.antwortmoeglichkeit"
+    }
+  }
+}

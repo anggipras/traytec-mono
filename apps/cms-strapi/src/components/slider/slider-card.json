@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_slider_slider_cards",
+  "info": {
+    "displayName": "Slider - Card 1",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "ueberschrift": {
+      "type": "string",
+      "required": false
+    },
+    "icon": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "text": {
+      "type": "richtext"
+    },
+    "icon_text": {
+      "type": "string"
+    }
+  }
+}

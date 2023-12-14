@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_form_uhrzeits",
+  "info": {
+    "displayName": "Uhrzeit"
+  },
+  "options": {},
+  "attributes": {
+    "frage": {
+      "type": "richtext"
+    },
+    "notwendig": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
