@@ -1,0 +1,28 @@
+{
+  "COMPONENTS": {
+    "HERO": {
+      "INTRO": "Lassen Sie uns mit Traytech zusammenarbeiten",
+      "TITLE": "Dienstleister für hochwertige Kunststoffe",
+      "SUBTITLE": "Dienstleister fertigt Tabletts, Einsätze, Werkstückbehälter, Deckel und mehr aus einer Vielzahl von Kunststoffen für alle Anwendungen",
+      "BUTTON": "Finden Sie Ihre Bedürfnisse heraus"
+    },
+    "SECTION_HEADING": {
+      "INTRO": "{{sectionHeadingIntro}}",
+      "TITLE": "{{sectionHeadingTitle}}",
+      "DESCRIPTION": "{{sectionHeadingDesc}}"
+    }
+  },
+  "PAGES": {
+    "HOME_PAGE": {
+      "PROCESS": {
+        "INTRO": "{{processIntro}}",
+        "TITLE": "{{processTitle}}",
+        "SUBTITLE": "{{processSubtitle}}",
+        "LIST": {
+          "TITLE": "{{listTitle}}",
+          "DESCRIPTION": "{{listDesc}}"
+        }
+      }
+    }
+  }
+}

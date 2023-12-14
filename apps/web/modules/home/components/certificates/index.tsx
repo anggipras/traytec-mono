@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment -- Need to disable eslint for read src path of image */
-import Image from "next/image";
 import React, { useMemo } from "react";
+import Card from "@/modules/common/components/card";
+import SectionHeader from "@/modules/common/components/section-header";
 
 const CertificateSection: React.FC = () => {
   const certificateData = useMemo(
@@ -38,27 +38,20 @@ const CertificateSection: React.FC = () => {
   );
   return (
     <div className="flex flex-col items-center mx-6 medium:mx-15">
-      <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
-        Certificates
-      </div>
-      <div className="typo-h2 mb-10 mt-4">Certificates and Awards</div>
-      <div className="grid grid-cols-2 medium:grid-cols-4 gap-5">
-        {certificateData.map((val) => {
+      <SectionHeader intro="Certificates" title="Certificates and Awards" />
+      <div className="grid grid-cols-2 medium:grid-cols-4 gap-5 mt-10">
+        {certificateData.map((val, idx) => {
           return (
-            <div className="max-w-md" key={val.id}>
-              <div className="px-5 mb-6">
-                <Image
-                  alt="certificate-img"
-                  className="max-w-full h-auto"
-                  src={val.image}
-                />
-              </div>
-              <div className="typo-h4 mb-4">DIN EN ISO 9001:2015 DE</div>
-              <div className="typo-copy-normal text-gray-400">
-                Frame stacking trays are designed with a frame system to store
-                more workpieces per footprint
-              </div>
-            </div>
+            <Card
+              additionalclass="flex-col"
+              image={val.image}
+              imgclass="px-5 mb-6"
+              imgstyle="max-w-full"
+              key={idx}
+              subcontent={val.subcontent}
+              title={val.title}
+              titleclass="typo-h4"
+            />
           );
         })}
       </div>

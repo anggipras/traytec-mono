@@ -1,7 +1,8 @@
+import React, { useCallback, useEffect, useState } from "react";
+// import { useTranslation } from "next-i18next";
 import type { EmblaOptionsType } from "embla-carousel-react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
-import React, { useCallback, useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 import Button from "@/modules/common/components/button";
 import {
@@ -9,6 +10,7 @@ import {
   NextButton,
   usePrevNextButtons,
 } from "@/modules/common/components/carousel/next-prev-btn";
+import SectionHeader from "@/modules/common/components/section-header";
 
 const OPTIONS: EmblaOptionsType = { loop: true };
 const OPTIONS_MOBILE: EmblaOptionsType = {
@@ -16,8 +18,6 @@ const OPTIONS_MOBILE: EmblaOptionsType = {
   containScroll: false,
   loop: true,
 };
-const SLIDE_COUNT = 5;
-const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
 const TWEEN_FACTOR = 4.2;
 
@@ -25,6 +25,27 @@ const numberWithinRange = (number: number, min: number, max: number): number =>
   Math.min(Math.max(number, min), max);
 
 const IndustrySection: React.FC = () => {
+  // const { t } = useTranslation();
+  const sampleIndustryList = [
+    {
+      title: "Automotive",
+      description:
+        "Innovative design for beauty product storage and easy access",
+      image: require("@/assets/images/common/img_example_tools.png"),
+    },
+    {
+      title: "Automotive",
+      description:
+        "Innovative design for beauty product storage and easy access",
+      image: require("@/assets/images/common/img_example_tools.png"),
+    },
+    {
+      title: "Automotive",
+      description:
+        "Innovative design for beauty product storage and easy access",
+      image: require("@/assets/images/common/img_example_tools.png"),
+    },
+  ];
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
   const [emblaRefMob, emblaApiMob] = useEmblaCarousel(OPTIONS_MOBILE);
   const [tweenValues, setTweenValues] = useState<number[]>([]);
@@ -88,36 +109,27 @@ const IndustrySection: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col mx-6 medium:mx-0 my-10 medium:my-32.5">
-      <div className="flex flex-col text-center items-center mb-10">
-        <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
-          Industry Service
-        </div>
-        <div className="typo-h2 mb-6 mt-4 max-w-xl">Choose Your Needs</div>
-        <div className="flex justify-between items-center">
-          <div className="typo-copy-normal text-gray-400 max-w-[670px]">
-            Provider of services for making trays, inserts, workpiece
-            containers, lids, etc. for industry according to our wishes
-          </div>
-        </div>
-      </div>
-      <div className="relative">
-        <div
-          className={`${
-            screenWidth > 1279 ? "embla_industry" : "embla_testimonial_mobile"
-          }`}
-        >
+    <div className="flex flex-col my-10 medium:my-32.5">
+      <SectionHeader
+        desc="Provider of services for making trays, inserts, workpiece containers, lids, etc. for industry according to our wishes"
+        intro="Industry Service"
+        title="Choose Your Needs"
+      />
+      <div className="relative mx-6 medium:mx-0 mt-10">
+        <div className={`${screenWidth > 1279 ? "embla_industry" : "embla"}`}>
           <div
             className="embla__viewport"
             ref={screenWidth > 1279 ? emblaRef : emblaRefMob}
           >
             <div className="embla__container">
-              {SLIDES.map((index) => (
+              {sampleIndustryList.map((val, index) => (
                 <div
                   className="embla__slide"
                   key={index}
                   style={{
-                    ...(tweenValues.length && { opacity: tweenValues[index] }),
+                    ...(screenWidth > 1279
+                      ? tweenValues.length && { opacity: tweenValues[index] }
+                      : null),
                   }}
                 >
                   <div className="px-0 medium:px-12">
@@ -126,13 +138,12 @@ const IndustrySection: React.FC = () => {
                         <Image
                           alt="ex-icon-industry"
                           className="w-8 medium:w-24"
-                          src={require("@/assets/images/common/img_example_tools.png")}
+                          src={val.image}
                         />
                       </div>
-                      <div className="typo-h4">Automotive</div>
+                      <div className="typo-h4">{val.title}</div>
                       <div className="typo-copy-normal text-gray-400 text-center medium:text-start">
-                        Innovative design for beauty product storage and easy
-                        access
+                        {val.description}
                       </div>
                     </div>
                   </div>
@@ -152,13 +163,8 @@ const IndustrySection: React.FC = () => {
         <PrevButton disabled={prevBtnDisabled} onClick={onPrevButtonClick} />
         <NextButton disabled={nextBtnDisabled} onClick={onNextButtonClick} />
       </div>
-      <div className="hidden medium:flex justify-center">
-        <Button
-          className="bg-primary-950 px-6 py-3.5 w-fit text-white rounded-full mt-10"
-          size="medium"
-          type="button"
-          variant="text"
-        >
+      <div className="hidden medium:flex justify-center mt-10">
+        <Button size="medium" variant="secondary">
           <span className="">Contact Us</span>
         </Button>
       </div>

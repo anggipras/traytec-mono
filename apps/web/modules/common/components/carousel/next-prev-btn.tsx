@@ -12,23 +12,39 @@ interface UsePrevNextButtonsType {
 }
 
 export const usePrevNextButtons = (
-  emblaApi: EmblaCarouselType | undefined
+  emblaApi: EmblaCarouselType | undefined,
+  dataLength?: number,
+  optionLoop?: boolean
 ): UsePrevNextButtonsType => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
-  const [countSlider, setCountSlider] = useState(1);
+  const [countSlider, setCountSlider] = useState(0);
 
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollPrev();
-    setCountSlider(countSlider - 1);
-  }, [countSlider, emblaApi]);
+
+    if (optionLoop) {
+      setCountSlider(
+        countSlider === 0 && dataLength ? dataLength - 1 : countSlider - 1
+      );
+    } else {
+      setCountSlider(countSlider - 1);
+    }
+  }, [countSlider, dataLength, emblaApi, optionLoop]);
 
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return;
     emblaApi.scrollNext();
-    setCountSlider(countSlider + 1);
-  }, [countSlider, emblaApi]);
+
+    if (optionLoop) {
+      setCountSlider(
+        dataLength && countSlider === dataLength - 1 ? 0 : countSlider + 1
+      );
+    } else {
+      setCountSlider(countSlider + 1);
+    }
+  }, [countSlider, dataLength, emblaApi, optionLoop]);
 
   const onSelect = useCallback((emblaApiCallback: EmblaCarouselType) => {
     setPrevBtnDisabled(!emblaApiCallback.canScrollPrev());

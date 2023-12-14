@@ -1,13 +1,16 @@
-import Image from "next/image";
 import React, { useEffect } from "react";
+import { useTranslation } from "next-i18next";
+import Image from "next/image";
 
-const Hero: React.FC = () => {
+const Hero = () => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     const videoElement = document.getElementById(
       "heroHomeVideo"
     ) as HTMLVideoElement | null;
     if (videoElement) {
-      videoElement.play();
+      void videoElement.play();
     }
   }, []);
 
@@ -41,17 +44,20 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 max-w-desktop mx-auto h-full">
         <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start mx-15 h-full max-w-3xl text-white mx-auto">
           <div className="w-fit px-3.5 py-2 bg-white bg-opacity-25 rounded-md mb-4">
+<<<<<<< HEAD
+            {t("COMPONENTS.HERO.INTRO")}
+=======
             Let`s work with traytec
+>>>>>>> dev
           </div>
           <div className="typo-h1 mb-4 medium:mb-6">
-            Service provider for high quality Plastic
+            {t("COMPONENTS.HERO.TITLE")}
           </div>
           <div className="typo-copy-intro leading-6.5 mb-4 medium:mb-6">
-            Service Provider Manufacturing Trays, inserts, workpiece containers,
-            lids and more from a variety of plastics for all applications
+            {t("COMPONENTS.HERO.SUBTITLE")}
           </div>
-          <div className="buttonCustom w-fit bg-white px-6 py-3.5 text-primary-950 rounded-full">
-            Find out your needs
+          <div className="w-fit bg-white px-6 py-3.5 text-primary-950 rounded-full">
+            {t("COMPONENTS.HERO.BUTTON")}
           </div>
         </div>
       </div>

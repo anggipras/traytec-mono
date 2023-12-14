@@ -1,25 +1,43 @@
-import Image from "next/image";
 import React, { useState, useMemo } from "react";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import LayoutContainer from "@/modules/layout/components/layout-container";
+import ChevronIcon from "@/modules/common/icons/chevron";
 
-export default function NavBar() {
+interface LocaleList {
+  id: number;
+  name: string;
+  code: string;
+  createdAt: string;
+  updatedAt: string;
+  isDefault: boolean;
+}
+
+interface NavbarTemplateProps {
+  navbarvalue?: {
+    localeList?: LocaleList[];
+  };
+}
+
+const NavBarTemplate = ({ navbarvalue }: NavbarTemplateProps) => {
+  const router = useRouter();
+  const webLang: LocaleList[] = navbarvalue?.localeList || [
+    {
+      id: 0,
+      name: "",
+      code: "",
+      createdAt: "",
+      updatedAt: "",
+      isDefault: false,
+    },
+  ];
+
   const [openLang, setOpenLang] = useState(false);
   const [openMenu, setOpenMenu] = useState(-1);
-  const webLang = useMemo(
-    () => [
-      {
-        image: require("@/assets/images/common/img_example_lang.png"),
-        country: "EN",
-      },
-      {
-        image: require("@/assets/images/common/img_example_lang.png"),
-        country: "GER",
-      },
-    ],
-    []
-  );
   const navbarMenu = useMemo(
     () => [
       {
+        path: "/products",
         menuName: "Products",
         submenu: [
           "Customer frame system",
@@ -30,7 +48,8 @@ export default function NavBar() {
         ],
       },
       {
-        menuName: "Domain",
+        path: "/domains",
+        menuName: "Domains",
         submenu: [
           "Customer frame system",
           "Container inserts",
@@ -40,6 +59,7 @@ export default function NavBar() {
         ],
       },
       {
+        path: "/company",
         menuName: "Company Information",
         submenu: [
           "Customer frame system",
@@ -50,6 +70,7 @@ export default function NavBar() {
         ],
       },
       {
+        path: "/career",
         menuName: "Career Section",
         submenu: [
           "Customer frame system",
@@ -63,8 +84,9 @@ export default function NavBar() {
     []
   );
 
-  const setLangSelected = (val: string) => {
-    console.log("val", val);
+  const setLangSelected = (idx: number, flag: string) => {
+    setOpenLang(false);
+    void router.push(router.asPath, router.asPath, { locale: flag });
   };
 
   const setSubMenu = (val: string) => {
@@ -72,16 +94,58 @@ export default function NavBar() {
     setOpenMenu(-1);
   };
 
+  const localeOptions = (val: LocaleList, idx: number) => {
+    const localeCodeFlag = val.code === "en" ? "gb" : val.code;
+    const src = `/flags/1x1/${localeCodeFlag.toLowerCase()}.svg`;
+    const alt = `${localeCodeFlag}_flag`;
+
+    return (
+      <div
+        aria-hidden="true"
+        className="flex w-full justify-between items-center px-2.5 py-2 gap-1"
+        id={`menu-item-${idx}`}
+        key={val.name}
+        onClick={() => {
+          setLangSelected(idx, val.code);
+        }}
+        role="menuitem"
+      >
+        <div className="text-base hidden medium:block">
+          {localeCodeFlag.toLocaleUpperCase()}
+        </div>
+        <div className="flex">
+          <ChevronIcon />
+          <Image
+            alt={alt}
+            className="rounded-full"
+            height={24}
+            src={src}
+            width={24}
+          />
+        </div>
+      </div>
+    );
+  };
+
+  const currentFlag = useMemo(() => {
+    const localeCodeFlag =
+      router.locale === "en" ? "gb" : router.locale || "de";
+    const src = `/flags/1x1/${localeCodeFlag.toLowerCase()}.svg`;
+    const alt = `${localeCodeFlag}_flag`;
+
+    return { src, alt, localeCodeFlag };
+  }, [router.locale]);
+
   return (
     <div className="sticky top-0 z-20 bg-gray-50">
-      <div className="mx-auto max-w-desktop w-full">
-        <div className="flex justify-between items-center h-[88px] px-6 py-3.5 small:px-15 small:py-6">
+      <LayoutContainer>
+        <div className="flex justify-between items-center h-[88px] px-6 py-3.5 medium:px-15 medium:py-6">
           <Image
             alt="navbar_logo"
-            className="max-w-[121px] h-auto small:max-w-full"
+            className="max-w-[121px] h-auto medium:max-w-[183px]"
             src={require("@/assets/images/common/img_header_logo.png")}
           />
-          <div className="hidden small:flex">
+          <div className="hidden medium:flex">
             {navbarMenu.map((val, menuIdx) => {
               return (
                 <div
@@ -95,12 +159,35 @@ export default function NavBar() {
                   }}
                 >
                   <div className="flex items-center cursor-pointer text-gray-700 p-2.5">
-                    <div>{val.menuName}</div>
-                    <Image
-                      alt="navbar_menu_arrow"
-                      className="w-5 ml-1"
-                      src={require("@/assets/images/icons/ic_arrow_down.svg")}
-                    />
+                    <div
+                      aria-hidden="true"
+                      className={`${
+                        router.pathname.includes(val.path)
+                          ? "text-primary-950"
+                          : "text-gray-700"
+                      }`}
+                      onClick={() => {
+                        void router.push(val.path);
+                        setOpenMenu(-1);
+                      }}
+                    >
+                      {val.menuName}
+                    </div>
+                    <div
+                      aria-hidden="true"
+                      className="ml-1"
+                      onClick={() => {
+                        setOpenMenu(menuIdx !== -1 ? menuIdx : -1);
+                      }}
+                    >
+                      <ChevronIcon
+                        color={
+                          router.pathname.includes(val.path)
+                            ? "#730033"
+                            : "#12090D"
+                        }
+                      />
+                    </div>
                   </div>
 
                   {openMenu !== -1 && openMenu === menuIdx ? (
@@ -122,7 +209,7 @@ export default function NavBar() {
                               }}
                               role="menuitem"
                             >
-                              <div className="text-base hidden small:block">
+                              <div className="text-base hidden medium:block">
                                 {value}
                               </div>
                             </div>
@@ -136,82 +223,48 @@ export default function NavBar() {
             })}
           </div>
           <div className="flex">
-            <div className="relative inline-block">
+            <div className="relative inline-block cursor-pointer">
               <div
                 aria-hidden="true"
-                className="flex items-center px-2.5 py-2 border-solid border-custom-gray border rounded-[60px] gap-1"
-                onBlur={() => {
-                  setOpenLang(false);
-                }}
+                className="flex items-center px-2.5 py-2 border-solid border-gray-200 border rounded-[60px] gap-1"
                 onClick={() => {
-                  setOpenLang(true);
-                }}
-                onKeyUp={() => {
-                  setOpenLang(true);
-                }}
-                onMouseOut={() => {
-                  setOpenLang(false);
+                  setOpenLang(!openLang);
                 }}
               >
                 <Image
-                  alt="navbar_lang"
-                  className="w-6 rounded-[80px]"
-                  src={require("@/assets/images/common/img_example_lang.png")}
+                  alt={currentFlag.alt}
+                  className="rounded-full"
+                  height={24}
+                  src={currentFlag.src}
+                  width={24}
                 />
-                <Image
-                  alt="navbar_menu_arrow"
-                  className="w-5"
-                  src={require("@/assets/images/icons/ic_arrow_down.svg")}
-                />
-                <div className="text-base hidden small:block">GER</div>
+                <ChevronIcon />
+                <div className="text-base hidden medium:block">
+                  {currentFlag.localeCodeFlag.toLocaleUpperCase()}
+                </div>
               </div>
 
               {openLang ? (
                 <div
-                  className="absolute right-0 z-20 mt-2 w-full origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  className="absolute w-28 right-0 mt-2 z-20 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   role="menu"
                 >
-                  <div className="py-1" role="none">
-                    {webLang.map((val, idx) => {
-                      return (
-                        <div
-                          aria-hidden="true"
-                          className="flex items-center px-2.5 py-2 gap-1"
-                          id={`menu-item-${idx}`}
-                          key={val.country}
-                          onClick={() => {
-                            setLangSelected(val.country);
-                          }}
-                          role="menuitem"
-                        >
-                          <Image
-                            alt="navbar_lang"
-                            className="w-6 rounded-[80px]"
-                            src={val.image}
-                          />
-                          <Image
-                            alt="navbar_menu_arrow"
-                            className="w-5"
-                            src={require("@/assets/images/icons/ic_arrow_down.svg")}
-                          />
-                          <div className="text-base hidden small:block">
-                            {val.country}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  {webLang.map((val, idx) => {
+                    return localeOptions(val, idx);
+                  })}
                 </div>
               ) : null}
             </div>
             <Image
               alt="navbar_hmb"
-              className="w-8 ml-1 small:hidden"
+              className="w-8 ml-1 medium:hidden"
               src={require("@/assets/images/icons/ic_hamburger.svg")}
             />
           </div>
         </div>
-      </div>
+      </LayoutContainer>
     </div>
   );
-}
+};
+
+export default NavBarTemplate;
