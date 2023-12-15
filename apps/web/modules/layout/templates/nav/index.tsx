@@ -1,35 +1,34 @@
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import LayoutContainer from "@/modules/layout/components/layout-container";
 import ChevronIcon from "@/modules/common/icons/chevron";
-import Link from "next/link";
-
-interface LocaleList {
-  id: number;
-  name: string;
-  code: string;
-  createdAt: string;
-  updatedAt: string;
-  isDefault: boolean;
-}
+import type { GetLocalesQuery } from "@/generated/graphql";
 
 interface NavbarTemplateProps {
-  navbarvalue?: {
-    localeList?: LocaleList[];
-  };
+  localeList?: GetLocalesQuery;
 }
 
-const NavBarTemplate = ({ navbarvalue }: NavbarTemplateProps) => {
+interface ValueNavbar {
+  __typename: string;
+  id: string;
+  attributes: Record<string, string>;
+}
+
+const NavBarTemplate = ({
+  navbarvalue,
+}: {
+  navbarvalue?: NavbarTemplateProps;
+}) => {
   const router = useRouter();
-  const webLang: LocaleList[] = navbarvalue?.localeList || [
+  const webLang = navbarvalue?.localeList?.i18NLocales?.data || [
     {
-      id: 0,
-      name: "",
-      code: "",
-      createdAt: "",
-      updatedAt: "",
-      isDefault: false,
+      id: "",
+      attributes: {
+        __typename: "",
+        code: "",
+      },
     },
   ];
 
@@ -95,8 +94,9 @@ const NavBarTemplate = ({ navbarvalue }: NavbarTemplateProps) => {
     setOpenMenu(-1);
   };
 
-  const localeOptions = (val: LocaleList, idx: number) => {
-    const localeCodeFlag = val.code === "en" ? "gb" : val.code;
+  const localeOptions = (val: ValueNavbar, idx: number) => {
+    const localeCodeFlag =
+      val.attributes.code === "en" ? "gb" : val.attributes.code;
     const src = `/flags/1x1/${localeCodeFlag.toLowerCase()}.svg`;
     const alt = `${localeCodeFlag}_flag`;
 
@@ -105,9 +105,9 @@ const NavBarTemplate = ({ navbarvalue }: NavbarTemplateProps) => {
         aria-hidden="true"
         className="flex w-full justify-between items-center px-2.5 py-2 gap-1"
         id={`menu-item-${idx}`}
-        key={val.name}
+        key={val.id}
         onClick={() => {
-          setLangSelected(idx, val.code);
+          setLangSelected(idx, val.attributes.code);
         }}
         role="menuitem"
       >

@@ -3,6 +3,9 @@ import type { AppProps, AppContext } from "next/app";
 import { appWithTranslation } from "next-i18next";
 import App from "next/app";
 import Layout from "@/modules/layout/templates";
+import { getApolloClient } from "@/lib/with-apollo";
+import type { GetLocalesQuery } from "@/generated/graphql";
+import { GetLocalesDocument } from "@/generated/graphql";
 
 // Define an interface for components that have a getLayout property
 interface ComponentWithLayout {
@@ -17,14 +20,7 @@ type ExtendedAppProps = AppProps & {
 interface AppOwnProps {
   navigationData?: {
     navbar?: {
-      localeList?: {
-        id: number;
-        name: string;
-        code: string;
-        createdAt: string;
-        updatedAt: string;
-        isDefault: boolean;
-      }[];
+      localeList?: GetLocalesQuery;
     };
     footer?: [];
   };
@@ -46,15 +42,32 @@ const MyApp = ({
   );
 };
 
+const fetchLocalesStatic = async () => {
+  const apolloClient = getApolloClient();
+
+  const result = await apolloClient.query({
+    query: GetLocalesDocument,
+  });
+
+  if (result.errors) {
+    throw new Error(
+      `GraphQL Error: ${result.errors.map((e) => e.message).join(", ")}`
+    );
+  }
+
+  return result;
+};
+
 MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
   const ctx = await App.getInitialProps(context);
 
   try {
-    const response = await fetch("https://strapi.traytec.de/api/i18n/locales");
-    const i18next = await response.json();
+    const localesDataResult = await fetchLocalesStatic();
+    const localesData: GetLocalesQuery = localesDataResult.data;
+
     const navigationData = {
       navbar: {
-        localeList: i18next,
+        localeList: localesData,
       },
     };
 

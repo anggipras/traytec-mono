@@ -2371,12 +2371,56 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type GetLocalesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLocalesQuery = { __typename?: 'Query', i18NLocales?: { __typename?: 'I18NLocaleEntityResponseCollection', data: Array<{ __typename?: 'I18NLocaleEntity', id?: string | null, attributes?: { __typename?: 'I18NLocale', code?: string | null } | null }> } | null };
+
 export type GetPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetPageQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', id?: string | null, attributes?: { __typename?: 'Seite', titel?: string | null, slug?: string | null } | null }> } | null };
 
 
+export const GetLocalesDocument = gql`
+    query getLocales {
+  i18NLocales {
+    data {
+      id
+      attributes {
+        code
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLocalesQuery__
+ *
+ * To run a query within a React component, call `useGetLocalesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLocalesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLocalesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLocalesQuery(baseOptions?: Apollo.QueryHookOptions<GetLocalesQuery, GetLocalesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLocalesQuery, GetLocalesQueryVariables>(GetLocalesDocument, options);
+      }
+export function useGetLocalesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLocalesQuery, GetLocalesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLocalesQuery, GetLocalesQueryVariables>(GetLocalesDocument, options);
+        }
+export type GetLocalesQueryHookResult = ReturnType<typeof useGetLocalesQuery>;
+export type GetLocalesLazyQueryHookResult = ReturnType<typeof useGetLocalesLazyQuery>;
+export type GetLocalesQueryResult = Apollo.QueryResult<GetLocalesQuery, GetLocalesQueryVariables>;
 export const GetPageDocument = gql`
     query getPage {
   seiten {
