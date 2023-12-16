@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/navigation";
 import Button from "../button";
+import { Enum_Componentutilsbutton_Variante } from "@/generated/graphql";
 
 type AppCardProps = {
   createdDate: string;
@@ -69,11 +70,14 @@ const ApplicationCard = ({
             router.push(props.detailPath);
           }}
           size="medium"
-          variant="primary"
+          variant={Enum_Componentutilsbutton_Variante.Primary}
         >
           <span className="">Detail Career</span>
         </Button>
-        <Button size="medium" variant="secondary">
+        <Button
+          size="medium"
+          variant={Enum_Componentutilsbutton_Variante.Secondary}
+        >
           <span className="">Apply Now</span>
         </Button>
       </div>

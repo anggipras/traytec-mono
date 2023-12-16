@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment -- disable ban ts comment for this file only */
-/* eslint-disable @typescript-eslint/no-explicit-any -- disable no explicit any for this file only */
+/* eslint-disable @typescript-eslint/ban-ts-comment -- disable ban ts comment for this file only */ 
 /* eslint-disable react/display-name -- disable dipslay name for this file only */
 import type { IncomingMessage } from "node:http";
 import type {

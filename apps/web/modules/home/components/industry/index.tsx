@@ -11,6 +11,7 @@ import {
   usePrevNextButtons,
 } from "@/modules/common/components/carousel/next-prev-btn";
 import SectionHeader from "@/modules/common/components/section-header";
+import { Enum_Componentutilsbutton_Variante } from "@/generated/graphql";
 
 const OPTIONS: EmblaOptionsType = { loop: true };
 const OPTIONS_MOBILE: EmblaOptionsType = {
@@ -164,7 +165,10 @@ const IndustrySection: React.FC = () => {
         <NextButton disabled={nextBtnDisabled} onClick={onNextButtonClick} />
       </div>
       <div className="hidden medium:flex justify-center mt-10">
-        <Button size="medium" variant="secondary">
+        <Button
+          size="medium"
+          variant={Enum_Componentutilsbutton_Variante.Secondary}
+        >
           <span className="">Contact Us</span>
         </Button>
       </div>

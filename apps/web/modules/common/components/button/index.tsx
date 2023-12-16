@@ -1,22 +1,23 @@
 import { clsx } from "clsx";
 import React from "react";
+import { Enum_Componentutilsbutton_Variante } from "@/generated/graphql";
 
 export type ButtonProps = {
-  variant?: "primary" | "secondary";
+  variant?: Enum_Componentutilsbutton_Variante;
   size?: "small" | "medium" | "large";
   width?: "w-fit" | "w-full";
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = ({
   children,
-  variant = "primary",
+  variant = Enum_Componentutilsbutton_Variante.Primary,
   size = "medium",
   width = "w-fit",
   ...props
 }: ButtonProps) => {
   const variantClassname = clsx({
-    "btn-primary": variant === "primary",
-    "btn-secondary": variant === "secondary",
+    "btn-primary": variant === Enum_Componentutilsbutton_Variante.Primary,
+    "btn-secondary": variant === Enum_Componentutilsbutton_Variante.Secondary,
   });
 
   const sizeClassname = clsx({

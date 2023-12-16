@@ -1,8 +1,18 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
+import { clsx } from "clsx";
+import {
+  Enum_Componentutilsheading_Typ,
+  type ComponentHerosHero1,
+} from "@/generated/graphql";
+import Button from "@/modules/common/components/button";
 
-const Hero = () => {
+interface ComponentProps {
+  data: ComponentHerosHero1;
+}
+
+const Hero = ({ data }: ComponentProps) => {
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -12,7 +22,12 @@ const Hero = () => {
     if (videoElement) {
       void videoElement.play();
     }
-  }, []);
+  }, [data]);
+
+  const heroHeading = clsx({
+    "typo-h1": data.ueberschrift?.typ === Enum_Componentutilsheading_Typ.H1,
+    "typo-h2": data.ueberschrift?.heading === Enum_Componentutilsheading_Typ.H2,
+  });
 
   return (
     <div className="relative w-full h-[720px] max-h-screen overflow-hidden">
@@ -28,7 +43,10 @@ const Hero = () => {
           playsInline
           style={{ objectFit: "cover", objectPosition: "center" }}
         >
-          <source src="/videos/traytec_home.mp4" type="video/mp4" />
+          <source
+            src={data.hintergrund?.data?.attributes?.url}
+            type={`video/${data.hintergrund?.data?.attributes?.ext}`}
+          />
         </video>
       </div>
       <div className="absolute inset-0 bg-gradient-to-r from-primary-950 to-transparent" />
@@ -44,17 +62,32 @@ const Hero = () => {
       <div className="absolute inset-0 max-w-desktop mx-auto h-full">
         <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start h-full max-w-3xl text-white mx-auto">
           <div className="w-fit px-3.5 py-2 bg-white bg-opacity-25 rounded-md mb-4">
-            {t("COMPONENTS.HERO.INTRO")}
+            {t("COMPONENTS.HERO.INTRO", {
+              topLine: data.ueberschrift?.topline,
+            })}
           </div>
-          <div className="typo-h1 mb-4 medium:mb-6">
-            {t("COMPONENTS.HERO.TITLE")}
+          <div className={clsx("mb-4 medium:mb-6", heroHeading)}>
+            {t("COMPONENTS.HERO.TITLE", {
+              heroHeading: data.ueberschrift?.heading,
+            })}
           </div>
           <div className="typo-copy-intro leading-6.5 mb-4 medium:mb-6">
-            {t("COMPONENTS.HERO.SUBTITLE")}
+            {t("COMPONENTS.HERO.SUBTITLE", {
+              heroText: data.ueberschrift?.text,
+            })}
           </div>
-          <div className="w-fit bg-white px-6 py-3.5 text-primary-950 rounded-full">
-            {t("COMPONENTS.HERO.BUTTON")}
-          </div>
+          {data.button?.map((val, idx) => (
+            <Button
+              key={idx}
+              size="medium"
+              variant={val?.variante}
+              width="w-fit"
+            >
+              <span>
+                {t("COMPONENTS.HERO.BUTTON", { buttonText: val?.text })}
+              </span>
+            </Button>
+          ))}
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import LayoutContainer from "@/modules/layout/components/layout-container";
 import Button from "@/modules/common/components/button";
+import { Enum_Componentutilsbutton_Variante } from "@/generated/graphql";
 
 interface DetailPageComponentProps {
   createdDate: string;
@@ -65,7 +66,11 @@ const DetailPageComponent = ({ ...props }: DetailPageComponentProps) => {
           <div className="typo-copy-normal text-gray-400 mt-4 mb-6">
             provide your complete application documents and click apply
           </div>
-          <Button size="small" variant="secondary" width="w-full">
+          <Button
+            size="small"
+            variant={Enum_Componentutilsbutton_Variante.Secondary}
+            width="w-full"
+          >
             <span>Apply Now</span>
           </Button>
         </div>
