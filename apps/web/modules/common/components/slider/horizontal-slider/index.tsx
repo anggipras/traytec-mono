@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary -- disabled no nested ternary */
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 import useEmblaCarousel from "embla-carousel-react";
@@ -44,11 +43,13 @@ const HorizontalSlider = ({ data, type }: ComponentProps) => {
   } = usePrevNextButtons(emblaApi);
 
   const emblaMain = () => {
-    return type === "normal"
-      ? screenWidth > 1279
-        ? `embla_testimonial_desktop`
-        : `embla`
-      : "embla_services";
+    if (type === "normal") {
+      if (screenWidth > 1279) {
+        return "embla_testimonial_desktop";
+      }
+      return "embla";
+    }
+    return "embla_services";
   };
 
   return (

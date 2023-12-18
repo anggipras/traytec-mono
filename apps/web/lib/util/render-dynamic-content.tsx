@@ -3,8 +3,10 @@ import Hero from "@/modules/home/components/hero";
 import type {
   ComponentHerosHero1,
   ComponentSliderHorizontalerSlider,
+  ComponentSliderHorizontalerSliderFokus,
 } from "@/generated/graphql";
 import HorizontalSlider from "@/modules/common/components/slider/horizontal-slider";
+import FocusSlider from "@/modules/common/components/slider/focus-slider";
 
 export const renderDynamicContent = (
   contentItem: any,
@@ -23,6 +25,13 @@ export const renderDynamicContent = (
         <HorizontalSlider
           data={contentItem as ComponentSliderHorizontalerSlider}
           type={sliderSectionType}
+        />
+      );
+      break;
+    case "ComponentSliderHorizontalerSliderFokus":
+      item = (
+        <FocusSlider
+          data={contentItem as ComponentSliderHorizontalerSliderFokus}
         />
       );
       break;

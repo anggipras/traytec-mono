@@ -1,10 +1,10 @@
 import CertificateSection from "@/modules/home/components/certificates";
 import LayoutContainer from "@/modules/layout/components/layout-container";
-import IndustrySection from "@/modules/home/components/industry";
 import { renderDynamicContent } from "@/lib/util/render-dynamic-content";
 import type {
   ComponentHerosHero1,
   ComponentSliderHorizontalerSlider,
+  ComponentSliderHorizontalerSliderFokus,
 } from "@/generated/graphql";
 import {
   Enum_Componentutilsbutton_Variante,
@@ -359,12 +359,97 @@ const HomeTemplate = () => {
     },
   };
 
+  const horizontalSliderFocusItem: ComponentSliderHorizontalerSliderFokus = {
+    __typename: "ComponentSliderHorizontalerSliderFokus",
+    cards: [
+      {
+        __typename: "ComponentSliderSliderCard2",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_tools.png"),
+              },
+            },
+          ],
+        },
+        id: "1",
+        text: "Innovative design for beauty product storage and easy access",
+        ueberschrift: "Automotive",
+      },
+      {
+        __typename: "ComponentSliderSliderCard2",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_tools.png"),
+              },
+            },
+          ],
+        },
+        id: "2",
+        text: "Innovative design for beauty product storage and easy access",
+        ueberschrift: "Electronict",
+      },
+      {
+        __typename: "ComponentSliderSliderCard2",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_tools.png"),
+              },
+            },
+          ],
+        },
+        id: "3",
+        text: "Innovative design for beauty product storage and easy access",
+        ueberschrift: "Automotive",
+      },
+    ],
+    id: "1",
+    sichtbar: true,
+    ueberschrift: {
+      __typename: "ComponentUtilsHeading",
+      heading: "Choose Your Needs",
+      id: "1",
+      text: "Provider of services for making trays, inserts, workpiece containers, lids, etc. for industry according to our wishes",
+      topline: "Industry Service",
+      typ: Enum_Componentutilsheading_Typ.H1,
+    },
+  };
+
   return (
     <>
       {renderDynamicContent(contentItem, null)}
       <LayoutContainer>
         {renderDynamicContent(horizontalSliderItemProcess, "nowrap")}
-        <IndustrySection />
+        {renderDynamicContent(horizontalSliderFocusItem, null)}
         <CertificateSection />
         {renderDynamicContent(horizontalSliderItemTestimonial, "normal")}
       </LayoutContainer>
