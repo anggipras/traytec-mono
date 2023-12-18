@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "google_bewertungen",
+  "collectionName": "bewertungen",
   "info": {
-    "singularName": "google-bewertung",
-    "pluralName": "google-bewertungen",
-    "displayName": "Google Bewertungen",
+    "singularName": "bewertung",
+    "pluralName": "bewertungen",
+    "displayName": "Bewertungen",
     "description": ""
   },
   "options": {
@@ -15,16 +15,15 @@
     "name": {
       "type": "string"
     },
-    "reviewId": {
+    "external_id": {
       "type": "string"
     },
-    "reviewer": {
-      "displayName": "Google - Reviewer",
+    "person": {
       "type": "component",
-      "repeatable": false,
+      "repeatable": true,
       "component": "utils.google-reviewer"
     },
-    "starRating": {
+    "sterne_bewertung": {
       "type": "enumeration",
       "enum": [
         "STAR_RATING_UNSPECIFIED",
@@ -35,14 +34,16 @@
         "FIVE"
       ]
     },
-    "comment": {
-      "type": "text"
+    "kommentar": {
+      "type": "richtext"
     },
-    "createTime": {
-      "type": "string"
-    },
-    "updateTime": {
-      "type": "string"
+    "quelle": {
+      "type": "enumeration",
+      "enum": [
+        "GOOGLE",
+        "CUSTOM"
+      ],
+      "default": "CUSTOM"
     }
   }
 }
