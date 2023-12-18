@@ -2,11 +2,13 @@ import React from "react";
 import Hero from "@/modules/home/components/hero";
 import type {
   ComponentHerosHero1,
+  ComponentIntegrationenFormular,
   ComponentSliderHorizontalerSlider,
   ComponentSliderHorizontalerSliderFokus,
 } from "@/generated/graphql";
 import HorizontalSlider from "@/modules/common/components/slider/horizontal-slider";
 import FocusSlider from "@/modules/common/components/slider/focus-slider";
+import AskQuestion from "@/modules/layout/components/footer/ask-question";
 
 export const renderDynamicContent = (
   contentItem: any,
@@ -33,6 +35,11 @@ export const renderDynamicContent = (
         <FocusSlider
           data={contentItem as ComponentSliderHorizontalerSliderFokus}
         />
+      );
+      break;
+    case "ComponentIntegrationenFormular":
+      item = (
+        <AskQuestion data={contentItem as ComponentIntegrationenFormular} />
       );
       break;
     default:

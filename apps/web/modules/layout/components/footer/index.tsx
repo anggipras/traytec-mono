@@ -1,46 +1,65 @@
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useMemo, useState } from "react";
 import LayoutContainer from "@/modules/layout/components/layout-container";
+import { renderDynamicContent } from "@/lib/util/render-dynamic-content";
+import type { ComponentIntegrationenFormular } from "@/generated/graphql";
+import { Enum_Componentutilsheading_Typ } from "@/generated/graphql";
 
 const FooterComponent = () => {
-  const [activeFooter, setActiveFooter] = useState(-1);
-  const footerSelection = useMemo(
-    () => [
-      {
-        icon: require("@/assets/images/icons/ic_setting.png"),
-        title: "Integration",
-        desc: "Contact us for further and clearer information, about our company and others",
+  const contactFooter = [
+    {
+      image: require("@/assets/images/icons/ic_location.svg"),
+      ctn: "traytec GmbH Budapester Str. 348455 Bad Bentheim",
+    },
+    {
+      image: require("@/assets/images/icons/ic_phone.svg"),
+      ctn: "+49 (0)5924/99717-0",
+    },
+    {
+      image: require("@/assets/images/icons/ic_phone.svg"),
+      ctn: "+49 (0)5924/99717-10",
+    },
+    {
+      image: require("@/assets/images/icons/ic_email.svg"),
+      ctn: "info@traytec.de",
+    },
+  ];
+
+  const contentItem: ComponentIntegrationenFormular = {
+    __typename: "ComponentIntegrationenFormular",
+    formular: {
+      __typename: "FormularEntityResponse",
+      data: {
+        __typename: "FormularEntity",
+        attributes: {
+          __typename: "Formular",
+          Fragen: [
+            {
+              __typename: "ComponentFormTextForm",
+              frage: "Fill in your first name in the form below then continue",
+              id: "1",
+            },
+            {
+              __typename: "ComponentFormTextForm",
+              frage: "Fill in your last name in the form below then continue",
+              id: "2",
+            },
+          ],
+          ueberschrift: {
+            __typename: "ComponentUtilsHeading",
+            heading: "Contact us for more details",
+            id: "1",
+            text: "Choose according to what you want to ask then click continue and fill in your biodata and message later",
+            typ: Enum_Componentutilsheading_Typ.H1,
+          },
+        },
+        id: "1",
       },
-      {
-        icon: require("@/assets/images/icons/ic_career.png"),
-        title: "Career",
-        desc: "Contact us for more specific and clearer careers",
-      },
-    ],
-    []
-  );
-  const contactFooter = useMemo(
-    () => [
-      {
-        image: require("@/assets/images/icons/ic_location.svg"),
-        ctn: "traytec GmbH Budapester Str. 348455 Bad Bentheim",
-      },
-      {
-        image: require("@/assets/images/icons/ic_phone.svg"),
-        ctn: "+49 (0)5924/99717-0",
-      },
-      {
-        image: require("@/assets/images/icons/ic_phone.svg"),
-        ctn: "+49 (0)5924/99717-10",
-      },
-      {
-        image: require("@/assets/images/icons/ic_email.svg"),
-        ctn: "info@traytec.de",
-      },
-    ],
-    []
-  );
+    },
+    id: "1",
+    sichtbar: true,
+  };
 
   return (
     <div className="relative bg-primary-900">
@@ -60,50 +79,7 @@ const FooterComponent = () => {
       </div>
       <LayoutContainer>
         <div className="flex flex-col relative justify-center items-center w-full text-white">
-          <div className="flex flex-col items-center text-center max-w-[874px] mx-6 my-10 medium:my-15 z-10">
-            <div className="typo-h2 mb-4 medium:mb-5">
-              Contact us for more details
-            </div>
-            <div className="typo-copy-normal">
-              Choose according to what you want to ask then click continue and
-              fill in your biodata and message later
-            </div>
-            <div className="flex flex-col medium:flex-row mt-6 medium:mt-10 gap-4 medium:gap-5">
-              {footerSelection.map((val, idx) => {
-                return (
-                  <div
-                    className={`${
-                      activeFooter === idx ? "bg-primary-800" : "bg-primary-950"
-                    } medium:flex-1 cursor-pointer rounded-2xl medium:rounded-3xl px-6 py-[50px] medium:px-8 medium:py-[88px]`}
-                    key={idx}
-                    onClick={() => {
-                      setActiveFooter(idx);
-                    }}
-                    onKeyUp={() => {
-                      setActiveFooter(idx);
-                    }}
-                    role="button"
-                    tabIndex={idx}
-                  >
-                    <div className="flex justify-start items-center mb-4.5 medium:mb-6">
-                      <Image
-                        alt="footer_selection"
-                        className="w-12 mr-3"
-                        src={val.icon}
-                      />
-                      <div className="typo-h5">{val.title}</div>
-                    </div>
-                    <div className="text-start typo-copy-normal leading-6.5">
-                      {val.desc}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="buttonCustom cursor-pointer hidden medium:block bg-primary-950 px-6 py-3.5 text-white rounded-full mt-10 hover:bg-white hover:text-primary-950">
-              Continue
-            </div>
-          </div>
+          {renderDynamicContent(contentItem, null)}
           <div className="w-full">
             <hr className="text-white h-2 mx-6 medium:mx-15" />
           </div>

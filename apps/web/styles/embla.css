@@ -6,7 +6,7 @@
 
 .embla::before,
 .embla::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
@@ -25,6 +25,11 @@
   background: linear-gradient(to left, white, rgba(255, 255, 255, 0));
 }
 
+.embla_main {
+  --slide-spacing: 1rem;
+  --slide-size: 100%;
+  --slide-height: 19rem;
+}
 .embla_services {
   --slide-spacing: 1rem;
   --slide-size: 315px;
