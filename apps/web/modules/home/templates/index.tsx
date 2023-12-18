@@ -1,10 +1,11 @@
 import CertificateSection from "@/modules/home/components/certificates";
 import LayoutContainer from "@/modules/layout/components/layout-container";
-import ServicesSection from "@/modules/home/components/process";
-import TestimonialSection from "@/modules/home/components/testimonial";
 import IndustrySection from "@/modules/home/components/industry";
 import { renderDynamicContent } from "@/lib/util/render-dynamic-content";
-import type { ComponentHerosHero1 } from "@/generated/graphql";
+import type {
+  ComponentHerosHero1,
+  ComponentSliderHorizontalerSlider,
+} from "@/generated/graphql";
 import {
   Enum_Componentutilsbutton_Variante,
   Enum_Componentutilsheading_Typ,
@@ -50,14 +51,322 @@ const HomeTemplate = () => {
     },
   };
 
+  const horizontalSliderItemProcess: ComponentSliderHorizontalerSlider = {
+    __typename: "ComponentSliderHorizontalerSlider",
+    cards: [
+      {
+        __typename: "ComponentSliderSliderCard",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_book.png"),
+              },
+            },
+          ],
+        },
+        id: "1",
+        text: "Planning & control taking into account material availability and resource capacities",
+        ueberschrift: "Production Scheduling",
+      },
+      {
+        __typename: "ComponentSliderSliderCard",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_book.png"),
+              },
+            },
+          ],
+        },
+        id: "2",
+        text: "Planning & control taking into account material availability and resource capacities",
+        ueberschrift: "Production Scheduling",
+      },
+      {
+        __typename: "ComponentSliderSliderCard",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_book.png"),
+              },
+            },
+          ],
+        },
+        id: "3",
+        text: "Planning & control taking into account material availability and resource capacities",
+        ueberschrift: "Production Scheduling",
+      },
+      {
+        __typename: "ComponentSliderSliderCard",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_book.png"),
+              },
+            },
+          ],
+        },
+        id: "4",
+        text: "Planning & control taking into account material availability and resource capacities",
+        ueberschrift: "Production Scheduling",
+      },
+      {
+        __typename: "ComponentSliderSliderCard",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_book.png"),
+              },
+            },
+          ],
+        },
+        id: "5",
+        text: "Planning & control taking into account material availability and resource capacities",
+        ueberschrift: "Production Scheduling",
+      },
+      {
+        __typename: "ComponentSliderSliderCard",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_book.png"),
+              },
+            },
+          ],
+        },
+        id: "6",
+        text: "Planning & control taking into account material availability and resource capacities",
+        ueberschrift: "Production Scheduling",
+      },
+      {
+        __typename: "ComponentSliderSliderCard",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_book.png"),
+              },
+            },
+          ],
+        },
+        id: "7",
+        text: "Planning & control taking into account material availability and resource capacities",
+        ueberschrift: "Production Scheduling",
+      },
+    ],
+    id: "1",
+    sichtbar: true,
+    uberschrift: {
+      __typename: "ComponentUtilsHeading",
+      heading: "How it works",
+      id: "1",
+      text: "Service Provider Manufacturing Trays, inserts, workpiece containers, lids and more from a variety of plastics for all applications",
+      topline: "How to order proccess",
+      typ: Enum_Componentutilsheading_Typ.H1,
+    },
+  };
+
+  const horizontalSliderItemTestimonial: ComponentSliderHorizontalerSlider = {
+    __typename: "ComponentSliderHorizontalerSlider",
+    cards: [
+      {
+        __typename: "ComponentSliderSliderCard",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_avatar.png"),
+              },
+            },
+          ],
+        },
+        id: "1",
+        text: "“ I am very happy with the quality of the plastic products offered by this company. I have been using their Manufacturing Trays, inserts, workpiece containers, and lids for several months now, and they have proven to be very durable and reliable “",
+        ueberschrift: "Arlene McCoy",
+      },
+      {
+        __typename: "ComponentSliderSliderCard",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_avatar.png"),
+              },
+            },
+          ],
+        },
+        id: "2",
+        text: "“ I am very happy with the quality of the plastic products offered by this company. I have been using their Manufacturing Trays, inserts, workpiece containers, and lids for several months now, and they have proven to be very durable and reliable “",
+        ueberschrift: "Kathryn Murphy",
+      },
+      {
+        __typename: "ComponentSliderSliderCard",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_avatar.png"),
+              },
+            },
+          ],
+        },
+        id: "3",
+        text: "“ I am very happy with the quality of the plastic products offered by this company. I have been using their Manufacturing Trays, inserts, workpiece containers, and lids for several months now, and they have proven to be very durable and reliable “",
+        ueberschrift: "Bessie Cooper",
+      },
+      {
+        __typename: "ComponentSliderSliderCard",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_avatar.png"),
+              },
+            },
+          ],
+        },
+        id: "4",
+        text: "“ I am very happy with the quality of the plastic products offered by this company. I have been using their Manufacturing Trays, inserts, workpiece containers, and lids for several months now, and they have proven to be very durable and reliable “",
+        ueberschrift: "Arlene McCoy",
+      },
+      {
+        __typename: "ComponentSliderSliderCard",
+        icon: {
+          __typename: "UploadFileRelationResponseCollection",
+          data: [
+            {
+              __typename: "UploadFileEntity",
+              attributes: {
+                __typename: "UploadFile",
+                hash: "",
+                mime: "",
+                name: "",
+                provider: "",
+                size: 1,
+                url: require("@/assets/images/common/img_example_avatar.png"),
+              },
+            },
+          ],
+        },
+        id: "5",
+        text: "“ I am very happy with the quality of the plastic products offered by this company. I have been using their Manufacturing Trays, inserts, workpiece containers, and lids for several months now, and they have proven to be very durable and reliable “",
+        ueberschrift: "Bessie Cooper",
+      },
+    ],
+    id: "1",
+    sichtbar: true,
+    uberschrift: {
+      __typename: "ComponentUtilsHeading",
+      heading: "What people say about our products",
+      id: "1",
+      text: "What people say about our products",
+      topline: "Testimonial",
+      typ: Enum_Componentutilsheading_Typ.H1,
+    },
+  };
+
   return (
     <>
-      {renderDynamicContent(contentItem)}
+      {renderDynamicContent(contentItem, null)}
       <LayoutContainer>
-        <ServicesSection />
+        {renderDynamicContent(horizontalSliderItemProcess, "nowrap")}
         <IndustrySection />
         <CertificateSection />
-        <TestimonialSection />
+        {renderDynamicContent(horizontalSliderItemTestimonial, "normal")}
       </LayoutContainer>
     </>
   );

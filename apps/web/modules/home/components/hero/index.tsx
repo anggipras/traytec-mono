@@ -29,8 +29,18 @@ const Hero = ({ data }: ComponentProps) => {
     "typo-h2": data.ueberschrift?.heading === Enum_Componentutilsheading_Typ.H2,
   });
 
+  const visibleHero = clsx({
+    hidden: !data.sichtbar,
+    block: data.sichtbar,
+  });
+
   return (
-    <div className="relative w-full h-[720px] max-h-screen overflow-hidden">
+    <div
+      className={clsx(
+        "relative w-full h-[720px] max-h-screen overflow-hidden",
+        visibleHero
+      )}
+    >
       <div
         className="relative w-full overflow-hidden"
         style={{ height: "720px" }}
