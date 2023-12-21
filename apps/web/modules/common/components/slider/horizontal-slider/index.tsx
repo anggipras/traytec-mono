@@ -9,15 +9,15 @@ import {
   usePrevNextButtons,
 } from "@/modules/common/components/carousel/next-prev-btn";
 import type { ComponentSliderHorizontalerSlider } from "@/generated/graphql";
+import { serverBaseUrl } from "@/client.config";
 
 interface ComponentProps {
   data: ComponentSliderHorizontalerSlider;
-  type: "normal" | "nowrap" | null;
 }
 
 const OPTIONS: EmblaOptionsType = { align: "start" };
 
-const HorizontalSlider = ({ data, type }: ComponentProps) => {
+const HorizontalSlider = ({ data }: ComponentProps) => {
   const [screenWidth, setScreenWidth] = useState(0);
 
   useEffect(() => {
@@ -42,27 +42,9 @@ const HorizontalSlider = ({ data, type }: ComponentProps) => {
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
 
-  const emblaMain = () => {
-    if (type === "normal") {
-      if (screenWidth > 1279) {
-        return "embla_testimonial_desktop";
-      }
-      return "embla";
-    }
-    return "embla_services";
-  };
-
   return (
-    <div
-      className={`flex flex-col mx-6 my-10 medium:my-32.5 ${
-        type === "nowrap" ? "medium:ml-15 medium:mr-0" : "medium:mx-15"
-      }`}
-    >
-      <div
-        className={`flex flex-col text-center medium:text-start items-center medium:items-stretch ${
-          type === "nowrap" ? "medium:mr-15" : ""
-        }`}
-      >
+    <div className="flex flex-col mx-6 my-10 medium:my-32.5 medium:mx-15">
+      <div className="flex flex-col text-center medium:text-start items-center medium:items-stretch">
         <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
           {t("PAGES.HOME_PAGE.PROCESS.INTRO", {
             processIntro: data.uberschrift?.topline,
@@ -91,53 +73,66 @@ const HorizontalSlider = ({ data, type }: ComponentProps) => {
           </div>
         </div>
       </div>
-      <div className={`${emblaMain()} pt-6 pb-4 medium:pt-10 medium:pb-0`}>
+      <div
+        className={`${
+          screenWidth > 1279 ? "embla_testimonial_desktop" : "embla"
+        } pt-6 pb-4 medium:pt-10 medium:pb-0`}
+      >
         <div className="embla__viewport" ref={emblaRef}>
           <div className="embla__container">
-            {data.cards?.map((val, index) =>
-              type === "nowrap" ? (
-                <div className="embla__slide" key={index}>
-                  <div className="rounded-3xl border border-gray-200 p-6">
-                    <div className="typo-h1 text-gray-200">0{index + 1}</div>
-                    <div className="flex items-center mt-1 mb-6">
-                      <div className="flex p-3 mr-3 rounded-full border border-gray-200">
-                        <Image
-                          alt="ex-icon-service"
-                          className="w-6"
-                          src={val?.icon?.data[0].attributes?.url || ""}
-                        />
-                      </div>
-                      <div className="typo-h5">
-                        {t("PAGES.HOME_PAGE.PROCESS.LIST.TITLE", {
-                          listTitle: val?.ueberschrift,
-                        })}
-                      </div>
-                    </div>
-                    <div className="typo-copy-normal text-gray-400">
-                      {t("PAGES.HOME_PAGE.PROCESS.LIST.DESCRIPTION", {
-                        listDesc: val?.text,
-                      })}
-                    </div>
+            {data.cards?.map((val, index) => (
+              // type === "nowrap" ? (
+              //   <div className="embla__slide" key={index}>
+              //     <div className="rounded-3xl border border-gray-200 p-6">
+              //       <div className="typo-h1 text-gray-200">0{index + 1}</div>
+              //       <div className="flex items-center mt-1 mb-6">
+              //         <div className="flex p-3 mr-3 rounded-full border border-gray-200">
+              //           <Image
+              //             alt="ex-icon-service"
+              //             height={24}
+              //             src={
+              //               `${serverBaseUrl}${val?.icon?.data[0].attributes?.url}` ||
+              //               ""
+              //             }
+              //             width={24}
+              //           />
+              //         </div>
+              //         <div className="typo-h5">
+              //           {t("PAGES.HOME_PAGE.PROCESS.LIST.TITLE", {
+              //             listTitle: val?.ueberschrift,
+              //           })}
+              //         </div>
+              //       </div>
+              //       <div className="typo-copy-normal text-gray-400">
+              //         {t("PAGES.HOME_PAGE.PROCESS.LIST.DESCRIPTION", {
+              //           listDesc: val?.text,
+              //         })}
+              //       </div>
+              //     </div>
+              //   </div>
+              // ) :
+              <div className="embla__slide" key={index}>
+                <div className="flex flex-col h-full justify-between rounded-3xl border border-gray-200 px-6 py-12">
+                  <div className="typo-copy-normal text-gray-400">
+                    {val?.text}
                   </div>
-                </div>
-              ) : (
-                <div className="embla__slide" key={index}>
-                  <div className="rounded-3xl border border-gray-200 px-6 py-12">
-                    <div className="typo-copy-normal text-gray-400">
-                      {val?.text}
-                    </div>
-                    <div className="flex items-center mt-6">
+                  <div className="flex items-center mt-6">
+                    <div className="flex p-3 mr-3 rounded-full border border-gray-200">
                       <Image
-                        alt="ex-icon-service"
-                        className="w-12 rounded-full mr-3"
-                        src={val?.icon?.data[0].attributes?.url || ""}
+                        alt="icon-horizontal"
+                        height={48}
+                        src={
+                          `${serverBaseUrl}${val?.icon?.data[0].attributes?.url}` ||
+                          ""
+                        }
+                        width={48}
                       />
-                      <div className="typo-h4">{val?.ueberschrift}</div>
                     </div>
+                    <div className="typo-h4">{val?.ueberschrift}</div>
                   </div>
                 </div>
-              )
-            )}
+              </div>
+            ))}
           </div>
         </div>
       </div>

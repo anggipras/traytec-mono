@@ -1,9 +1,14 @@
 import React from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import CompanyTemplate from "@/modules/company/templates";
+// import CompanyTemplate from "@/modules/company/templates";
 
 const Company = () => {
-  return <CompanyTemplate />;
+  return (
+    <div>
+      test
+      {/* <CompanyTemplate /> */}
+    </div>
+  );
 };
 
 export async function getStaticProps({ locale }) {

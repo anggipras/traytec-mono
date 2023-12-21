@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import Image from "next/image";
 import React from "react";
+import { serverBaseUrl } from "@/client.config";
 
 type CardProps = {
   image?: string;
@@ -27,7 +28,14 @@ const Card: React.FC<CardProps> = ({
     >
       {props.image ? (
         <div className={props.imgclass}>
-          <Image alt="card-img" className={props.imgstyle} src={props.image} />
+          <Image
+            alt="card-img"
+            className={props.imgstyle}
+            height="0"
+            sizes="100%"
+            src={`${serverBaseUrl}${props.image}`}
+            width="0"
+          />
         </div>
       ) : null}
       <div className={clsx("flex flex-col", textposition)}>

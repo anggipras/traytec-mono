@@ -3,9 +3,9 @@ import { useTranslation } from "next-i18next";
 import type { Maybe } from "graphql/jsutils/Maybe";
 
 interface SectionHeaderProps {
-  intro: Maybe<string>;
+  intro?: Maybe<string>;
   title: Maybe<string>;
-  desc: Maybe<string>;
+  desc?: Maybe<string>;
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = (props) => {

@@ -79,7 +79,7 @@ const FooterComponent = () => {
       </div>
       <LayoutContainer>
         <div className="flex flex-col relative justify-center items-center w-full text-white">
-          {renderDynamicContent(contentItem, null)}
+          {renderDynamicContent(contentItem)}
           <div className="w-full">
             <hr className="text-white h-2 mx-6 medium:mx-15" />
           </div>

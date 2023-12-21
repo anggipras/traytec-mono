@@ -1,11 +1,96 @@
-query getPage {
-  seiten {
+query getPage($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
+  seiten(filters: $filters, locale: $locale) {
     data {
       attributes {
-        titel
-        slug
+        seo {
+          meta_description
+          meta_title
+        }
+        inhalte {
+          ... on ComponentHerosHero1 {
+            ueberschrift {
+              heading
+              text
+              typ
+              topline
+            }
+            hintergrund {
+              data {
+                attributes {
+                  url
+                  ext
+                }
+              }
+            }
+            sichtbar
+          }
+          ... on ComponentListenGridListe {
+            ueberschrift {
+              heading
+              text
+              typ
+            }
+            inhalt {
+              text
+              titel
+              bild {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
+          }
+          ... on ComponentSliderHorizontalerSlider {
+            uberschrift {
+              topline
+              text
+              heading
+              typ
+            }
+            sichtbar
+            cards {
+              icon {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+              icon_text
+              text
+              ueberschrift
+            }
+          }
+          ... on ComponentSliderHorizontalerSliderFokus {
+            cards {
+              icon {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+              text
+              ueberschrift
+            }
+            sichtbar
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            button {
+              text
+              url
+              variante
+              id
+            }
+          }
+        }
       }
-      id
     }
   }
 }

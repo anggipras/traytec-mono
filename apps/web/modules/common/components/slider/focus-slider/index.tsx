@@ -12,6 +12,7 @@ import {
 } from "@/modules/common/components/carousel/next-prev-btn";
 import SectionHeader from "@/modules/common/components/section-header";
 import type { ComponentSliderHorizontalerSliderFokus } from "@/generated/graphql";
+import { serverBaseUrl } from "@/client.config";
 
 interface ComponentProps {
   data: ComponentSliderHorizontalerSliderFokus;
@@ -125,7 +126,13 @@ const FocusSlider = ({ data }: ComponentProps) => {
                         <Image
                           alt="ex-icon-industry"
                           className="w-8 medium:w-24"
-                          src={val?.icon?.data[0].attributes?.url || ""}
+                          height="0"
+                          sizes="100%"
+                          src={
+                            `${serverBaseUrl}${val?.icon?.data[0].attributes?.url}` ||
+                            ""
+                          }
+                          width="0"
                         />
                       </div>
                       <div className="typo-h4">{val?.ueberschrift}</div>

@@ -3,17 +3,17 @@ import Hero from "@/modules/home/components/hero";
 import type {
   ComponentHerosHero1,
   ComponentIntegrationenFormular,
+  ComponentListenGridListe,
   ComponentSliderHorizontalerSlider,
   ComponentSliderHorizontalerSliderFokus,
 } from "@/generated/graphql";
 import HorizontalSlider from "@/modules/common/components/slider/horizontal-slider";
 import FocusSlider from "@/modules/common/components/slider/focus-slider";
 import AskQuestion from "@/modules/layout/components/footer/ask-question";
+import LayoutContainer from "@/modules/layout/components/layout-container";
+import GridList from "@/modules/common/components/grid-list";
 
-export const renderDynamicContent = (
-  contentItem: any,
-  sliderSectionType: "normal" | "nowrap" | null
-) => {
+export const renderDynamicContent = (contentItem: any) => {
   const { __typename } = contentItem || {};
 
   let item: React.ReactNode;
@@ -24,17 +24,27 @@ export const renderDynamicContent = (
       break;
     case "ComponentSliderHorizontalerSlider":
       item = (
-        <HorizontalSlider
-          data={contentItem as ComponentSliderHorizontalerSlider}
-          type={sliderSectionType}
-        />
+        <LayoutContainer>
+          <HorizontalSlider
+            data={contentItem as ComponentSliderHorizontalerSlider}
+          />
+        </LayoutContainer>
       );
       break;
     case "ComponentSliderHorizontalerSliderFokus":
       item = (
-        <FocusSlider
-          data={contentItem as ComponentSliderHorizontalerSliderFokus}
-        />
+        <LayoutContainer>
+          <FocusSlider
+            data={contentItem as ComponentSliderHorizontalerSliderFokus}
+          />
+        </LayoutContainer>
+      );
+      break;
+    case "ComponentListenGridListe":
+      item = (
+        <LayoutContainer>
+          <GridList data={contentItem as ComponentListenGridListe} />
+        </LayoutContainer>
       );
       break;
     case "ComponentIntegrationenFormular":
