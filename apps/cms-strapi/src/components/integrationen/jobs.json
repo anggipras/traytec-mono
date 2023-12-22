@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_integrationen_jobs",
+  "info": {
+    "displayName": "Jobs",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "alle_anzeigen": {
+      "type": "boolean",
+      "default": true
+    },
+    "jobs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::job.job"
+    },
+    "STYLE": {
+      "type": "enumeration",
+      "enum": [
+        "VOLLE_BREITE",
+        "GRID"
+      ],
+      "default": "VOLLE_BREITE",
+      "required": true
+    }
+  }
+}

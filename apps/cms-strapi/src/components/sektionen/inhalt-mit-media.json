@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_sektionen_inhalt_mit_medias",
+  "info": {
+    "displayName": "Inhalt mit Media"
+  },
+  "options": {},
+  "attributes": {
+    "ueberschrift": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utils.heading"
+    },
+    "media": {
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "MEDIA_POSITION": {
+      "type": "enumeration",
+      "enum": [
+        "LINKS",
+        "RECHTS"
+      ],
+      "default": "RECHTS",
+      "required": true
+    }
+  }
+}

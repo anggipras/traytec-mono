@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_listen_industrie_listes",
+  "info": {
+    "displayName": "Industrie Liste"
+  },
+  "options": {},
+  "attributes": {
+    "industrien": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::industrie.industrie"
+    }
+  }
+}

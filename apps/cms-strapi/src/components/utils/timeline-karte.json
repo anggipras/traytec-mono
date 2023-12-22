@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_utils_timeline_kartes",
+  "info": {
+    "displayName": "Timeline Karte"
+  },
+  "options": {},
+  "attributes": {
+    "media": {
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "zeitpunkt": {
+      "type": "date",
+      "required": true
+    },
+    "titel": {
+      "type": "string",
+      "required": true
+    },
+    "beschreibung": {
+      "type": "richtext"
+    }
+  }
+}

@@ -56,7 +56,13 @@
         "slider.horizontaler-slider",
         "slider.horizontaler-slider-fokus",
         "integrationen.formular",
-        "listen.grid-liste"
+        "listen.grid-liste",
+        "headings.heading-minimalistisch",
+        "headings.heading-mit-video",
+        "listen.timeline-liste",
+        "sektionen.inhalt-mit-media",
+        "listen.industrie-liste",
+        "integrationen.jobs"
       ]
     }
   }
