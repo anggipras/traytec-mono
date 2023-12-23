@@ -40,7 +40,6 @@ const CompanyTeam = () => {
               additionalclass="flex-col"
               image={val.team_image}
               imgclass="px-0 mb-4"
-              imgstyle="max-w-full"
               key={idx}
               subcontent={val.team_role}
               title={val.team_name}

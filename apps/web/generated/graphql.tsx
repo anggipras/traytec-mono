@@ -2572,7 +2572,7 @@ export type GetPageQueryVariables = Exact<{
 }>;
 
 
-export type GetPageQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', seo?: { __typename?: 'ComponentSharedSeo', meta_description: string, meta_title: string } | null, inhalte?: Array<{ __typename?: 'ComponentHerosHero1', sichtbar: boolean, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, typ: Enum_Componentutilsheading_Typ, topline?: string | null } | null, hintergrund?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, ext?: string | null } | null } | null } | null } | { __typename?: 'ComponentIntegrationenFormular' } | { __typename?: 'ComponentListenGridListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, typ: Enum_Componentutilsheading_Typ } | null, inhalt?: Array<{ __typename?: 'ComponentUtilsGridElement', text?: string | null, titel?: string | null, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null> | null } | { __typename?: 'ComponentSliderHorizontalerSlider', sichtbar: boolean, uberschrift?: { __typename?: 'ComponentUtilsHeading', topline?: string | null, text?: string | null, heading?: string | null, typ: Enum_Componentutilsheading_Typ } | null, cards?: Array<{ __typename?: 'ComponentSliderSliderCard', icon_text?: string | null, text?: string | null, ueberschrift?: string | null, icon?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null }> } | null } | null> | null } | { __typename?: 'ComponentSliderHorizontalerSliderFokus', sichtbar: boolean, cards?: Array<{ __typename?: 'ComponentSliderSliderCard2', text?: string | null, ueberschrift?: string | null, icon?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null }> } | null } | null> | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, button?: { __typename?: 'ComponentUtilsButton', text: string, url: string, variante: Enum_Componentutilsbutton_Variante, id: string } | null } | { __typename?: 'Error' } | null> | null } | null }> } | null };
+export type GetPageQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', seo?: { __typename?: 'ComponentSharedSeo', meta_description: string, meta_title: string } | null, inhalte?: Array<{ __typename?: 'ComponentHerosHero1', sichtbar: boolean, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, typ: Enum_Componentutilsheading_Typ, topline?: string | null } | null, hintergrund?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, ext?: string | null } | null } | null } | null } | { __typename?: 'ComponentIntegrationenFormular' } | { __typename?: 'ComponentListenGridListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, typ: Enum_Componentutilsheading_Typ, topline?: string | null } | null, inhalt?: Array<{ __typename?: 'ComponentUtilsGridElement', text?: string | null, titel?: string | null, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null> | null } | { __typename?: 'ComponentSliderHorizontalerSlider', sichtbar: boolean, uberschrift?: { __typename?: 'ComponentUtilsHeading', topline?: string | null, text?: string | null, heading?: string | null, typ: Enum_Componentutilsheading_Typ } | null, cards?: Array<{ __typename?: 'ComponentSliderSliderCard', icon_text?: string | null, text?: string | null, ueberschrift?: string | null, icon?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, width?: number | null, height?: number | null } | null }> } | null } | null> | null } | { __typename?: 'ComponentSliderHorizontalerSliderFokus', sichtbar: boolean, cards?: Array<{ __typename?: 'ComponentSliderSliderCard2', text?: string | null, ueberschrift?: string | null, icon?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, width?: number | null, height?: number | null } | null }> } | null } | null> | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, button?: { __typename?: 'ComponentUtilsButton', text: string, url: string, variante: Enum_Componentutilsbutton_Variante, id: string } | null } | { __typename?: 'Error', code: string, message?: string | null } | null> | null } | null }> } | null };
 
 
 export const GetLocalesDocument = gql`
@@ -2646,6 +2646,7 @@ export const GetPageDocument = gql`
               heading
               text
               typ
+              topline
             }
             inhalt {
               text
@@ -2672,6 +2673,8 @@ export const GetPageDocument = gql`
                 data {
                   attributes {
                     url
+                    width
+                    height
                   }
                 }
               }
@@ -2686,6 +2689,8 @@ export const GetPageDocument = gql`
                 data {
                   attributes {
                     url
+                    width
+                    height
                   }
                 }
               }
@@ -2705,6 +2710,10 @@ export const GetPageDocument = gql`
               variante
               id
             }
+          }
+          ... on Error {
+            code
+            message
           }
         }
       }

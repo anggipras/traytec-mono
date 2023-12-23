@@ -43,7 +43,7 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
   } = usePrevNextButtons(emblaApi);
 
   return (
-    <div className="flex flex-col mx-6 my-10 medium:my-32.5 medium:mx-15">
+    <div className="flex flex-col mx-6 medium:mx-15">
       <div className="flex flex-col text-center medium:text-start items-center medium:items-stretch">
         <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
           {t("PAGES.HOME_PAGE.PROCESS.INTRO", {

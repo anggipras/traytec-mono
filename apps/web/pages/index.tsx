@@ -50,10 +50,6 @@ const HomePage = ({ singlePageData }) => {
   );
 };
 
-// Page.getLayout = function PageLayout(page: ReactHTML) {
-//   return <>{page}</>;
-// };
-
 export const getStaticProps: GetStaticProps = async (context) => {
   const initialLocale = context.locale ?? "de";
   const namespaces = ["common"];

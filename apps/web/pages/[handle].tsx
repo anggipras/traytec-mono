@@ -1,6 +1,7 @@
 import React from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { notFound } from "next/navigation";
 import Head from "@/modules/common/components/head";
 import { getApolloClient } from "@/lib/with-apollo";
 import type { ComponentSharedSeo, GetPageQuery } from "@/generated/graphql";
@@ -25,7 +26,6 @@ const fetchSinglePage = (handle: string, locale: string) => {
 
 const SinglePage = ({ singlePageData }) => {
   const singlePage: GetPageQuery = singlePageData?.data;
-
   const seo = useSeo(
     singlePage.seiten?.data[0]?.attributes?.seo as ComponentSharedSeo
   );
@@ -35,17 +35,9 @@ const SinglePage = ({ singlePageData }) => {
 
   return (
     <>
-      {singlePage.seiten ? (
-        <>
-          <Head
-            description={seo.description}
-            image={seo.image}
-            title={seo.title}
-          />
-          {contentData && contentData.length > 0 ? (
-            <SinglePageTemplate data={singlePage} />
-          ) : null}
-        </>
+      <Head description={seo.description} image={seo.image} title={seo.title} />
+      {contentData && contentData.length > 0 ? (
+        <SinglePageTemplate data={singlePage} />
       ) : null}
     </>
   );
@@ -80,6 +72,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const handle = context.params?.handle as string;
 
   const singlePage = await fetchSinglePage(handle, locale ?? "de");
+  const singlePageData: GetPageQuery = singlePage?.data;
+
+  if (singlePageData.seiten?.data && singlePageData.seiten?.data.length === 0) {
+    notFound()
+  }
 
   return {
     props: {

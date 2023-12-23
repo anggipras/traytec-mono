@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import LayoutContainer from "@/modules/layout/components/layout-container";
 import { renderDynamicContent } from "@/lib/util/render-dynamic-content";
 import type { ComponentIntegrationenFormular } from "@/generated/graphql";
 import { Enum_Componentutilsheading_Typ } from "@/generated/graphql";
@@ -77,7 +76,7 @@ const FooterComponent = () => {
           src={require("@/assets/images/common/img_bg_footer_right.svg")}
         />
       </div>
-      <LayoutContainer>
+      <div className="mx-auto max-w-desktop w-full">
         <div className="flex flex-col relative justify-center items-center w-full text-white">
           {renderDynamicContent(contentItem)}
           <div className="w-full">
@@ -167,7 +166,7 @@ const FooterComponent = () => {
             </div>
           </div>
         </div>
-      </LayoutContainer>
+      </div>
     </div>
   );
 };

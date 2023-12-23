@@ -95,7 +95,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
   }, []);
 
   return (
-    <div className="flex flex-col my-10 medium:my-32.5">
+    <div className="flex flex-col">
       {data.ueberschrift ? (
         <SectionHeader
           desc={data.ueberschrift?.text}
@@ -103,7 +103,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
           title={data.ueberschrift?.heading}
         />
       ) : null}
-      <div className="relative mx-6 medium:mx-0 mt-10">
+      <div className="relative mx-6 medium:mx-0 mt-5 medium:mt-10">
         <div className={`${screenWidth > 1279 ? "embla_industry" : "embla"}`}>
           <div
             className="embla__viewport"

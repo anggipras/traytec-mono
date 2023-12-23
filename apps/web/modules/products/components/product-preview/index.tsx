@@ -177,7 +177,7 @@ const ProductPreview: React.FC = () => {
           <NextButton disabled={nextBtnDisabled} onClick={onNextButtonClick} />
         </div>
       </div>
-      <div className="mx-6 my-10 medium:mx-15 medium:my-32.5">
+      <div className="mx-6 medium:mx-15">
         <div className="grid grid-cols-2 medium:grid-cols-4 gap-5 medium:gap-y-8 medium:mt-10">
           {productData.map((val, idx) => {
             return (

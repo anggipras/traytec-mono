@@ -29,6 +29,7 @@ query getPage($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
               heading
               text
               typ
+              topline
             }
             inhalt {
               text
@@ -55,6 +56,8 @@ query getPage($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
                 data {
                   attributes {
                     url
+                    width
+                    height
                   }
                 }
               }
@@ -69,6 +72,8 @@ query getPage($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
                 data {
                   attributes {
                     url
+                    width
+                    height
                   }
                 }
               }
@@ -88,6 +93,10 @@ query getPage($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
               variante
               id
             }
+          }
+          ... on Error {
+            code
+            message
           }
         }
       }

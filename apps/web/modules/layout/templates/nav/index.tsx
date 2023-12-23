@@ -2,7 +2,6 @@ import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import LayoutContainer from "@/modules/layout/components/layout-container";
 import ChevronIcon from "@/modules/common/icons/chevron";
 import type { GetLocalesQuery } from "@/generated/graphql";
 
@@ -139,7 +138,7 @@ const NavBarTemplate = ({
 
   return (
     <div className="sticky top-0 z-20 bg-gray-50">
-      <LayoutContainer>
+      <div className="mx-auto max-w-desktop w-full">
         <div className="flex justify-between items-center h-[88px] px-6 py-3.5 medium:px-15 medium:py-6">
           <Link href="/">
             <Image
@@ -265,7 +264,7 @@ const NavBarTemplate = ({
             />
           </div>
         </div>
-      </LayoutContainer>
+      </div>
     </div>
   );
 };

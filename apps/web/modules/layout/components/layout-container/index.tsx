@@ -13,7 +13,7 @@ const LayoutContainer: React.FC<Props> = ({
   return (
     <div
       className={clsx(
-        "mx-auto max-w-desktop px-md medium:px-0 w-full",
+        "mx-auto max-w-desktop py-10 medium:py-15 medium:px-0 w-full",
         className
       )}
       {...props}
