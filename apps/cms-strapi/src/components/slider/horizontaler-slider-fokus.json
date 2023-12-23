@@ -26,6 +26,14 @@
       "type": "boolean",
       "default": true,
       "required": true
+    },
+    "background_anzeigen": {
+      "type": "boolean",
+      "default": true
+    },
+    "karten_ausserhalb_anzeigen": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

@@ -1,21 +1,26 @@
 {
   "collectionName": "components_slider_slider_card_2s",
   "info": {
-    "displayName": "Slider - Card 2"
+    "displayName": "Slider - Card 2",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "icon": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "ueberschrift": {
       "type": "string"
     },
     "text": {
+      "type": "richtext"
+    },
+    "vorteile": {
       "type": "richtext"
     }
   }

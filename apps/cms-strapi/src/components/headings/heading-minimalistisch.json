@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_headings_heading_minimalistisches",
+  "info": {
+    "displayName": "Heading | Minimalistisch",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "titel": {
+      "type": "string",
+      "required": true
+    },
+    "beschreibung": {
+      "type": "richtext"
+    },
+    "ausrichtung": {
+      "type": "enumeration",
+      "enum": [
+        "LINKS",
+        "ZENTRIERT"
+      ],
+      "default": "LINKS"
+    },
+    "dekoration_anzeigen": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

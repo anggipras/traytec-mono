@@ -70,6 +70,14 @@
       ],
       "default": "VOLLZEIT",
       "required": true
+    },
+    "auszug": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "richtext"
     }
   }
 }

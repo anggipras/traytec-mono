@@ -49,6 +49,14 @@
         }
       },
       "component": "shared.seo"
+    },
+    "beschreibung": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "richtext"
     }
   }
 }

@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_headings_heading_mit_videos",
+  "info": {
+    "displayName": "Heading | Mit Video",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "ueberschrift": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utils.heading"
+    },
+    "media": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "videos"
+      ]
+    }
+  }
+}

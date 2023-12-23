@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_integrationen_bewertungens",
+  "info": {
+    "displayName": "Bewertungen",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "alle_anzeigen": {
+      "type": "boolean",
+      "default": true
+    },
+    "bewertungen": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bewertung.bewertung"
+    },
+    "ueberschrift": {
+      "type": "component",
+      "repeatable": false,
+      "component": "utils.heading"
+    }
+  }
+}
