@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import ChevronIcon from "@/modules/common/icons/chevron";
 import type { GetLocalesQuery } from "@/generated/graphql";
+import Accordion from "@/modules/common/components/accordion";
 
 interface NavbarTemplateProps {
   localeList?: GetLocalesQuery;
@@ -33,55 +34,53 @@ const NavBarTemplate = ({
 
   const [openLang, setOpenLang] = useState(false);
   const [openMenu, setOpenMenu] = useState(-1);
-  const navbarMenu = useMemo(
-    () => [
-      {
-        path: "/products",
-        menuName: "Products",
-        submenu: [
-          "Customer frame system",
-          "Container inserts",
-          "Stackable",
-          "Rotating stackable",
-          "Inserts for various types of packaging",
-        ],
-      },
-      {
-        path: "/domains",
-        menuName: "Domains",
-        submenu: [
-          "Customer frame system",
-          "Container inserts",
-          "Stackable",
-          "Rotating stackable",
-          "Inserts for various types of packaging",
-        ],
-      },
-      {
-        path: "/company",
-        menuName: "Company Information",
-        submenu: [
-          "Customer frame system",
-          "Container inserts",
-          "Stackable",
-          "Rotating stackable",
-          "Inserts for various types of packaging",
-        ],
-      },
-      {
-        path: "/career",
-        menuName: "Career Section",
-        submenu: [
-          "Customer frame system",
-          "Container inserts",
-          "Stackable",
-          "Rotating stackable",
-          "Inserts for various types of packaging",
-        ],
-      },
-    ],
-    []
-  );
+  const [openMobileNavbar, setOpenMobileNavbar] = useState(false);
+  const navbarMenu = [
+    {
+      path: "/products",
+      menuName: "Products",
+      submenu: [
+        "Customer frame system",
+        "Container inserts",
+        "Stackable",
+        "Rotating stackable",
+        "Inserts for various types of packaging",
+      ],
+    },
+    {
+      path: "/domains",
+      menuName: "Domains",
+      submenu: [
+        "Customer frame system",
+        "Container inserts",
+        "Stackable",
+        "Rotating stackable",
+        "Inserts for various types of packaging",
+      ],
+    },
+    {
+      path: "/company",
+      menuName: "Company Information",
+      submenu: [
+        "Customer frame system",
+        "Container inserts",
+        "Stackable",
+        "Rotating stackable",
+        "Inserts for various types of packaging",
+      ],
+    },
+    {
+      path: "/career",
+      menuName: "Career Section",
+      submenu: [
+        "Customer frame system",
+        "Container inserts",
+        "Stackable",
+        "Rotating stackable",
+        "Inserts for various types of packaging",
+      ],
+    },
+  ];
 
   const setLangSelected = (idx: number, flag: string) => {
     setOpenLang(false);
@@ -114,7 +113,7 @@ const NavBarTemplate = ({
           {localeCodeFlag.toLocaleUpperCase()}
         </div>
         <div className="flex">
-          <ChevronIcon />
+          <ChevronIcon direction="down" />
           <Image
             alt={alt}
             className="rounded-full"
@@ -224,7 +223,7 @@ const NavBarTemplate = ({
               );
             })}
           </div>
-          <div className="flex">
+          <div className="flex items-center">
             <div className="relative inline-block cursor-pointer">
               <div
                 aria-hidden="true"
@@ -240,7 +239,7 @@ const NavBarTemplate = ({
                   src={currentFlag.src}
                   width={24}
                 />
-                <ChevronIcon />
+                <ChevronIcon direction="down" />
                 <div className="text-base hidden medium:block">
                   {currentFlag.localeCodeFlag.toLocaleUpperCase()}
                 </div>
@@ -257,14 +256,30 @@ const NavBarTemplate = ({
                 </div>
               ) : null}
             </div>
-            <Image
-              alt="navbar_hmb"
-              className="w-8 ml-1 medium:hidden"
-              src={require("@/assets/images/icons/ic_hamburger.svg")}
-            />
+            <div
+              aria-hidden="true"
+              onClick={() => {
+                setOpenMobileNavbar(!openMobileNavbar);
+              }}
+            >
+              <Image
+                alt="navbar_hmb"
+                className="w-8 ml-1 medium:hidden"
+                src={
+                  openMobileNavbar
+                    ? require("@/assets/images/icons/ic_close.svg")
+                    : require("@/assets/images/icons/ic_hamburger.svg")
+                }
+              />
+            </div>
           </div>
         </div>
       </div>
+      {openMobileNavbar ? (
+        <div className="absolute w-screen h-screen bg-gray-50 z-20 pt-3.5 px-6 overflow-y-scroll">
+          <Accordion data={navbarMenu} />
+        </div>
+      ) : null}
     </div>
   );
 };
