@@ -37,7 +37,9 @@ const SinglePage = ({ singlePageData }) => {
     <>
       <Head description={seo.description} image={seo.image} title={seo.title} />
       {contentData && contentData.length > 0 ? (
-        <SinglePageTemplate data={singlePage} />
+        <div className="medium:pb-32.5">
+          <SinglePageTemplate data={singlePage} />
+        </div>
       ) : null}
     </>
   );
@@ -75,7 +77,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const singlePageData: GetPageQuery = singlePage?.data;
 
   if (singlePageData.seiten?.data && singlePageData.seiten?.data.length === 0) {
-    notFound()
+    notFound();
   }
 
   return {

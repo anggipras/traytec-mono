@@ -10,7 +10,7 @@ interface ComponentProps {
 
 const GridList = ({ data }: ComponentProps) => {
   return (
-    <div className="flex flex-col items-center mx-6 medium:mx-15">
+    <div className="flex flex-col items-center mx-6 medium:mx-15 py-10 medium:pb-0 medium:pt-32.5">
       <SectionHeader
         desc={data.ueberschrift?.text}
         intro={data.ueberschrift?.topline}

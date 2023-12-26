@@ -42,7 +42,9 @@ const HomePage = ({ singlePageData }) => {
             title={seo.title}
           />
           {contentData && contentData.length > 0 ? (
-            <SinglePageTemplate data={singlePage} />
+            <div className="medium:pb-32.5">
+              <SinglePageTemplate data={singlePage} />
+            </div>
           ) : null}
         </>
       ) : null}

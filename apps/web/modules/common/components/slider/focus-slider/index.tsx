@@ -95,7 +95,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col py-10 medium:pb-0 medium:pt-32.5">
       {data.ueberschrift ? (
         <SectionHeader
           desc={data.ueberschrift?.text}

@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import EducationList from "../components/education/education-list";
-import SubHeader from "@/modules/common/components/sub-header";
+// import SubHeader from "@/modules/common/components/sub-header";
 import LayoutContainer from "@/modules/layout/components/layout-container";
 import SectionHeader from "@/modules/common/components/section-header";
-import DescriptionHeading from "@/modules/common/section/description-heading";
+// import DescriptionHeading from "@/modules/common/components/section-media-content";
 import Card from "@/modules/common/components/card";
 
 const EducationTemplate = () => {
@@ -83,16 +83,16 @@ const EducationTemplate = () => {
     []
   );
 
-  const educationDesc = {
-    title: "Description",
-    description:
-      "<p>After a training period, you will be responsible for implementing the company's objectives and processes during your shift.</p>  <p>Tasks:</p>  <ul>    <li>You work in 3 shifts, around 12 employees on the shift trust your judgment</li>    <li>You report directly to the operations manager</li>    <li>You are experienced in working with production machines or want to become one</li>    <li>You work in accordance with the specifications of our quality management system</li>    <li>You are aware of your responsibility for occupational safety measures</li>  </ul>  <p>We offer:</p>  <p>A secure job with a salary that matches the tasks.</p>",
-    image: require("@/assets/images/common/img_example_company_desc.png"),
-  };
+  // const educationDesc = {
+  //   title: "Description",
+  //   description:
+  //     "<p>After a training period, you will be responsible for implementing the company's objectives and processes during your shift.</p>  <p>Tasks:</p>  <ul>    <li>You work in 3 shifts, around 12 employees on the shift trust your judgment</li>    <li>You report directly to the operations manager</li>    <li>You are experienced in working with production machines or want to become one</li>    <li>You work in accordance with the specifications of our quality management system</li>    <li>You are aware of your responsibility for occupational safety measures</li>  </ul>  <p>We offer:</p>  <p>A secure job with a salary that matches the tasks.</p>",
+  //   image: require("@/assets/images/common/img_example_company_desc.png"),
+  // };
 
   return (
     <>
-      <SubHeader title="Education programs" />
+      {/* <SubHeader title="Education programs" /> */}
       <LayoutContainer>
         <div className="my-10 mx-6 medium:mt-20 medium:mx-15 medium:mb-32.5">
           <div className="mb-10">
@@ -101,12 +101,12 @@ const EducationTemplate = () => {
               title="Description for internship at our company"
             />
           </div>
-          <DescriptionHeading
+          {/* <DescriptionHeading
             description={educationDesc.description}
             image={educationDesc.image}
             title={educationDesc.title}
             titleclass="typo-h4"
-          />
+          /> */}
           <div className="my-20 medium:my-32.5">
             <SectionHeader
               desc="Provider of services for making trays, inserts, workpiece containers, lids, etc. for industry according to our wishes"
