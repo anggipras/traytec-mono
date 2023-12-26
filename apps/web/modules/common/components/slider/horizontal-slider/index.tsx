@@ -118,15 +118,17 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
                   </div>
                   <div className="flex items-center mt-6">
                     <div className="flex p-3 mr-3 rounded-full border border-gray-200">
-                      <Image
-                        alt="icon-horizontal"
-                        height={48}
-                        src={
-                          `${serverBaseUrl}${val?.icon?.data[0].attributes?.url}` ||
-                          ""
-                        }
-                        width={48}
-                      />
+                      {val?.icon?.data?.attributes?.url ? (
+                        <Image
+                          alt="icon-horizontal"
+                          height={48}
+                          src={
+                            `${serverBaseUrl}${val?.icon?.data?.attributes?.url}` ||
+                            ""
+                          }
+                          width={48}
+                        />
+                      ) : null}
                     </div>
                     <div className="typo-h4">{val?.ueberschrift}</div>
                   </div>

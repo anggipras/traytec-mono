@@ -92,7 +92,7 @@ const Hero = ({ data }: ComponentProps) => {
               heroText: data.ueberschrift?.text,
             })}
           </div>
-          {data.button?.map((val, idx) => (
+          {data.hero_btn?.map((val, idx) => (
             <Button
               key={idx}
               size="medium"

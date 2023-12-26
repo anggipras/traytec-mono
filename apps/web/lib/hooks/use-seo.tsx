@@ -15,10 +15,7 @@ export const useSeo = (seo: Maybe<ComponentSharedSeo>) => {
     return {
       title: seo?.meta_title,
       description: seo?.meta_description,
-      image:
-        seo?.meta_image?.data?.attributes?.formats?.thumbnail?.url ??
-        seo?.meta_image?.data?.attributes?.formats?.small?.url ??
-        seo?.meta_image?.data?.attributes?.formats?.medium?.url,
+      image: seo?.meta_image?.data?.attributes?.url,
       canonicalUrl: seo?.canonical_URL,
     };
   }, [seo]);

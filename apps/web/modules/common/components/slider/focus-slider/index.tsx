@@ -123,17 +123,19 @@ const FocusSlider = ({ data }: ComponentProps) => {
                   <div className="px-0 medium:px-12">
                     <div className="flex flex-col justify-center items-center bg-gray-50 rounded-3xl p-6">
                       <div className="flex justify-center items-center p-3 medium:p-10 rounded-full w-fit bg-white mt-3 mb-4">
-                        <Image
-                          alt="ex-icon-industry"
-                          className="w-8 medium:w-24"
-                          height="0"
-                          sizes="100%"
-                          src={
-                            `${serverBaseUrl}${val?.icon?.data[0].attributes?.url}` ||
-                            ""
-                          }
-                          width="0"
-                        />
+                        {val?.image?.data?.attributes?.url ? (
+                          <Image
+                            alt="ex-icon-industry"
+                            className="w-8 medium:w-24"
+                            height="0"
+                            sizes="100%"
+                            src={
+                              `${serverBaseUrl}${val?.image?.data?.attributes?.url}` ||
+                              ""
+                            }
+                            width="0"
+                          />
+                        ) : null}
                       </div>
                       <div className="typo-h4">{val?.ueberschrift}</div>
                       <div className="typo-copy-normal text-gray-400 text-center medium:text-start">

@@ -5,59 +5,54 @@ query getPage($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
         seo {
           meta_description
           meta_title
+          meta_image {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          canonical_URL
         }
+        slug
         inhalte {
           ... on ComponentHerosHero1 {
-            ueberschrift {
-              heading
-              text
-              typ
-              topline
-            }
             hintergrund {
               data {
                 attributes {
-                  url
                   ext
+                  url
                 }
               }
             }
             sichtbar
-          }
-          ... on ComponentListenGridListe {
             ueberschrift {
               heading
               text
-              typ
               topline
+              typ
             }
-            inhalt {
+            hero_btn: button {
               text
-              titel
-              bild {
-                data {
-                  attributes {
-                    url
-                  }
-                }
-              }
+              url
+              variante
             }
           }
           ... on ComponentSliderHorizontalerSlider {
+            sichtbar
             uberschrift {
-              topline
-              text
               heading
+              text
+              topline
               typ
             }
-            sichtbar
             cards {
               icon {
                 data {
                   attributes {
+                    height
                     url
                     width
-                    height
                   }
                 }
               }
@@ -67,19 +62,28 @@ query getPage($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
             }
           }
           ... on ComponentSliderHorizontalerSliderFokus {
+            background_anzeigen
+            button {
+              id
+              text
+              url
+              variante
+            }
             cards {
-              icon {
+              image {
                 data {
                   attributes {
+                    height
                     url
                     width
-                    height
                   }
                 }
               }
               text
               ueberschrift
+              vorteile
             }
+            karten_ausserhalb_anzeigen
             sichtbar
             ueberschrift {
               heading
@@ -87,11 +91,117 @@ query getPage($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
               topline
               typ
             }
-            button {
+          }
+          ... on ComponentListenGridListe {
+            ueberschrift {
+              heading
               text
-              url
-              variante
-              id
+              topline
+              typ
+            }
+            inhalt {
+              bild {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              text
+              titel
+            }
+          }
+          ... on ComponentHeadingsHeadingMinimalistisch {
+            ausrichtung
+            beschreibung
+            dekoration_anzeigen
+            titel
+          }
+          ... on ComponentHeadingsHeadingMitVideo {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            heading_media: media {
+              data {
+                attributes {
+                  ext
+                  height
+                  url
+                  width
+                }
+              }
+            }
+          }
+          ... on ComponentListenTimelineListe {
+            timeline_karten {
+              beschreibung
+              media {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              titel
+              zeitpunkt
+            }
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+          }
+          ... on ComponentSektionenInhaltMitMedia {
+            MEDIA_POSITION
+            media {
+              data {
+                attributes {
+                  height
+                  url
+                  width
+                }
+              }
+            }
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+          }
+          ... on ComponentListenIndustrieListe {
+            industrien {
+              data {
+                attributes {
+                  titel
+                  slug
+                  beschreibung
+                }
+              }
+            }
+          }
+          ... on ComponentIntegrationenJobs {
+            STYLE
+            alle_anzeigen
+            jobs {
+              data {
+                attributes {
+                  art
+                  auszug
+                  beschreibung
+                  publishedAt
+                  slug
+                  titel
+                }
+              }
             }
           }
           ... on Error {
