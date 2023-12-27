@@ -1,0 +1,20 @@
+query getPageHandle($filters: SeiteFiltersInput) {
+  seiten(filters: $filters) {
+    data {
+      attributes {
+        locale
+        slug
+        titel
+        localizations {
+          data {
+            attributes {
+              locale
+              slug
+              titel
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import { clientBaseUrl } from "@/client.config";
 
 type HeadProps = {
-  title?: string | undefined | null;
-  description?: string;
-  image?: string;
+  title?: string | undefined;
+  description?: string | undefined;
+  image?: string | undefined;
   jsonLd?: string;
 } & React.HTMLAttributes<HTMLHeadElement>;
 
@@ -29,7 +29,7 @@ const Head: React.FC<HeadProps> = ({
       <meta content={title ?? ""} property="name" />
       {!description && <meta content={description} name="description" />}
       <meta content={image ?? defaultImgUrl} property="image" />
-      <link href="/favicon.ico" rel="icon" />
+      {/* <link href="/favicon.ico" rel="icon" /> */}
       <link href={url} rel="canonical" />
       {Boolean(jsonLd) && (
         <script

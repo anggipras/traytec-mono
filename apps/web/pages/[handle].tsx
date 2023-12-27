@@ -1,13 +1,36 @@
 import React from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { notFound } from "next/navigation";
 import Head from "@/modules/common/components/head";
 import { getApolloClient } from "@/lib/with-apollo";
-import type { ComponentSharedSeo, GetPageQuery } from "@/generated/graphql";
-import { GetPageDocument } from "@/generated/graphql";
+import type {
+  ComponentSharedSeo,
+  GetPageHandleQuery,
+  GetPageQuery,
+  SeiteEntity,
+} from "@/generated/graphql";
+import { GetPageDocument, GetPageHandleDocument } from "@/generated/graphql";
 import { useSeo } from "@/lib/hooks/use-seo";
 import SinglePageTemplate from "@/modules/single-page/templates";
+import type { PathInfo } from "@/types/global";
+
+const fetchSinglePageHandle = async () => {
+  const apolloClient = getApolloClient();
+  const { data } = await apolloClient.query({
+    query: GetPageHandleDocument,
+    variables: {
+      filters: {
+        slug: {
+          notNull: true,
+        },
+      },
+    },
+  });
+
+  const singlePageHandleData = data as GetPageHandleQuery;
+
+  return singlePageHandleData?.seiten?.data;
+};
 
 const fetchSinglePage = (handle: string, locale: string) => {
   const apolloClient = getApolloClient();
@@ -25,18 +48,15 @@ const fetchSinglePage = (handle: string, locale: string) => {
 };
 
 const SinglePage = ({ singlePageData }) => {
-  const singlePage: GetPageQuery = singlePageData?.data;
+  const singlePage = singlePageData as GetPageQuery;
   const seo = useSeo(
-    singlePage.seiten?.data[0]?.attributes?.seo as ComponentSharedSeo
+    singlePage.seiten?.data[0].attributes?.seo as ComponentSharedSeo
   );
-
-  const contentData: any[] | undefined | null =
-    singlePage.seiten?.data[0].attributes?.inhalte;
 
   return (
     <>
       <Head description={seo.description} image={seo.image} title={seo.title} />
-      {contentData && contentData.length > 0 ? (
+      {singlePage.seiten?.data && singlePage.seiten?.data.length > 0 ? (
         <div className="medium:pb-32.5">
           <SinglePageTemplate data={singlePage} />
         </div>
@@ -45,18 +65,27 @@ const SinglePage = ({ singlePageData }) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    // const paths: PathInfo[] = [];
-    // sampleNewsDetailPath.forEach((data) => {
-    //   paths.push({
-    //     params: { handle: data.handle },
-    //     locale: "en",
-    //   });
-    // });
+    const singlePageHandle = await fetchSinglePageHandle();
+    const singlePageHandleData = singlePageHandle as SeiteEntity[];
+
+    const paths: PathInfo[] = [];
+    singlePageHandleData.forEach((dt) => {
+      paths.push({
+        params: { handle: dt.attributes?.slug ?? "" },
+        locale: dt.attributes?.locale ?? "",
+      });
+      dt.attributes?.localizations?.data.forEach((dtLocal) => {
+        paths.push({
+          params: { handle: dtLocal.attributes?.slug ?? "" },
+          locale: dtLocal.attributes?.locale ?? "",
+        });
+      });
+    });
 
     return {
-      paths: [],
+      paths,
       fallback: "blocking",
     };
   } catch (e) {
@@ -74,15 +103,20 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const handle = context.params?.handle as string;
 
   const singlePage = await fetchSinglePage(handle, locale ?? "de");
-  const singlePageData: GetPageQuery = singlePage?.data;
+  const singlePageResponse = singlePage?.data as GetPageQuery;
 
-  if (singlePageData.seiten?.data && singlePageData.seiten?.data.length === 0) {
-    notFound();
+  if (
+    singlePageResponse.seiten?.data &&
+    singlePageResponse.seiten?.data.length < 1
+  ) {
+    return {
+      notFound: true,
+    };
   }
 
   return {
     props: {
-      singlePageData: singlePage,
+      singlePageData: singlePageResponse,
       ...(await serverSideTranslations(locale ?? "de", ["common"])),
     },
     revalidate: 1800,

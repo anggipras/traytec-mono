@@ -7,13 +7,11 @@ interface SinglePageProps {
 }
 
 const SinglePageTemplate = ({ data }: SinglePageProps) => {
-  const contentData: any[] | undefined | null =
-    data.seiten?.data[0].attributes?.inhalte;
-
   return (
     <>
-      {contentData && contentData.length > 0
-        ? contentData.map((dt, idx) => (
+      {data.seiten?.data[0].attributes?.inhalte &&
+      data.seiten?.data[0].attributes?.inhalte.length > 0
+        ? data.seiten?.data[0].attributes?.inhalte.map((dt, idx) => (
             <div key={idx}>{renderDynamicContent(dt)}</div>
           ))
         : null}

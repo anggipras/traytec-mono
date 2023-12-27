@@ -331,13 +331,13 @@ export type ComponentHeadingsHeadingMinimalistisch = {
 export type ComponentHeadingsHeadingMitVideo = {
   __typename?: 'ComponentHeadingsHeadingMitVideo';
   id: Scalars['ID'];
-  heading_media?: Maybe<UploadFileEntityResponse>;
+  media?: Maybe<UploadFileEntityResponse>;
   ueberschrift?: Maybe<ComponentUtilsHeading>;
 };
 
 export type ComponentHerosHero1 = {
   __typename?: 'ComponentHerosHero1';
-  hero_btn?: Maybe<Array<Maybe<ComponentUtilsButton>>>;
+  button?: Maybe<Array<Maybe<ComponentUtilsButton>>>;
   hintergrund?: Maybe<UploadFileEntityResponse>;
   id: Scalars['ID'];
   sichtbar: Scalars['Boolean'];
@@ -2717,6 +2717,13 @@ export type GetPageQueryVariables = Exact<{
 
 export type GetPageQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', slug?: string | null, seo?: { __typename?: 'ComponentSharedSeo', meta_description: string, meta_title: string, canonical_URL?: string | null, meta_image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch', ausrichtung?: Enum_Componentheadingsheadingminimalistisch_Ausrichtung | null, beschreibung?: string | null, dekoration_anzeigen?: boolean | null, titel: string } | { __typename?: 'ComponentHeadingsHeadingMitVideo', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, heading_media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, height?: number | null, url: string, width?: number | null } | null } | null } | null } | { __typename?: 'ComponentHerosHero1', sichtbar: boolean, hintergrund?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, url: string } | null } | null } | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, hero_btn?: Array<{ __typename?: 'ComponentUtilsButton', text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null> | null } | { __typename?: 'ComponentIntegrationenFormular' } | { __typename?: 'ComponentIntegrationenJobs', STYLE: Enum_Componentintegrationenjobs_Style, alle_anzeigen?: boolean | null, jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', art: Enum_Job_Art, auszug?: string | null, beschreibung?: string | null, publishedAt?: any | null, slug: string, titel: string } | null }> } | null } | { __typename?: 'ComponentListenGridListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, inhalt?: Array<{ __typename?: 'ComponentUtilsGridElement', text?: string | null, titel?: string | null, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentListenIndustrieListe', industrien?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', titel?: string | null, slug?: string | null, beschreibung?: string | null } | null }> } | null } | { __typename?: 'ComponentListenTimelineListe', timeline_karten?: Array<{ __typename?: 'ComponentUtilsTimelineKarte', beschreibung?: string | null, titel: string, zeitpunkt: any, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'ComponentSektionenInhaltMitMedia', MEDIA_POSITION: Enum_Componentsektioneninhaltmitmedia_Media_Position, media: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null }, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'ComponentSliderHorizontalerSlider', sichtbar: boolean, uberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, cards?: Array<{ __typename?: 'ComponentSliderSliderCard', icon_text?: string | null, text?: string | null, ueberschrift?: string | null, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentSliderHorizontalerSliderFokus', background_anzeigen?: boolean | null, karten_ausserhalb_anzeigen?: boolean | null, sichtbar: boolean, button?: { __typename?: 'ComponentUtilsButton', id: string, text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null, cards?: Array<{ __typename?: 'ComponentSliderSliderCard2', text?: string | null, ueberschrift?: string | null, vorteile?: string | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'Error', code: string, message?: string | null } | null> | null } | null }> } | null };
 
+export type GetPageHandleQueryVariables = Exact<{
+  filters?: InputMaybe<SeiteFiltersInput>;
+}>;
+
+
+export type GetPageHandleQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null, localizations?: { __typename?: 'SeiteRelationResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null } | null }> } | null } | null }> } | null };
+
 
 export const GetLocalesDocument = gql`
     query getLocales {
@@ -3003,3 +3010,53 @@ export function useGetPageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
 export type GetPageQueryHookResult = ReturnType<typeof useGetPageQuery>;
 export type GetPageLazyQueryHookResult = ReturnType<typeof useGetPageLazyQuery>;
 export type GetPageQueryResult = Apollo.QueryResult<GetPageQuery, GetPageQueryVariables>;
+export const GetPageHandleDocument = gql`
+    query getPageHandle($filters: SeiteFiltersInput) {
+  seiten(filters: $filters) {
+    data {
+      attributes {
+        locale
+        slug
+        titel
+        localizations {
+          data {
+            attributes {
+              locale
+              slug
+              titel
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPageHandleQuery__
+ *
+ * To run a query within a React component, call `useGetPageHandleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPageHandleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPageHandleQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *   },
+ * });
+ */
+export function useGetPageHandleQuery(baseOptions?: Apollo.QueryHookOptions<GetPageHandleQuery, GetPageHandleQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPageHandleQuery, GetPageHandleQueryVariables>(GetPageHandleDocument, options);
+      }
+export function useGetPageHandleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPageHandleQuery, GetPageHandleQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPageHandleQuery, GetPageHandleQueryVariables>(GetPageHandleDocument, options);
+        }
+export type GetPageHandleQueryHookResult = ReturnType<typeof useGetPageHandleQuery>;
+export type GetPageHandleLazyQueryHookResult = ReturnType<typeof useGetPageHandleLazyQuery>;
+export type GetPageHandleQueryResult = Apollo.QueryResult<GetPageHandleQuery, GetPageHandleQueryVariables>;
