@@ -2,11 +2,12 @@ import "@/styles/globals.css";
 import React from "react";
 import NavbarTemplate from "@/modules/layout/templates/nav";
 import FooterTemplate from "@/modules/layout/templates/footer";
-import type { GetLocalesQuery } from "@/generated/graphql";
+import type { GetLocalesQuery, SeiteEntity } from "@/generated/graphql";
 
 interface RootLayoutProps {
   navbar?: {
     localeList?: GetLocalesQuery;
+    localeHandle: SeiteEntity[];
   };
   footer?: [];
 }

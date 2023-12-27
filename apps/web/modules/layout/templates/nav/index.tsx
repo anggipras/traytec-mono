@@ -1,15 +1,16 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import ChevronIcon from "@/modules/common/icons/chevron";
-import type { GetLocalesQuery } from "@/generated/graphql";
+import type { GetLocalesQuery, SeiteEntity } from "@/generated/graphql";
 import Accordion from "@/modules/common/components/accordion";
+import type { PathInfo } from "@/types/global";
 
 interface NavbarTemplateProps {
   localeList?: GetLocalesQuery;
+  localeHandle: SeiteEntity[];
 }
-
 interface ValueNavbar {
   __typename: string;
   id: string;
@@ -32,7 +33,30 @@ const NavBarTemplate = ({
     },
   ];
 
+  useEffect(() => {
+    if (navbarvalue?.localeHandle && navbarvalue.localeHandle.length > 0) {
+      const filteredHandle = navbarvalue.localeHandle.filter(
+        (val) => val.attributes?.slug === router.asPath.replace("/", "")
+      );
+      const paths: PathInfo[] = [];
+      filteredHandle.forEach((dt) => {
+        paths.push({
+          params: { handle: dt.attributes?.slug ?? "" },
+          locale: dt.attributes?.locale ?? "",
+        });
+        dt.attributes?.localizations?.data.forEach((dtLocal) => {
+          paths.push({
+            params: { handle: dtLocal.attributes?.slug ?? "" },
+            locale: dtLocal.attributes?.locale ?? "",
+          });
+        });
+      });
+      setPageHandle(paths);
+    }
+  }, [navbarvalue?.localeHandle, router.asPath]);
+
   const [openLang, setOpenLang] = useState(false);
+  const [pageHandle, setPageHandle] = useState<PathInfo[]>();
   const [openMenu, setOpenMenu] = useState(-1);
   const [openMobileNavbar, setOpenMobileNavbar] = useState(false);
   const navbarMenu = [
@@ -82,9 +106,19 @@ const NavBarTemplate = ({
     },
   ];
 
-  const setLangSelected = (idx: number, flag: string) => {
+  const setLangSelected = (flag: string) => {
+    const selectedHandle = pageHandle?.filter((val) => val.locale === flag);
     setOpenLang(false);
-    void router.push(router.asPath, router.asPath, { locale: flag });
+    if (selectedHandle && selectedHandle.length > 0) {
+      const selectedLangHandle = selectedHandle[0].params.handle || "";
+      void router.push(selectedLangHandle, selectedLangHandle, {
+        locale: flag,
+      });
+    } else {
+      void router.push(router.asPath, router.asPath, {
+        locale: flag,
+      });
+    }
   };
 
   const setSubMenu = (val: string) => {
@@ -105,7 +139,7 @@ const NavBarTemplate = ({
         id={`menu-item-${idx}`}
         key={val.id}
         onClick={() => {
-          setLangSelected(idx, val.attributes.code);
+          setLangSelected(val.attributes.code);
         }}
         role="menuitem"
       >
@@ -134,6 +168,20 @@ const NavBarTemplate = ({
 
     return { src, alt, localeCodeFlag };
   }, [router.locale]);
+
+  const onToggleMobileNavbar = () => {
+    if (!openMobileNavbar) {
+      setOpenLang(false);
+    }
+    setOpenMobileNavbar(!openMobileNavbar);
+  };
+
+  const onToggleWebLang = () => {
+    if (!openLang) {
+      setOpenMobileNavbar(false);
+    }
+    setOpenLang(!openLang);
+  };
 
   return (
     <div className="sticky top-0 z-20 bg-gray-50">
@@ -229,7 +277,7 @@ const NavBarTemplate = ({
                 aria-hidden="true"
                 className="flex items-center px-2.5 py-2 border-solid border-gray-200 border rounded-[60px] gap-1"
                 onClick={() => {
-                  setOpenLang(!openLang);
+                  onToggleWebLang();
                 }}
               >
                 <Image
@@ -259,7 +307,7 @@ const NavBarTemplate = ({
             <div
               aria-hidden="true"
               onClick={() => {
-                setOpenMobileNavbar(!openMobileNavbar);
+                onToggleMobileNavbar();
               }}
             >
               <Image
@@ -277,7 +325,12 @@ const NavBarTemplate = ({
       </div>
       {openMobileNavbar ? (
         <div className="absolute w-screen h-screen bg-gray-50 z-20 pt-3.5 px-6 overflow-y-scroll">
-          <Accordion data={navbarMenu} />
+          <Accordion
+            closeMenu={() => {
+              onToggleMobileNavbar();
+            }}
+            data={navbarMenu}
+          />
         </div>
       ) : null}
     </div>

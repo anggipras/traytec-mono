@@ -4,8 +4,12 @@ import { appWithTranslation } from "next-i18next";
 import App from "next/app";
 import Layout from "@/modules/layout/templates";
 import { getApolloClient } from "@/lib/with-apollo";
-import type { GetLocalesQuery } from "@/generated/graphql";
-import { GetLocalesDocument } from "@/generated/graphql";
+import type {
+  GetLocalesQuery,
+  GetPageHandleQuery,
+  SeiteEntity,
+} from "@/generated/graphql";
+import { GetLocalesDocument, GetPageHandleDocument } from "@/generated/graphql";
 
 // Define an interface for components that have a getLayout property
 interface ComponentWithLayout {
@@ -21,6 +25,7 @@ interface AppOwnProps {
   navigationData?: {
     navbar?: {
       localeList?: GetLocalesQuery;
+      localeHandle: SeiteEntity[];
     };
     footer?: [];
   };
@@ -58,16 +63,39 @@ const fetchLocalesStatic = async () => {
   return result;
 };
 
+const fetchSinglePageHandle = async (locale: string) => {
+  const apolloClient = getApolloClient();
+  const { data } = await apolloClient.query({
+    query: GetPageHandleDocument,
+    variables: {
+      filters: {
+        slug: {
+          notNull: true,
+        },
+      },
+      locale,
+    },
+  });
+
+  const singlePageHandleData = data as GetPageHandleQuery;
+
+  return singlePageHandleData?.seiten?.data;
+};
+
 MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
+  const { locale } = context.ctx;
   const ctx = await App.getInitialProps(context);
 
   try {
     const localesDataResult = await fetchLocalesStatic();
+    const localeHandlePage = await fetchSinglePageHandle(locale ?? "de");
     const localesData: GetLocalesQuery = localesDataResult.data;
+    const localeHandleData = localeHandlePage as SeiteEntity[];
 
     const navigationData = {
       navbar: {
         localeList: localesData,
+        localeHandle: localeHandleData,
       },
     };
 

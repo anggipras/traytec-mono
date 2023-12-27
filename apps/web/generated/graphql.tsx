@@ -2719,6 +2719,7 @@ export type GetPageQuery = { __typename?: 'Query', seiten?: { __typename?: 'Seit
 
 export type GetPageHandleQueryVariables = Exact<{
   filters?: InputMaybe<SeiteFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 }>;
 
 
@@ -3011,8 +3012,8 @@ export type GetPageQueryHookResult = ReturnType<typeof useGetPageQuery>;
 export type GetPageLazyQueryHookResult = ReturnType<typeof useGetPageLazyQuery>;
 export type GetPageQueryResult = Apollo.QueryResult<GetPageQuery, GetPageQueryVariables>;
 export const GetPageHandleDocument = gql`
-    query getPageHandle($filters: SeiteFiltersInput) {
-  seiten(filters: $filters) {
+    query getPageHandle($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
+  seiten(filters: $filters, locale: $locale) {
     data {
       attributes {
         locale
@@ -3046,6 +3047,7 @@ export const GetPageHandleDocument = gql`
  * const { data, loading, error } = useGetPageHandleQuery({
  *   variables: {
  *      filters: // value for 'filters'
+ *      locale: // value for 'locale'
  *   },
  * });
  */

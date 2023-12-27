@@ -1,5 +1,5 @@
-query getPageHandle($filters: SeiteFiltersInput) {
-  seiten(filters: $filters) {
+query getPageHandle($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
+  seiten(filters: $filters, locale: $locale) {
     data {
       attributes {
         locale
