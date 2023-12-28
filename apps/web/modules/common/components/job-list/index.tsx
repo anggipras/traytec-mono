@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 // import NativeSelect from "@/modules/common/components/native-select";
 // import SearchBox from "@/modules/common/components/search-box";
+import { clsx } from "clsx";
 import PaginationSection from "@/modules/common/components/pagination";
-import type { ComponentIntegrationenJobs } from "@/generated/graphql";
+import {
+  Enum_Componentintegrationenjobs_Style,
+  type ComponentIntegrationenJobs,
+} from "@/generated/graphql";
 import ApplicationCard from "@/modules/common/components/card/application";
 
 interface JobListProps {
@@ -15,6 +19,13 @@ const JobList = ({ data }: JobListProps) => {
   const activeHandler = (clickedActive: string) => {
     setActive(parseInt(clickedActive));
   };
+
+  const flexAlignment = clsx({
+    "flex flex-col":
+      data.STYLE === Enum_Componentintegrationenjobs_Style.VolleBreite,
+    "grid medium:grid-cols-2":
+      data.STYLE === Enum_Componentintegrationenjobs_Style.Grid,
+  });
 
   return (
     <div className="my-10 mx-6 medium:mx-15 medium:mt-32.5">
@@ -34,7 +45,12 @@ const JobList = ({ data }: JobListProps) => {
         <SearchBox placeholder="Search..." type="text" />
       </div> */}
       {data.jobs?.data && data.jobs?.data.length > 0 ? (
-        <div className="flex flex-col my-6 medium:my-10 gap-6 medium:gap-4">
+        <div
+          className={clsx(
+            "my-6 medium:my-10 gap-6 medium:gap-4",
+            flexAlignment
+          )}
+        >
           {data.jobs?.data.map((val, idx) => (
             <ApplicationCard
               componentstyle={data.STYLE}
