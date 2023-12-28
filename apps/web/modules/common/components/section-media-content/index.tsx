@@ -30,24 +30,26 @@ const SectionContentMedia = ({ data }: SectionContentMediaProps) => {
           />
         ) : null}
       </div>
-      <div className="relative w-full">
-        <div className="absolute top-0 bottom-0 bg-gray-200 rounded-3xl -rotate-3 w-full" />
-        <div className="absolute top-0 bottom-0 bg-gray-200 rounded-3xl rotate-3 w-full" />
-        <div className="relative">
-          <Image
-            alt="img_description_heading"
-            className="w-full rounded-3xl"
-            height="0"
-            sizes="100%"
-            src={
-              data.media.data?.attributes?.url
-                ? `${serverBaseUrl}${data.media.data?.attributes?.url}`
-                : ""
-            }
-            width="0"
-          />
+      {data.media.data ? (
+        <div className="relative w-full">
+          <div className="absolute top-0 bottom-0 bg-gray-200 rounded-3xl -rotate-3 w-full" />
+          <div className="absolute top-0 bottom-0 bg-gray-200 rounded-3xl rotate-3 w-full" />
+          <div className="relative">
+            <Image
+              alt="img_description_heading"
+              className="w-full rounded-3xl"
+              height="0"
+              sizes="100%"
+              src={
+                data.media.data?.attributes?.url
+                  ? `${serverBaseUrl}${data.media.data?.attributes?.url}`
+                  : ""
+              }
+              width="0"
+            />
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };

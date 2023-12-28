@@ -331,13 +331,13 @@ export type ComponentHeadingsHeadingMinimalistisch = {
 export type ComponentHeadingsHeadingMitVideo = {
   __typename?: 'ComponentHeadingsHeadingMitVideo';
   id: Scalars['ID'];
-  media?: Maybe<UploadFileEntityResponse>;
+  heading_media?: Maybe<UploadFileEntityResponse>;
   ueberschrift?: Maybe<ComponentUtilsHeading>;
 };
 
 export type ComponentHerosHero1 = {
   __typename?: 'ComponentHerosHero1';
-  button?: Maybe<Array<Maybe<ComponentUtilsButton>>>;
+  hero_btn?: Maybe<Array<Maybe<ComponentUtilsButton>>>;
   hintergrund?: Maybe<UploadFileEntityResponse>;
   id: Scalars['ID'];
   sichtbar: Scalars['Boolean'];

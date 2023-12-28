@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-// import { useTranslation } from "next-i18next";
 import type { EmblaOptionsType } from "embla-carousel-react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
@@ -31,9 +30,9 @@ const numberWithinRange = (number: number, min: number, max: number): number =>
   Math.min(Math.max(number, min), max);
 
 const FocusSlider = ({ data }: ComponentProps) => {
-  // const { t } = useTranslation();
   const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
   const [emblaRefMob, emblaApiMob] = useEmblaCarousel(OPTIONS_MOBILE);
+  const [emblaRefProduct, emblaApiProduct] = useEmblaCarousel(OPTIONS_MOBILE);
   const [tweenValues, setTweenValues] = useState<number[]>([]);
   const [screenWidth, setScreenWidth] = useState(0);
 
@@ -74,13 +73,22 @@ const FocusSlider = ({ data }: ComponentProps) => {
     emblaApi.on("reInit", onScroll);
   }, [emblaApi, onScroll]);
 
-  const basedOnScreenSize = screenWidth > 1279 ? emblaApi : emblaApiMob;
+  let basedOnDesign: any;
+  if (!data.background_anzeigen || !data.karten_ausserhalb_anzeigen) {
+    basedOnDesign = emblaApiProduct;
+  } else if (screenWidth > 1279) {
+    basedOnDesign = emblaApi;
+  } else {
+    basedOnDesign = emblaApiMob;
+  }
+
   const {
     prevBtnDisabled,
     nextBtnDisabled,
+    countSlider,
     onPrevButtonClick,
     onNextButtonClick,
-  } = usePrevNextButtons(basedOnScreenSize);
+  } = usePrevNextButtons(basedOnDesign, data.cards?.length, true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -103,69 +111,180 @@ const FocusSlider = ({ data }: ComponentProps) => {
           title={data.ueberschrift?.heading}
         />
       ) : null}
-      <div className="relative mx-6 medium:mx-0 mt-5 medium:mt-10">
-        <div className={`${screenWidth > 1279 ? "embla_industry" : "embla"}`}>
-          <div
-            className="embla__viewport"
-            ref={screenWidth > 1279 ? emblaRef : emblaRefMob}
-          >
-            <div className="embla__container">
-              {data.cards?.map((val, index) => (
-                <div
-                  className="embla__slide"
-                  key={index}
-                  style={{
-                    ...(screenWidth > 1279
-                      ? tweenValues.length && { opacity: tweenValues[index] }
-                      : null),
-                  }}
-                >
-                  <div className="px-0 medium:px-12">
-                    <div className="flex flex-col justify-center items-center bg-gray-50 rounded-3xl p-6">
-                      <div className="flex justify-center items-center p-3 medium:p-10 rounded-full w-fit bg-white mt-3 mb-4">
-                        {val?.image?.data?.attributes?.url ? (
-                          <Image
-                            alt="ex-icon-industry"
-                            className="w-8 medium:w-24"
-                            height="0"
-                            sizes="100%"
-                            src={
-                              `${serverBaseUrl}${val?.image?.data?.attributes?.url}` ||
-                              ""
-                            }
-                            width="0"
-                          />
-                        ) : null}
-                      </div>
-                      <div className="typo-h4">{val?.ueberschrift}</div>
-                      <div className="typo-copy-normal text-gray-400 text-center medium:text-start">
-                        {val?.text}
-                      </div>
-                    </div>
+      {!data.background_anzeigen || !data.karten_ausserhalb_anzeigen ? (
+        <div className="flex max-medium:flex-col relative justify-center items-center py-10 medium:p-0 mx-6 medium:mx-0">
+          <div className="hidden medium:flex absolute left-0 top-0">
+            <Image
+              alt="bg_linear"
+              className="w-full h-full"
+              objectFit="cover"
+              src={require("@/assets/images/common/img_bg_linear.svg")}
+            />
+          </div>
+          {data.cards && data.cards.length > 0 ? (
+            <div className="relative max-w-[670px] pt-0 medium:pt-4">
+              <div className="typo-h3 mb-5 text-center">
+                {data.cards[countSlider]?.ueberschrift}
+              </div>
+              <div className="typo-copy-normal mb-10 text-gray-400 text-center">
+                {data.cards[countSlider]?.text}
+              </div>
+              <div className="embla_main">
+                <div className="embla__buttons flex medium:hidden absolute items-center justify-center left-0 right-0 top-[65%] max-xsmall:top-[58%] gap-3 w-full">
+                  <PrevButton
+                    disabled={prevBtnDisabled}
+                    onClick={onPrevButtonClick}
+                  />
+                  <NextButton
+                    disabled={nextBtnDisabled}
+                    onClick={onNextButtonClick}
+                  />
+                </div>
+                <div className="embla__viewport" ref={emblaRefProduct}>
+                  <div className="embla__container">
+                    {data.cards?.map((dt, idx) => {
+                      return (
+                        <div className="embla__slide" key={idx}>
+                          <div className="px-0 medium:px-10">
+                            <Image
+                              alt="img-ex-product"
+                              className="w-full"
+                              height="0"
+                              sizes="100%"
+                              src={
+                                dt?.image?.data?.attributes?.url
+                                  ? `${serverBaseUrl}${dt?.image?.data?.attributes?.url}`
+                                  : ""
+                              }
+                              width="0"
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-              ))}
+              </div>
+              {data.cards[countSlider]?.vorteile ? (
+                <div className="flex flex-col medium:flex-row medium:flex-wrap justify-start medium:justify-center mt-20 medium:mt-0 gap-4">
+                  {data.cards[countSlider]?.vorteile
+                    ?.split(";")
+                    .map((det, idxDetail) => {
+                      return (
+                        <div className="flex items-center" key={idxDetail}>
+                          <Image
+                            alt="ic_check"
+                            className="w-6"
+                            src={require("@/assets/images/icons/ic_check.svg")}
+                          />
+                          <div className="typo-copy-normal text-gray-400 ml-2">
+                            {det}
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              ) : null}
             </div>
+          ) : null}
+          <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-4 bottom-0 left-0 right-[730px]">
+            <PrevButton
+              disabled={prevBtnDisabled}
+              onClick={onPrevButtonClick}
+            />
+          </div>
+          <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-4 bottom-0 left-[730px] right-0">
+            <NextButton
+              disabled={nextBtnDisabled}
+              onClick={onNextButtonClick}
+            />
           </div>
         </div>
-        <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-0 bottom-0 left-0 right-[650px]">
-          <PrevButton disabled={prevBtnDisabled} onClick={onPrevButtonClick} />
-        </div>
-        <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-0 bottom-0 left-[650px] right-0">
-          <NextButton disabled={nextBtnDisabled} onClick={onNextButtonClick} />
-        </div>
-      </div>
-      <div className="embla__buttons flex medium:hidden justify-center gap-3 w-full mt-5">
-        <PrevButton disabled={prevBtnDisabled} onClick={onPrevButtonClick} />
-        <NextButton disabled={nextBtnDisabled} onClick={onNextButtonClick} />
-      </div>
-      {data.button ? (
-        <div className="hidden medium:flex justify-center mt-10">
-          <Button size="medium" variant={data.button.variante}>
-            <span className="">{data.button.text}</span>
-          </Button>
-        </div>
-      ) : null}
+      ) : (
+        <>
+          <div className="relative mx-6 medium:mx-0 mt-5 medium:mt-10">
+            <div
+              className={`${
+                screenWidth > 1279 ? "embla_industry" : "embla_main"
+              }`}
+            >
+              <div
+                className="embla__viewport"
+                ref={screenWidth > 1279 ? emblaRef : emblaRefMob}
+              >
+                <div className="embla__container">
+                  {data.cards?.map((val, index) => (
+                    <div
+                      className="embla__slide"
+                      key={index}
+                      style={{
+                        ...(screenWidth > 1279
+                          ? tweenValues.length && {
+                              opacity: tweenValues[index],
+                            }
+                          : null),
+                      }}
+                    >
+                      <div className="px-0 medium:px-12">
+                        <div className="flex flex-col justify-center items-center bg-gray-50 rounded-3xl p-6">
+                          <div className="flex justify-center items-center p-3 medium:p-10 rounded-full w-fit bg-white mt-3 mb-4">
+                            {val?.image?.data?.attributes?.url ? (
+                              <Image
+                                alt="icon-horizontal-slider"
+                                className="w-8 medium:w-24"
+                                height="0"
+                                sizes="100%"
+                                src={
+                                  `${serverBaseUrl}${val?.image?.data?.attributes?.url}` ||
+                                  ""
+                                }
+                                width="0"
+                              />
+                            ) : null}
+                          </div>
+                          <div className="typo-h4">{val?.ueberschrift}</div>
+                          <div className="typo-copy-normal text-gray-400 text-center medium:text-start">
+                            {val?.text}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-0 bottom-0 left-0 right-[650px]">
+              <PrevButton
+                disabled={prevBtnDisabled}
+                onClick={onPrevButtonClick}
+              />
+            </div>
+            <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-0 bottom-0 left-[650px] right-0">
+              <NextButton
+                disabled={nextBtnDisabled}
+                onClick={onNextButtonClick}
+              />
+            </div>
+          </div>
+          <div className="embla__buttons flex medium:hidden justify-center gap-3 w-full mt-5">
+            <PrevButton
+              disabled={prevBtnDisabled}
+              onClick={onPrevButtonClick}
+            />
+            <NextButton
+              disabled={nextBtnDisabled}
+              onClick={onNextButtonClick}
+            />
+          </div>
+          {data.button ? (
+            <div className="hidden medium:flex justify-center mt-10">
+              <Button size="medium" variant={data.button.variante}>
+                <span className="">{data.button.text}</span>
+              </Button>
+            </div>
+          ) : null}
+        </>
+      )}
     </div>
   );
 };

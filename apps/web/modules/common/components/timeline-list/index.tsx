@@ -18,26 +18,30 @@ const TimelineList = ({ data }: TimelineItemData) => {
       >
         <div className="flex flex-col items-end relative w-full text-right odd:text-left odd:items-start">
           <div className="rounded-3xl border border-gray-200 overflow-hidden w-full">
-            <div className="overflow-hidden max-h-[150px] w-full">
-              <Image
-                alt="company_milestone"
-                className="w-full"
-                height="0"
-                objectFit="cover"
-                objectPosition="center"
-                sizes="100%"
-                src={
-                  dt?.media?.data?.attributes?.url
-                    ? `${serverBaseUrl}${dt?.media?.data?.attributes?.url}`
-                    : ""
-                }
-                width="0"
-              />
-            </div>
-            <div className="p-4 medium:p-6">
-              <div className="typo-copy-normal text-gray-400">
-                {formatDate(dt?.zeitpunkt)}
+            {dt?.media ? (
+              <div className="overflow-hidden max-h-[150px] w-full">
+                <Image
+                  alt="company_milestone"
+                  className="w-full"
+                  height="0"
+                  objectFit="cover"
+                  objectPosition="center"
+                  sizes="100%"
+                  src={
+                    dt?.media?.data?.attributes?.url
+                      ? `${serverBaseUrl}${dt?.media?.data?.attributes?.url}`
+                      : ""
+                  }
+                  width="0"
+                />
               </div>
+            ) : null}
+            <div className="p-4 medium:p-6">
+              {dt?.zeitpunkt ? (
+                <div className="typo-copy-normal text-gray-400">
+                  {formatDate(dt?.zeitpunkt)}
+                </div>
+              ) : null}
               <div className="mt-4 mb-4 typo-h4">{dt?.titel}</div>
               <div className="typo-copy-normal text-gray-400">
                 {dt?.beschreibung}
@@ -60,10 +64,12 @@ const TimelineList = ({ data }: TimelineItemData) => {
         desc={data.ueberschrift?.text}
         title={data.ueberschrift?.heading}
       />
-      <div className="flex flex-col relative mt-6 medium:mt-24">
-        {timelineItem()}
-        <div className="absolute medium:left-1/2 w-1 my-2.5 h-full border-l-2 border-dashed border-gray-500" />
-      </div>
+      {data.timeline_karten && data.timeline_karten.length > 0 ? (
+        <div className="flex flex-col relative mt-6 medium:mt-24">
+          {timelineItem()}
+          <div className="absolute medium:left-1/2 w-1 my-2.5 h-full border-l-2 border-dashed border-gray-500" />
+        </div>
+      ) : null}
     </div>
   );
 };

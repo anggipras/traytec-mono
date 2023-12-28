@@ -30,9 +30,9 @@
   --slide-size: 100%;
   --slide-height: 19rem;
 }
-.embla_services {
+.embla_nowrap {
   --slide-spacing: 1rem;
-  --slide-size: 315px;
+  --slide-size: 330px;
   --slide-height: 19rem;
 }
 .embla_testimonial_desktop {
