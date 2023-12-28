@@ -5,6 +5,7 @@ import type {
   ComponentHeadingsHeadingMitVideo,
   ComponentHerosHero1,
   ComponentIntegrationenFormular,
+  ComponentIntegrationenJobs,
   ComponentListenGridListe,
   ComponentListenIndustrieListe,
   ComponentListenTimelineListe,
@@ -22,6 +23,7 @@ import SectionMediaContent from "@/modules/common/components/section-media-conte
 import TimelineList from "@/modules/common/components/timeline-list";
 import SectionMediaHeader from "@/modules/common/components/section-media-header";
 import IndustryList from "@/modules/common/components/industry-list";
+import JobList from "@/modules/common/components/job-list";
 
 export const renderDynamicContent = (contentItem: any) => {
   const { __typename } = contentItem || {};
@@ -91,6 +93,13 @@ export const renderDynamicContent = (contentItem: any) => {
       item = (
         <LayoutContainer>
           <IndustryList data={contentItem as ComponentListenIndustrieListe} />
+        </LayoutContainer>
+      );
+      break;
+    case "ComponentIntegrationenJobs":
+      item = (
+        <LayoutContainer>
+          <JobList data={contentItem as ComponentIntegrationenJobs} />
         </LayoutContainer>
       );
       break;

@@ -4,7 +4,7 @@ import LayoutContainer from "@/modules/layout/components/layout-container";
 import Button from "@/modules/common/components/button";
 import { Enum_Componentutilsbutton_Variante } from "@/generated/graphql";
 
-interface DetailPageComponentProps {
+interface JobDetailProps {
   createdDate: string;
   title: string;
   desc: string;
@@ -13,7 +13,7 @@ interface DetailPageComponentProps {
   desc_detail: { title: string; content: string }[];
 }
 
-const DetailPageComponent = ({ ...props }: DetailPageComponentProps) => {
+const JobDetail = ({ ...props }: JobDetailProps) => {
   const appCardIcon = (property: string, val: string) => {
     if (property === "job_position") {
       return require("@/assets/images/icons/ic_clock.svg");
@@ -79,4 +79,4 @@ const DetailPageComponent = ({ ...props }: DetailPageComponentProps) => {
   );
 };
 
-export default DetailPageComponent;
+export default JobDetail;

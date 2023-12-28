@@ -1,51 +1,70 @@
 import { clsx } from "clsx";
-import Image from "next/image";
+// import Image from "next/image";
 import React from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import Button from "../button";
-import { Enum_Componentutilsbutton_Variante } from "@/generated/graphql";
+import type { Job, Maybe } from "@/generated/graphql";
+import {
+  Enum_Componentutilsbutton_Variante,
+  Enum_Componentintegrationenjobs_Style,
+} from "@/generated/graphql";
+import { convertISOStringToCustomFormat } from "@/lib/util/date";
 
-type AppCardProps = {
-  createdDate: string;
-  title: string;
-  desc: string;
-  detailPath: string;
-  parentflex?: "flex-col" | "flex-row";
-  buttonposition?: "medium:justify-start" | "medium:justify-end";
-  detail: { job_position: string; salary: string };
-} & React.HTMLAttributes<HTMLDivElement>;
+interface AppCardProps {
+  data?: Maybe<Job>;
+  componentstyle?: Enum_Componentintegrationenjobs_Style;
+  // detail: { job_position: string; salary: string };
+}
 
 const ApplicationCard = ({
-  parentflex = "flex-row",
-  buttonposition = "medium:justify-end",
-  ...props
+  data,
+  componentstyle = Enum_Componentintegrationenjobs_Style.Grid,
 }: AppCardProps) => {
   const router = useRouter();
 
-  const appCardIcon = (property: string, val: string) => {
-    if (property === "job_position") {
-      return require("@/assets/images/icons/ic_clock.svg");
-    } else if (property === "salary") {
-      return require("@/assets/images/icons/ic_dollar.svg");
-    } else if (property === "vacant") {
-      if (val === "open") {
-        return require("@/assets/images/icons/ic_check_green.svg");
-      }
-      return require("@/assets/images/icons/ic_close.svg");
-    }
-  };
+  const btnAlignment = clsx({
+    "medium:justify-end":
+      componentstyle === Enum_Componentintegrationenjobs_Style.VolleBreite,
+    "medium:justify-start":
+      componentstyle === Enum_Componentintegrationenjobs_Style.Grid,
+  });
+
+  const compFlex = clsx({
+    "medium:flex-row":
+      componentstyle === Enum_Componentintegrationenjobs_Style.VolleBreite,
+    "medium:flex-col":
+      componentstyle === Enum_Componentintegrationenjobs_Style.Grid,
+  });
+
+  // const appCardIcon = (property: string, val: string) => {
+  //   if (property === "job_position") {
+  //     return require("@/assets/images/icons/ic_clock.svg");
+  //   } else if (property === "salary") {
+  //     return require("@/assets/images/icons/ic_dollar.svg");
+  //   } else if (property === "vacant") {
+  //     if (val === "open") {
+  //       return require("@/assets/images/icons/ic_check_green.svg");
+  //     }
+  //     return require("@/assets/images/icons/ic_close.svg");
+  //   }
+  // };
 
   return (
     <div
-      className={`flex flex-col medium:${parentflex} justify-between items-center gap-6 medium:gap-0 p-6 medium:px-10 medium:py-6 rounded-3xl bg-gray-50 w-full`}
+      className={clsx(
+        "flex flex-col justify-between items-center gap-6 medium:gap-0 p-6 medium:px-10 medium:py-6 rounded-3xl bg-gray-50 w-full",
+        compFlex
+      )}
     >
       <div className="w-full">
         <div className="typo-copy-normal text-gray-500 mb-4">
-          {props.createdDate}
+          {convertISOStringToCustomFormat(data?.publishedAt)}
         </div>
-        <div className="typo-h4">{props.title}</div>
-        <div className="typo-copy-normal text-gray-500 my-5">{props.desc}</div>
-        <div className="flex gap-5">
+        <div className="typo-h4">{data?.titel}</div>
+        <div className="typo-copy-normal text-gray-500 my-5">
+          {data?.beschreibung}
+        </div>
+        {/* <div className="flex gap-5">
           {Object.entries(props.detail).map(([property, val]) => (
             <div className="flex items-center" key={property}>
               <div>
@@ -60,20 +79,22 @@ const ApplicationCard = ({
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
       <div
-        className={clsx("flex gap-4 justify-start w-full mt-6", buttonposition)}
+        className={clsx("flex gap-4 justify-start w-full mt-6", btnAlignment)}
       >
-        <Button
-          onClick={() => {
-            router.push(props.detailPath);
-          }}
-          size="medium"
-          variant={Enum_Componentutilsbutton_Variante.Primary}
-        >
-          <span className="">Detail Career</span>
-        </Button>
+        {data?.slug ? (
+          <Button
+            onClick={() => {
+              void router.push(`${router.asPath}/${data?.slug}`);
+            }}
+            size="medium"
+            variant={Enum_Componentutilsbutton_Variante.Primary}
+          >
+            <span className="">Detail Career</span>
+          </Button>
+        ) : null}
         <Button
           size="medium"
           variant={Enum_Componentutilsbutton_Variante.Secondary}

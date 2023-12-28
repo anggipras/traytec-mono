@@ -21,3 +21,14 @@ export const formatDate = (inputDate: string): string => {
 
   return formattedString;
 };
+
+export const convertISOStringToCustomFormat = (isoString: string): string => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+  const date = new Date(isoString);
+  const formattedDate: string = date.toLocaleDateString("en-US", options);
+  return formattedDate;
+};

@@ -331,13 +331,13 @@ export type ComponentHeadingsHeadingMinimalistisch = {
 export type ComponentHeadingsHeadingMitVideo = {
   __typename?: 'ComponentHeadingsHeadingMitVideo';
   id: Scalars['ID'];
-  heading_media?: Maybe<UploadFileEntityResponse>;
+  media?: Maybe<UploadFileEntityResponse>;
   ueberschrift?: Maybe<ComponentUtilsHeading>;
 };
 
 export type ComponentHerosHero1 = {
   __typename?: 'ComponentHerosHero1';
-  hero_btn?: Maybe<Array<Maybe<ComponentUtilsButton>>>;
+  button?: Maybe<Array<Maybe<ComponentUtilsButton>>>;
   hintergrund?: Maybe<UploadFileEntityResponse>;
   id: Scalars['ID'];
   sichtbar: Scalars['Boolean'];
@@ -2712,6 +2712,7 @@ export type GetLocalesQuery = { __typename?: 'Query', i18NLocales?: { __typename
 export type GetPageQueryVariables = Exact<{
   filters?: InputMaybe<SeiteFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
 }>;
 
 
@@ -2766,7 +2767,7 @@ export type GetLocalesQueryHookResult = ReturnType<typeof useGetLocalesQuery>;
 export type GetLocalesLazyQueryHookResult = ReturnType<typeof useGetLocalesLazyQuery>;
 export type GetLocalesQueryResult = Apollo.QueryResult<GetLocalesQuery, GetLocalesQueryVariables>;
 export const GetPageDocument = gql`
-    query getPage($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
+    query getPage($filters: SeiteFiltersInput, $locale: I18NLocaleCode, $pagination: PaginationArg) {
   seiten(filters: $filters, locale: $locale) {
     data {
       attributes {
@@ -2959,7 +2960,7 @@ export const GetPageDocument = gql`
           ... on ComponentIntegrationenJobs {
             STYLE
             alle_anzeigen
-            jobs {
+            jobs(pagination: $pagination) {
               data {
                 attributes {
                   art
@@ -2997,6 +2998,7 @@ export const GetPageDocument = gql`
  *   variables: {
  *      filters: // value for 'filters'
  *      locale: // value for 'locale'
+ *      pagination: // value for 'pagination'
  *   },
  * });
  */

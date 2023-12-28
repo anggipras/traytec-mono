@@ -85,7 +85,7 @@ const IndustryList = ({ data }: IndustryListProps) => {
         </div>
         <div className="max-medium:flex max-medium:flex-col max-medium:items-center px-4 pt-15 medium:px-6 medium:py-20 w-full medium:w-[50%]">
           <div className="typo-h3">{val.attributes?.titel}</div>
-          <div className="typo-copy-normal text-gray-500 mt-4 mb-5">
+          <div className="typo-copy-normal text-gray-500 text-center medium:text-start mt-4 mb-5">
             {val.attributes?.beschreibung}
           </div>
           <div

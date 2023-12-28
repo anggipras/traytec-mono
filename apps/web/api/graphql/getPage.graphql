@@ -1,4 +1,8 @@
-query getPage($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
+query getPage(
+  $filters: SeiteFiltersInput
+  $locale: I18NLocaleCode
+  $pagination: PaginationArg
+) {
   seiten(filters: $filters, locale: $locale) {
     data {
       attributes {
@@ -191,7 +195,7 @@ query getPage($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
           ... on ComponentIntegrationenJobs {
             STYLE
             alle_anzeigen
-            jobs {
+            jobs(pagination: $pagination) {
               data {
                 attributes {
                   art

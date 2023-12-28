@@ -43,6 +43,9 @@ const fetchSinglePage = (handle: string, locale: string) => {
         },
       },
       locale,
+      pagination: {
+        limit: 100,
+      },
     },
   });
 };
