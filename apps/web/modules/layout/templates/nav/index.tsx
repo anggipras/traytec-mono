@@ -1,3 +1,4 @@
+import type { UrlObject } from "node:url";
 import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -15,6 +16,11 @@ interface ValueNavbar {
   __typename: string;
   id: string;
   attributes: Record<string, string>;
+}
+
+interface NestedSlugPathType {
+  params: { handle: string; slug: string };
+  locale: string;
 }
 
 const NavBarTemplate = ({
@@ -35,10 +41,12 @@ const NavBarTemplate = ({
 
   useEffect(() => {
     if (navbarvalue?.localeHandle && navbarvalue.localeHandle.length > 0) {
-      const filteredHandle = navbarvalue.localeHandle.filter(
-        (val) => val.attributes?.slug === router.asPath.replace("/", "")
+      const filteredHandle = navbarvalue.localeHandle.filter((val) =>
+        router.asPath.replace("/", "").includes(val.attributes?.slug || "")
       );
+
       const paths: PathInfo[] = [];
+      const nestedSlugPath: NestedSlugPathType[] = [];
       filteredHandle.forEach((dt) => {
         paths.push({
           params: { handle: dt.attributes?.slug ?? "" },
@@ -50,13 +58,65 @@ const NavBarTemplate = ({
             locale: dtLocal.attributes?.locale ?? "",
           });
         });
+        if (dt.attributes?.inhalte && dt.attributes?.inhalte.length > 0) {
+          const nestedSlug = dt.attributes?.inhalte.filter(
+            (inhalteVal) =>
+              inhalteVal?.__typename === "ComponentIntegrationenJobs"
+          );
+
+          if (
+            nestedSlug.length &&
+            nestedSlug[0]?.__typename === "ComponentIntegrationenJobs"
+          ) {
+            nestedSlug[0].jobs?.data.forEach((jobDt) => {
+              if (
+                dt.attributes?.slug &&
+                jobDt.attributes?.slug &&
+                router.asPath.replace("/", "") ===
+                  `${dt.attributes?.slug}/${jobDt.attributes?.slug}`
+              ) {
+                nestedSlugPath.push({
+                  params: {
+                    handle: dt.attributes?.slug,
+                    slug: jobDt.attributes?.slug ? jobDt.attributes?.slug : "",
+                  },
+                  locale: jobDt.attributes?.locale ?? "",
+                });
+
+                jobDt.attributes?.localizations?.data.forEach((jobDtLocal) => {
+                  const filteredParentPath = paths
+                    .filter(
+                      (filteredPath) =>
+                        filteredPath.locale === jobDtLocal.attributes?.locale
+                    )
+                    .map((strPath) => strPath.params.handle);
+
+                  if (filteredParentPath.length) {
+                    nestedSlugPath.push({
+                      params: {
+                        handle: filteredParentPath[0],
+                        slug: jobDtLocal.attributes?.slug
+                          ? jobDtLocal.attributes?.slug
+                          : "",
+                      },
+                      locale: jobDtLocal.attributes?.locale ?? "",
+                    });
+                  }
+                });
+              }
+            });
+          }
+          // else add another typeName that has nestedSlug e.g Industry page
+        }
       });
+      setNestedSlug(nestedSlugPath);
       setPageHandle(paths);
     }
   }, [navbarvalue?.localeHandle, router.asPath]);
 
   const [openLang, setOpenLang] = useState(false);
   const [pageHandle, setPageHandle] = useState<PathInfo[]>();
+  const [nestedSlug, setNestedSlug] = useState<NestedSlugPathType[]>();
   const [openMenu, setOpenMenu] = useState(-1);
   const [openMobileNavbar, setOpenMobileNavbar] = useState(false);
   const navbarMenu = [
@@ -108,14 +168,31 @@ const NavBarTemplate = ({
 
   const setLangSelected = (flag: string) => {
     const selectedHandle = pageHandle?.filter((val) => val.locale === flag);
+
     setOpenLang(false);
     if (selectedHandle && selectedHandle.length > 0) {
-      const selectedLangHandle = selectedHandle[0].params.handle || "";
-      void router.push(selectedLangHandle, selectedLangHandle, {
-        locale: flag,
-      });
+      if (nestedSlug && nestedSlug.length > 0) {
+        const selectedNestedSlug = nestedSlug.filter(
+          (val) => val.locale === flag
+        );
+
+        const newRouter: UrlObject = {
+          pathname: "/[handle]/[slug]",
+          query: {
+            handle: selectedNestedSlug[0].params.handle,
+            slug: selectedNestedSlug[0].params.slug,
+          },
+        };
+
+        void router.replace(newRouter, undefined, { locale: flag });
+      } else {
+        const selectedLangHandle = selectedHandle[0].params.handle || "";
+        void router.replace(selectedLangHandle, selectedLangHandle, {
+          locale: flag,
+        });
+      }
     } else {
-      void router.push(router.asPath, router.asPath, {
+      void router.replace(router.asPath, router.asPath, {
         locale: flag,
       });
     }

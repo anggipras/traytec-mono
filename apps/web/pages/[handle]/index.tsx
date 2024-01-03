@@ -92,7 +92,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       fallback: "blocking",
     };
   } catch (e) {
-    console.error("Failed to get news handles:", e);
+    console.error("Failed to get single page handles:", e);
 
     return {
       paths: [],

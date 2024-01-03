@@ -12,6 +12,7 @@ import type {
   ComponentSektionenInhaltMitMedia,
   ComponentSliderHorizontalerSlider,
   ComponentSliderHorizontalerSliderFokus,
+  JobEntity,
 } from "@/generated/graphql";
 import HorizontalSlider from "@/modules/common/components/slider/horizontal-slider";
 import FocusSlider from "@/modules/common/components/slider/focus-slider";
@@ -24,6 +25,7 @@ import TimelineList from "@/modules/common/components/timeline-list";
 import SectionMediaHeader from "@/modules/common/components/section-media-header";
 import IndustryList from "@/modules/common/components/industry-list";
 import JobList from "@/modules/common/components/job-list";
+import JobDetail from "@/modules/common/components/job-detail";
 
 export const renderDynamicContent = (contentItem: any) => {
   const { __typename } = contentItem || {};
@@ -100,6 +102,13 @@ export const renderDynamicContent = (contentItem: any) => {
       item = (
         <LayoutContainer>
           <JobList data={contentItem as ComponentIntegrationenJobs} />
+        </LayoutContainer>
+      );
+      break;
+    case "JobEntity":
+      item = (
+        <LayoutContainer>
+          <JobDetail data={contentItem as JobEntity} />
         </LayoutContainer>
       );
       break;

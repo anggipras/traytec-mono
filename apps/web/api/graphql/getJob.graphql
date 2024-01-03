@@ -1,0 +1,15 @@
+query getJob($locale: I18NLocaleCode, $filters: JobFiltersInput) {
+  jobs(locale: $locale, filters: $filters) {
+    data {
+      attributes {
+        locale
+        slug
+        titel
+        art
+        auszug
+        beschreibung
+        publishedAt
+      }
+    }
+  }
+}

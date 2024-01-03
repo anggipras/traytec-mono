@@ -1,0 +1,18 @@
+query getJobSlug($locale: I18NLocaleCode, $pagination: PaginationArg) {
+  jobs(locale: $locale, pagination: $pagination) {
+    data {
+      attributes {
+        slug
+        locale
+        localizations {
+          data {
+            attributes {
+              slug
+              locale
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -2704,6 +2704,22 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type GetJobQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  filters?: InputMaybe<JobFiltersInput>;
+}>;
+
+
+export type GetJobQuery = { __typename?: 'Query', jobs?: { __typename?: 'JobEntityResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, titel: string, art: Enum_Job_Art, auszug?: string | null, beschreibung?: string | null, publishedAt?: any | null } | null }> } | null };
+
+export type GetJobSlugQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
+}>;
+
+
+export type GetJobSlugQuery = { __typename?: 'Query', jobs?: { __typename?: 'JobEntityResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', slug: string, locale?: string | null, localizations?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', slug: string, locale?: string | null } | null }> } | null } | null }> } | null };
+
 export type GetLocalesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2724,9 +2740,104 @@ export type GetPageHandleQueryVariables = Exact<{
 }>;
 
 
-export type GetPageHandleQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null, localizations?: { __typename?: 'SeiteRelationResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null } | null }> } | null } | null }> } | null };
+export type GetPageHandleQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null, localizations?: { __typename?: 'SeiteRelationResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null } | null }> } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch' } | { __typename?: 'ComponentHeadingsHeadingMitVideo' } | { __typename?: 'ComponentHerosHero1' } | { __typename?: 'ComponentIntegrationenFormular' } | { __typename?: 'ComponentIntegrationenJobs', jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, localizations?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', slug: string, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenGridListe' } | { __typename?: 'ComponentListenIndustrieListe' } | { __typename?: 'ComponentListenTimelineListe' } | { __typename?: 'ComponentSektionenInhaltMitMedia' } | { __typename?: 'ComponentSliderHorizontalerSlider' } | { __typename?: 'ComponentSliderHorizontalerSliderFokus' } | { __typename?: 'Error' } | null> | null } | null }> } | null };
 
 
+export const GetJobDocument = gql`
+    query getJob($locale: I18NLocaleCode, $filters: JobFiltersInput) {
+  jobs(locale: $locale, filters: $filters) {
+    data {
+      attributes {
+        locale
+        slug
+        titel
+        art
+        auszug
+        beschreibung
+        publishedAt
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetJobQuery__
+ *
+ * To run a query within a React component, call `useGetJobQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetJobQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetJobQuery({
+ *   variables: {
+ *      locale: // value for 'locale'
+ *      filters: // value for 'filters'
+ *   },
+ * });
+ */
+export function useGetJobQuery(baseOptions?: Apollo.QueryHookOptions<GetJobQuery, GetJobQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetJobQuery, GetJobQueryVariables>(GetJobDocument, options);
+      }
+export function useGetJobLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJobQuery, GetJobQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetJobQuery, GetJobQueryVariables>(GetJobDocument, options);
+        }
+export type GetJobQueryHookResult = ReturnType<typeof useGetJobQuery>;
+export type GetJobLazyQueryHookResult = ReturnType<typeof useGetJobLazyQuery>;
+export type GetJobQueryResult = Apollo.QueryResult<GetJobQuery, GetJobQueryVariables>;
+export const GetJobSlugDocument = gql`
+    query getJobSlug($locale: I18NLocaleCode, $pagination: PaginationArg) {
+  jobs(locale: $locale, pagination: $pagination) {
+    data {
+      attributes {
+        slug
+        locale
+        localizations {
+          data {
+            attributes {
+              slug
+              locale
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetJobSlugQuery__
+ *
+ * To run a query within a React component, call `useGetJobSlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetJobSlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetJobSlugQuery({
+ *   variables: {
+ *      locale: // value for 'locale'
+ *      pagination: // value for 'pagination'
+ *   },
+ * });
+ */
+export function useGetJobSlugQuery(baseOptions?: Apollo.QueryHookOptions<GetJobSlugQuery, GetJobSlugQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetJobSlugQuery, GetJobSlugQueryVariables>(GetJobSlugDocument, options);
+      }
+export function useGetJobSlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJobSlugQuery, GetJobSlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetJobSlugQuery, GetJobSlugQueryVariables>(GetJobSlugDocument, options);
+        }
+export type GetJobSlugQueryHookResult = ReturnType<typeof useGetJobSlugQuery>;
+export type GetJobSlugLazyQueryHookResult = ReturnType<typeof useGetJobSlugLazyQuery>;
+export type GetJobSlugQueryResult = Apollo.QueryResult<GetJobSlugQuery, GetJobSlugQueryVariables>;
 export const GetLocalesDocument = gql`
     query getLocales {
   i18NLocales {
@@ -3027,6 +3138,26 @@ export const GetPageHandleDocument = gql`
               locale
               slug
               titel
+            }
+          }
+        }
+        inhalte {
+          ... on ComponentIntegrationenJobs {
+            jobs {
+              data {
+                attributes {
+                  locale
+                  slug
+                  localizations {
+                    data {
+                      attributes {
+                        slug
+                        locale
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
