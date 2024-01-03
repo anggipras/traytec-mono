@@ -1,11 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { renderDynamicContent } from "@/lib/util/render-dynamic-content";
-import type { ComponentIntegrationenFormular } from "@/generated/graphql";
-import { Enum_Componentutilsheading_Typ } from "@/generated/graphql";
+import SalesForm from "@/modules/common/components/forms/sales-form/sales-form";
+import type { FormularEntityResponseCollection } from "@/generated/graphql";
 
-const FooterComponent = () => {
+const FooterComponent = ({
+  footerdata,
+}: {
+  footerdata?: FormularEntityResponseCollection;
+}) => {
   const contactFooter = [
     {
       image: require("@/assets/images/icons/ic_location.svg"),
@@ -25,63 +28,11 @@ const FooterComponent = () => {
     },
   ];
 
-  const contentItem: ComponentIntegrationenFormular = {
-    __typename: "ComponentIntegrationenFormular",
-    formular: {
-      __typename: "FormularEntityResponse",
-      data: {
-        __typename: "FormularEntity",
-        attributes: {
-          __typename: "Formular",
-          Fragen: [
-            {
-              __typename: "ComponentFormTextForm",
-              frage: "Fill in your first name in the form below then continue",
-              id: "1",
-            },
-            {
-              __typename: "ComponentFormTextForm",
-              frage: "Fill in your last name in the form below then continue",
-              id: "2",
-            },
-          ],
-          ueberschrift: {
-            __typename: "ComponentUtilsHeading",
-            heading: "Contact us for more details",
-            id: "1",
-            text: "Choose according to what you want to ask then click continue and fill in your biodata and message later",
-            typ: Enum_Componentutilsheading_Typ.H1,
-          },
-        },
-        id: "1",
-      },
-    },
-    id: "1",
-    sichtbar: true,
-  };
-
   return (
     <div className="relative bg-primary-900">
-      <div className="absolute left-0 top-0">
-        <Image
-          alt="bg_footer_left"
-          className="max-w-full h-auto"
-          src={require("@/assets/images/common/img_bg_footer_left.svg")}
-        />
-      </div>
-      <div className="absolute right-0 top-0">
-        <Image
-          alt="bg_footer_right"
-          className="max-w-full h-auto"
-          src={require("@/assets/images/common/img_bg_footer_right.svg")}
-        />
-      </div>
       <div className="mx-auto max-w-desktop w-full">
+        {footerdata?.data?.length ? <SalesForm salesform={footerdata} /> : null}
         <div className="flex flex-col relative justify-center items-center w-full text-white">
-          {renderDynamicContent(contentItem)}
-          <div className="w-full">
-            <hr className="text-white h-2 mx-6 medium:mx-15" />
-          </div>
           <div className="w-full px-6 medium:px-15 pt-11 :pt-20 pb-6">
             <div className="flex flex-col medium:flex-row medium:justify-between">
               <div className="flex flex-col items-center self-center medium:items-start max-w-[275px] gap-6 medium:gap-10">

@@ -5,11 +5,16 @@ import App from "next/app";
 import Layout from "@/modules/layout/templates";
 import { getApolloClient } from "@/lib/with-apollo";
 import type {
+  FormularEntityResponseCollection,
   GetLocalesQuery,
   GetPageHandleQuery,
   SeiteEntity,
 } from "@/generated/graphql";
-import { GetLocalesDocument, GetPageHandleDocument } from "@/generated/graphql";
+import {
+  GetFormDocument,
+  GetLocalesDocument,
+  GetPageHandleDocument,
+} from "@/generated/graphql";
 
 // Define an interface for components that have a getLayout property
 interface ComponentWithLayout {
@@ -27,7 +32,9 @@ interface AppOwnProps {
       localeList?: GetLocalesQuery;
       localeHandle: SeiteEntity[];
     };
-    footer?: [];
+    footer?: {
+      salesForm: FormularEntityResponseCollection;
+    };
   };
 }
 
@@ -49,9 +56,23 @@ const MyApp = ({
 
 const fetchLocalesStatic = async () => {
   const apolloClient = getApolloClient();
-
   const result = await apolloClient.query({
     query: GetLocalesDocument,
+  });
+
+  if (result.errors) {
+    throw new Error(
+      `GraphQL Error: ${result.errors.map((e) => e.message).join(", ")}`
+    );
+  }
+
+  return result;
+};
+
+const fetchSalesForm = async () => {
+  const apolloClient = getApolloClient();
+  const result = await apolloClient.query({
+    query: GetFormDocument,
   });
 
   if (result.errors) {
@@ -88,6 +109,10 @@ MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
 
   try {
     const localesDataResult = await fetchLocalesStatic();
+    const salesFormResult = await fetchSalesForm();
+    const salesFormData = salesFormResult.data
+      .formulare as FormularEntityResponseCollection;
+
     const localeHandlePage = await fetchSinglePageHandle(locale ?? "de");
     const localesData: GetLocalesQuery = localesDataResult.data;
     const localeHandleData = localeHandlePage as SeiteEntity[];
@@ -96,6 +121,9 @@ MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
       navbar: {
         localeList: localesData,
         localeHandle: localeHandleData,
+      },
+      footer: {
+        salesForm: salesFormData,
       },
     };
 

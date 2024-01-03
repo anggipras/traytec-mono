@@ -1,0 +1,51 @@
+query getForm {
+  formulare {
+    data {
+      attributes {
+        ueberschrift {
+          heading
+          text
+          topline
+          typ
+        }
+        titel
+        Fragen {
+          ... on ComponentFormTextForm {
+            mand_form: frage
+            notwendig
+          }
+          ... on ComponentFormLongText {
+            frage
+            notwendig
+          }
+          ... on ComponentFormAntwortmoeglichkeit {
+            antwort
+          }
+          ... on ComponentFormDatumUhrzeit {
+            frage
+            notwendig
+          }
+          ... on ComponentFormDatum {
+            frage
+            notwendig
+          }
+          ... on ComponentFormMultipleChoice {
+            frage
+            moeglichkeit {
+              antwort
+            }
+            notwendig
+          }
+          ... on ComponentFormUhrzeit {
+            frage
+            notwendig
+          }
+          ... on Error {
+            code
+            message
+          }
+        }
+      }
+    }
+  }
+}

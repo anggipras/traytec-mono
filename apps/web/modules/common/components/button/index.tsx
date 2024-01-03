@@ -6,6 +6,8 @@ export type ButtonProps = {
   variant?: Enum_Componentutilsbutton_Variante;
   size?: "small" | "medium" | "large";
   width?: "w-fit" | "w-full";
+  typebtn?: "button" | "event";
+  onMouseClick?: any;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = ({
@@ -13,6 +15,8 @@ const Button = ({
   variant = Enum_Componentutilsbutton_Variante.Primary,
   size = "medium",
   width = "w-fit",
+  typebtn = "button",
+  onMouseClick,
   ...props
 }: ButtonProps) => {
   const variantClassname = clsx({
@@ -33,21 +37,39 @@ const Button = ({
   });
 
   return (
-    <button
-      {...props}
-      className={clsx(
-        "btn",
-        variantClassname,
-        spacingClassname,
-        sizeClassname,
-        width,
-        {
-          "cursor-not-allowed": props.disabled,
-        }
+    <>
+      {typebtn === "event" ? (
+        <button
+          {...props}
+          className={clsx(
+            "btn",
+            variantClassname,
+            spacingClassname,
+            sizeClassname,
+            width
+          )}
+          onClick={onMouseClick}
+        >
+          {children}
+        </button>
+      ) : (
+        <button
+          {...props}
+          className={clsx(
+            "btn",
+            variantClassname,
+            spacingClassname,
+            sizeClassname,
+            width,
+            {
+              "cursor-not-allowed": props.disabled,
+            }
+          )}
+        >
+          {children}
+        </button>
       )}
-    >
-      {children}
-    </button>
+    </>
   );
 };
 

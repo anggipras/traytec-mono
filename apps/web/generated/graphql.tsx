@@ -2704,6 +2704,11 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type GetFormQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFormQuery = { __typename?: 'Query', formulare?: { __typename?: 'FormularEntityResponseCollection', data: Array<{ __typename?: 'FormularEntity', attributes?: { __typename?: 'Formular', titel?: string | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, Fragen: Array<{ __typename?: 'ComponentFormAntwortmoeglichkeit', antwort?: string | null } | { __typename?: 'ComponentFormDatum', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'ComponentFormDatumUhrzeit', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'ComponentFormLongText', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'ComponentFormMultipleChoice', frage?: string | null, notwendig?: boolean | null, moeglichkeit?: Array<{ __typename?: 'ComponentFormAntwortmoeglichkeit', antwort?: string | null } | null> | null } | { __typename?: 'ComponentFormTextForm', notwendig?: boolean | null, mand_form: string } | { __typename?: 'ComponentFormUhrzeit', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'Error', code: string, message?: string | null } | null> } | null }> } | null };
+
 export type GetJobQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
   filters?: InputMaybe<JobFiltersInput>;
@@ -2743,6 +2748,86 @@ export type GetPageHandleQueryVariables = Exact<{
 export type GetPageHandleQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null, localizations?: { __typename?: 'SeiteRelationResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null } | null }> } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch' } | { __typename?: 'ComponentHeadingsHeadingMitVideo' } | { __typename?: 'ComponentHerosHero1' } | { __typename?: 'ComponentIntegrationenFormular' } | { __typename?: 'ComponentIntegrationenJobs', jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, localizations?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', slug: string, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenGridListe' } | { __typename?: 'ComponentListenIndustrieListe' } | { __typename?: 'ComponentListenTimelineListe' } | { __typename?: 'ComponentSektionenInhaltMitMedia' } | { __typename?: 'ComponentSliderHorizontalerSlider' } | { __typename?: 'ComponentSliderHorizontalerSliderFokus' } | { __typename?: 'Error' } | null> | null } | null }> } | null };
 
 
+export const GetFormDocument = gql`
+    query getForm {
+  formulare {
+    data {
+      attributes {
+        ueberschrift {
+          heading
+          text
+          topline
+          typ
+        }
+        titel
+        Fragen {
+          ... on ComponentFormTextForm {
+            mand_form: frage
+            notwendig
+          }
+          ... on ComponentFormLongText {
+            frage
+            notwendig
+          }
+          ... on ComponentFormAntwortmoeglichkeit {
+            antwort
+          }
+          ... on ComponentFormDatumUhrzeit {
+            frage
+            notwendig
+          }
+          ... on ComponentFormDatum {
+            frage
+            notwendig
+          }
+          ... on ComponentFormMultipleChoice {
+            frage
+            moeglichkeit {
+              antwort
+            }
+            notwendig
+          }
+          ... on ComponentFormUhrzeit {
+            frage
+            notwendig
+          }
+          ... on Error {
+            code
+            message
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetFormQuery__
+ *
+ * To run a query within a React component, call `useGetFormQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFormQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFormQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetFormQuery(baseOptions?: Apollo.QueryHookOptions<GetFormQuery, GetFormQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetFormQuery, GetFormQueryVariables>(GetFormDocument, options);
+      }
+export function useGetFormLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFormQuery, GetFormQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetFormQuery, GetFormQueryVariables>(GetFormDocument, options);
+        }
+export type GetFormQueryHookResult = ReturnType<typeof useGetFormQuery>;
+export type GetFormLazyQueryHookResult = ReturnType<typeof useGetFormLazyQuery>;
+export type GetFormQueryResult = Apollo.QueryResult<GetFormQuery, GetFormQueryVariables>;
 export const GetJobDocument = gql`
     query getJob($locale: I18NLocaleCode, $filters: JobFiltersInput) {
   jobs(locale: $locale, filters: $filters) {

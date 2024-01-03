@@ -2,14 +2,20 @@ import "@/styles/globals.css";
 import React from "react";
 import NavbarTemplate from "@/modules/layout/templates/nav";
 import FooterTemplate from "@/modules/layout/templates/footer";
-import type { GetLocalesQuery, SeiteEntity } from "@/generated/graphql";
+import type {
+  FormularEntityResponseCollection,
+  GetLocalesQuery,
+  SeiteEntity,
+} from "@/generated/graphql";
 
 interface RootLayoutProps {
   navbar?: {
     localeList?: GetLocalesQuery;
     localeHandle: SeiteEntity[];
   };
-  footer?: [];
+  footer?: {
+    salesForm: FormularEntityResponseCollection;
+  };
 }
 
 export default function RootLayout({
@@ -23,7 +29,7 @@ export default function RootLayout({
     <>
       <NavbarTemplate navbarvalue={initialData?.navbar} />
       {children}
-      <FooterTemplate />
+      <FooterTemplate footervalue={initialData?.footer} />
     </>
   );
 }
