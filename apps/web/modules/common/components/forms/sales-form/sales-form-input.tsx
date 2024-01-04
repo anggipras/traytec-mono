@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary -- disable nested ternary on jsx */
 /* eslint-disable @typescript-eslint/ban-types -- disable ban types */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../button";
 import type {
   ComponentFormDatumUhrzeit,
@@ -10,28 +10,66 @@ import type {
   Maybe,
 } from "@/generated/graphql";
 import { Enum_Componentutilsbutton_Variante } from "@/generated/graphql";
+import { useData } from "@/lib/hooks/use-data-context";
 
 interface FormProps {
   formValue?: Maybe<FormularFragenDynamicZone>;
   scrollNext: Function;
+  scrollPrev: Function;
+  formIdx: number;
 }
 
-const SalesFormInput = ({ formValue, scrollNext }: FormProps) => {
+const SalesFormInput = ({
+  formValue,
+  scrollNext,
+  scrollPrev,
+  formIdx,
+}: FormProps) => {
   const __typename = formValue?.__typename;
-  const [formInputValue, setFormInputValue] = useState<string>();
-  const [selectedDateTime, setSelectedDateTime] = useState<string>("");
+  const [formInputValue, setFormInputValue] = useState<string>("");
+  // const [selectedDateTime, setSelectedDateTime] = useState<string>("");
+  const [reqField, setReqField] = useState(false);
+  const { formData, setSharedFormData } = useData();
+
+  useEffect(() => {
+    if (__typename === "ComponentFormTextForm") {
+      const textShortFormValue = formValue as ComponentFormTextForm;
+      setReqField(textShortFormValue.notwendig || false);
+    } else if (__typename === "ComponentFormLongText") {
+      const textLongFormValue = formValue as ComponentFormLongText;
+      setReqField(textLongFormValue.notwendig || false);
+    } else if (
+      __typename === "ComponentFormDatumUhrzeit" ||
+      __typename === "ComponentFormDatum" ||
+      __typename === "ComponentFormUhrzeit"
+    ) {
+      const dateTimeFormValue = formValue as ComponentFormDatumUhrzeit;
+      setReqField(dateTimeFormValue.notwendig || false);
+    }
+  }, [__typename, formValue]);
 
   const formInputComponent = () => {
-    if (__typename === "ComponentFormLongText") {
-      const textShortFormValue = formValue as ComponentFormLongText;
-
-      const setFormValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormInputValue(e.target.value);
-      };
-
+    const setFormValue = (
+      e:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
+      setFormInputValue(e.target.value);
+      const spreadOutFromData = [...formData];
+      spreadOutFromData[formIdx].formDataValue = e.target.value;
+      setSharedFormData(spreadOutFromData);
+    };
+    // const handleDateTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //   setSelectedDateTime(e.target.value);
+    //   const spreadOutFromData = [...formData];
+    //   spreadOutFromData[formIdx].formDataValue = e.target.value;
+    //   setSharedFormData(spreadOutFromData);
+    // };
+    if (__typename === "ComponentFormTextForm") {
+      const textShortFormValue = formValue as ComponentFormTextForm;
       return (
         <>
-          <div className="mb-6">{textShortFormValue.frage}</div>
+          <div className="mb-6">{textShortFormValue.mand_form}</div>
           <div className="relative w-full mt-6">
             {!textShortFormValue.notwendig ? (
               <div className="typo-copy-normal text-gray-400 text-start">
@@ -43,25 +81,13 @@ const SalesFormInput = ({ formValue, scrollNext }: FormProps) => {
               onChange={(e) => {
                 setFormValue(e);
               }}
-              placeholder={textShortFormValue.frage || ""}
+              placeholder={textShortFormValue.mand_form || ""}
             />
-          </div>
-          <div className="flex justify-end mt-6 w-full">
-            <Button
-              disabled={textShortFormValue.notwendig ? !formInputValue : false}
-              onMouseClick={(e: MouseEvent) => scrollNext(e)}
-              size="medium"
-              typebtn="event"
-              variant={Enum_Componentutilsbutton_Variante.Secondary}
-              width="w-fit"
-            >
-              <span>Continue</span>
-            </Button>
           </div>
         </>
       );
-    } else if (__typename === "ComponentFormTextForm") {
-      const textLongFormValue = formValue as ComponentFormTextForm;
+    } else if (__typename === "ComponentFormLongText") {
+      const textLongFormValue = formValue as ComponentFormLongText;
       return (
         <>
           <div className="mb-6">{textLongFormValue.frage}</div>
@@ -73,21 +99,12 @@ const SalesFormInput = ({ formValue, scrollNext }: FormProps) => {
             ) : null}
             <textarea
               className="h-full w-full border-b border-gray-400 bg-transparent py-4 text-white outline outline-0 transition-all focus:border-white focus-visible:ring-0"
+              onChange={(e) => {
+                setFormValue(e);
+              }}
               placeholder={textLongFormValue.frage || ""}
               rows={10}
             />
-          </div>
-          <div className="flex justify-end mt-6 w-full">
-            <Button
-              disabled={textLongFormValue.notwendig ? !formInputValue : false}
-              onMouseClick={(e: MouseEvent) => scrollNext(e)}
-              size="medium"
-              typebtn="event"
-              variant={Enum_Componentutilsbutton_Variante.Secondary}
-              width="w-fit"
-            >
-              <span>Continue</span>
-            </Button>
           </div>
         </>
       );
@@ -97,9 +114,6 @@ const SalesFormInput = ({ formValue, scrollNext }: FormProps) => {
       __typename === "ComponentFormUhrzeit"
     ) {
       const dateTimeFormValue = formValue as ComponentFormDatumUhrzeit;
-      const handleDateTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedDateTime(e.target.value);
-      };
       const getCurrentDateTime = () => new Date().toISOString().slice(0, -8);
       return (
         <>
@@ -115,7 +129,7 @@ const SalesFormInput = ({ formValue, scrollNext }: FormProps) => {
               id="dateTimePicker"
               min={getCurrentDateTime()}
               onChange={(e) => {
-                handleDateTimeChange(e);
+                setFormValue(e);
               }}
               type={
                 __typename === "ComponentFormDatumUhrzeit"
@@ -124,21 +138,9 @@ const SalesFormInput = ({ formValue, scrollNext }: FormProps) => {
                     ? "time"
                     : "date"
               }
-              value={selectedDateTime}
+              value={formInputValue}
             />
-            <div>{selectedDateTime}</div>
-          </div>
-          <div className="flex justify-end mt-6 w-full">
-            <Button
-              disabled={dateTimeFormValue.notwendig ? !selectedDateTime : false}
-              onMouseClick={(e: MouseEvent) => scrollNext(e)}
-              size="medium"
-              typebtn="event"
-              variant={Enum_Componentutilsbutton_Variante.Secondary}
-              width="w-fit"
-            >
-              <span>Continue</span>
-            </Button>
+            <div>{formInputValue}</div>
           </div>
         </>
       );
@@ -146,7 +148,36 @@ const SalesFormInput = ({ formValue, scrollNext }: FormProps) => {
   };
 
   return (
-    <div className="flex flex-col items-start">{formInputComponent()}</div>
+    <div className="flex flex-col items-start">
+      {formInputComponent()}
+      <div className="flex justify-end mt-6 w-full">
+        <Button
+          onMouseClick={(e: MouseEvent) => scrollPrev(e)}
+          size="medium"
+          typebtn="event"
+          variant={Enum_Componentutilsbutton_Variante.Secondary}
+          width="w-fit"
+        >
+          <span>Back</span>
+        </Button>
+        <Button
+          disabled={
+            formData.length - 1 === formIdx
+              ? false
+              : reqField
+                ? !formInputValue
+                : false
+          }
+          onMouseClick={(e: MouseEvent) => scrollNext(e)}
+          size="medium"
+          typebtn="event"
+          variant={Enum_Componentutilsbutton_Variante.Secondary}
+          width="w-fit"
+        >
+          <span>{formData.length - 1 === formIdx ? "Submit" : "Continue"}</span>
+        </Button>
+      </div>
+    </div>
   );
 };
 

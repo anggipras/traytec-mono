@@ -884,7 +884,7 @@ export type FormularFiltersInput = {
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
-export type FormularFragenDynamicZone = ComponentFormAntwortmoeglichkeit | ComponentFormDatum | ComponentFormDatumUhrzeit | ComponentFormLongText | ComponentFormMultipleChoice | ComponentFormTextForm | ComponentFormUhrzeit | Error;
+export type FormularFragenDynamicZone = ComponentFormDatum | ComponentFormDatumUhrzeit | ComponentFormLongText | ComponentFormMultipleChoice | ComponentFormTextForm | ComponentFormUhrzeit | Error;
 
 export type FormularInput = {
   Fragen?: InputMaybe<Array<Scalars['FormularFragenDynamicZoneInput']>>;
@@ -2707,7 +2707,7 @@ export type UsersPermissionsUserRelationResponseCollection = {
 export type GetFormQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetFormQuery = { __typename?: 'Query', formulare?: { __typename?: 'FormularEntityResponseCollection', data: Array<{ __typename?: 'FormularEntity', attributes?: { __typename?: 'Formular', titel?: string | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, Fragen: Array<{ __typename?: 'ComponentFormAntwortmoeglichkeit', antwort?: string | null } | { __typename?: 'ComponentFormDatum', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'ComponentFormDatumUhrzeit', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'ComponentFormLongText', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'ComponentFormMultipleChoice', frage?: string | null, notwendig?: boolean | null, moeglichkeit?: Array<{ __typename?: 'ComponentFormAntwortmoeglichkeit', antwort?: string | null } | null> | null } | { __typename?: 'ComponentFormTextForm', notwendig?: boolean | null, mand_form: string } | { __typename?: 'ComponentFormUhrzeit', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'Error', code: string, message?: string | null } | null> } | null }> } | null };
+export type GetFormQuery = { __typename?: 'Query', formulare?: { __typename?: 'FormularEntityResponseCollection', data: Array<{ __typename?: 'FormularEntity', attributes?: { __typename?: 'Formular', titel?: string | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, Fragen: Array<{ __typename?: 'ComponentFormDatum', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'ComponentFormDatumUhrzeit', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'ComponentFormLongText', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'ComponentFormMultipleChoice', frage?: string | null, notwendig?: boolean | null, moeglichkeit?: Array<{ __typename?: 'ComponentFormAntwortmoeglichkeit', antwort?: string | null, id: string } | null> | null } | { __typename?: 'ComponentFormTextForm', notwendig?: boolean | null, mand_form: string } | { __typename?: 'ComponentFormUhrzeit', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'Error', code: string, message?: string | null } | null> } | null }> } | null };
 
 export type GetJobQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -2769,9 +2769,6 @@ export const GetFormDocument = gql`
             frage
             notwendig
           }
-          ... on ComponentFormAntwortmoeglichkeit {
-            antwort
-          }
           ... on ComponentFormDatumUhrzeit {
             frage
             notwendig
@@ -2784,6 +2781,7 @@ export const GetFormDocument = gql`
             frage
             moeglichkeit {
               antwort
+              id
             }
             notwendig
           }

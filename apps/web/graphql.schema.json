@@ -7399,11 +7399,6 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
-            "name": "ComponentFormAntwortmoeglichkeit",
-            "ofType": null
-          },
-          {
-            "kind": "OBJECT",
             "name": "ComponentFormDatum",
             "ofType": null
           },

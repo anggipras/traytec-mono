@@ -18,9 +18,6 @@ query getForm {
             frage
             notwendig
           }
-          ... on ComponentFormAntwortmoeglichkeit {
-            antwort
-          }
           ... on ComponentFormDatumUhrzeit {
             frage
             notwendig
@@ -33,6 +30,7 @@ query getForm {
             frage
             moeglichkeit {
               antwort
+              id
             }
             notwendig
           }

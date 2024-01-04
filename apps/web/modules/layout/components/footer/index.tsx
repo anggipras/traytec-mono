@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SalesForm from "@/modules/common/components/forms/sales-form/sales-form";
 import type { FormularEntityResponseCollection } from "@/generated/graphql";
+import { DataProvider } from "@/lib/hooks/use-data-context";
 
 const FooterComponent = ({
   footerdata,
@@ -31,7 +32,11 @@ const FooterComponent = ({
   return (
     <div className="relative bg-primary-900">
       <div className="mx-auto max-w-desktop w-full">
-        {footerdata?.data?.length ? <SalesForm salesform={footerdata} /> : null}
+        {footerdata?.data?.length ? (
+          <DataProvider>
+            <SalesForm salesform={footerdata} />
+          </DataProvider>
+        ) : null}
         <div className="flex flex-col relative justify-center items-center w-full text-white">
           <div className="w-full px-6 medium:px-15 pt-11 :pt-20 pb-6">
             <div className="flex flex-col medium:flex-row medium:justify-between">

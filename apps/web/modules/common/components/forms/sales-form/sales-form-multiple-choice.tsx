@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types -- disable ban types */
 import React, { useEffect, useState } from "react";
+import _ from "lodash";
 import Button from "../../button";
 import type {
   ComponentFormMultipleChoice,
@@ -7,10 +8,12 @@ import type {
   Maybe,
 } from "@/generated/graphql";
 import { Enum_Componentutilsbutton_Variante } from "@/generated/graphql";
+import { useData } from "@/lib/hooks/use-data-context";
 
 interface FormProps {
   formValue?: Maybe<FormularFragenDynamicZone>;
   scrollNext: Function;
+  formIdx: number;
 }
 
 interface MultipleChoiceCheckProps {
@@ -19,7 +22,11 @@ interface MultipleChoiceCheckProps {
   checked: boolean;
 }
 
-const SalesFormMultipleChoice = ({ formValue, scrollNext }: FormProps) => {
+const SalesFormMultipleChoice = ({
+  formValue,
+  scrollNext,
+  formIdx,
+}: FormProps) => {
   const multipleChoiceFormValue = formValue as ComponentFormMultipleChoice;
   const [multipleChoiceCheckValue, setMultipleChoiceCheckValue] = useState<
     MultipleChoiceCheckProps[]
@@ -30,6 +37,8 @@ const SalesFormMultipleChoice = ({ formValue, scrollNext }: FormProps) => {
       checked: false,
     },
   ]);
+  const [disabledBtn, setDisabledBtn] = useState<Boolean>(false);
+  const { formData, setSharedFormData } = useData();
 
   useEffect(() => {
     const multipleChoiceCheck: MultipleChoiceCheckProps[] = [];
@@ -49,8 +58,17 @@ const SalesFormMultipleChoice = ({ formValue, scrollNext }: FormProps) => {
   ) => {
     e.preventDefault();
     const _allChoices = [...multipleChoiceCheckValue];
-
     _allChoices[idx].checked = !_allChoices[idx].checked;
+    const findChecked = _.compact(
+      _allChoices.map((choiceVal) => choiceVal.checked)
+    );
+
+    const spreadOutFromData = [...formData];
+    spreadOutFromData[formIdx].formDataValue[idx].checked =
+      !spreadOutFromData[formIdx].formDataValue[idx].checked;
+    setSharedFormData(spreadOutFromData);
+
+    setDisabledBtn(Boolean(findChecked.length));
     setMultipleChoiceCheckValue(_allChoices);
   };
 
@@ -89,6 +107,7 @@ const SalesFormMultipleChoice = ({ formValue, scrollNext }: FormProps) => {
       </div>
       <div className="flex justify-center mt-10">
         <Button
+          disabled={multipleChoiceFormValue.notwendig ? !disabledBtn : false}
           onMouseClick={(e: MouseEvent) => scrollNext(e)}
           size="medium"
           typebtn="event"

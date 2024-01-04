@@ -11,40 +11,42 @@ interface StepFormProps {
   formValue?: Maybe<FormularFragenDynamicZone>;
   scrollPrev: Function;
   scrollNext: Function;
+  formIdx: number;
 }
 
 const SalesFormContainer = ({
   formValue,
-  //   scrollPrev,
+  scrollPrev,
   scrollNext,
+  formIdx,
 }: StepFormProps) => {
   const __typename = formValue?.__typename;
   let item: React.ReactNode;
   if (__typename === "ComponentFormMultipleChoice") {
     item = (
-      <SalesFormMultipleChoice formValue={formValue} scrollNext={scrollNext} />
+      <SalesFormMultipleChoice
+        formIdx={formIdx}
+        formValue={formValue}
+        scrollNext={scrollNext}
+      />
     );
   } else if (
     __typename === "ComponentFormLongText" ||
     __typename === "ComponentFormDatumUhrzeit" ||
     __typename === "ComponentFormTextForm"
   ) {
-    item = <SalesFormInput formValue={formValue} scrollNext={scrollNext} />;
+    item = (
+      <SalesFormInput
+        formIdx={formIdx}
+        formValue={formValue}
+        scrollNext={scrollNext}
+        scrollPrev={scrollPrev}
+      />
+    );
   } else {
     console.log("No component found for: ", __typename);
     item = null;
   }
-  //   switch (__typename) {
-  //     case "ComponentFormMultipleChoice":
-  //     case "ComponentFormLongText" | "ComponentFormDatumUhrzeit":
-  //       item = (
-  //         <SalesFormInput formValue={formValue} scrollNext={scrollNext} />
-  //       );
-  //       break;
-  //     default:
-  //       console.log("No component found for: ", __typename);
-  //       return null;
-  //   }
 
   return item;
 };
