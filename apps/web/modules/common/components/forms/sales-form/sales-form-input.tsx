@@ -150,7 +150,7 @@ const SalesFormInput = ({
   return (
     <div className="flex flex-col items-start">
       {formInputComponent()}
-      <div className="flex justify-end mt-6 w-full">
+      <div className="flex justify-end mt-6 w-full gap-4">
         <Button
           onMouseClick={(e: MouseEvent) => scrollPrev(e)}
           size="medium"

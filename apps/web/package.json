@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.8",
+    "@headlessui/react": "^1.7.17",
     "clsx": "^2.0.0",
+    "editorjs-react-renderer": "^3.5.1",
     "embla-carousel-react": "^8.0.0-rc15",
     "graphql": "^16.8.1",
     "i18next": "^23.7.8",

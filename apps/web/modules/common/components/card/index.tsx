@@ -1,6 +1,7 @@
+import React, { useState } from "react";
 import { clsx } from "clsx";
 import Image from "next/image";
-import React from "react";
+import HeadlessModal from "../headless-dialog";
 
 type CardProps = {
   image?: string;
@@ -19,32 +20,60 @@ const Card: React.FC<CardProps> = ({
   textposition = "text-start",
   ...props
 }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
-    <div
-      aria-hidden
-      className={clsx("flex", props.cursor, props.additionalclass)}
-      {...props}
-    >
-      {props.image ? (
-        <div className={props.imgclass}>
-          <Image
-            alt="card-img"
-            className={props.imgstyle}
-            height="0"
-            sizes="100%"
-            src={props.image}
-            width="0"
-          />
-        </div>
-      ) : null}
-      <div className={clsx("flex flex-col", textposition)}>
-        {props.smallcontent ? (
-          <div className="mb-3 text-gray-300">{props.smallcontent}</div>
+    <>
+      <div
+        aria-hidden
+        className={clsx("flex", props.cursor, props.additionalclass)}
+        onClick={() => {
+          setIsOpen(true);
+        }}
+        {...props}
+      >
+        {props.image ? (
+          <div className={props.imgclass}>
+            <Image
+              alt="card-img"
+              className={props.imgstyle}
+              height="0"
+              sizes="100%"
+              src={props.image}
+              width="0"
+            />
+          </div>
         ) : null}
-        <div className={clsx("mb-4", props.titleclass)}>{props.title}</div>
-        <div className="typo-copy-normal text-gray-400">{props.subcontent}</div>
+        <div className={clsx("flex flex-col", textposition)}>
+          {props.smallcontent ? (
+            <div className="mb-3 text-gray-300">{props.smallcontent}</div>
+          ) : null}
+          <div className={clsx("mb-4", props.titleclass)}>{props.title}</div>
+          <div className="typo-copy-normal text-gray-400">
+            {props.subcontent}
+          </div>
+        </div>
       </div>
-    </div>
+      <HeadlessModal
+        closeModal={() => {
+          setIsOpen(false);
+        }}
+        isOpen={isOpen}
+      >
+        {props.image ? (
+          <div className={props.imgclass}>
+            <Image
+              alt="card-img"
+              className={props.imgstyle}
+              height="0"
+              sizes="100%"
+              src={props.image}
+              width="0"
+            />
+          </div>
+        ) : null}
+      </HeadlessModal>
+    </>
   );
 };
 

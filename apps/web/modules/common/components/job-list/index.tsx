@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import NativeSelect from "@/modules/common/components/native-select";
 // import SearchBox from "@/modules/common/components/search-box";
 import { clsx } from "clsx";
+import { useRouter } from "next/router";
 import PaginationSection from "@/modules/common/components/pagination";
-import {
-  Enum_Componentintegrationenjobs_Style,
-  type ComponentIntegrationenJobs,
+import { Enum_Componentintegrationenjobs_Style } from "@/generated/graphql";
+import type {
+  ComponentIntegrationenJobs,
+  JobEntity,
 } from "@/generated/graphql";
 import ApplicationCard from "@/modules/common/components/card/application";
 
@@ -14,7 +16,34 @@ interface JobListProps {
 }
 
 const JobList = ({ data }: JobListProps) => {
+  const router = useRouter();
+  const itemsPerPage = 3;
   const [active, setActive] = useState(1);
+  const totalPages = data.jobs?.data?.length
+    ? Math.ceil(data.jobs.data.length / itemsPerPage)
+    : 0;
+  const [currentData, setCurrentData] = useState<JobEntity[]>();
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setActive(1);
+    };
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [router.events]);
+
+  useEffect(() => {
+    if (data.jobs?.data?.length) {
+      const slicedData = data.jobs.data.slice(
+        (active - 1) * itemsPerPage,
+        active * itemsPerPage
+      );
+      setCurrentData(slicedData);
+    }
+  }, [active, data.jobs?.data]);
 
   const activeHandler = (clickedActive: string) => {
     setActive(parseInt(clickedActive));
@@ -45,27 +74,29 @@ const JobList = ({ data }: JobListProps) => {
         <SearchBox placeholder="Search..." type="text" />
       </div> */}
       {data.jobs?.data && data.jobs?.data.length > 0 ? (
-        <div
-          className={clsx(
-            "my-6 medium:my-10 gap-6 medium:gap-4",
-            flexAlignment
-          )}
-        >
-          {data.jobs?.data.map((val, idx) => (
-            <ApplicationCard
-              componentstyle={data.STYLE}
-              data={val.attributes}
-              key={idx}
-            />
-          ))}
-        </div>
+        <>
+          <div
+            className={clsx(
+              "my-6 medium:my-10 gap-6 medium:gap-4",
+              flexAlignment
+            )}
+          >
+            {currentData?.map((val, idx) => (
+              <ApplicationCard
+                componentstyle={data.STYLE}
+                data={val.attributes}
+                key={idx}
+              />
+            ))}
+          </div>
+          <PaginationSection
+            active={active}
+            onClickHandler={activeHandler}
+            size={totalPages}
+            step={1}
+          />
+        </>
       ) : null}
-      <PaginationSection
-        active={active}
-        onClickHandler={activeHandler}
-        size={10}
-        step={1}
-      />
     </div>
   );
 };
