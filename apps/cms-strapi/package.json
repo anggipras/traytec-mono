@@ -12,10 +12,10 @@
   "devDependencies": {},
   "dependencies": {
     "@strapi/plugin-graphql": "4.4.5",
-    "@strapi/plugin-i18n": "4.7.0",
+    "@strapi/plugin-i18n": "4.11.4",
     "@strapi/plugin-seo": "^1.7.7",
-    "@strapi/plugin-users-permissions": "4.7.0",
-    "@strapi/strapi": "4.7.1",
+    "@strapi/plugin-users-permissions": "4.11.4",
+    "@strapi/strapi": "4.11.4",
     "axios": "^1.6.2",
     "codemirror": "5.65.11",
     "googleapis": "^129.0.0",
