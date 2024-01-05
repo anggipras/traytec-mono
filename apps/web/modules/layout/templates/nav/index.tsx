@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/non-nullable-type-assertion-style -- disable nullable type assertion style */
 import type { UrlObject } from "node:url";
 import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
@@ -7,6 +8,7 @@ import ChevronIcon from "@/modules/common/icons/chevron";
 import type { GetLocalesQuery, SeiteEntity } from "@/generated/graphql";
 import Accordion from "@/modules/common/components/accordion";
 import type { PathInfo } from "@/types/global";
+// import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
 
 interface NavbarTemplateProps {
   localeList?: GetLocalesQuery;
@@ -114,11 +116,24 @@ const NavBarTemplate = ({
     }
   }, [navbarvalue?.localeHandle, router.asPath]);
 
-  const [openLang, setOpenLang] = useState(false);
-  const [pageHandle, setPageHandle] = useState<PathInfo[]>();
-  const [nestedSlug, setNestedSlug] = useState<NestedSlugPathType[]>();
-  const [openMenu, setOpenMenu] = useState(-1);
-  const [openMobileNavbar, setOpenMobileNavbar] = useState(false);
+  // const res = useStrapiPluginNavigationTree("main-navigation", {
+  //   locale: router.locale as string,
+  // });
+  // const newNavbarMenu: any = { ...res };
+  // let navbarMenu = [
+  //   {
+  //     path: "",
+  //     menuName: "",
+  //     submenu: [],
+  //   },
+  // ];
+  // if (newNavbarMenu.navigation) {
+  //   const newNew = newNavbarMenu.navigation.map((navVal) => {
+  //     return { path: navVal.path, menuName: navVal.title, submenu: [] };
+  //   });
+  //   navbarMenu = newNew;
+  // }
+
   const navbarMenu = [
     {
       path: "/products",
@@ -165,6 +180,12 @@ const NavBarTemplate = ({
       ],
     },
   ];
+
+  const [openLang, setOpenLang] = useState(false);
+  const [pageHandle, setPageHandle] = useState<PathInfo[]>();
+  const [nestedSlug, setNestedSlug] = useState<NestedSlugPathType[]>();
+  const [openMenu, setOpenMenu] = useState(-1);
+  const [openMobileNavbar, setOpenMobileNavbar] = useState(false);
 
   const setLangSelected = (flag: string) => {
     const selectedHandle = pageHandle?.filter((val) => val.locale === flag);

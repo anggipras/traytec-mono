@@ -19,11 +19,6 @@ console.log("process.env.NODE_ENV", process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
   const parse = require("pg-connection-string").parse;
 
-  console.log(
-    ">>>>>>>>>>>>>>>>>>>> Parsed DB config ::::::::::",
-    parse(process.env.DATABASE_URL),
-  );
-
   const { host, port, database, user, password } = parse(
     process.env.DATABASE_URL,
   );

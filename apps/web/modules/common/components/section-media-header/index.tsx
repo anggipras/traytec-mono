@@ -21,7 +21,8 @@ const SectionMediaHeader = ({ data }: SectionMediaHeaderProps) => {
             <video className="w-full aspect-video medium:rounded-3xl" controls>
               <track kind="captions" />
               <source
-                src={`${serverBaseUrl}${data.heading_media?.data?.attributes?.url}`}
+                src={`${serverBaseUrl?.replace("/api", "")}${data.heading_media
+                  ?.data?.attributes?.url}`}
                 type={`video/${data.heading_media?.data?.attributes?.ext?.replaceAll(
                   ".",
                   ""

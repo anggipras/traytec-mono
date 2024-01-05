@@ -42,7 +42,7 @@ const SectionContentMedia = ({ data }: SectionContentMediaProps) => {
               sizes="100%"
               src={
                 data.media.data?.attributes?.url
-                  ? `${serverBaseUrl}${data.media.data?.attributes?.url}`
+                  ? `${serverBaseUrl?.replace("/api", "")}${data.media.data?.attributes?.url}`
                   : ""
               }
               width="0"

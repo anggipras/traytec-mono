@@ -56,7 +56,8 @@ const Hero = ({ data }: ComponentProps) => {
             style={{ objectFit: "cover", objectPosition: "center" }}
           >
             <source
-              src={`${serverBaseUrl}${data.hintergrund?.data?.attributes?.url}`}
+              src={`${serverBaseUrl?.replace("/api", "")}${data.hintergrund
+                ?.data?.attributes?.url}`}
               type={`video/${data.hintergrund?.data?.attributes?.ext?.replaceAll(
                 ".",
                 ""

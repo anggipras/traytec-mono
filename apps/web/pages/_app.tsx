@@ -2,6 +2,7 @@ import "styles/globals.css";
 import type { AppProps, AppContext } from "next/app";
 import { appWithTranslation } from "next-i18next";
 import App from "next/app";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Layout from "@/modules/layout/templates";
 import { getApolloClient } from "@/lib/with-apollo";
 import type {
@@ -43,14 +44,22 @@ const MyApp = ({
   pageProps,
   navigationData,
 }: ExtendedAppProps & AppOwnProps) => {
+  const queryClient = new QueryClient();
+
   if (Component.getLayout) {
-    return Component.getLayout(<Component {...pageProps} />);
+    return (
+      <QueryClientProvider client={queryClient}>
+        {Component.getLayout(<Component {...pageProps} />)}
+      </QueryClientProvider>
+    );
   }
 
   return (
-    <Layout initialData={navigationData}>
-      <Component {...pageProps} />
-    </Layout>
+    <QueryClientProvider client={queryClient}>
+      <Layout initialData={navigationData}>
+        <Component {...pageProps} />
+      </Layout>
+    </QueryClientProvider>
   );
 };
 

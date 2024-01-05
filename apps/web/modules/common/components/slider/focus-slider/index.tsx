@@ -153,7 +153,8 @@ const FocusSlider = ({ data }: ComponentProps) => {
                               sizes="100%"
                               src={
                                 dt?.image?.data?.attributes?.url
-                                  ? `${serverBaseUrl}${dt?.image?.data?.attributes?.url}`
+                                  ? `${serverBaseUrl?.replace("/api", "")}${dt
+                                      ?.image?.data?.attributes?.url}`
                                   : ""
                               }
                               width="0"
@@ -235,8 +236,8 @@ const FocusSlider = ({ data }: ComponentProps) => {
                                 height="0"
                                 sizes="100%"
                                 src={
-                                  `${serverBaseUrl}${val?.image?.data?.attributes?.url}` ||
-                                  ""
+                                  `${serverBaseUrl?.replace("/api", "")}${val
+                                    ?.image?.data?.attributes?.url}` || ""
                                 }
                                 width="0"
                               />

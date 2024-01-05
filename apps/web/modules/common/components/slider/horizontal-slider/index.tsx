@@ -90,8 +90,8 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
                             alt="icon-slider-nowrap"
                             height={24}
                             src={
-                              `${serverBaseUrl}${val?.icon?.data?.attributes?.url}` ||
-                              ""
+                              `${serverBaseUrl?.replace("/api", "")}${val?.icon
+                                ?.data?.attributes?.url}` || ""
                             }
                             width={24}
                           />

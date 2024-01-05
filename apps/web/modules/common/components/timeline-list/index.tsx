@@ -29,7 +29,8 @@ const TimelineList = ({ data }: TimelineItemData) => {
                   sizes="100%"
                   src={
                     dt?.media?.data?.attributes?.url
-                      ? `${serverBaseUrl}${dt?.media?.data?.attributes?.url}`
+                      ? `${serverBaseUrl?.replace("/api", "")}${dt?.media?.data
+                          ?.attributes?.url}`
                       : ""
                   }
                   width="0"

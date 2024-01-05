@@ -18,7 +18,6 @@ interface MultipleChoiceCheckProps {
 
 const SalesForm = ({ salesform }: SalesFormProps) => {
   const { formData, setSharedFormData } = useData();
-  console.log("dt", formData);
 
   useEffect(() => {
     const fragenData: {
