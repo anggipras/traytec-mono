@@ -4,25 +4,27 @@
   --slide-height: 19rem;
 }
 
-.embla::before,
-.embla::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100px; /* Adjust the width of the gradient as needed */
-  z-index: 2; /* Ensure this is above the carousel items but below the navigation buttons */
-  pointer-events: none; /* So clicks go through to the carousel */
-}
+@media screen and (min-width: 1281px) {
+  .embla::before,
+  .embla::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px; /* Adjust the width of the gradient as needed */
+    z-index: 2; /* Ensure this is above the carousel items but below the navigation buttons */
+    pointer-events: none; /* So clicks go through to the carousel */
+  }
 
-.embla::before {
-  left: 0;
-  background: linear-gradient(to right, white, rgba(255, 255, 255, 0));
-}
+  .embla::before {
+    left: 0;
+    background: linear-gradient(to right, white, rgba(255, 255, 255, 0));
+  }
 
-.embla::after {
-  right: 0;
-  background: linear-gradient(to left, white, rgba(255, 255, 255, 0));
+  .embla::after {
+    right: 0;
+    background: linear-gradient(to left, white, rgba(255, 255, 255, 0));
+  }
 }
 
 .embla_services {
