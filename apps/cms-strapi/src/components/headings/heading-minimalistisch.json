@@ -10,9 +10,6 @@
       "type": "string",
       "required": true
     },
-    "beschreibung": {
-      "type": "richtext"
-    },
     "ausrichtung": {
       "type": "enumeration",
       "enum": [
@@ -24,6 +21,14 @@
     "dekoration_anzeigen": {
       "type": "boolean",
       "default": true
+    },
+    "beschreibung": {
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "standard"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
     }
   }
 }

@@ -1,17 +1,19 @@
 {
   "collectionName": "components_utils_timeline_kartes",
   "info": {
-    "displayName": "Timeline Karte"
+    "displayName": "Timeline Karte",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "media": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "videos"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "zeitpunkt": {
       "type": "date",
@@ -22,7 +24,12 @@
       "required": true
     },
     "beschreibung": {
-      "type": "richtext"
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "standard"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
     }
   }
 }

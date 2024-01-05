@@ -13,6 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
   DateTime: any;
   FormularFragenDynamicZoneInput: any;
   I18NLocaleCode: any;
@@ -21,11 +22,80 @@ export type Scalars = {
   Upload: any;
 };
 
+export type Bewertung = {
+  __typename?: 'Bewertung';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  external_id?: Maybe<Scalars['String']>;
+  kommentar?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  person?: Maybe<Array<Maybe<ComponentUtilsGoogleReviewer>>>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  quelle?: Maybe<Enum_Bewertung_Quelle>;
+  sterne_bewertung?: Maybe<Enum_Bewertung_Sterne_Bewertung>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type BewertungPersonArgs = {
+  filters?: InputMaybe<ComponentUtilsGoogleReviewerFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type BewertungEntity = {
+  __typename?: 'BewertungEntity';
+  attributes?: Maybe<Bewertung>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type BewertungEntityResponse = {
+  __typename?: 'BewertungEntityResponse';
+  data?: Maybe<BewertungEntity>;
+};
+
+export type BewertungEntityResponseCollection = {
+  __typename?: 'BewertungEntityResponseCollection';
+  data: Array<BewertungEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type BewertungFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<BewertungFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  external_id?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  kommentar?: InputMaybe<StringFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<BewertungFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<BewertungFiltersInput>>>;
+  person?: InputMaybe<ComponentUtilsGoogleReviewerFiltersInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  quelle?: InputMaybe<StringFilterInput>;
+  sterne_bewertung?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type BewertungInput = {
+  external_id?: InputMaybe<Scalars['String']>;
+  kommentar?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  person?: InputMaybe<Array<InputMaybe<ComponentUtilsGoogleReviewerInput>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  quelle?: InputMaybe<Enum_Bewertung_Quelle>;
+  sterne_bewertung?: InputMaybe<Enum_Bewertung_Sterne_Bewertung>;
+};
+
+export type BewertungRelationResponseCollection = {
+  __typename?: 'BewertungRelationResponseCollection';
+  data: Array<BewertungEntity>;
+};
+
 export type Blog = {
   __typename?: 'Blog';
   auszug?: Maybe<Scalars['String']>;
   blog_kategorien?: Maybe<BlogKategorieRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  inhalt?: Maybe<Scalars['String']>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<BlogRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']>;
@@ -73,6 +143,7 @@ export type BlogFiltersInput = {
   blog_kategorien?: InputMaybe<BlogKategorieFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  inhalt?: InputMaybe<StringFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<BlogFiltersInput>;
   not?: InputMaybe<BlogFiltersInput>;
@@ -87,6 +158,7 @@ export type BlogFiltersInput = {
 export type BlogInput = {
   auszug?: InputMaybe<Scalars['String']>;
   blog_kategorien?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  inhalt?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   seo?: InputMaybe<ComponentSharedSeoInput>;
   slug?: InputMaybe<Scalars['String']>;
@@ -238,7 +310,7 @@ export type ComponentFormMultipleChoiceMoeglichkeitArgs = {
 
 export type ComponentFormTextForm = {
   __typename?: 'ComponentFormTextForm';
-  frage: Scalars['String'];
+  frage?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   notwendig?: Maybe<Scalars['Boolean']>;
 };
@@ -248,6 +320,22 @@ export type ComponentFormUhrzeit = {
   frage?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   notwendig?: Maybe<Scalars['Boolean']>;
+};
+
+export type ComponentHeadingsHeadingMinimalistisch = {
+  __typename?: 'ComponentHeadingsHeadingMinimalistisch';
+  ausrichtung?: Maybe<Enum_Componentheadingsheadingminimalistisch_Ausrichtung>;
+  beschreibung?: Maybe<Scalars['String']>;
+  dekoration_anzeigen?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  titel: Scalars['String'];
+};
+
+export type ComponentHeadingsHeadingMitVideo = {
+  __typename?: 'ComponentHeadingsHeadingMitVideo';
+  id: Scalars['ID'];
+  media?: Maybe<UploadFileEntityResponse>;
+  ueberschrift?: Maybe<ComponentUtilsHeading>;
 };
 
 export type ComponentHerosHero1 = {
@@ -266,11 +354,93 @@ export type ComponentHerosHero1ButtonArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
+export type ComponentIntegrationenBewertungen = {
+  __typename?: 'ComponentIntegrationenBewertungen';
+  alle_anzeigen?: Maybe<Scalars['Boolean']>;
+  bewertungen?: Maybe<BewertungRelationResponseCollection>;
+  id: Scalars['ID'];
+  ueberschrift?: Maybe<ComponentUtilsHeading>;
+};
+
+
+export type ComponentIntegrationenBewertungenBewertungenArgs = {
+  filters?: InputMaybe<BewertungFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
 export type ComponentIntegrationenFormular = {
   __typename?: 'ComponentIntegrationenFormular';
   formular?: Maybe<FormularEntityResponse>;
   id: Scalars['ID'];
   sichtbar: Scalars['Boolean'];
+};
+
+export type ComponentIntegrationenJobs = {
+  __typename?: 'ComponentIntegrationenJobs';
+  STYLE: Enum_Componentintegrationenjobs_Style;
+  alle_anzeigen?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  jobs?: Maybe<JobRelationResponseCollection>;
+};
+
+
+export type ComponentIntegrationenJobsJobsArgs = {
+  filters?: InputMaybe<JobFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ComponentListenGridListe = {
+  __typename?: 'ComponentListenGridListe';
+  id: Scalars['ID'];
+  inhalt?: Maybe<Array<Maybe<ComponentUtilsGridElement>>>;
+  ueberschrift?: Maybe<ComponentUtilsHeading>;
+};
+
+
+export type ComponentListenGridListeInhaltArgs = {
+  filters?: InputMaybe<ComponentUtilsGridElementFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ComponentListenIndustrieListe = {
+  __typename?: 'ComponentListenIndustrieListe';
+  id: Scalars['ID'];
+  industrien?: Maybe<IndustrieRelationResponseCollection>;
+};
+
+
+export type ComponentListenIndustrieListeIndustrienArgs = {
+  filters?: InputMaybe<IndustrieFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ComponentListenTimelineListe = {
+  __typename?: 'ComponentListenTimelineListe';
+  id: Scalars['ID'];
+  timeline_karten?: Maybe<Array<Maybe<ComponentUtilsTimelineKarte>>>;
+  ueberschrift?: Maybe<ComponentUtilsHeading>;
+};
+
+
+export type ComponentListenTimelineListeTimeline_KartenArgs = {
+  filters?: InputMaybe<ComponentUtilsTimelineKarteFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ComponentSektionenInhaltMitMedia = {
+  __typename?: 'ComponentSektionenInhaltMitMedia';
+  MEDIA_POSITION: Enum_Componentsektioneninhaltmitmedia_Media_Position;
+  id: Scalars['ID'];
+  media: UploadFileEntityResponse;
+  ueberschrift?: Maybe<ComponentUtilsHeading>;
 };
 
 export type ComponentSharedMetaSocial = {
@@ -364,9 +534,11 @@ export type ComponentSliderHorizontalerSliderCardsArgs = {
 
 export type ComponentSliderHorizontalerSliderFokus = {
   __typename?: 'ComponentSliderHorizontalerSliderFokus';
+  background_anzeigen?: Maybe<Scalars['Boolean']>;
   button?: Maybe<ComponentUtilsButton>;
   cards?: Maybe<Array<Maybe<ComponentSliderSliderCard2>>>;
   id: Scalars['ID'];
+  karten_ausserhalb_anzeigen?: Maybe<Scalars['Boolean']>;
   sichtbar: Scalars['Boolean'];
   ueberschrift?: Maybe<ComponentUtilsHeading>;
 };
@@ -380,33 +552,20 @@ export type ComponentSliderHorizontalerSliderFokusCardsArgs = {
 
 export type ComponentSliderSliderCard = {
   __typename?: 'ComponentSliderSliderCard';
-  icon?: Maybe<UploadFileRelationResponseCollection>;
+  icon?: Maybe<UploadFileEntityResponse>;
   icon_text?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   text?: Maybe<Scalars['String']>;
   ueberschrift?: Maybe<Scalars['String']>;
 };
 
-
-export type ComponentSliderSliderCardIconArgs = {
-  filters?: InputMaybe<UploadFileFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
 export type ComponentSliderSliderCard2 = {
   __typename?: 'ComponentSliderSliderCard2';
-  icon?: Maybe<UploadFileRelationResponseCollection>;
   id: Scalars['ID'];
+  image?: Maybe<UploadFileEntityResponse>;
   text?: Maybe<Scalars['String']>;
   ueberschrift?: Maybe<Scalars['String']>;
-};
-
-
-export type ComponentSliderSliderCard2IconArgs = {
-  filters?: InputMaybe<UploadFileFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  vorteile?: Maybe<Scalars['String']>;
 };
 
 export type ComponentSliderSliderCard2FiltersInput = {
@@ -415,6 +574,7 @@ export type ComponentSliderSliderCard2FiltersInput = {
   or?: InputMaybe<Array<InputMaybe<ComponentSliderSliderCard2FiltersInput>>>;
   text?: InputMaybe<StringFilterInput>;
   ueberschrift?: InputMaybe<StringFilterInput>;
+  vorteile?: InputMaybe<StringFilterInput>;
 };
 
 export type ComponentSliderSliderCardFiltersInput = {
@@ -424,6 +584,26 @@ export type ComponentSliderSliderCardFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<ComponentSliderSliderCardFiltersInput>>>;
   text?: InputMaybe<StringFilterInput>;
   ueberschrift?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentUtilsBadge = {
+  __typename?: 'ComponentUtilsBadge';
+  icon?: Maybe<UploadFileEntityResponse>;
+  id: Scalars['ID'];
+  test: Scalars['String'];
+};
+
+export type ComponentUtilsBadgeFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentUtilsBadgeFiltersInput>>>;
+  not?: InputMaybe<ComponentUtilsBadgeFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentUtilsBadgeFiltersInput>>>;
+  test?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentUtilsBadgeInput = {
+  icon?: InputMaybe<Scalars['ID']>;
+  id?: InputMaybe<Scalars['ID']>;
+  test?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentUtilsButton = {
@@ -445,26 +625,42 @@ export type ComponentUtilsButtonFiltersInput = {
 
 export type ComponentUtilsGoogleReviewer = {
   __typename?: 'ComponentUtilsGoogleReviewer';
-  displayName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  isAnonymous?: Maybe<Scalars['Boolean']>;
-  profilePhotoUrl?: Maybe<Scalars['String']>;
+  ist_anonym?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  photo_url?: Maybe<Scalars['String']>;
 };
 
 export type ComponentUtilsGoogleReviewerFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentUtilsGoogleReviewerFiltersInput>>>;
-  displayName?: InputMaybe<StringFilterInput>;
-  isAnonymous?: InputMaybe<BooleanFilterInput>;
+  ist_anonym?: InputMaybe<BooleanFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ComponentUtilsGoogleReviewerFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentUtilsGoogleReviewerFiltersInput>>>;
-  profilePhotoUrl?: InputMaybe<StringFilterInput>;
+  photo_url?: InputMaybe<StringFilterInput>;
 };
 
 export type ComponentUtilsGoogleReviewerInput = {
-  displayName?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
-  isAnonymous?: InputMaybe<Scalars['Boolean']>;
-  profilePhotoUrl?: InputMaybe<Scalars['String']>;
+  ist_anonym?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
+  photo_url?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentUtilsGridElement = {
+  __typename?: 'ComponentUtilsGridElement';
+  bild?: Maybe<UploadFileEntityResponse>;
+  id: Scalars['ID'];
+  text?: Maybe<Scalars['String']>;
+  titel?: Maybe<Scalars['String']>;
+};
+
+export type ComponentUtilsGridElementFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentUtilsGridElementFiltersInput>>>;
+  not?: InputMaybe<ComponentUtilsGridElementFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentUtilsGridElementFiltersInput>>>;
+  text?: InputMaybe<StringFilterInput>;
+  titel?: InputMaybe<StringFilterInput>;
 };
 
 export type ComponentUtilsHeading = {
@@ -494,6 +690,48 @@ export type ComponentUtilsHeadingInput = {
   typ?: InputMaybe<Enum_Componentutilsheading_Typ>;
 };
 
+export type ComponentUtilsTimelineKarte = {
+  __typename?: 'ComponentUtilsTimelineKarte';
+  beschreibung?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  media?: Maybe<UploadFileEntityResponse>;
+  titel: Scalars['String'];
+  zeitpunkt: Scalars['Date'];
+};
+
+export type ComponentUtilsTimelineKarteFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentUtilsTimelineKarteFiltersInput>>>;
+  beschreibung?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentUtilsTimelineKarteFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentUtilsTimelineKarteFiltersInput>>>;
+  titel?: InputMaybe<StringFilterInput>;
+  zeitpunkt?: InputMaybe<DateFilterInput>;
+};
+
+export type DateFilterInput = {
+  and?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  between?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  contains?: InputMaybe<Scalars['Date']>;
+  containsi?: InputMaybe<Scalars['Date']>;
+  endsWith?: InputMaybe<Scalars['Date']>;
+  eq?: InputMaybe<Scalars['Date']>;
+  eqi?: InputMaybe<Scalars['Date']>;
+  gt?: InputMaybe<Scalars['Date']>;
+  gte?: InputMaybe<Scalars['Date']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  lt?: InputMaybe<Scalars['Date']>;
+  lte?: InputMaybe<Scalars['Date']>;
+  ne?: InputMaybe<Scalars['Date']>;
+  not?: InputMaybe<DateFilterInput>;
+  notContains?: InputMaybe<Scalars['Date']>;
+  notContainsi?: InputMaybe<Scalars['Date']>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  notNull?: InputMaybe<Scalars['Boolean']>;
+  null?: InputMaybe<Scalars['Boolean']>;
+  or?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  startsWith?: InputMaybe<Scalars['Date']>;
+};
+
 export type DateTimeFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
@@ -518,6 +756,35 @@ export type DateTimeFilterInput = {
   startsWith?: InputMaybe<Scalars['DateTime']>;
 };
 
+export enum Enum_Bewertung_Quelle {
+  Custom = 'CUSTOM',
+  Google = 'GOOGLE'
+}
+
+export enum Enum_Bewertung_Sterne_Bewertung {
+  Five = 'FIVE',
+  Four = 'FOUR',
+  One = 'ONE',
+  StarRatingUnspecified = 'STAR_RATING_UNSPECIFIED',
+  Three = 'THREE',
+  Two = 'TWO'
+}
+
+export enum Enum_Componentheadingsheadingminimalistisch_Ausrichtung {
+  Links = 'LINKS',
+  Zentriert = 'ZENTRIERT'
+}
+
+export enum Enum_Componentintegrationenjobs_Style {
+  Grid = 'GRID',
+  VolleBreite = 'VOLLE_BREITE'
+}
+
+export enum Enum_Componentsektioneninhaltmitmedia_Media_Position {
+  Links = 'LINKS',
+  Rechts = 'RECHTS'
+}
+
 export enum Enum_Componentsharedmetasocial_Social_Network {
   Facebook = 'Facebook',
   Twitter = 'Twitter'
@@ -534,13 +801,11 @@ export enum Enum_Componentutilsheading_Typ {
   H2 = 'H2'
 }
 
-export enum Enum_Googlebewertung_Starrating {
-  Five = 'FIVE',
-  Four = 'FOUR',
-  One = 'ONE',
-  StarRatingUnspecified = 'STAR_RATING_UNSPECIFIED',
-  Three = 'THREE',
-  Two = 'TWO'
+export enum Enum_Job_Art {
+  Ausbildung = 'AUSBILDUNG',
+  MiniJob = 'MINI_JOB',
+  Teilzeit = 'TEILZEIT',
+  Vollzeit = 'VOLLZEIT'
 }
 
 export enum Enum_Navigationnavigationitem_Type {
@@ -622,7 +887,7 @@ export type FormularFiltersInput = {
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
-export type FormularFragenDynamicZone = ComponentFormAntwortmoeglichkeit | ComponentFormDatum | ComponentFormDatumUhrzeit | ComponentFormLongText | ComponentFormMultipleChoice | ComponentFormTextForm | ComponentFormUhrzeit | Error;
+export type FormularFragenDynamicZone = ComponentFormDatum | ComponentFormDatumUhrzeit | ComponentFormLongText | ComponentFormMultipleChoice | ComponentFormTextForm | ComponentFormUhrzeit | Error;
 
 export type FormularInput = {
   Fragen?: InputMaybe<Array<Scalars['FormularFragenDynamicZoneInput']>>;
@@ -630,66 +895,7 @@ export type FormularInput = {
   ueberschrift?: InputMaybe<ComponentUtilsHeadingInput>;
 };
 
-export type GenericMorph = Blog | BlogKategorie | ComponentFormAntwortmoeglichkeit | ComponentFormDatum | ComponentFormDatumUhrzeit | ComponentFormLongText | ComponentFormMultipleChoice | ComponentFormTextForm | ComponentFormUhrzeit | ComponentHerosHero1 | ComponentIntegrationenFormular | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | ComponentSliderSliderCard | ComponentSliderSliderCard2 | ComponentUtilsButton | ComponentUtilsGoogleReviewer | ComponentUtilsHeading | Formular | GoogleBewertung | I18NLocale | Industrie | NavigationAudience | NavigationNavigation | NavigationNavigationItem | NavigationNavigationsItemsRelated | Produkt | Seite | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
-
-export type GoogleBewertung = {
-  __typename?: 'GoogleBewertung';
-  comment?: Maybe<Scalars['String']>;
-  createTime?: Maybe<Scalars['String']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  publishedAt?: Maybe<Scalars['DateTime']>;
-  reviewId?: Maybe<Scalars['String']>;
-  reviewer?: Maybe<ComponentUtilsGoogleReviewer>;
-  starRating?: Maybe<Enum_Googlebewertung_Starrating>;
-  updateTime?: Maybe<Scalars['String']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type GoogleBewertungEntity = {
-  __typename?: 'GoogleBewertungEntity';
-  attributes?: Maybe<GoogleBewertung>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type GoogleBewertungEntityResponse = {
-  __typename?: 'GoogleBewertungEntityResponse';
-  data?: Maybe<GoogleBewertungEntity>;
-};
-
-export type GoogleBewertungEntityResponseCollection = {
-  __typename?: 'GoogleBewertungEntityResponseCollection';
-  data: Array<GoogleBewertungEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type GoogleBewertungFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<GoogleBewertungFiltersInput>>>;
-  comment?: InputMaybe<StringFilterInput>;
-  createTime?: InputMaybe<StringFilterInput>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  name?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<GoogleBewertungFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<GoogleBewertungFiltersInput>>>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
-  reviewId?: InputMaybe<StringFilterInput>;
-  reviewer?: InputMaybe<ComponentUtilsGoogleReviewerFiltersInput>;
-  starRating?: InputMaybe<StringFilterInput>;
-  updateTime?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type GoogleBewertungInput = {
-  comment?: InputMaybe<Scalars['String']>;
-  createTime?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  publishedAt?: InputMaybe<Scalars['DateTime']>;
-  reviewId?: InputMaybe<Scalars['String']>;
-  reviewer?: InputMaybe<ComponentUtilsGoogleReviewerInput>;
-  starRating?: InputMaybe<Enum_Googlebewertung_Starrating>;
-  updateTime?: InputMaybe<Scalars['String']>;
-};
+export type GenericMorph = Bewertung | Blog | BlogKategorie | ComponentFormAntwortmoeglichkeit | ComponentFormDatum | ComponentFormDatumUhrzeit | ComponentFormLongText | ComponentFormMultipleChoice | ComponentFormTextForm | ComponentFormUhrzeit | ComponentHeadingsHeadingMinimalistisch | ComponentHeadingsHeadingMitVideo | ComponentHerosHero1 | ComponentIntegrationenBewertungen | ComponentIntegrationenFormular | ComponentIntegrationenJobs | ComponentListenGridListe | ComponentListenIndustrieListe | ComponentListenTimelineListe | ComponentSektionenInhaltMitMedia | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | ComponentSliderSliderCard | ComponentSliderSliderCard2 | ComponentUtilsBadge | ComponentUtilsButton | ComponentUtilsGoogleReviewer | ComponentUtilsGridElement | ComponentUtilsHeading | ComponentUtilsTimelineKarte | Formular | I18NLocale | Industrie | Job | NavigationAudience | NavigationNavigation | NavigationNavigationItem | NavigationNavigationsItemsRelated | Produkt | Seite | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -753,6 +959,7 @@ export type IdFilterInput = {
 
 export type Industrie = {
   __typename?: 'Industrie';
+  beschreibung?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<IndustrieRelationResponseCollection>;
@@ -799,6 +1006,7 @@ export type IndustrieEntityResponseCollection = {
 
 export type IndustrieFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<IndustrieFiltersInput>>>;
+  beschreibung?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
@@ -814,6 +1022,7 @@ export type IndustrieFiltersInput = {
 };
 
 export type IndustrieInput = {
+  beschreibung?: InputMaybe<Scalars['String']>;
   produkte?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   seo?: InputMaybe<ComponentSharedSeoInput>;
@@ -874,18 +1083,100 @@ export type JsonFilterInput = {
   startsWith?: InputMaybe<Scalars['JSON']>;
 };
 
+export type Job = {
+  __typename?: 'Job';
+  art: Enum_Job_Art;
+  auszug?: Maybe<Scalars['String']>;
+  badges?: Maybe<Array<Maybe<ComponentUtilsBadge>>>;
+  beschreibung?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<JobRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  slug: Scalars['String'];
+  titel: Scalars['String'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type JobBadgesArgs = {
+  filters?: InputMaybe<ComponentUtilsBadgeFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type JobLocalizationsArgs = {
+  filters?: InputMaybe<JobFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type JobEntity = {
+  __typename?: 'JobEntity';
+  attributes?: Maybe<Job>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type JobEntityResponse = {
+  __typename?: 'JobEntityResponse';
+  data?: Maybe<JobEntity>;
+};
+
+export type JobEntityResponseCollection = {
+  __typename?: 'JobEntityResponseCollection';
+  data: Array<JobEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type JobFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<JobFiltersInput>>>;
+  art?: InputMaybe<StringFilterInput>;
+  auszug?: InputMaybe<StringFilterInput>;
+  badges?: InputMaybe<ComponentUtilsBadgeFiltersInput>;
+  beschreibung?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<JobFiltersInput>;
+  not?: InputMaybe<JobFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<JobFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  titel?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type JobInput = {
+  art?: InputMaybe<Enum_Job_Art>;
+  auszug?: InputMaybe<Scalars['String']>;
+  badges?: InputMaybe<Array<InputMaybe<ComponentUtilsBadgeInput>>>;
+  beschreibung?: InputMaybe<Scalars['String']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  slug?: InputMaybe<Scalars['String']>;
+  titel?: InputMaybe<Scalars['String']>;
+};
+
+export type JobRelationResponseCollection = {
+  __typename?: 'JobRelationResponseCollection';
+  data: Array<JobEntity>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
+  createBewertung?: Maybe<BewertungEntityResponse>;
   createBlog?: Maybe<BlogEntityResponse>;
   createBlogKategorie?: Maybe<BlogKategorieEntityResponse>;
   createBlogKategorieLocalization?: Maybe<BlogKategorieEntityResponse>;
   createBlogLocalization?: Maybe<BlogEntityResponse>;
   createFormular?: Maybe<FormularEntityResponse>;
-  createGoogleBewertung?: Maybe<GoogleBewertungEntityResponse>;
   createIndustrie?: Maybe<IndustrieEntityResponse>;
   createIndustrieLocalization?: Maybe<IndustrieEntityResponse>;
+  createJob?: Maybe<JobEntityResponse>;
+  createJobLocalization?: Maybe<JobEntityResponse>;
   createNavigationAudience?: Maybe<NavigationAudienceEntityResponse>;
   createNavigationNavigation?: Maybe<NavigationNavigationEntityResponse>;
   createNavigationNavigationItem?: Maybe<NavigationNavigationItemEntityResponse>;
@@ -900,11 +1191,12 @@ export type Mutation = {
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  deleteBewertung?: Maybe<BewertungEntityResponse>;
   deleteBlog?: Maybe<BlogEntityResponse>;
   deleteBlogKategorie?: Maybe<BlogKategorieEntityResponse>;
   deleteFormular?: Maybe<FormularEntityResponse>;
-  deleteGoogleBewertung?: Maybe<GoogleBewertungEntityResponse>;
   deleteIndustrie?: Maybe<IndustrieEntityResponse>;
+  deleteJob?: Maybe<JobEntityResponse>;
   deleteNavigationAudience?: Maybe<NavigationAudienceEntityResponse>;
   deleteNavigationNavigation?: Maybe<NavigationNavigationEntityResponse>;
   deleteNavigationNavigationItem?: Maybe<NavigationNavigationItemEntityResponse>;
@@ -928,12 +1220,13 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
+  updateBewertung?: Maybe<BewertungEntityResponse>;
   updateBlog?: Maybe<BlogEntityResponse>;
   updateBlogKategorie?: Maybe<BlogKategorieEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateFormular?: Maybe<FormularEntityResponse>;
-  updateGoogleBewertung?: Maybe<GoogleBewertungEntityResponse>;
   updateIndustrie?: Maybe<IndustrieEntityResponse>;
+  updateJob?: Maybe<JobEntityResponse>;
   updateNavigationAudience?: Maybe<NavigationAudienceEntityResponse>;
   updateNavigationNavigation?: Maybe<NavigationNavigationEntityResponse>;
   updateNavigationNavigationItem?: Maybe<NavigationNavigationItemEntityResponse>;
@@ -954,6 +1247,11 @@ export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String'];
   password: Scalars['String'];
   passwordConfirmation: Scalars['String'];
+};
+
+
+export type MutationCreateBewertungArgs = {
+  data: BewertungInput;
 };
 
 
@@ -988,11 +1286,6 @@ export type MutationCreateFormularArgs = {
 };
 
 
-export type MutationCreateGoogleBewertungArgs = {
-  data: GoogleBewertungInput;
-};
-
-
 export type MutationCreateIndustrieArgs = {
   data: IndustrieInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -1001,6 +1294,19 @@ export type MutationCreateIndustrieArgs = {
 
 export type MutationCreateIndustrieLocalizationArgs = {
   data?: InputMaybe<IndustrieInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateJobArgs = {
+  data: JobInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateJobLocalizationArgs = {
+  data?: InputMaybe<JobInput>;
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1072,6 +1378,11 @@ export type MutationCreateUsersPermissionsUserArgs = {
 };
 
 
+export type MutationDeleteBewertungArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeleteBlogArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -1089,12 +1400,13 @@ export type MutationDeleteFormularArgs = {
 };
 
 
-export type MutationDeleteGoogleBewertungArgs = {
+export type MutationDeleteIndustrieArgs = {
   id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
-export type MutationDeleteIndustrieArgs = {
+export type MutationDeleteJobArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1192,6 +1504,12 @@ export type MutationResetPasswordArgs = {
 };
 
 
+export type MutationUpdateBewertungArgs = {
+  data: BewertungInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateBlogArgs = {
   data: BlogInput;
   id: Scalars['ID'];
@@ -1218,14 +1536,15 @@ export type MutationUpdateFormularArgs = {
 };
 
 
-export type MutationUpdateGoogleBewertungArgs = {
-  data: GoogleBewertungInput;
+export type MutationUpdateIndustrieArgs = {
+  data: IndustrieInput;
   id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
-export type MutationUpdateIndustrieArgs = {
-  data: IndustrieInput;
+export type MutationUpdateJobArgs = {
+  data: JobInput;
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1659,18 +1978,20 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: 'Query';
+  bewertung?: Maybe<BewertungEntityResponse>;
+  bewertungen?: Maybe<BewertungEntityResponseCollection>;
   blog?: Maybe<BlogEntityResponse>;
   blogKategorie?: Maybe<BlogKategorieEntityResponse>;
   blogKategories?: Maybe<BlogKategorieEntityResponseCollection>;
   blogs?: Maybe<BlogEntityResponseCollection>;
   formular?: Maybe<FormularEntityResponse>;
   formulare?: Maybe<FormularEntityResponseCollection>;
-  googleBewertung?: Maybe<GoogleBewertungEntityResponse>;
-  googleBewertungen?: Maybe<GoogleBewertungEntityResponseCollection>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   industrie?: Maybe<IndustrieEntityResponse>;
   industrien?: Maybe<IndustrieEntityResponseCollection>;
+  job?: Maybe<JobEntityResponse>;
+  jobs?: Maybe<JobEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
   navigationAudience?: Maybe<NavigationAudienceEntityResponse>;
   navigationAudiences?: Maybe<NavigationAudienceEntityResponseCollection>;
@@ -1692,6 +2013,19 @@ export type Query = {
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
+};
+
+
+export type QueryBewertungArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryBewertungenArgs = {
+  filters?: InputMaybe<BewertungFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 
@@ -1736,19 +2070,6 @@ export type QueryFormulareArgs = {
 };
 
 
-export type QueryGoogleBewertungArgs = {
-  id?: InputMaybe<Scalars['ID']>;
-};
-
-
-export type QueryGoogleBewertungenArgs = {
-  filters?: InputMaybe<GoogleBewertungFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
 export type QueryI18NLocaleArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
@@ -1769,6 +2090,21 @@ export type QueryIndustrieArgs = {
 
 export type QueryIndustrienArgs = {
   filters?: InputMaybe<IndustrieFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryJobArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type QueryJobsArgs = {
+  filters?: InputMaybe<JobFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
@@ -1959,7 +2295,7 @@ export type SeiteFiltersInput = {
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
-export type SeiteInhalteDynamicZone = ComponentHerosHero1 | ComponentIntegrationenFormular | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | Error;
+export type SeiteInhalteDynamicZone = ComponentHeadingsHeadingMinimalistisch | ComponentHeadingsHeadingMitVideo | ComponentHerosHero1 | ComponentIntegrationenFormular | ComponentIntegrationenJobs | ComponentListenGridListe | ComponentListenIndustrieListe | ComponentListenTimelineListe | ComponentSektionenInhaltMitMedia | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | Error;
 
 export type SeiteInput = {
   inhalte?: InputMaybe<Array<Scalars['SeiteInhalteDynamicZoneInput']>>;
@@ -2004,6 +2340,8 @@ export type UploadFile = {
   caption?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   ext?: Maybe<Scalars['String']>;
+  folder?: Maybe<UploadFolderEntityResponse>;
+  folderPath: Scalars['String'];
   formats?: Maybe<Scalars['JSON']>;
   hash: Scalars['String'];
   height?: Maybe<Scalars['Int']>;
@@ -2310,10 +2648,13 @@ export type UsersPermissionsUpdateRolePayload = {
 export type UsersPermissionsUser = {
   __typename?: 'UsersPermissionsUser';
   blocked?: Maybe<Scalars['Boolean']>;
+  confirmationToken?: Maybe<Scalars['String']>;
   confirmed?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
+  password?: Maybe<Scalars['String']>;
   provider?: Maybe<Scalars['String']>;
+  resetPasswordToken?: Maybe<Scalars['String']>;
   role?: Maybe<UsersPermissionsRoleEntityResponse>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   username: Scalars['String'];
