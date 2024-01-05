@@ -18,6 +18,7 @@ interface MultipleChoiceCheckProps {
 
 const SalesForm = ({ salesform }: SalesFormProps) => {
   const { formData, setSharedFormData } = useData();
+  console.log("dt", formData);
 
   useEffect(() => {
     const fragenData: {
@@ -99,18 +100,17 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
           src={require("@/assets/images/common/img_bg_footer_right.svg")}
         />
       </div>
-      <div className="mx-auto max-w-desktop w-full">
-        <div className="flex flex-col relative justify-center items-center w-full text-white">
-          <div
-            className="flex flex-col items-center text-center max-w-[874px] mx-6 my-10 medium:my-15 z-10"
-            id="sales-form-id"
-          >
+      <div className="mx-auto max-w-desktop w-full" id="sales-form-id">
+        <div className="text-white z-10">
+          <div className="flex flex-col m-auto items-center text-center max-w-[874px] px-6 pt-10 medium:pt-15">
             <div className="typo-h2 mb-4 medium:mb-5">
               {salesform.data[0].attributes?.ueberschrift?.heading}
             </div>
-            <div className="typo-copy-normal mb-6 medium:mb-10">
+            <div className="typo-copy-normal">
               {salesform.data[0].attributes?.ueberschrift?.text}
             </div>
+          </div>
+          <div className="m-auto max-w-[874px] px-6 py-10 medium:py-15">
             <div className="embla_main">
               <div className="embla__viewport" ref={emblaRef}>
                 <div className="embla__container">

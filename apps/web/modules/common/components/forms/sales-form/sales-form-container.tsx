@@ -2,6 +2,9 @@
 import React from "react";
 import SalesFormMultipleChoice from "./sales-form-multiple-choice";
 import SalesFormInput from "./sales-form-input";
+import SalesFormTextLong from "./sales-form-text-long";
+import SalesFormDateTime from "./sales-form-date-time";
+import SalesFormTextForm from "./sales-form-text-form";
 import {
   type FormularFragenDynamicZone,
   type Maybe,

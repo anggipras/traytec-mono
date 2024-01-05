@@ -44,7 +44,7 @@ const Button = ({
           className={clsx(
             "btn",
             variantClassname,
-            spacingClassname,
+            "px-6 py-4",
             sizeClassname,
             width
           )}

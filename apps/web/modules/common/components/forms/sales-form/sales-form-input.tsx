@@ -27,7 +27,6 @@ const SalesFormInput = ({
 }: FormProps) => {
   const __typename = formValue?.__typename;
   const [formInputValue, setFormInputValue] = useState<string>("");
-  // const [selectedDateTime, setSelectedDateTime] = useState<string>("");
   const [reqField, setReqField] = useState(false);
   const { formData, setSharedFormData } = useData();
 
@@ -48,29 +47,24 @@ const SalesFormInput = ({
     }
   }, [__typename, formValue]);
 
+  const setFormValue = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setFormInputValue(e.target.value);
+    const spreadOutFromData = [...formData];
+    spreadOutFromData[formIdx].formDataValue = e.target.value;
+    setSharedFormData(spreadOutFromData);
+  };
+
   const formInputComponent = () => {
-    const setFormValue = (
-      e:
-        | React.ChangeEvent<HTMLInputElement>
-        | React.ChangeEvent<HTMLTextAreaElement>
-    ) => {
-      setFormInputValue(e.target.value);
-      const spreadOutFromData = [...formData];
-      spreadOutFromData[formIdx].formDataValue = e.target.value;
-      setSharedFormData(spreadOutFromData);
-    };
-    // const handleDateTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //   setSelectedDateTime(e.target.value);
-    //   const spreadOutFromData = [...formData];
-    //   spreadOutFromData[formIdx].formDataValue = e.target.value;
-    //   setSharedFormData(spreadOutFromData);
-    // };
     if (__typename === "ComponentFormTextForm") {
       const textShortFormValue = formValue as ComponentFormTextForm;
       return (
         <>
           <div className="mb-6">{textShortFormValue.mand_form}</div>
-          <div className="relative w-full mt-6">
+          <div className="relative w-full">
             {!textShortFormValue.notwendig ? (
               <div className="typo-copy-normal text-gray-400 text-start">
                 Optional
@@ -91,7 +85,7 @@ const SalesFormInput = ({
       return (
         <>
           <div className="mb-6">{textLongFormValue.frage}</div>
-          <div className="relative w-full mt-6">
+          <div className="relative w-full">
             {!textLongFormValue.notwendig ? (
               <div className="typo-copy-normal text-gray-400 text-start">
                 Optional
@@ -118,7 +112,7 @@ const SalesFormInput = ({
       return (
         <>
           <div className="mb-6">{dateTimeFormValue.frage}</div>
-          <div className="relative w-full mt-6">
+          <div className="relative w-full">
             {!dateTimeFormValue.notwendig ? (
               <div className="typo-copy-normal text-gray-400 text-start">
                 Optional
