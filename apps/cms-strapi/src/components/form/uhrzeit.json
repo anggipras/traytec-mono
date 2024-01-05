@@ -1,7 +1,8 @@
 {
   "collectionName": "components_form_uhrzeits",
   "info": {
-    "displayName": "Uhrzeit"
+    "displayName": "Uhrzeit",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -11,7 +12,8 @@
         "output": "HTML",
         "preset": "light"
       },
-      "customField": "plugin::ckeditor.CKEditor"
+      "customField": "plugin::ckeditor.CKEditor",
+      "required": true
     },
     "notwendig": {
       "type": "boolean",

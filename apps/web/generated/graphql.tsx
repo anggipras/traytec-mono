@@ -274,28 +274,28 @@ export type ComponentFormAntwortmoeglichkeitFiltersInput = {
 
 export type ComponentFormDatum = {
   __typename?: 'ComponentFormDatum';
-  frage?: Maybe<Scalars['String']>;
+  frage: Scalars['String'];
   id: Scalars['ID'];
   notwendig?: Maybe<Scalars['Boolean']>;
 };
 
 export type ComponentFormDatumUhrzeit = {
   __typename?: 'ComponentFormDatumUhrzeit';
-  frage?: Maybe<Scalars['String']>;
+  frage: Scalars['String'];
   id: Scalars['ID'];
   notwendig?: Maybe<Scalars['Boolean']>;
 };
 
 export type ComponentFormLongText = {
   __typename?: 'ComponentFormLongText';
-  frage?: Maybe<Scalars['String']>;
+  frage: Scalars['String'];
   id: Scalars['ID'];
   notwendig?: Maybe<Scalars['Boolean']>;
 };
 
 export type ComponentFormMultipleChoice = {
   __typename?: 'ComponentFormMultipleChoice';
-  frage?: Maybe<Scalars['String']>;
+  frage: Scalars['String'];
   id: Scalars['ID'];
   moeglichkeit?: Maybe<Array<Maybe<ComponentFormAntwortmoeglichkeit>>>;
   notwendig?: Maybe<Scalars['Boolean']>;
@@ -310,14 +310,14 @@ export type ComponentFormMultipleChoiceMoeglichkeitArgs = {
 
 export type ComponentFormTextForm = {
   __typename?: 'ComponentFormTextForm';
-  frage?: Maybe<Scalars['String']>;
+  frage: Scalars['String'];
   id: Scalars['ID'];
   notwendig?: Maybe<Scalars['Boolean']>;
 };
 
 export type ComponentFormUhrzeit = {
   __typename?: 'ComponentFormUhrzeit';
-  frage?: Maybe<Scalars['String']>;
+  frage: Scalars['String'];
   id: Scalars['ID'];
   notwendig?: Maybe<Scalars['Boolean']>;
 };
@@ -2715,7 +2715,7 @@ export type UsersPermissionsUserRelationResponseCollection = {
 export type GetFormQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetFormQuery = { __typename?: 'Query', formulare?: { __typename?: 'FormularEntityResponseCollection', data: Array<{ __typename?: 'FormularEntity', attributes?: { __typename?: 'Formular', titel?: string | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, Fragen: Array<{ __typename?: 'ComponentFormDatum', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'ComponentFormDatumUhrzeit', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'ComponentFormLongText', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'ComponentFormMultipleChoice', frage?: string | null, notwendig?: boolean | null, moeglichkeit?: Array<{ __typename?: 'ComponentFormAntwortmoeglichkeit', antwort?: string | null, id: string } | null> | null } | { __typename?: 'ComponentFormTextForm', notwendig?: boolean | null, mand_form: string } | { __typename?: 'ComponentFormUhrzeit', frage?: string | null, notwendig?: boolean | null } | { __typename?: 'Error', code: string, message?: string | null } | null> } | null }> } | null };
+export type GetFormQuery = { __typename?: 'Query', formulare?: { __typename?: 'FormularEntityResponseCollection', data: Array<{ __typename?: 'FormularEntity', attributes?: { __typename?: 'Formular', titel?: string | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, Fragen: Array<{ __typename?: 'ComponentFormDatum', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormDatumUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormLongText', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormMultipleChoice', frage: string, notwendig?: boolean | null, moeglichkeit?: Array<{ __typename?: 'ComponentFormAntwortmoeglichkeit', antwort?: string | null, id: string } | null> | null } | { __typename?: 'ComponentFormTextForm', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'Error', code: string, message?: string | null } | null> } | null }> } | null };
 
 export type GetJobQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -2770,7 +2770,7 @@ export const GetFormDocument = gql`
         titel
         Fragen {
           ... on ComponentFormTextForm {
-            mand_form: frage
+            frage
             notwendig
           }
           ... on ComponentFormLongText {
