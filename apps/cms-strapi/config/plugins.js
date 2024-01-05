@@ -6,13 +6,10 @@ module.exports = ({ env }) => ({
   },
   navigation: {
     enabled: true,
-    config: {
-      allowedLevels: 3,
-      gql: {
-        enabled: true,
-        navigationItemRelated: ["Seiten", "Produkte", "Industrien"],
-      },
-    },
+  },
+  editorjs: {
+    enabled: true,
+    resolve: "./src/plugins/strapi-plugin-react-editorjs",
   },
   graphql: {
     enabled: true,
@@ -29,10 +26,6 @@ module.exports = ({ env }) => ({
   },
   seo: {
     enabled: true,
-  },
-  editorjs: {
-    enabled: true,
-    resolve: "./src/plugins/strapi-plugin-react-editorjs",
   },
   upload: {
     enabled: true,

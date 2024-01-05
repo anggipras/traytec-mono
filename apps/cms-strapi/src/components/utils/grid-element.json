@@ -1,25 +1,32 @@
 {
   "collectionName": "components_utils_grid_elements",
   "info": {
-    "displayName": "Grid Element"
+    "displayName": "Grid Element",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "bild": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "titel": {
       "type": "string"
     },
     "text": {
-      "type": "richtext"
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "standard"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
     }
   }
 }

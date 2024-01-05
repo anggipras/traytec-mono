@@ -95,6 +95,7 @@ export type Blog = {
   auszug?: Maybe<Scalars['String']>;
   blog_kategorien?: Maybe<BlogKategorieRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  inhalt?: Maybe<Scalars['String']>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<BlogRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']>;
@@ -142,6 +143,7 @@ export type BlogFiltersInput = {
   blog_kategorien?: InputMaybe<BlogKategorieFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  inhalt?: InputMaybe<StringFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<BlogFiltersInput>;
   not?: InputMaybe<BlogFiltersInput>;
@@ -156,6 +158,7 @@ export type BlogFiltersInput = {
 export type BlogInput = {
   auszug?: InputMaybe<Scalars['String']>;
   blog_kategorien?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  inhalt?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   seo?: InputMaybe<ComponentSharedSeoInput>;
   slug?: InputMaybe<Scalars['String']>;
@@ -307,7 +310,7 @@ export type ComponentFormMultipleChoiceMoeglichkeitArgs = {
 
 export type ComponentFormTextForm = {
   __typename?: 'ComponentFormTextForm';
-  frage: Scalars['String'];
+  frage?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   notwendig?: Maybe<Scalars['Boolean']>;
 };
@@ -2337,6 +2340,8 @@ export type UploadFile = {
   caption?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   ext?: Maybe<Scalars['String']>;
+  folder?: Maybe<UploadFolderEntityResponse>;
+  folderPath: Scalars['String'];
   formats?: Maybe<Scalars['JSON']>;
   hash: Scalars['String'];
   height?: Maybe<Scalars['Int']>;
@@ -2643,10 +2648,13 @@ export type UsersPermissionsUpdateRolePayload = {
 export type UsersPermissionsUser = {
   __typename?: 'UsersPermissionsUser';
   blocked?: Maybe<Scalars['Boolean']>;
+  confirmationToken?: Maybe<Scalars['String']>;
   confirmed?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
+  password?: Maybe<Scalars['String']>;
   provider?: Maybe<Scalars['String']>;
+  resetPasswordToken?: Maybe<Scalars['String']>;
   role?: Maybe<UsersPermissionsRoleEntityResponse>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   username: Scalars['String'];

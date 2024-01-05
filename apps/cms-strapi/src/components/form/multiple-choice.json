@@ -6,7 +6,12 @@
   "options": {},
   "attributes": {
     "frage": {
-      "type": "richtext"
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "light"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
     },
     "notwendig": {
       "type": "boolean",

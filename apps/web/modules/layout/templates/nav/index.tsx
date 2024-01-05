@@ -7,6 +7,7 @@ import ChevronIcon from "@/modules/common/icons/chevron";
 import type { GetLocalesQuery, SeiteEntity } from "@/generated/graphql";
 import Accordion from "@/modules/common/components/accordion";
 import type { PathInfo } from "@/types/global";
+import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
 
 interface NavbarTemplateProps {
   localeList?: GetLocalesQuery;
@@ -119,6 +120,12 @@ const NavBarTemplate = ({
   const [nestedSlug, setNestedSlug] = useState<NestedSlugPathType[]>();
   const [openMenu, setOpenMenu] = useState(-1);
   const [openMobileNavbar, setOpenMobileNavbar] = useState(false);
+
+  const res = useStrapiPluginNavigationTree("main-navigation", {
+    locale: router.locale as string,
+  });
+
+  console.log("> Template nav bar", res);
   const navbarMenu = [
     {
       path: "/products",

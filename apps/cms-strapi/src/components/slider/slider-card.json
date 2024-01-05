@@ -18,11 +18,16 @@
         "images"
       ]
     },
-    "text": {
-      "type": "richtext"
-    },
     "icon_text": {
       "type": "string"
+    },
+    "text": {
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "standard"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
     }
   }
 }
