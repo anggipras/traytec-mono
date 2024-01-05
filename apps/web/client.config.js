@@ -9,7 +9,7 @@ const defaultConfig = {
 };
 
 const productionConfig = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
+  clientBaseUrl: process.env.NEXT_PUBLIC_SITE_URL,
   graphqlUrl: process.env.NEXT_PUBLIC_GRAPHQL_STRAPI_URL_PROD,
   serverBaseUrl: process.env.NEXT_PUBLIC_API_STRAPI_URL,
   environment,

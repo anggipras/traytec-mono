@@ -6,13 +6,17 @@
   },
   "options": {},
   "attributes": {
-    "frage": {
-      "type": "richtext",
-      "required": true
-    },
     "notwendig": {
       "type": "boolean",
       "default": false
+    },
+    "frage": {
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "light"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
     }
   }
 }

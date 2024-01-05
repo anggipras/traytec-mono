@@ -34,9 +34,6 @@
         "FIVE"
       ]
     },
-    "kommentar": {
-      "type": "richtext"
-    },
     "quelle": {
       "type": "enumeration",
       "enum": [
@@ -44,6 +41,14 @@
         "CUSTOM"
       ],
       "default": "CUSTOM"
+    },
+    "kommentar": {
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "light"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
     }
   }
 }
