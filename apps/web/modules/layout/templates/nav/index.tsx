@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import LayoutContainer from "@/modules/layout/components/layout-container";
 import ChevronIcon from "@/modules/common/icons/chevron";
 import Link from "next/link";
+import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
 
 interface LocaleList {
   id: number;
@@ -32,6 +33,14 @@ const NavBarTemplate = ({ navbarvalue }: NavbarTemplateProps) => {
       isDefault: false,
     },
   ];
+
+  console.log("navbarvalue", navbarvalue);
+
+  const res = useStrapiPluginNavigationTree("main-navigation", {
+    locale: router.locale as string,
+  });
+
+  console.log("> Template nav bar", res);
 
   const [openLang, setOpenLang] = useState(false);
   const [openMenu, setOpenMenu] = useState(-1);
