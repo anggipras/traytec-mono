@@ -89,8 +89,10 @@ const Hero = ({ data }: ComponentProps) => {
         <Image
           alt="bg_hero_left"
           className="w-full h-full"
-          objectFit="cover"
+          height="0"
+          sizes="100%"
           src={require("@/assets/images/common/img_bg_hero_left.svg")}
+          width="0"
         />
       </div>
 

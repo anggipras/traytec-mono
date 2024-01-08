@@ -23,31 +23,19 @@ const fetchHomePageStatic = (locale: string) => {
 };
 
 const HomePage = ({ singlePageData }) => {
-  const singlePage: GetPageQuery = singlePageData?.data;
-
+  const singlePage = singlePageData as GetPageQuery;
   const seo = useSeo(
     singlePage.seiten?.data[0]?.attributes?.seo as ComponentSharedSeo
   );
 
-  const contentData: any[] | undefined | null =
-    singlePage.seiten?.data[0].attributes?.inhalte;
-
   return (
     <>
-      {singlePage.seiten ? (
-        <>
-          <Head
-            description={seo.description}
-            image={seo.image}
-            title={seo.title}
-          />
-          {contentData?.length && (
-            <div className="medium:pb-32.5">
-              <SinglePageTemplate data={singlePage} />
-            </div>
-          )}
-        </>
-      ) : null}
+      <Head description={seo.description} image={seo.image} title={seo.title} />
+      {singlePage.seiten?.data?.length && (
+        <div className="medium:pb-32.5">
+          <SinglePageTemplate data={singlePage} />
+        </div>
+      )}
     </>
   );
 };
@@ -57,6 +45,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const namespaces = ["common"];
 
   const singlePage = await fetchHomePageStatic(initialLocale);
+  const singlePageResponse = singlePage?.data as GetPageQuery;
+
+  if (
+    singlePageResponse.seiten?.data &&
+    singlePageResponse.seiten?.data.length < 1
+  ) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {

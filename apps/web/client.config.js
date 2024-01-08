@@ -20,6 +20,6 @@ const clientConfig =
     ? productionConfig
     : defaultConfig;
 
-console.log("[LOG] ::: clientConfig: ", clientConfig);
+// console.log("[LOG] ::: clientConfig: ", clientConfig);
 
 module.exports = clientConfig;

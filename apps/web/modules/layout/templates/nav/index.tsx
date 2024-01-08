@@ -1,4 +1,3 @@
- 
 import type { UrlObject } from "node:url";
 import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
@@ -8,7 +7,7 @@ import ChevronIcon from "@/modules/common/icons/chevron";
 import type { GetLocalesQuery, SeiteEntity } from "@/generated/graphql";
 import Accordion from "@/modules/common/components/accordion";
 import type { PathInfo } from "@/types/global";
-// import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
+import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
 
 interface NavbarTemplateProps {
   localeList?: GetLocalesQuery;
@@ -116,70 +115,24 @@ const NavBarTemplate = ({
     }
   }, [navbarvalue?.localeHandle, router.asPath]);
 
-  // const res = useStrapiPluginNavigationTree("main-navigation", {
-  //   locale: router.locale as string,
-  // });
-  // const newNavbarMenu: any = { ...res };
-  // let navbarMenu = [
-  //   {
-  //     path: "",
-  //     menuName: "",
-  //     submenu: [],
-  //   },
-  // ];
-  // if (newNavbarMenu.navigation) {
-  //   const newNew = newNavbarMenu.navigation.map((navVal) => {
-  //     return { path: navVal.path, menuName: navVal.title, submenu: [] };
-  //   });
-  //   navbarMenu = newNew;
-  // }
-
-  const navbarMenu = [
+  const res = useStrapiPluginNavigationTree("main-navigation", {
+    // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style -- disable non-nullable-type-assertion-style
+    locale: router.locale as string,
+  });
+  const newNavbarMenu: any = { ...res };
+  let navbarMenu = [
     {
-      path: "/products",
-      menuName: "Products",
-      submenu: [
-        "Customer frame system",
-        "Container inserts",
-        "Stackable",
-        "Rotating stackable",
-        "Inserts for various types of packaging",
-      ],
-    },
-    {
-      path: "/domains",
-      menuName: "Domains",
-      submenu: [
-        "Customer frame system",
-        "Container inserts",
-        "Stackable",
-        "Rotating stackable",
-        "Inserts for various types of packaging",
-      ],
-    },
-    {
-      path: "/company",
-      menuName: "Company Information",
-      submenu: [
-        "Customer frame system",
-        "Container inserts",
-        "Stackable",
-        "Rotating stackable",
-        "Inserts for various types of packaging",
-      ],
-    },
-    {
-      path: "/career",
-      menuName: "Career Section",
-      submenu: [
-        "Customer frame system",
-        "Container inserts",
-        "Stackable",
-        "Rotating stackable",
-        "Inserts for various types of packaging",
-      ],
+      path: "",
+      menuName: "",
+      submenu: [],
     },
   ];
+  if (newNavbarMenu.navigation) {
+    const newNew = newNavbarMenu.navigation.map((navVal) => {
+      return { path: navVal.path, menuName: navVal.title, submenu: [] };
+    });
+    navbarMenu = newNew;
+  }
 
   const [openLang, setOpenLang] = useState(false);
   const [pageHandle, setPageHandle] = useState<PathInfo[]>();
