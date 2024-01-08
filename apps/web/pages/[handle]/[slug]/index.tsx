@@ -51,13 +51,13 @@ const SlugPage = ({ jobData }) => {
 
   return (
     <>
-      {jobDetailData.jobs?.data && jobDetailData.jobs?.data.length > 0 ? (
+      {jobDetailData.jobs?.data && jobDetailData.jobs?.data.length > 0 && (
         <div className="medium:pb-32.5">
           {jobDetailData.jobs?.data.map((val, idx) => (
             <div key={idx}>{renderDynamicContent(val)}</div>
           ))}
         </div>
-      ) : null}
+      )}
     </>
   );
 };

@@ -63,7 +63,7 @@ const SalesFormInput = ({
       const textShortFormValue = formValue as ComponentFormTextForm;
       return (
         <>
-          <div className="mb-6">{textShortFormValue.mand_form}</div>
+          <div className="mb-6">{textShortFormValue.frage}</div>
           <div className="relative w-full">
             {!textShortFormValue.notwendig ? (
               <div className="typo-copy-normal text-gray-400 text-start">
@@ -75,7 +75,7 @@ const SalesFormInput = ({
               onChange={(e) => {
                 setFormValue(e);
               }}
-              placeholder={textShortFormValue.mand_form || ""}
+              placeholder={textShortFormValue.frage || ""}
             />
           </div>
         </>

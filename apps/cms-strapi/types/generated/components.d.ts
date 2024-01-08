@@ -22,9 +22,11 @@ export interface FormDatumUhrzeit extends Schema.Component {
   collectionName: 'components_form_datum_uhrzeits';
   info: {
     displayName: 'Datum + Uhrzeit';
+    description: '';
   };
   attributes: {
     frage: Attribute.RichText &
+      Attribute.Required &
       Attribute.CustomField<
         'plugin::ckeditor.CKEditor',
         {
@@ -44,6 +46,7 @@ export interface FormDatum extends Schema.Component {
   };
   attributes: {
     frage: Attribute.RichText &
+      Attribute.Required &
       Attribute.CustomField<
         'plugin::ckeditor.CKEditor',
         {
@@ -63,6 +66,7 @@ export interface FormLongText extends Schema.Component {
   };
   attributes: {
     frage: Attribute.RichText &
+      Attribute.Required &
       Attribute.CustomField<
         'plugin::ckeditor.CKEditor',
         {
@@ -78,9 +82,11 @@ export interface FormMultipleChoice extends Schema.Component {
   collectionName: 'components_form_multiple_choices';
   info: {
     displayName: 'Multiple Choice';
+    description: '';
   };
   attributes: {
     frage: Attribute.RichText &
+      Attribute.Required &
       Attribute.CustomField<
         'plugin::ckeditor.CKEditor',
         {
@@ -102,6 +108,7 @@ export interface FormTextForm extends Schema.Component {
   attributes: {
     notwendig: Attribute.Boolean & Attribute.DefaultTo<false>;
     frage: Attribute.RichText &
+      Attribute.Required &
       Attribute.CustomField<
         'plugin::ckeditor.CKEditor',
         {
@@ -116,9 +123,11 @@ export interface FormUhrzeit extends Schema.Component {
   collectionName: 'components_form_uhrzeits';
   info: {
     displayName: 'Uhrzeit';
+    description: '';
   };
   attributes: {
     frage: Attribute.RichText &
+      Attribute.Required &
       Attribute.CustomField<
         'plugin::ckeditor.CKEditor',
         {

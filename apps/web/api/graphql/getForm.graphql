@@ -11,7 +11,7 @@ query getForm {
         titel
         Fragen {
           ... on ComponentFormTextForm {
-            mand_form: frage
+            frage
             notwendig
           }
           ... on ComponentFormLongText {
