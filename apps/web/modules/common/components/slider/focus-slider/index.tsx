@@ -121,7 +121,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
               src={require("@/assets/images/common/img_bg_linear.svg")}
             />
           </div>
-          {data.cards && data.cards.length > 0 ? (
+          {data.cards?.length && (
             <div className="relative max-w-[670px] pt-0 medium:pt-4">
               <div className="typo-h3 mb-5 text-center">
                 {data.cards[countSlider]?.ueberschrift}
@@ -187,7 +187,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
                 </div>
               ) : null}
             </div>
-          ) : null}
+          )}
           <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-4 bottom-0 left-0 right-[730px]">
             <PrevButton
               disabled={prevBtnDisabled}

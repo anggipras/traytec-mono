@@ -16,7 +16,6 @@ import {
   GetLocalesDocument,
   GetPageHandleDocument,
 } from "@/generated/graphql";
-import { QueryClient, QueryClientProvider } from "react-query";
 
 // Define an interface for components that have a getLayout property
 interface ComponentWithLayout {

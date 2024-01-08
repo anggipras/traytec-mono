@@ -61,7 +61,7 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
               processSubtitle: data.uberschrift?.text,
             })}
           </div>
-          {data.cards && data.cards.length > 0 ? (
+          {data.cards?.length && (
             <div className="embla__buttons hidden medium:flex gap-4">
               <PrevButton
                 disabled={prevBtnDisabled}
@@ -72,10 +72,10 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
                 onClick={onNextButtonClick}
               />
             </div>
-          ) : null}
+          )}
         </div>
       </div>
-      {data.cards && data.cards.length > 0 ? (
+      {data.cards?.length && (
         <>
           <div className="embla_nowrap pt-6 pb-4 medium:pt-10 medium:pb-0">
             <div className="embla__viewport" ref={emblaRef}>
@@ -147,7 +147,7 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
             />
           </div>
         </>
-      ) : null}
+      )}
     </div>
   );
 };

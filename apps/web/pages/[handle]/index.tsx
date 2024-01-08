@@ -59,11 +59,11 @@ const SinglePage = ({ singlePageData }) => {
   return (
     <>
       <Head description={seo.description} image={seo.image} title={seo.title} />
-      {singlePage.seiten?.data && singlePage.seiten?.data.length > 0 ? (
+      {singlePage.seiten?.data?.length && (
         <div className="medium:pb-32.5">
           <SinglePageTemplate data={singlePage} />
         </div>
-      ) : null}
+      )}
     </>
   );
 };

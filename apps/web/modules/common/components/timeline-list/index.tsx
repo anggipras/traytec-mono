@@ -65,12 +65,12 @@ const TimelineList = ({ data }: TimelineItemData) => {
         desc={data.ueberschrift?.text}
         title={data.ueberschrift?.heading}
       />
-      {data.timeline_karten && data.timeline_karten.length > 0 ? (
+      {data.timeline_karten?.length && (
         <div className="flex flex-col relative mt-6 medium:mt-24">
           {timelineItem()}
           <div className="absolute medium:left-1/2 w-1 my-2.5 h-full border-l-2 border-dashed border-gray-500" />
         </div>
-      ) : null}
+      )}
     </div>
   );
 };

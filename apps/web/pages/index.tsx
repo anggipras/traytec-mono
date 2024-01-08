@@ -41,11 +41,11 @@ const HomePage = ({ singlePageData }) => {
             image={seo.image}
             title={seo.title}
           />
-          {contentData && contentData.length > 0 ? (
+          {contentData?.length && (
             <div className="medium:pb-32.5">
               <SinglePageTemplate data={singlePage} />
             </div>
-          ) : null}
+          )}
         </>
       ) : null}
     </>

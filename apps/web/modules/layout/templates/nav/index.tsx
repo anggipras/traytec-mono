@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/non-nullable-type-assertion-style -- disable nullable type assertion style */
+ 
 import type { UrlObject } from "node:url";
 import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
@@ -42,7 +42,7 @@ const NavBarTemplate = ({
   ];
 
   useEffect(() => {
-    if (navbarvalue?.localeHandle && navbarvalue.localeHandle.length > 0) {
+    if (navbarvalue?.localeHandle.length) {
       const filteredHandle = navbarvalue.localeHandle.filter((val) =>
         router.asPath.replace("/", "").includes(val.attributes?.slug || "")
       );
@@ -60,7 +60,7 @@ const NavBarTemplate = ({
             locale: dtLocal.attributes?.locale ?? "",
           });
         });
-        if (dt.attributes?.inhalte && dt.attributes?.inhalte.length > 0) {
+        if (dt.attributes?.inhalte?.length) {
           const nestedSlug = dt.attributes?.inhalte.filter(
             (inhalteVal) =>
               inhalteVal?.__typename === "ComponentIntegrationenJobs"
@@ -191,8 +191,8 @@ const NavBarTemplate = ({
     const selectedHandle = pageHandle?.filter((val) => val.locale === flag);
 
     setOpenLang(false);
-    if (selectedHandle && selectedHandle.length > 0) {
-      if (nestedSlug && nestedSlug.length > 0) {
+    if (selectedHandle?.length) {
+      if (nestedSlug?.length) {
         const selectedNestedSlug = nestedSlug.filter(
           (val) => val.locale === flag
         );

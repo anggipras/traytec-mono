@@ -114,7 +114,7 @@ const IndustryList = ({ data }: IndustryListProps) => {
             containers, lids, etc. for industry according to our wishes."
         title="Select your desired industry"
       /> */}
-      {data.industrien?.data && data.industrien?.data.length > 0 ? (
+      {data.industrien?.data?.length && (
         <div className="mx-6 medium:mx-15 gap-4 medium:gap-5 mt-10">
           <div className="grid grid-flow-col grid-cols-5 gap-5">
             {data.industrien?.data.map((val, idx) => {
@@ -122,7 +122,7 @@ const IndustryList = ({ data }: IndustryListProps) => {
             })}
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };

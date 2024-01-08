@@ -2,9 +2,14 @@ import React, { useEffect } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import { clsx } from "clsx";
-import {
-  Enum_Componentutilsheading_Typ,
-  type ComponentHerosHero1,
+import { Enum_Componentutilsheading_Typ } from "@/generated/graphql";
+import type {
+  Maybe,
+  ComponentHerosHero1,
+  ComponentUtilsButton,
+  ComponentUtilsHeading,
+  Scalars,
+  UploadFileEntityResponse,
 } from "@/generated/graphql";
 import Button from "@/modules/common/components/button";
 import { serverBaseUrl } from "@/client.config";
@@ -13,7 +18,18 @@ interface ComponentProps {
   data: ComponentHerosHero1;
 }
 
+interface ComponentHero {
+  __typename?: "ComponentHerosHero1";
+  hero_btn?: Maybe<Maybe<ComponentUtilsButton>[]>;
+  hintergrund?: Maybe<UploadFileEntityResponse>;
+  id: Scalars["ID"];
+  sichtbar: Scalars["Boolean"];
+  ueberschrift?: Maybe<ComponentUtilsHeading>;
+}
+
 const Hero = ({ data }: ComponentProps) => {
+  const heroComponent: ComponentHero = { ...data };
+
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -26,13 +42,15 @@ const Hero = ({ data }: ComponentProps) => {
   }, [data]);
 
   const heroHeading = clsx({
-    "typo-h1": data.ueberschrift?.typ === Enum_Componentutilsheading_Typ.H1,
-    "typo-h2": data.ueberschrift?.typ === Enum_Componentutilsheading_Typ.H2,
+    "typo-h1":
+      heroComponent.ueberschrift?.typ === Enum_Componentutilsheading_Typ.H1,
+    "typo-h2":
+      heroComponent.ueberschrift?.typ === Enum_Componentutilsheading_Typ.H2,
   });
 
   const visibleHero = clsx({
-    hidden: !data.sichtbar,
-    block: data.sichtbar,
+    hidden: !heroComponent.sichtbar,
+    block: heroComponent.sichtbar,
   });
 
   return (
@@ -42,7 +60,7 @@ const Hero = ({ data }: ComponentProps) => {
         visibleHero
       )}
     >
-      {data.hintergrund ? (
+      {heroComponent.hintergrund ? (
         <div
           className="relative w-full overflow-hidden"
           style={{ height: "720px" }}
@@ -56,9 +74,9 @@ const Hero = ({ data }: ComponentProps) => {
             style={{ objectFit: "cover", objectPosition: "center" }}
           >
             <source
-              src={`${serverBaseUrl?.replace("/api", "")}${data.hintergrund
-                ?.data?.attributes?.url}`}
-              type={`video/${data.hintergrund?.data?.attributes?.ext?.replaceAll(
+              src={`${serverBaseUrl?.replace("/api", "")}${heroComponent
+                .hintergrund?.data?.attributes?.url}`}
+              type={`video/${heroComponent.hintergrund?.data?.attributes?.ext?.replaceAll(
                 ".",
                 ""
               )}`}
@@ -80,20 +98,20 @@ const Hero = ({ data }: ComponentProps) => {
         <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start h-full max-w-3xl px-6 text-white mx-auto">
           <div className="w-fit px-3.5 py-2 bg-white bg-opacity-25 rounded-md mb-4">
             {t("COMPONENTS.HERO.INTRO", {
-              topLine: data.ueberschrift?.topline,
+              topLine: heroComponent.ueberschrift?.topline,
             })}
           </div>
           <div className={clsx("mb-4 medium:mb-6", heroHeading)}>
             {t("COMPONENTS.HERO.TITLE", {
-              heroHeading: data.ueberschrift?.heading,
+              heroHeading: heroComponent.ueberschrift?.heading,
             })}
           </div>
           <div className="typo-copy-intro leading-6.5 mb-4 medium:mb-6">
             {t("COMPONENTS.HERO.SUBTITLE", {
-              heroText: data.ueberschrift?.text,
+              heroText: heroComponent.ueberschrift?.text,
             })}
           </div>
-          {data.hero_btn?.map((val, idx) => (
+          {heroComponent.hero_btn?.map((val, idx) => (
             <Button
               key={idx}
               size="medium"

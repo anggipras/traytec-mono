@@ -73,7 +73,7 @@ const JobList = ({ data }: JobListProps) => {
         </div>
         <SearchBox placeholder="Search..." type="text" />
       </div> */}
-      {data.jobs?.data && data.jobs?.data.length > 0 ? (
+      {data.jobs?.data?.length && (
         <>
           <div
             className={clsx(
@@ -96,7 +96,7 @@ const JobList = ({ data }: JobListProps) => {
             step={1}
           />
         </>
-      ) : null}
+      )}
     </div>
   );
 };

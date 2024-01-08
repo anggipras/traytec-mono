@@ -14,5 +14,6 @@ module.exports = {
     "react/function-component-definition": "off",
     "react/button-has-type": "off",
     "react/no-array-index-key": "off",
+    "react/jsx-no-leaked-render": "off",
   },
 };
