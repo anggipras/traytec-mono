@@ -73,7 +73,10 @@ const SalesFormMultipleChoice = ({
   };
 
   return (
-    <>
+    <div>
+      <div className="mx-auto text-center mb-10">
+        {multipleChoiceFormValue.frage}
+      </div>
       <div className="grid medium:grid-cols-2 gap-4 medium:gap-5">
         {multipleChoiceFormValue.moeglichkeit?.length
           ? multipleChoiceFormValue.moeglichkeit.map((val, idx) => (
@@ -117,7 +120,7 @@ const SalesFormMultipleChoice = ({
           <span>Continue</span>
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 

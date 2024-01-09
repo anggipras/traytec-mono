@@ -127,11 +127,12 @@ const NavBarTemplate = ({
       submenu: [],
     },
   ];
-  if (newNavbarMenu.navigation) {
-    const newNew = newNavbarMenu.navigation.map((navVal) => {
+
+  if (res.status === "success" && newNavbarMenu.navigation?.length) {
+    const mappedNavbarMenu = newNavbarMenu.navigation.map((navVal) => {
       return { path: navVal.path, menuName: navVal.title, submenu: [] };
     });
-    navbarMenu = newNew;
+    navbarMenu = mappedNavbarMenu;
   }
 
   const [openLang, setOpenLang] = useState(false);
@@ -261,11 +262,11 @@ const NavBarTemplate = ({
                   <div className="flex items-center cursor-pointer text-gray-700 p-2.5">
                     <div
                       aria-hidden="true"
-                      className={`${
-                        router.pathname.includes(val.path)
+                      className={
+                        router.asPath.includes(val.path)
                           ? "text-primary-950"
                           : "text-gray-700"
-                      }`}
+                      }
                       onClick={() => {
                         void router.push(val.path);
                         setOpenMenu(-1);

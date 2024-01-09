@@ -58,7 +58,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      singlePageData: singlePage,
+      singlePageData: singlePageResponse,
       ...(await serverSideTranslations(initialLocale, namespaces)),
     },
     revalidate: 1800,
