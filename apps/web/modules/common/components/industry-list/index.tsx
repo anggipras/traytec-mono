@@ -1,5 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import RenderHtml from "../render-html";
 import type {
   ComponentListenIndustrieListe,
   IndustrieEntity,
@@ -85,16 +87,19 @@ const IndustryList = ({ data }: IndustryListProps) => {
         </div>
         <div className="max-medium:flex max-medium:flex-col max-medium:items-center px-4 pt-15 medium:px-6 medium:py-20 w-full medium:w-[50%]">
           <div className="typo-h3">{val.attributes?.titel}</div>
-          <div className="typo-copy-normal text-gray-500 text-center medium:text-start mt-4 mb-5">
-            {val.attributes?.beschreibung}
-          </div>
-          <div
-            className={`px-6 py-3.5 w-fit rounded-full ${checkButtonStyle(
-              idx
-            )}`}
-          >
-            <span className="">See more Product</span>
-          </div>
+          <RenderHtml
+            className="text-gray-500 text-center medium:text-start mt-4 mb-5"
+            html={val.attributes?.beschreibung || ""}
+          />
+          <Link href={val.attributes?.slug || ""}>
+            <div
+              className={`px-6 py-3.5 w-fit rounded-full ${checkButtonStyle(
+                idx
+              )}`}
+            >
+              <span className="">See more Product</span>
+            </div>
+          </Link>
         </div>
         {/* <div className="mb-10 medium:mb-0 medium:absolute top-0 medium:left-[50%] medium:h-full">
           <Image

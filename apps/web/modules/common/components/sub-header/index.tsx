@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { clsx } from "clsx";
+import RenderHtml from "../render-html";
 import {
   Enum_Componentheadingsheadingminimalistisch_Ausrichtung,
   type ComponentHeadingsHeadingMinimalistisch,
@@ -37,11 +38,11 @@ const SubHeader: React.FC<SubHeaderProps> = ({ data }) => {
             <div className={clsx("typo-h2", textAlignment)}>{data.titel}</div>
             <div
               className={clsx(
-                "typo-copy-normal text-gray-400 mt-5 medium:max-w-4xl",
+                "text-gray-400 mt-5 medium:max-w-4xl",
                 textAlignment
               )}
             >
-              {data.beschreibung}
+              <RenderHtml html={data.beschreibung || ""} />
             </div>
           </div>
           {data.dekoration_anzeigen ? (

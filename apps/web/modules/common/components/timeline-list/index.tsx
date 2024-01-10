@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import RenderHtml from "../render-html";
 import SectionHeader from "@/modules/common/components/section-header";
 import type { ComponentListenTimelineListe } from "@/generated/graphql";
 import { serverBaseUrl } from "@/client.config";
@@ -24,8 +25,6 @@ const TimelineList = ({ data }: TimelineItemData) => {
                   alt="company_milestone"
                   className="w-full"
                   height="0"
-                  objectFit="cover"
-                  objectPosition="center"
                   sizes="100%"
                   src={
                     dt?.media?.data?.attributes?.url
@@ -33,6 +32,7 @@ const TimelineList = ({ data }: TimelineItemData) => {
                           ?.attributes?.url}`
                       : ""
                   }
+                  style={{ objectFit: "cover", objectPosition: "center" }}
                   width="0"
                 />
               </div>
@@ -44,9 +44,10 @@ const TimelineList = ({ data }: TimelineItemData) => {
                 </div>
               ) : null}
               <div className="mt-4 mb-4 typo-h4">{dt?.titel}</div>
-              <div className="typo-copy-normal text-gray-400">
-                {dt?.beschreibung}
-              </div>
+              <RenderHtml
+                className="text-gray-400"
+                html={dt?.beschreibung || ""}
+              />
             </div>
           </div>
           <span

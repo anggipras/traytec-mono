@@ -247,6 +247,17 @@ query getPage(
               }
             }
           }
+          ... on ComponentListenIndustrieListe {
+            industrien {
+              data {
+                attributes {
+                  beschreibung
+                  slug
+                  titel
+                }
+              }
+            }
+          }
           ... on Error {
             code
             message

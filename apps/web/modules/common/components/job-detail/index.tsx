@@ -1,7 +1,7 @@
 import React from "react";
 // import Image from "next/image";
 // import { clsx } from "clsx";
-// import EditorJSRenderer from "../editor-js-renderer";
+import RenderHtml from "../render-html";
 import Button from "@/modules/common/components/button";
 import type { JobEntity } from "@/generated/graphql";
 import {
@@ -53,19 +53,11 @@ const JobDetail = ({ data }: JobDetailProps) => {
             {convertISOStringToCustomFormat(data.attributes?.publishedAt)}
           </div>
         ) : null}
-        <div className="border border-gray-100 w-full mt-6 medium:mt-6" />
-        {/* <EditorJSRenderer
-          content={data.attributes?.auszug || ""}
-          customClasses={{
-            paragraph: clsx("typo-copy-normal"),
-          }}
-        /> */}
-        <div
-          dangerouslySetInnerHTML={{ __html: data.attributes?.auszug || "" }}
+        <div className="border border-gray-100 w-full my-6" />
+        <RenderHtml
+          className="text-gray-400"
+          html={data.attributes?.beschreibung || ""}
         />
-        {/* <div className="typo-copy-normal text-gray-400 mt-8">
-          {data.attributes?.beschreibung}
-        </div> */}
       </div>
       <div className="flex flex-col px-10 py-6 bg-gray-50 rounded-3xl w-full medium:max-w-lg h-fit">
         <div className="typo-h4">

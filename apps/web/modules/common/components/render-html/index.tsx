@@ -34,7 +34,14 @@ const RenderHtml = ({ html, className }: RenderHTMLProps) => {
           .replace(/<p(?:.*?)<\/p>/g, (match: string) => {
             const result = match.replace(/<p/g, `<p class="typo-copy-normal"`);
             return result;
-          }),
+          })
+          .replace(/<ul/g, '<ul class="list-disc list-inside"')
+          .replace(/<ol/g, '<ol class="list-decimal list-inside"')
+          .replace(
+            /<blockquote/g,
+            '<blockquote class="bg-primary-100 p-5 border-l-2 border-primary-200"'
+          )
+          .replace(/<img/g, '<img class="mb-sm"'),
       }}
     />
   );

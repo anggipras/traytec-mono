@@ -133,7 +133,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
                 html={data.cards[countSlider]?.text || ""}
               />
               <div className="embla_main">
-                <div className="embla__buttons flex medium:hidden absolute items-center justify-center left-0 right-0 top-[65%] max-xsmall:top-[58%] gap-3 w-full">
+                <div className="embla__buttons flex medium:hidden absolute items-center justify-center left-0 right-0 top-[70%] max-xsmall:top-[65%] gap-3 w-full">
                   <PrevButton
                     disabled={prevBtnDisabled}
                     onClick={onPrevButtonClick}
@@ -172,7 +172,8 @@ const FocusSlider = ({ data }: ComponentProps) => {
               {data.cards[countSlider]?.vorteile ? (
                 <div className="flex flex-col medium:flex-row medium:flex-wrap justify-start medium:justify-center mt-20 medium:mt-0 gap-4">
                   {data.cards[countSlider]?.vorteile
-                    ?.split(";")
+                    ?.replace(/(?:<(?:[^>]+)>)/gi, "")
+                    .split(";")
                     .map((det, idxDetail) => {
                       return (
                         <div className="flex items-center" key={idxDetail}>

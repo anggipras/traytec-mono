@@ -3,6 +3,7 @@ import { clsx } from "clsx";
 import React from "react";
 import { useRouter } from "next/router";
 import Button from "../button";
+import RenderHtml from "../render-html";
 import type { Job, Maybe } from "@/generated/graphql";
 import {
   Enum_Componentutilsbutton_Variante,
@@ -61,9 +62,7 @@ const ApplicationCard = ({
           {convertISOStringToCustomFormat(data?.publishedAt)}
         </div>
         <div className="typo-h4">{data?.titel}</div>
-        <div className="typo-copy-normal text-gray-500 my-5">
-          {data?.beschreibung}
-        </div>
+        <RenderHtml className="text-gray-500 my-5" html={data?.auszug || ""} />
         {/* <div className="flex gap-5">
           {Object.entries(props.detail).map(([property, val]) => (
             <div className="flex items-center" key={property}>
