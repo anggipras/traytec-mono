@@ -115,11 +115,11 @@ const NavBarTemplate = ({
     }
   }, [navbarvalue?.localeHandle, router.asPath]);
 
-  const res = useStrapiPluginNavigationTree("main-navigation", {
+  const navResponse = useStrapiPluginNavigationTree("main-navigation", {
     // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style -- disable non-nullable-type-assertion-style
     locale: router.locale as string,
   });
-  const newNavbarMenu: any = { ...res };
+  const newNavbarMenu: any = { ...navResponse };
   let navbarMenu = [
     {
       path: "",
@@ -128,7 +128,7 @@ const NavBarTemplate = ({
     },
   ];
 
-  if (res.status === "success" && newNavbarMenu.navigation?.length) {
+  if (navResponse.status === "success" && newNavbarMenu.navigation?.length) {
     const mappedNavbarMenu = newNavbarMenu.navigation.map((navVal) => {
       return { path: navVal.path, menuName: navVal.title, submenu: [] };
     });

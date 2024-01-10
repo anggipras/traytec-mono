@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import type { EmblaOptionsType } from "embla-carousel-react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { flushSync } from "react-dom";
+import Link from "next/link";
+import RenderHtml from "../../render-html";
 import Button from "@/modules/common/components/button";
 import {
   PrevButton,
@@ -17,22 +18,23 @@ interface ComponentProps {
   data: ComponentSliderHorizontalerSliderFokus;
 }
 
-const OPTIONS: EmblaOptionsType = { loop: true };
-const OPTIONS_MOBILE: EmblaOptionsType = {
-  align: "start",
-  containScroll: false,
-  loop: true,
-};
-
 const TWEEN_FACTOR = 2.5;
 
 const numberWithinRange = (number: number, min: number, max: number): number =>
   Math.min(Math.max(number, min), max);
 
 const FocusSlider = ({ data }: ComponentProps) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
-  const [emblaRefMob, emblaApiMob] = useEmblaCarousel(OPTIONS_MOBILE);
-  const [emblaRefProduct, emblaApiProduct] = useEmblaCarousel(OPTIONS_MOBILE);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [emblaRefMob, emblaApiMob] = useEmblaCarousel({
+    align: "start",
+    containScroll: false,
+    loop: true,
+  });
+  const [emblaRefProduct, emblaApiProduct] = useEmblaCarousel({
+    align: "start",
+    containScroll: false,
+    loop: true,
+  });
   const [tweenValues, setTweenValues] = useState<number[]>([]);
   const [screenWidth, setScreenWidth] = useState(0);
 
@@ -126,9 +128,10 @@ const FocusSlider = ({ data }: ComponentProps) => {
               <div className="typo-h3 mb-5 text-center">
                 {data.cards[countSlider]?.ueberschrift}
               </div>
-              <div className="typo-copy-normal mb-10 text-gray-400 text-center">
-                {data.cards[countSlider]?.text}
-              </div>
+              <RenderHtml
+                className="mb-10 text-gray-400 text-center"
+                html={data.cards[countSlider]?.text || ""}
+              />
               <div className="embla_main">
                 <div className="embla__buttons flex medium:hidden absolute items-center justify-center left-0 right-0 top-[65%] max-xsmall:top-[58%] gap-3 w-full">
                   <PrevButton
@@ -205,9 +208,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
         <>
           <div className="relative mx-6 medium:mx-0 mt-5 medium:mt-10">
             <div
-              className={`${
-                screenWidth > 1279 ? "embla_industry" : "embla_main"
-              }`}
+              className={screenWidth > 1279 ? "embla_industry" : "embla_main"}
             >
               <div
                 className="embla__viewport"
@@ -244,9 +245,10 @@ const FocusSlider = ({ data }: ComponentProps) => {
                             ) : null}
                           </div>
                           <div className="typo-h4">{val?.ueberschrift}</div>
-                          <div className="typo-copy-normal text-gray-400 text-center medium:text-start">
-                            {val?.text}
-                          </div>
+                          <RenderHtml
+                            className="text-gray-400 text-center medium:text-start"
+                            html={val?.text || ""}
+                          />
                         </div>
                       </div>
                     </div>
@@ -278,11 +280,13 @@ const FocusSlider = ({ data }: ComponentProps) => {
             />
           </div>
           {data.button ? (
-            <div className="hidden medium:flex justify-center mt-10">
-              <Button size="medium" variant={data.button.variante}>
-                <span className="">{data.button.text}</span>
-              </Button>
-            </div>
+            <Link className="mt-10" href={data.button.url}>
+              <div className="flex justify-center">
+                <Button size="medium" variant={data.button.variante}>
+                  <span className="">{data.button.text}</span>
+                </Button>
+              </div>
+            </Link>
           ) : null}
         </>
       )}

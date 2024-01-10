@@ -1,8 +1,31 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
 
 const FooterComponent = () => {
+  const router = useRouter();
+  const navResponse = useStrapiPluginNavigationTree("main-navigation", {
+    // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style -- disable non-nullable-type-assertion-style
+    locale: router.locale as string,
+  });
+  const newNavbarMenu: any = { ...navResponse };
+  let navbarMenu = [
+    {
+      path: "",
+      menuName: "",
+      submenu: [],
+    },
+  ];
+
+  if (navResponse.status === "success" && newNavbarMenu.navigation?.length) {
+    const mappedNavbarMenu = newNavbarMenu.navigation.map((navVal) => {
+      return { path: navVal.path, menuName: navVal.title, submenu: [] };
+    });
+    navbarMenu = mappedNavbarMenu;
+  }
+
   const contactFooter = [
     {
       image: require("@/assets/images/icons/ic_location.svg"),
@@ -76,10 +99,11 @@ const FooterComponent = () => {
               <div className="flex flex-col medium:flex-row medium:justify-between">
                 <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal mr-5">
                   <div className="typo-h5 mb-2">Navigation</div>
-                  <Link href="/products">Products</Link>
-                  <Link href="/domains">Domain</Link>
-                  <Link href="/company">Company Information</Link>
-                  <Link href="/career">Career Section</Link>
+                  {navbarMenu.map((footerNav, idx) => (
+                    <Link href={footerNav.path} key={idx}>
+                      {footerNav.menuName}
+                    </Link>
+                  ))}
                 </div>
                 <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal max-w-[275px]">
                   <div className="typo-h5 mb-2">Contact</div>
@@ -102,7 +126,8 @@ const FooterComponent = () => {
             </div>
             <div className="flex flex-col-reverse medium:flex-row medium:justify-between text-center leading-6.5 mt-[77px]">
               <div className="mt-3.5 medium:mt-0 typo-copy-normal">
-                traytec GmbH 2023. All rights reserved.
+                traytec GmbH {new Date().getFullYear().toString()}. All rights
+                reserved.
               </div>
               <div className="typo-copy-normal">
                 imprint &#124; Generelles Geschäftbedingungen &#124; Datenschutz

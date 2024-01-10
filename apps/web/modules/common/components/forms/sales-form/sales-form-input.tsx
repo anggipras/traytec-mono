@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types -- disable ban types */
 import React, { useEffect, useState } from "react";
 import Button from "../../button";
+import RenderHtml from "../../render-html";
 import type {
   ComponentFormDatumUhrzeit,
   ComponentFormLongText,
@@ -63,7 +64,7 @@ const SalesFormInput = ({
       const textShortFormValue = formValue as ComponentFormTextForm;
       return (
         <>
-          <div className="mb-6">{textShortFormValue.frage}</div>
+          <RenderHtml className="mb-6" html={textShortFormValue.frage} />
           <div className="relative w-full">
             {!textShortFormValue.notwendig ? (
               <div className="typo-copy-normal text-gray-400 text-start">
@@ -75,7 +76,6 @@ const SalesFormInput = ({
               onChange={(e) => {
                 setFormValue(e);
               }}
-              placeholder={textShortFormValue.frage || ""}
             />
           </div>
         </>
@@ -84,7 +84,7 @@ const SalesFormInput = ({
       const textLongFormValue = formValue as ComponentFormLongText;
       return (
         <>
-          <div className="mb-6">{textLongFormValue.frage}</div>
+          <RenderHtml className="mb-6" html={textLongFormValue.frage} />
           <div className="relative w-full">
             {!textLongFormValue.notwendig ? (
               <div className="typo-copy-normal text-gray-400 text-start">
@@ -96,7 +96,6 @@ const SalesFormInput = ({
               onChange={(e) => {
                 setFormValue(e);
               }}
-              placeholder={textLongFormValue.frage || ""}
               rows={10}
             />
           </div>
@@ -111,7 +110,7 @@ const SalesFormInput = ({
       const getCurrentDateTime = () => new Date().toISOString().slice(0, -8);
       return (
         <>
-          <div className="mb-6">{dateTimeFormValue.frage}</div>
+          <RenderHtml className="mb-6" html={dateTimeFormValue.frage} />
           <div className="relative w-full">
             {!dateTimeFormValue.notwendig ? (
               <div className="typo-copy-normal text-gray-400 text-start">

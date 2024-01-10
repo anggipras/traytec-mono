@@ -2,6 +2,7 @@
 import React, { useCallback, useEffect } from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
+import RenderHtml from "../../render-html";
 import SalesFormContainer from "./sales-form-container";
 import type {
   ComponentIntegrationenFormular,
@@ -83,12 +84,12 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
     if (inquiryElement)
       inquiryElement.scrollIntoView({
         behavior: "smooth",
-        block: "start",
+        block: "center",
       });
   };
 
   return (
-    <div className="relative bg-primary-900 medium:mb-[-135px]">
+    <div className="relative bg-primary-900 medium:mb-[-135px] medium:mt-32.5">
       <div className="mx-auto max-w-desktop w-full">
         <div className="absolute left-0 top-0">
           <Image
@@ -104,17 +105,26 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
             src={require("@/assets/images/common/img_bg_footer_right.svg")}
           />
         </div>
-        <div className="mx-auto max-w-desktop w-full" id="sales-form-id">
+        <div className="mx-auto max-w-desktop w-full">
           <div className="text-white z-10">
-            <div className="flex flex-col m-auto items-center text-center max-w-[874px] px-6 pt-10 medium:pt-15">
-              <div className="typo-h2 mb-4 medium:mb-5">
-                {formResponseData.ueberschrift?.heading}
+            {formResponseData.ueberschrift && (
+              <div className="flex flex-col m-auto items-center text-center max-w-[874px] px-6 pt-10 medium:pt-15">
+                {formResponseData.ueberschrift?.heading && (
+                  <div className="typo-h2 mb-4 medium:mb-5">
+                    {formResponseData.ueberschrift?.heading}
+                  </div>
+                )}
+                {formResponseData.ueberschrift?.text && (
+                  <RenderHtml
+                    html={formResponseData.ueberschrift?.text || ""}
+                  />
+                )}
               </div>
-              <div className="typo-copy-normal">
-                {formResponseData.ueberschrift?.text}
-              </div>
-            </div>
-            <div className="m-auto max-w-[874px] px-6 py-10 medium:py-15">
+            )}
+            <div
+              className="m-auto max-w-[874px] px-6 py-10 medium:py-15"
+              id="sales-form-id"
+            >
               <div className="embla_main">
                 <div className="embla__viewport" ref={emblaRef}>
                   <div className="embla__container">

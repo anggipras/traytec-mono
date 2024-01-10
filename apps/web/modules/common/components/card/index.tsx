@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { clsx } from "clsx";
 import Image from "next/image";
 import HeadlessModal from "../headless-dialog";
+import RenderHtml from "../render-html";
 
 type CardProps = {
   image?: string;
@@ -45,13 +46,16 @@ const Card: React.FC<CardProps> = ({
           </div>
         ) : null}
         <div className={clsx("flex flex-col", textposition)}>
-          {props.smallcontent ? (
+          {props.smallcontent && (
             <div className="mb-3 text-gray-300">{props.smallcontent}</div>
-          ) : null}
+          )}
           <div className={clsx("mb-4", props.titleclass)}>{props.title}</div>
-          <div className="typo-copy-normal text-gray-400">
-            {props.subcontent}
-          </div>
+          {props.subcontent && (
+            <RenderHtml
+              className="text-gray-400"
+              html={props.subcontent || ""}
+            />
+          )}
         </div>
       </div>
       <HeadlessModal

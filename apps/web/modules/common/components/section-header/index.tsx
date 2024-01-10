@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 import type { Maybe } from "graphql/jsutils/Maybe";
+import RenderHtml from "../render-html";
 
 interface SectionHeaderProps {
   intro?: Maybe<string>;
@@ -25,11 +26,10 @@ const SectionHeader: React.FC<SectionHeaderProps> = (props) => {
         })}
       </div>
       {props.desc ? (
-        <div className="typo-copy-normal max-w-2xl mt-5 text-gray-400 px-6 medium:px-0 text-center">
-          {t("COMPONENTS.SECTION_HEADING.DESCRIPTION", {
-            sectionHeadingDesc: props.desc,
-          })}
-        </div>
+        <RenderHtml
+          className="max-w-2xl mt-5 text-gray-400 px-6 medium:px-0 text-center"
+          html={props.desc || ""}
+        />
       ) : null}
     </div>
   );

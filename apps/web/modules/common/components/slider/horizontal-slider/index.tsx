@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 import useEmblaCarousel from "embla-carousel-react";
-import type { EmblaOptionsType } from "embla-carousel-react";
 import Image from "next/image";
+import RenderHtml from "../../render-html";
 import {
   PrevButton,
   NextButton,
@@ -14,8 +14,6 @@ import { serverBaseUrl } from "@/client.config";
 interface ComponentProps {
   data: ComponentSliderHorizontalerSlider;
 }
-
-const OPTIONS: EmblaOptionsType = { align: "start" };
 
 const HorizontalSlider = ({ data }: ComponentProps) => {
   // const [screenWidth, setScreenWidth] = useState(0);
@@ -33,7 +31,7 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
   // }, []);
 
   const { t } = useTranslation();
-  const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start" });
 
   const {
     prevBtnDisabled,
@@ -56,11 +54,10 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
           })}
         </div>
         <div className="flex justify-between items-center">
-          <div className="typo-copy-normal text-gray-400 max-w-[670px]">
-            {t("PAGES.HOME_PAGE.PROCESS.SUBTITLE", {
-              processSubtitle: data.uberschrift?.text,
-            })}
-          </div>
+          <RenderHtml
+            className="text-gray-400 max-w-[670px]"
+            html={data.uberschrift?.text || ""}
+          />
           {data.cards?.length && (
             <div className="embla__buttons hidden medium:flex gap-4">
               <PrevButton
@@ -102,11 +99,10 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
                           })}
                         </div>
                       </div>
-                      <div className="typo-copy-normal text-gray-400">
-                        {t("PAGES.HOME_PAGE.PROCESS.LIST.DESCRIPTION", {
-                          listDesc: val?.text,
-                        })}
-                      </div>
+                      <RenderHtml
+                        className="text-gray-400"
+                        html={val?.text || ""}
+                      />
                     </div>
                   </div>
                   // <div className="embla__slide" key={index}>

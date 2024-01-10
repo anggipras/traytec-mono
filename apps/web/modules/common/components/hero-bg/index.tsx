@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import { clsx } from "clsx";
+import Link from "next/link";
+import RenderHtml from "../render-html";
 import { Enum_Componentutilsheading_Typ } from "@/generated/graphql";
 import type {
   Maybe,
@@ -108,22 +110,18 @@ const Hero = ({ data }: ComponentProps) => {
               heroHeading: heroComponent.ueberschrift?.heading,
             })}
           </div>
-          <div className="typo-copy-intro leading-6.5 mb-4 medium:mb-6">
-            {t("COMPONENTS.HERO.SUBTITLE", {
-              heroText: heroComponent.ueberschrift?.text,
-            })}
-          </div>
+          <RenderHtml
+            className="leading-6.5 mb-4 medium:mb-6"
+            html={heroComponent.ueberschrift?.text || ""}
+          />
           {heroComponent.hero_btn?.map((val, idx) => (
-            <Button
-              key={idx}
-              size="medium"
-              variant={val?.variante}
-              width="w-fit"
-            >
-              <span>
-                {t("COMPONENTS.HERO.BUTTON", { buttonText: val?.text })}
-              </span>
-            </Button>
+            <Link href={val?.url || ""} key={idx}>
+              <Button size="medium" variant={val?.variante} width="w-fit">
+                <span>
+                  {t("COMPONENTS.HERO.BUTTON", { buttonText: val?.text })}
+                </span>
+              </Button>
+            </Link>
           ))}
         </div>
       </div>

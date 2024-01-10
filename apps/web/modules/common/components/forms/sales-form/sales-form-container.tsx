@@ -28,6 +28,7 @@ const SalesFormContainer = ({
         formIdx={formIdx}
         formValue={formValue}
         scrollNext={scrollNext}
+        scrollPrev={scrollPrev}
       />
     );
   } else if (
