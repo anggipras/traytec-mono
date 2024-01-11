@@ -9,12 +9,10 @@ interface SinglePageProps {
 const SinglePageTemplate = ({ data }: SinglePageProps) => {
   return (
     <>
-      {data.seiten?.data[0].attributes?.inhalte &&
-      data.seiten?.data[0].attributes?.inhalte.length > 0
-        ? data.seiten?.data[0].attributes?.inhalte.map((dt, idx) => (
-            <div key={idx}>{renderDynamicContent(dt)}</div>
-          ))
-        : null}
+      {data.seiten?.data[0].attributes?.inhalte?.length &&
+        data.seiten?.data[0].attributes?.inhalte.map((dt, idx) => (
+          <div key={idx}>{renderDynamicContent(dt)}</div>
+        ))}
     </>
   );
 };

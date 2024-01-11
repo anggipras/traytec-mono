@@ -1166,6 +1166,12 @@ export interface ApiIndustrieIndustrie extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    vorschau: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1316,6 +1322,25 @@ export interface ApiProduktProdukt extends Schema.CollectionType {
         };
       }>;
     seo: Attribute.Component<'shared.seo', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    vorschau: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    beschreibung: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'HTML';
+          preset: 'standard';
+        }
+      > &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

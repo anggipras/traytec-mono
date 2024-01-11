@@ -158,6 +158,7 @@ export interface HeadingsHeadingMinimalistisch extends Schema.Component {
           preset: 'standard';
         }
       >;
+    bild: Attribute.Media;
   };
 }
 
@@ -425,10 +426,11 @@ export interface UtilsBadge extends Schema.Component {
   collectionName: 'components_utils_badges';
   info: {
     displayName: 'Badge';
+    description: '';
   };
   attributes: {
     icon: Attribute.Media;
-    test: Attribute.String & Attribute.Required;
+    text: Attribute.String & Attribute.Required;
   };
 }
 
