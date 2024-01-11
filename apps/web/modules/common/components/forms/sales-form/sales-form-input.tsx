@@ -66,11 +66,11 @@ const SalesFormInput = ({
         <>
           <RenderHtml className="mb-6" html={textShortFormValue.frage} />
           <div className="relative w-full">
-            {!textShortFormValue.notwendig ? (
+            {!textShortFormValue.notwendig && (
               <div className="typo-copy-normal text-gray-400 text-start">
                 Optional
               </div>
-            ) : null}
+            )}
             <input
               className="peer h-full w-full border-b border-gray-400 bg-transparent py-4 text-white outline outline-0 transition-all placeholder-shown:border-gray-400 focus:border-white focus:outline-0"
               onChange={(e) => {
@@ -86,11 +86,11 @@ const SalesFormInput = ({
         <>
           <RenderHtml className="mb-6" html={textLongFormValue.frage} />
           <div className="relative w-full">
-            {!textLongFormValue.notwendig ? (
+            {!textLongFormValue.notwendig && (
               <div className="typo-copy-normal text-gray-400 text-start">
                 Optional
               </div>
-            ) : null}
+            )}
             <textarea
               className="h-full w-full border-b border-gray-400 bg-transparent py-4 text-white outline outline-0 transition-all focus:border-white focus-visible:ring-0"
               onChange={(e) => {
@@ -112,11 +112,11 @@ const SalesFormInput = ({
         <>
           <RenderHtml className="mb-6" html={dateTimeFormValue.frage} />
           <div className="relative w-full">
-            {!dateTimeFormValue.notwendig ? (
+            {!dateTimeFormValue.notwendig && (
               <div className="typo-copy-normal text-gray-400 text-start">
                 Optional
               </div>
-            ) : null}
+            )}
             <input
               className="text-black"
               id="dateTimePicker"

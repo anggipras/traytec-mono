@@ -31,7 +31,7 @@ const SectionContentMedia = ({ data }: SectionContentMediaProps) => {
           />
         )}
       </div>
-      {data.media.data ? (
+      {data.media.data && (
         <div className="relative w-full">
           <div className="absolute top-0 bottom-0 bg-gray-200 rounded-3xl -rotate-3 w-full" />
           <div className="absolute top-0 bottom-0 bg-gray-200 rounded-3xl rotate-3 w-full" />
@@ -51,7 +51,7 @@ const SectionContentMedia = ({ data }: SectionContentMediaProps) => {
             />
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };

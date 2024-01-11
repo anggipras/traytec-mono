@@ -106,13 +106,13 @@ const FocusSlider = ({ data }: ComponentProps) => {
 
   return (
     <div className="flex flex-col py-10 medium:pb-0 medium:pt-32.5">
-      {data.ueberschrift ? (
+      {data.ueberschrift && (
         <SectionHeader
           desc={data.ueberschrift?.text}
           intro={data.ueberschrift?.topline}
           title={data.ueberschrift?.heading}
         />
-      ) : null}
+      )}
       {!data.background_anzeigen || !data.karten_ausserhalb_anzeigen ? (
         <div className="flex max-medium:flex-col relative justify-center items-center py-10 medium:p-0 mx-6 medium:mx-0">
           <div className="hidden medium:flex absolute left-0 top-0">
@@ -169,7 +169,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
                   </div>
                 </div>
               </div>
-              {data.cards[countSlider]?.vorteile ? (
+              {data.cards[countSlider]?.vorteile && (
                 <div className="flex flex-col medium:flex-row medium:flex-wrap justify-start medium:justify-center mt-20 medium:mt-0 gap-4">
                   {data.cards[countSlider]?.vorteile
                     ?.replace(/(?:<(?:[^>]+)>)/gi, "")
@@ -189,7 +189,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
                       );
                     })}
                 </div>
-              ) : null}
+              )}
             </div>
           )}
           <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-4 bottom-0 left-0 right-[730px]">
@@ -231,7 +231,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
                       <div className="px-0 medium:px-12">
                         <div className="flex flex-col justify-center items-center bg-gray-50 rounded-3xl p-6">
                           <div className="flex justify-center items-center p-3 medium:p-10 rounded-full w-fit bg-white mt-3 mb-4">
-                            {val?.image?.data?.attributes?.url ? (
+                            {val?.image?.data?.attributes?.url && (
                               <Image
                                 alt="icon-horizontal-slider"
                                 className="w-8 medium:w-24"
@@ -243,7 +243,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
                                 }
                                 width="0"
                               />
-                            ) : null}
+                            )}
                           </div>
                           <div className="typo-h4">{val?.ueberschrift}</div>
                           <RenderHtml
@@ -280,7 +280,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
               onClick={onNextButtonClick}
             />
           </div>
-          {data.button ? (
+          {data.button && (
             <Link className="mt-10" href={data.button.url}>
               <div className="flex justify-center">
                 <Button size="medium" variant={data.button.variante}>
@@ -288,7 +288,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
                 </Button>
               </div>
             </Link>
-          ) : null}
+          )}
         </>
       )}
     </div>

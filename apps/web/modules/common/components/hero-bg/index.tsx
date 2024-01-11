@@ -62,7 +62,7 @@ const Hero = ({ data }: ComponentProps) => {
         visibleHero
       )}
     >
-      {heroComponent.hintergrund ? (
+      {heroComponent.hintergrund && (
         <div
           className="relative w-full overflow-hidden"
           style={{ height: "720px" }}
@@ -85,7 +85,7 @@ const Hero = ({ data }: ComponentProps) => {
             />
           </video>
         </div>
-      ) : null}
+      )}
       <div className="absolute inset-0 bg-gradient-to-r from-primary-950 to-transparent" />
       <div className="absolute max-w-desktop top-0 bottom-0 -left-48 medium:left-0">
         <Image

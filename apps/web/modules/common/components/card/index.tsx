@@ -33,7 +33,7 @@ const Card: React.FC<CardProps> = ({
         }}
         {...props}
       >
-        {props.image ? (
+        {props.image && (
           <div className={props.imgclass}>
             <Image
               alt="card-img"
@@ -44,7 +44,7 @@ const Card: React.FC<CardProps> = ({
               width="0"
             />
           </div>
-        ) : null}
+        )}
         <div className={clsx("flex flex-col", textposition)}>
           {props.smallcontent && (
             <div className="mb-3 text-gray-300">{props.smallcontent}</div>
@@ -64,7 +64,7 @@ const Card: React.FC<CardProps> = ({
         }}
         isOpen={isOpen}
       >
-        {props.image ? (
+        {props.image && (
           <div className={props.imgclass}>
             <Image
               alt="card-img"
@@ -75,7 +75,7 @@ const Card: React.FC<CardProps> = ({
               width="0"
             />
           </div>
-        ) : null}
+        )}
       </HeadlessModal>
     </>
   );

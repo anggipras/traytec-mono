@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { clsx } from "clsx";
 import type { IconProps } from "@/types/icon";
 
 const ChevronIcon = ({
@@ -36,7 +36,7 @@ const ChevronIcon = ({
         strokeLinejoin="round"
         strokeWidth="1.2"
       />
-      {doubleIcon ? (
+      {doubleIcon && (
         <path
           d={ChevronDoubleDirection}
           stroke={color}
@@ -44,7 +44,7 @@ const ChevronIcon = ({
           strokeLinejoin="round"
           strokeWidth="1.2"
         />
-      ) : null}
+      )}
     </svg>
   );
 };

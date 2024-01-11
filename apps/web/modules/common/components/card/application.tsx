@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-// import Image from "next/image";
+import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/router";
 import Button from "../button";
@@ -10,11 +10,11 @@ import {
   Enum_Componentintegrationenjobs_Style,
 } from "@/generated/graphql";
 import { convertISOStringToCustomFormat } from "@/lib/util/date";
+import { serverBaseUrl } from "@/client.config";
 
 interface AppCardProps {
   data?: Maybe<Job>;
   componentstyle?: Enum_Componentintegrationenjobs_Style;
-  // detail: { job_position: string; salary: string };
 }
 
 const ApplicationCard = ({
@@ -37,19 +37,6 @@ const ApplicationCard = ({
       componentstyle === Enum_Componentintegrationenjobs_Style.Grid,
   });
 
-  // const appCardIcon = (property: string, val: string) => {
-  //   if (property === "job_position") {
-  //     return require("@/assets/images/icons/ic_clock.svg");
-  //   } else if (property === "salary") {
-  //     return require("@/assets/images/icons/ic_dollar.svg");
-  //   } else if (property === "vacant") {
-  //     if (val === "open") {
-  //       return require("@/assets/images/icons/ic_check_green.svg");
-  //     }
-  //     return require("@/assets/images/icons/ic_close.svg");
-  //   }
-  // };
-
   return (
     <div
       className={clsx(
@@ -63,27 +50,37 @@ const ApplicationCard = ({
         </div>
         <div className="typo-h4">{data?.titel}</div>
         <RenderHtml className="text-gray-500 my-5" html={data?.auszug || ""} />
-        {/* <div className="flex gap-5">
-          {Object.entries(props.detail).map(([property, val]) => (
-            <div className="flex items-center" key={property}>
-              <div>
-                <Image
-                  alt="ic-app-card"
-                  className="w-full h-full"
-                  src={appCardIcon(property, val)}
-                />
+        {data?.badges?.length ? (
+          <div className="flex gap-5">
+            {data.badges.map((badg, idx) => (
+              <div className="flex items-center" key={idx}>
+                <div>
+                  <Image
+                    alt="ic-app-card"
+                    className="w-full h-full"
+                    height="0"
+                    sizes="100%"
+                    src={
+                      badg?.icon?.data?.attributes?.url
+                        ? `${serverBaseUrl?.replace("/api", "")}${badg?.icon
+                            ?.data?.attributes?.url}`
+                        : ""
+                    }
+                    width="0"
+                  />
+                </div>
+                <div className="typo-copy-normal text-gray-500 capitalize ml-2">
+                  {badg?.text}
+                </div>
               </div>
-              <div className="typo-copy-normal text-gray-500 capitalize ml-2">
-                {val}
-              </div>
-            </div>
-          ))}
-        </div> */}
+            ))}
+          </div>
+        ) : null}
       </div>
       <div
         className={clsx("flex gap-4 justify-start w-full mt-6", btnAlignment)}
       >
-        {data?.slug ? (
+        {data?.slug && (
           <Button
             onClick={() => {
               void router.push(`${router.asPath}/${data?.slug}`);
@@ -93,7 +90,7 @@ const ApplicationCard = ({
           >
             <span className="">Detail Career</span>
           </Button>
-        ) : null}
+        )}
         <Button
           size="medium"
           variant={Enum_Componentutilsbutton_Variante.Secondary}

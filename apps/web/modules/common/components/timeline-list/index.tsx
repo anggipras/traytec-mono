@@ -19,7 +19,7 @@ const TimelineList = ({ data }: TimelineItemData) => {
       >
         <div className="flex flex-col items-end relative w-full text-right odd:text-left odd:items-start">
           <div className="rounded-3xl border border-gray-200 overflow-hidden w-full">
-            {dt?.media ? (
+            {dt?.media && (
               <div className="overflow-hidden max-h-[150px] w-full">
                 <Image
                   alt="company_milestone"
@@ -36,13 +36,13 @@ const TimelineList = ({ data }: TimelineItemData) => {
                   width="0"
                 />
               </div>
-            ) : null}
+            )}
             <div className="p-4 medium:p-6">
-              {dt?.zeitpunkt ? (
+              {dt?.zeitpunkt && (
                 <div className="typo-copy-normal text-gray-400">
                   {formatDate(dt?.zeitpunkt)}
                 </div>
-              ) : null}
+              )}
               <div className="mt-4 mb-4 typo-h4">{dt?.titel}</div>
               <RenderHtml
                 className="text-gray-400"

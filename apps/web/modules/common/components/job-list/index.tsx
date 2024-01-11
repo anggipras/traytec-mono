@@ -17,7 +17,7 @@ interface JobListProps {
 
 const JobList = ({ data }: JobListProps) => {
   const router = useRouter();
-  const itemsPerPage = 3;
+  const itemsPerPage = 4;
   const [active, setActive] = useState(1);
   const totalPages = data.jobs?.data?.length
     ? Math.ceil(data.jobs.data.length / itemsPerPage)

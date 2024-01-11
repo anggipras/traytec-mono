@@ -31,7 +31,7 @@ const SectionMediaHeader = ({ data }: SectionMediaHeaderProps) => {
           desc={headingVideoComponent.ueberschrift?.text}
           title={headingVideoComponent.ueberschrift?.heading}
         />
-        {headingVideoComponent.heading_media?.data?.attributes?.url ? (
+        {headingVideoComponent.heading_media?.data?.attributes?.url && (
           <div className="px-0 medium:px-44 mt-6 w-full">
             <video className="w-full aspect-video medium:rounded-3xl" controls>
               <track kind="captions" />
@@ -48,7 +48,7 @@ const SectionMediaHeader = ({ data }: SectionMediaHeaderProps) => {
               />
             </video>
           </div>
-        ) : null}
+        )}
       </LayoutContainer>
     </div>
   );

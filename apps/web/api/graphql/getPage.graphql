@@ -172,6 +172,15 @@ query getPage(
             beschreibung
             dekoration_anzeigen
             titel
+            bild {
+              data {
+                attributes {
+                  height
+                  url
+                  width
+                }
+              }
+            }
           }
           ... on ComponentHeadingsHeadingMitVideo {
             ueberschrift {
@@ -243,6 +252,18 @@ query getPage(
                   publishedAt
                   slug
                   titel
+                  badges {
+                    icon {
+                      data {
+                        attributes {
+                          height
+                          url
+                          width
+                        }
+                      }
+                    }
+                    text
+                  }
                 }
               }
             }
@@ -254,6 +275,15 @@ query getPage(
                   beschreibung
                   slug
                   titel
+                  vorschau {
+                    data {
+                      attributes {
+                        height
+                        url
+                        width
+                      }
+                    }
+                  }
                 }
               }
             }

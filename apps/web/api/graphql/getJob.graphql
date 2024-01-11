@@ -9,6 +9,18 @@ query getJob($locale: I18NLocaleCode, $filters: JobFiltersInput) {
         auszug
         beschreibung
         publishedAt
+        badges {
+          icon {
+            data {
+              attributes {
+                height
+                url
+                width
+              }
+            }
+          }
+          text
+        }
       }
     }
   }
