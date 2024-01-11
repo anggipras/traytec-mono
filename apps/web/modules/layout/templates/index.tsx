@@ -3,6 +3,7 @@ import React from "react";
 import NavbarTemplate from "@/modules/layout/templates/nav";
 import FooterTemplate from "@/modules/layout/templates/footer";
 import type { GetLocalesQuery, SeiteEntity } from "@/generated/graphql";
+import MobileMenuContext from "@/context/mobile-menu-context";
 
 interface RootLayoutProps {
   navbar?: {
@@ -20,7 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <NavbarTemplate navbarvalue={initialData?.navbar} />
+      <MobileMenuContext>
+        <NavbarTemplate navbarvalue={initialData?.navbar} />
+      </MobileMenuContext>
       {children}
       <FooterTemplate />
     </>

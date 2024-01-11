@@ -3,11 +3,13 @@ import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import MobileNav from "../../components/mobile-nav";
 import ChevronIcon from "@/modules/common/icons/chevron";
 import type { GetLocalesQuery, SeiteEntity } from "@/generated/graphql";
 import Accordion from "@/modules/common/components/accordion";
 import type { PathInfo } from "@/types/global";
 import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
+import { useMobileMenu } from "@/context/mobile-menu-context";
 
 interface NavbarTemplateProps {
   localeList?: GetLocalesQuery;
@@ -138,13 +140,15 @@ const NavBarTemplate = ({
   const [openLang, setOpenLang] = useState(false);
   const [pageHandle, setPageHandle] = useState<PathInfo[]>();
   const [nestedSlug, setNestedSlug] = useState<NestedSlugPathType[]>();
+  const [openMobNav, setOpenMobNav] = useState(false);
   const [openMenu, setOpenMenu] = useState(-1);
-  const [openMobileNavbar, setOpenMobileNavbar] = useState(false);
+  const { toggleNav, setOpenNav, setCloseNav } = useMobileMenu();
 
   const setLangSelected = (flag: string) => {
     const selectedHandle = pageHandle?.filter((val) => val.locale === flag);
 
     setOpenLang(false);
+    setOpenMobNav(false);
     if (selectedHandle?.length) {
       if (nestedSlug?.length) {
         const selectedNestedSlug = nestedSlug.filter(
@@ -222,15 +226,20 @@ const NavBarTemplate = ({
   }, [router.locale]);
 
   const onToggleMobileNavbar = () => {
-    if (!openMobileNavbar) {
+    if (openLang || !openMobNav) {
       setOpenLang(false);
+      setOpenNav();
+      setOpenMobNav(true);
+    } else {
+      setCloseNav();
+      setOpenMobNav(false);
     }
-    setOpenMobileNavbar(!openMobileNavbar);
   };
 
   const onToggleWebLang = () => {
-    if (!openLang) {
-      setOpenMobileNavbar(false);
+    if (!openMobNav) {
+      setCloseNav();
+      setOpenMobNav(false);
     }
     setOpenLang(!openLang);
   };
@@ -366,7 +375,7 @@ const NavBarTemplate = ({
                 alt="navbar_hmb"
                 className="w-8 ml-1 medium:hidden"
                 src={
-                  openMobileNavbar
+                  toggleNav
                     ? require("@/assets/images/icons/ic_close.svg")
                     : require("@/assets/images/icons/ic_hamburger.svg")
                 }
@@ -375,16 +384,14 @@ const NavBarTemplate = ({
           </div>
         </div>
       </div>
-      {openMobileNavbar ? (
-        <div className="absolute w-screen h-screen bg-gray-50 z-20 pt-3.5 px-6 overflow-y-scroll">
-          <Accordion
-            closeMenu={() => {
-              onToggleMobileNavbar();
-            }}
-            data={navbarMenu}
-          />
-        </div>
-      ) : null}
+      <MobileNav>
+        <Accordion
+          closeMenu={() => {
+            setCloseNav();
+          }}
+          data={navbarMenu}
+        />
+      </MobileNav>
     </div>
   );
 };
