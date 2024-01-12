@@ -31,15 +31,13 @@ const SubHeader: React.FC<SubHeaderProps> = ({ data }) => {
       data.ausrichtung ===
       Enum_Componentheadingsheadingminimalistisch_Ausrichtung.Links,
   });
-
-  console.log("ss", data);
-
+  
   return (
     <div className="bg-gray-50">
       <div className="mx-auto max-w-desktop w-full">
         <div className="relative px-6 py-10 medium:p-15 w-full overflow-hidden">
           <div className={clsx(flexAlignment)}>
-            {data.bild && (
+            {data.bild?.data && (
               <div className="mb-6 w-15 medium:w-24">
                 <Image
                   alt="ic_minimalist_header"
@@ -66,7 +64,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({ data }) => {
               <RenderHtml html={data.beschreibung || ""} />
             </div>
           </div>
-          {data.bild &&
+          {data.bild?.data &&
           data.ausrichtung ===
             Enum_Componentheadingsheadingminimalistisch_Ausrichtung.Zentriert ? (
             <>

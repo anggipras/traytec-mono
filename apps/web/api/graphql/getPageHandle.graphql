@@ -33,6 +33,24 @@ query getPageHandle($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
               }
             }
           }
+          ... on ComponentListenIndustrieListe {
+            industrien {
+              data {
+                attributes {
+                  locale
+                  slug
+                  localizations {
+                    data {
+                      attributes {
+                        slug
+                        locale
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

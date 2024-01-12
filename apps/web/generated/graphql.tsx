@@ -2720,6 +2720,22 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type GetIndustryQueryVariables = Exact<{
+  filters?: InputMaybe<IndustrieFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type GetIndustryQuery = { __typename?: 'Query', industrien?: { __typename?: 'IndustrieEntityResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', beschreibung?: string | null, locale?: string | null, slug?: string | null, titel?: string | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null, produkte?: { __typename?: 'ProduktRelationResponseCollection', data: Array<{ __typename?: 'ProduktEntity', attributes?: { __typename?: 'Produkt', beschreibung?: string | null, slug?: string | null, titel?: string | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null }> } | null } | null }> } | null };
+
+export type GetIndustrySlugQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
+}>;
+
+
+export type GetIndustrySlugQuery = { __typename?: 'Query', industrien?: { __typename?: 'IndustrieEntityResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', slug?: string | null, locale?: string | null, localizations?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', slug?: string | null, locale?: string | null } | null }> } | null } | null }> } | null };
+
 export type GetJobQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
   filters?: InputMaybe<JobFiltersInput>;
@@ -2756,9 +2772,124 @@ export type GetPageHandleQueryVariables = Exact<{
 }>;
 
 
-export type GetPageHandleQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null, localizations?: { __typename?: 'SeiteRelationResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null } | null }> } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch' } | { __typename?: 'ComponentHeadingsHeadingMitVideo' } | { __typename?: 'ComponentHerosHero1' } | { __typename?: 'ComponentIntegrationenFormular' } | { __typename?: 'ComponentIntegrationenJobs', jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, localizations?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', slug: string, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenGridListe' } | { __typename?: 'ComponentListenIndustrieListe' } | { __typename?: 'ComponentListenTimelineListe' } | { __typename?: 'ComponentSektionenInhaltMitMedia' } | { __typename?: 'ComponentSliderHorizontalerSlider' } | { __typename?: 'ComponentSliderHorizontalerSliderFokus' } | { __typename?: 'Error' } | null> | null } | null }> } | null };
+export type GetPageHandleQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null, localizations?: { __typename?: 'SeiteRelationResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null } | null }> } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch' } | { __typename?: 'ComponentHeadingsHeadingMitVideo' } | { __typename?: 'ComponentHerosHero1' } | { __typename?: 'ComponentIntegrationenFormular' } | { __typename?: 'ComponentIntegrationenJobs', jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, localizations?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', slug: string, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenGridListe' } | { __typename?: 'ComponentListenIndustrieListe', industrien?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', locale?: string | null, slug?: string | null, localizations?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', slug?: string | null, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenTimelineListe' } | { __typename?: 'ComponentSektionenInhaltMitMedia' } | { __typename?: 'ComponentSliderHorizontalerSlider' } | { __typename?: 'ComponentSliderHorizontalerSliderFokus' } | { __typename?: 'Error' } | null> | null } | null }> } | null };
 
 
+export const GetIndustryDocument = gql`
+    query getIndustry($filters: IndustrieFiltersInput, $locale: I18NLocaleCode) {
+  industrien(filters: $filters, locale: $locale) {
+    data {
+      attributes {
+        beschreibung
+        locale
+        slug
+        titel
+        vorschau {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        produkte {
+          data {
+            attributes {
+              beschreibung
+              slug
+              titel
+              vorschau {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetIndustryQuery__
+ *
+ * To run a query within a React component, call `useGetIndustryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetIndustryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetIndustryQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useGetIndustryQuery(baseOptions?: Apollo.QueryHookOptions<GetIndustryQuery, GetIndustryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetIndustryQuery, GetIndustryQueryVariables>(GetIndustryDocument, options);
+      }
+export function useGetIndustryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetIndustryQuery, GetIndustryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetIndustryQuery, GetIndustryQueryVariables>(GetIndustryDocument, options);
+        }
+export type GetIndustryQueryHookResult = ReturnType<typeof useGetIndustryQuery>;
+export type GetIndustryLazyQueryHookResult = ReturnType<typeof useGetIndustryLazyQuery>;
+export type GetIndustryQueryResult = Apollo.QueryResult<GetIndustryQuery, GetIndustryQueryVariables>;
+export const GetIndustrySlugDocument = gql`
+    query getIndustrySlug($locale: I18NLocaleCode, $pagination: PaginationArg) {
+  industrien(locale: $locale, pagination: $pagination) {
+    data {
+      attributes {
+        slug
+        locale
+        localizations {
+          data {
+            attributes {
+              slug
+              locale
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetIndustrySlugQuery__
+ *
+ * To run a query within a React component, call `useGetIndustrySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetIndustrySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetIndustrySlugQuery({
+ *   variables: {
+ *      locale: // value for 'locale'
+ *      pagination: // value for 'pagination'
+ *   },
+ * });
+ */
+export function useGetIndustrySlugQuery(baseOptions?: Apollo.QueryHookOptions<GetIndustrySlugQuery, GetIndustrySlugQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetIndustrySlugQuery, GetIndustrySlugQueryVariables>(GetIndustrySlugDocument, options);
+      }
+export function useGetIndustrySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetIndustrySlugQuery, GetIndustrySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetIndustrySlugQuery, GetIndustrySlugQueryVariables>(GetIndustrySlugDocument, options);
+        }
+export type GetIndustrySlugQueryHookResult = ReturnType<typeof useGetIndustrySlugQuery>;
+export type GetIndustrySlugLazyQueryHookResult = ReturnType<typeof useGetIndustrySlugLazyQuery>;
+export type GetIndustrySlugQueryResult = Apollo.QueryResult<GetIndustrySlugQuery, GetIndustrySlugQueryVariables>;
 export const GetJobDocument = gql`
     query getJob($locale: I18NLocaleCode, $filters: JobFiltersInput) {
   jobs(locale: $locale, filters: $filters) {
@@ -3252,6 +3383,24 @@ export const GetPageHandleDocument = gql`
         inhalte {
           ... on ComponentIntegrationenJobs {
             jobs {
+              data {
+                attributes {
+                  locale
+                  slug
+                  localizations {
+                    data {
+                      attributes {
+                        slug
+                        locale
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on ComponentListenIndustrieListe {
+            industrien {
               data {
                 attributes {
                   locale

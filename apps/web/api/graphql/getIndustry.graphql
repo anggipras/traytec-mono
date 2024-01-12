@@ -1,0 +1,35 @@
+query getIndustry($filters: IndustrieFiltersInput, $locale: I18NLocaleCode) {
+  industrien(filters: $filters, locale: $locale) {
+    data {
+      attributes {
+        beschreibung
+        locale
+        slug
+        titel
+        vorschau {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        produkte {
+          data {
+            attributes {
+              beschreibung
+              slug
+              titel
+              vorschau {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,12 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import RenderHtml from "../render-html";
 import type {
   ComponentListenIndustrieListe,
   IndustrieEntity,
 } from "@/generated/graphql";
+import { serverBaseUrl } from "@/client.config";
 // import SectionHeader from "@/modules/common/components/section-header";
 
 interface IndustryListProps {
@@ -13,6 +14,7 @@ interface IndustryListProps {
 }
 
 const IndustryList = ({ data }: IndustryListProps) => {
+  const router = useRouter();
   const [screenWidth, setScreenWidth] = useState(0);
 
   useEffect(() => {
@@ -77,7 +79,25 @@ const IndustryList = ({ data }: IndustryListProps) => {
         )}`}
         key={idx}
       >
-        <div className="absolute medium:top-0 medium:bottom-0 left-0">
+        <div className="z-10 max-medium:flex max-medium:flex-col max-medium:items-center px-4 pt-15 medium:px-6 medium:py-20 w-full medium:w-[50%]">
+          <div className="typo-h3">{val.attributes?.titel}</div>
+          <RenderHtml
+            className="text-gray-500 text-center medium:text-start mt-4 mb-5"
+            html={val.attributes?.beschreibung || ""}
+          />
+          <div
+            aria-hidden
+            className={`px-6 py-3.5 w-fit rounded-full cursor-pointer ${checkButtonStyle(
+              idx
+            )}`}
+            onClick={() => {
+              void router.push(`${router.asPath}/${val.attributes?.slug}`);
+            }}
+          >
+            <span className="">See more Product</span>
+          </div>
+        </div>
+        <div className="absolute medium:top-0 medium:bottom-0 left-0 z-0">
           <Image
             alt="bg_domain_card"
             className="w-full h-full"
@@ -85,29 +105,23 @@ const IndustryList = ({ data }: IndustryListProps) => {
             src={require("@/assets/images/common/img_bg_domain_card.svg")}
           />
         </div>
-        <div className="max-medium:flex max-medium:flex-col max-medium:items-center px-4 pt-15 medium:px-6 medium:py-20 w-full medium:w-[50%]">
-          <div className="typo-h3">{val.attributes?.titel}</div>
-          <RenderHtml
-            className="text-gray-500 text-center medium:text-start mt-4 mb-5"
-            html={val.attributes?.beschreibung || ""}
-          />
-          <Link href={val.attributes?.slug || ""}>
-            <div
-              className={`px-6 py-3.5 w-fit rounded-full ${checkButtonStyle(
-                idx
-              )}`}
-            >
-              <span className="">See more Product</span>
-            </div>
-          </Link>
-        </div>
-        {/* <div className="mb-10 medium:mb-0 medium:absolute top-0 medium:left-[50%] medium:h-full">
-          <Image
-            alt="domain_product"
-            className="medium:max-w-none w-auto medium:h-full"
-            src={require("@/assets/images/common/img_example_product.png")}
-          />
-        </div> */}
+        {val.attributes?.vorschau && (
+          <div className="mb-10 medium:mb-0 medium:absolute top-0 medium:left-[50%] medium:h-full">
+            <Image
+              alt="domain_product"
+              className="medium:max-w-none w-auto medium:h-full"
+              height="0"
+              sizes="100%"
+              src={
+                val.attributes?.vorschau
+                  ? `${serverBaseUrl?.replace("/api", "")}${val.attributes
+                      ?.vorschau.data?.attributes?.url}`
+                  : ""
+              }
+              width="0"
+            />
+          </div>
+        )}
       </div>
     );
   };

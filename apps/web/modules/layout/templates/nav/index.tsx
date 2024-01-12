@@ -5,7 +5,12 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import MobileNav from "../../components/mobile-nav";
 import ChevronIcon from "@/modules/common/icons/chevron";
-import type { GetLocalesQuery, SeiteEntity } from "@/generated/graphql";
+import type {
+  GetLocalesQuery,
+  IndustrieEntity,
+  JobEntity,
+  SeiteEntity,
+} from "@/generated/graphql";
 import Accordion from "@/modules/common/components/accordion";
 import type { PathInfo } from "@/types/global";
 import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
@@ -64,33 +69,45 @@ const NavBarTemplate = ({
         if (dt.attributes?.inhalte?.length) {
           const nestedSlug = dt.attributes?.inhalte.filter(
             (inhalteVal) =>
-              inhalteVal?.__typename === "ComponentIntegrationenJobs"
+              inhalteVal?.__typename === "ComponentIntegrationenJobs" ||
+              inhalteVal?.__typename === "ComponentListenIndustrieListe"
           );
 
-          if (
-            nestedSlug.length &&
-            nestedSlug[0]?.__typename === "ComponentIntegrationenJobs"
-          ) {
-            nestedSlug[0].jobs?.data.forEach((jobDt) => {
-              if (
-                dt.attributes?.slug &&
-                jobDt.attributes?.slug &&
-                router.asPath.replace("/", "") ===
-                  `${dt.attributes?.slug}/${jobDt.attributes?.slug}`
-              ) {
-                nestedSlugPath.push({
-                  params: {
-                    handle: dt.attributes?.slug,
-                    slug: jobDt.attributes?.slug ? jobDt.attributes?.slug : "",
-                  },
-                  locale: jobDt.attributes?.locale ?? "",
-                });
+          let nestedSlugData: JobEntity[] | IndustrieEntity[] | undefined;
+          if (nestedSlug.length) {
+            if (nestedSlug[0]?.__typename === "ComponentIntegrationenJobs") {
+              nestedSlugData = nestedSlug[0].jobs?.data;
+            } else if (
+              nestedSlug[0]?.__typename === "ComponentListenIndustrieListe"
+            ) {
+              nestedSlugData = nestedSlug[0].industrien?.data;
+            }
+            // else add another typeName that has nestedSlug e.g Industry page
+          }
 
-                jobDt.attributes?.localizations?.data.forEach((jobDtLocal) => {
+          nestedSlugData?.forEach((slugData) => {
+            if (
+              dt.attributes?.slug &&
+              slugData.attributes?.slug &&
+              router.asPath.replace("/", "") ===
+                `${dt.attributes?.slug}/${slugData.attributes?.slug}`
+            ) {
+              nestedSlugPath.push({
+                params: {
+                  handle: dt.attributes?.slug,
+                  slug: slugData.attributes?.slug
+                    ? slugData.attributes?.slug
+                    : "",
+                },
+                locale: slugData.attributes?.locale ?? "",
+              });
+
+              slugData.attributes?.localizations?.data.forEach(
+                (slugDataLocal) => {
                   const filteredParentPath = paths
                     .filter(
                       (filteredPath) =>
-                        filteredPath.locale === jobDtLocal.attributes?.locale
+                        filteredPath.locale === slugDataLocal.attributes?.locale
                     )
                     .map((strPath) => strPath.params.handle);
 
@@ -98,18 +115,17 @@ const NavBarTemplate = ({
                     nestedSlugPath.push({
                       params: {
                         handle: filteredParentPath[0],
-                        slug: jobDtLocal.attributes?.slug
-                          ? jobDtLocal.attributes?.slug
+                        slug: slugDataLocal.attributes?.slug
+                          ? slugDataLocal.attributes?.slug
                           : "",
                       },
-                      locale: jobDtLocal.attributes?.locale ?? "",
+                      locale: slugDataLocal.attributes?.locale ?? "",
                     });
                   }
-                });
-              }
-            });
-          }
-          // else add another typeName that has nestedSlug e.g Industry page
+                }
+              );
+            }
+          });
         }
       });
       setNestedSlug(nestedSlugPath);

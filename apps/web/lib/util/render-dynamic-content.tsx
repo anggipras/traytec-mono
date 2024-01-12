@@ -13,6 +13,7 @@ import type {
   ComponentSektionenInhaltMitMedia,
   ComponentSliderHorizontalerSlider,
   ComponentSliderHorizontalerSliderFokus,
+  IndustrieEntity,
   JobEntity,
 } from "@/generated/graphql";
 import HorizontalSlider from "@/modules/common/components/slider/horizontal-slider";
@@ -27,6 +28,7 @@ import IndustryList from "@/modules/common/components/industry-list";
 import JobList from "@/modules/common/components/job-list";
 import JobDetail from "@/modules/common/components/job-detail";
 import SalesForm from "@/modules/common/components/forms/sales-form/sales-form";
+import IndustryDetail from "@/modules/common/components/industry-detail";
 
 export const renderDynamicContent = (contentItem: any) => {
   const { __typename } = contentItem || {};
@@ -121,6 +123,9 @@ export const renderDynamicContent = (contentItem: any) => {
           />
         </DataProvider>
       );
+      break;
+    case "IndustrieEntity":
+      item = <IndustryDetail data={contentItem as IndustrieEntity} />;
       break;
     default:
       console.log("No component found for: ", __typename);
