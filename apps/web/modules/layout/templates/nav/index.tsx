@@ -145,10 +145,17 @@ const NavBarTemplate = ({
       submenu: [],
     },
   ];
-
   if (navResponse.status === "success" && newNavbarMenu.navigation?.length) {
-    const mappedNavbarMenu = newNavbarMenu.navigation.map((navVal) => {
-      return { path: navVal.path, menuName: navVal.title, submenu: [] };
+    const mappedNavbarMenu = newNavbarMenu.navigation.map((navVal: any) => {
+      return {
+        path: navVal.path,
+        menuName: navVal.title,
+        submenu: navVal.items.length
+          ? navVal.items.map((itemVal: any) => {
+              return { path: itemVal.path, subMenuName: itemVal.title };
+            })
+          : [],
+      };
     });
     navbarMenu = mappedNavbarMenu;
   }
@@ -193,8 +200,8 @@ const NavBarTemplate = ({
     }
   };
 
-  const setSubMenu = (val: string) => {
-    console.log("val", val);
+  const setSubMenu = (subMenuPath: string) => {
+    void router.push(subMenuPath);
     setOpenMenu(-1);
   };
 
@@ -299,31 +306,35 @@ const NavBarTemplate = ({
                     >
                       {val.menuName}
                     </div>
-                    <div
-                      aria-hidden="true"
-                      className="ml-1"
-                      onClick={() => {
-                        setOpenMenu(menuIdx !== -1 ? menuIdx : -1);
-                      }}
-                    >
-                      <ChevronIcon
-                        color={
-                          router.pathname.includes(val.path)
-                            ? "#730033"
-                            : "#12090D"
-                        }
-                      />
-                    </div>
+                    {val.submenu.length ? (
+                      <div
+                        aria-hidden="true"
+                        className="ml-1"
+                        onClick={() => {
+                          setOpenMenu(menuIdx !== -1 ? menuIdx : -1);
+                        }}
+                      >
+                        <ChevronIcon
+                          color={
+                            router.pathname.includes(val.path)
+                              ? "#730033"
+                              : "#12090D"
+                          }
+                        />
+                      </div>
+                    ) : null}
                   </div>
 
-                  {openMenu !== -1 && openMenu === menuIdx && (
+                  {val.submenu.length &&
+                  openMenu !== -1 &&
+                  openMenu === menuIdx ? (
                     <div
                       className="flex overflow-hidden absolute left-0 z-20 origin-top-left rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                       role="menu"
                     >
                       <div className="w-3.5 bg-primary-950" />
                       <div className="min-w-[200px]" role="none">
-                        {navbarMenu[openMenu].submenu.map((value, idx) => {
+                        {navbarMenu[openMenu].submenu.map((value: any, idx) => {
                           return (
                             <div
                               aria-hidden="true"
@@ -331,19 +342,19 @@ const NavBarTemplate = ({
                               id={`submenu-item-${idx}`}
                               key={value}
                               onClick={() => {
-                                setSubMenu(value);
+                                setSubMenu(value.path);
                               }}
                               role="menuitem"
                             >
                               <div className="text-base hidden medium:block">
-                                {value}
+                                {value.subMenuName}
                               </div>
                             </div>
                           );
                         })}
                       </div>
                     </div>
-                  )}
+                  ) : null}
                 </div>
               );
             })}

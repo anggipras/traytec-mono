@@ -20,7 +20,7 @@ const SectionContentMedia = ({ data }: SectionContentMediaProps) => {
 
   return (
     <div className="flex flex-col medium:flex-row px-6 medium:px-15 py-10 medium:pb-0 medium:pt-20 justify-between items-center w-full gap-6 medium:gap-16">
-      <div className="max-w-2xl w-full max-medium:text-center">
+      <div className="max-w-2xl w-full">
         <div className={clsx("mb-5", titleClass)}>
           {data.ueberschrift?.heading}
         </div>
