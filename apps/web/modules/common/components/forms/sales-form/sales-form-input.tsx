@@ -144,15 +144,17 @@ const SalesFormInput = ({
     <div className="flex flex-col items-start">
       {formInputComponent()}
       <div className="flex justify-end mt-6 w-full gap-4">
-        <Button
-          onMouseClick={(e: MouseEvent) => scrollPrev(e)}
-          size="medium"
-          typebtn="event"
-          variant={Enum_Componentutilsbutton_Variante.Secondary}
-          width="w-fit"
-        >
-          <span>Back</span>
-        </Button>
+        {formIdx !== 0 && (
+          <Button
+            onMouseClick={(e: MouseEvent) => scrollPrev(e)}
+            size="medium"
+            typebtn="event"
+            variant={Enum_Componentutilsbutton_Variante.Secondary}
+            width="w-fit"
+          >
+            <span>Back</span>
+          </Button>
+        )}
         <Button
           disabled={
             formData.length - 1 === formIdx

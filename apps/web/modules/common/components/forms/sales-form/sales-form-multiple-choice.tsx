@@ -112,7 +112,7 @@ const SalesFormMultipleChoice = ({
             </div>
           ))}
       </div>
-      <div className="flex justify-center mt-10">
+      <div className="flex justify-center mt-10 gap-4">
         {formIdx !== 0 && (
           <Button
             onMouseClick={(e: MouseEvent) => scrollPrev(e)}
