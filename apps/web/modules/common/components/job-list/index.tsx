@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 // import NativeSelect from "@/modules/common/components/native-select";
-// import SearchBox from "@/modules/common/components/search-box";
 import { clsx } from "clsx";
 import { useRouter } from "next/router";
+import { debounce } from "lodash";
+import SearchBox from "@/modules/common/components/search-box";
 import PaginationSection from "@/modules/common/components/pagination";
 import { Enum_Componentintegrationenjobs_Style } from "@/generated/graphql";
 import type {
@@ -19,10 +20,16 @@ const JobList = ({ data }: JobListProps) => {
   const router = useRouter();
   const itemsPerPage = 4;
   const [active, setActive] = useState(1);
-  const totalPages = data.jobs?.data?.length
-    ? Math.ceil(data.jobs.data.length / itemsPerPage)
-    : 0;
-  const [currentData, setCurrentData] = useState<JobEntity[]>();
+  const [totalPages, setTotalPages] = useState<number>(
+    data.jobs?.data?.length
+      ? Math.ceil(data.jobs.data.length / itemsPerPage)
+      : 0
+  );
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [currentData, setCurrentData] = useState<JobEntity[] | undefined>(
+    data.jobs?.data
+  );
+  const [currentPagedData, setCurrentPagedData] = useState<JobEntity[]>();
 
   useEffect(() => {
     const handleRouteChange = () => {
@@ -36,17 +43,40 @@ const JobList = ({ data }: JobListProps) => {
   }, [router.events]);
 
   useEffect(() => {
-    if (data.jobs?.data?.length) {
-      const slicedData = data.jobs.data.slice(
+    if (currentData?.length) {
+      const slicedData = currentData.slice(
         (active - 1) * itemsPerPage,
         active * itemsPerPage
       );
-      setCurrentData(slicedData);
+      setCurrentPagedData(slicedData);
+    } else {
+      setCurrentData(undefined);
     }
-  }, [active, data.jobs?.data]);
+  }, [active, currentData]);
 
   const activeHandler = (clickedActive: string) => {
     setActive(parseInt(clickedActive));
+  };
+
+  const debouncedSearch = debounce((q: string) => {
+    const filteredListData = data.jobs?.data.filter(
+      (fltData) =>
+        fltData.attributes?.titel
+          .toLocaleLowerCase()
+          .includes(q.toLocaleLowerCase())
+    );
+
+    setTotalPages(
+      filteredListData?.length
+        ? Math.ceil(filteredListData.length / itemsPerPage)
+        : 0
+    );
+    setCurrentData(filteredListData);
+  }, 800);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    debouncedSearch(e.target.value);
   };
 
   const flexAlignment = clsx({
@@ -58,8 +88,8 @@ const JobList = ({ data }: JobListProps) => {
 
   return (
     <div className="my-10 mx-6 medium:mx-15 medium:mt-32.5">
-      {/* <div className="flex flex-col medium:flex-row medium:justify-between w-full gap-4 medium:gap-0">
-        <div className="flex flex-col medium:flex-row gap-4 medium:gap-6">
+      <div className="flex flex-col medium:flex-row medium:justify-end w-full gap-4 medium:gap-0">
+        {/* <div className="flex flex-col medium:flex-row gap-4 medium:gap-6">
           <NativeSelect placeholder="All Careers">
             <option value="allcareer1">All Career 1</option>
             <option value="allcareer2">All Career 2</option>
@@ -70,10 +100,15 @@ const JobList = ({ data }: JobListProps) => {
             <option value="latestcareer2">Latest Career 2</option>
             <option value="latestcareer3">Latest Career 3</option>
           </NativeSelect>
-        </div>
-        <SearchBox placeholder="Search..." type="text" />
-      </div> */}
-      {data.jobs?.data?.length && (
+        </div> */}
+        <SearchBox
+          onChange={handleSearchChange}
+          placeholder="Search..."
+          type="text"
+          value={searchQuery}
+        />
+      </div>
+      {currentData?.length && (
         <>
           <div
             className={clsx(
@@ -81,7 +116,7 @@ const JobList = ({ data }: JobListProps) => {
               flexAlignment
             )}
           >
-            {currentData?.map((val, idx) => (
+            {currentPagedData?.map((val, idx) => (
               <ApplicationCard
                 componentstyle={data.STYLE}
                 data={val.attributes}
@@ -89,12 +124,14 @@ const JobList = ({ data }: JobListProps) => {
               />
             ))}
           </div>
-          <PaginationSection
-            active={active}
-            onClickHandler={activeHandler}
-            size={totalPages}
-            step={1}
-          />
+          {totalPages > 0 && (
+            <PaginationSection
+              active={active}
+              onClickHandler={activeHandler}
+              size={totalPages}
+              step={1}
+            />
+          )}
         </>
       )}
     </div>

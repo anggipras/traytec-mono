@@ -24,14 +24,14 @@ const SubHeader: React.FC<SubHeaderProps> = ({ data }) => {
   });
 
   const flexAlignment = clsx({
-    "flex flex-col items-center justify-center":
+    "flex flex-col relative items-center justify-center z-10":
       data.ausrichtung ===
       Enum_Componentheadingsheadingminimalistisch_Ausrichtung.Zentriert,
     "flex flex-col":
       data.ausrichtung ===
       Enum_Componentheadingsheadingminimalistisch_Ausrichtung.Links,
   });
-  
+
   return (
     <div className="bg-gray-50">
       <div className="mx-auto max-w-desktop w-full">
