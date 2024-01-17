@@ -34,7 +34,9 @@ const SalesFormContainer = ({
   } else if (
     __typename === "ComponentFormLongText" ||
     __typename === "ComponentFormDatumUhrzeit" ||
-    __typename === "ComponentFormTextForm"
+    __typename === "ComponentFormTextForm" ||
+    __typename === "ComponentFormDatum" ||
+    __typename === "ComponentFormUhrzeit"
   ) {
     item = (
       <SalesFormInput
