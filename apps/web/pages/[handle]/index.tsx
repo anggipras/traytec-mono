@@ -52,7 +52,7 @@ const fetchSinglePage = (handle: string, locale: string) => {
       },
       locale,
       pagination: {
-        limit: 100,
+        limit: 50,
       },
     },
   });
@@ -64,6 +64,10 @@ const fetchJobDetail = (locale: string) => {
     query: GetJobDocument,
     variables: {
       locale,
+      pagination: {
+        page: 1,
+        pageSize: 3,
+      },
     },
   });
 };

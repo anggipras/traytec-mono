@@ -2738,11 +2738,12 @@ export type GetIndustrySlugQuery = { __typename?: 'Query', industrien?: { __type
 
 export type GetJobQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
   filters?: InputMaybe<JobFiltersInput>;
 }>;
 
 
-export type GetJobQuery = { __typename?: 'Query', jobs?: { __typename?: 'JobEntityResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, titel: string, art: Enum_Job_Art, auszug?: string | null, beschreibung?: string | null, publishedAt?: any | null, badges?: Array<{ __typename?: 'ComponentUtilsBadge', text: string, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | null }> } | null };
+export type GetJobQuery = { __typename?: 'Query', jobs?: { __typename?: 'JobEntityResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, titel: string, art: Enum_Job_Art, auszug?: string | null, beschreibung?: string | null, publishedAt?: any | null, badges?: Array<{ __typename?: 'ComponentUtilsBadge', text: string, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number } } } | null };
 
 export type GetJobSlugQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -2891,8 +2892,8 @@ export type GetIndustrySlugQueryHookResult = ReturnType<typeof useGetIndustrySlu
 export type GetIndustrySlugLazyQueryHookResult = ReturnType<typeof useGetIndustrySlugLazyQuery>;
 export type GetIndustrySlugQueryResult = Apollo.QueryResult<GetIndustrySlugQuery, GetIndustrySlugQueryVariables>;
 export const GetJobDocument = gql`
-    query getJob($locale: I18NLocaleCode, $filters: JobFiltersInput) {
-  jobs(locale: $locale, filters: $filters) {
+    query getJob($locale: I18NLocaleCode, $pagination: PaginationArg, $filters: JobFiltersInput) {
+  jobs(locale: $locale, pagination: $pagination, filters: $filters) {
     data {
       attributes {
         locale
@@ -2916,6 +2917,14 @@ export const GetJobDocument = gql`
         }
       }
     }
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
+      }
+    }
   }
 }
     `;
@@ -2933,6 +2942,7 @@ export const GetJobDocument = gql`
  * const { data, loading, error } = useGetJobQuery({
  *   variables: {
  *      locale: // value for 'locale'
+ *      pagination: // value for 'pagination'
  *      filters: // value for 'filters'
  *   },
  * });

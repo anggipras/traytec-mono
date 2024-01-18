@@ -15,6 +15,7 @@ import type {
 } from "@/generated/graphql";
 import Button from "@/modules/common/components/button";
 import { serverBaseUrl } from "@/client.config";
+import imgBgHeroLeft from "@/assets/images/common/img_bg_hero_left.svg";
 
 interface ComponentProps {
   data: ComponentHerosHero1;
@@ -92,8 +93,9 @@ const Hero = ({ data }: ComponentProps) => {
           alt="bg_hero_left"
           className="w-full h-full"
           height="0"
+          priority
           sizes="100%"
-          src={require("@/assets/images/common/img_bg_hero_left.svg")}
+          src={imgBgHeroLeft}
           width="0"
         />
       </div>

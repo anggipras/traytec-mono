@@ -1,5 +1,9 @@
-query getJob($locale: I18NLocaleCode, $filters: JobFiltersInput) {
-  jobs(locale: $locale, filters: $filters) {
+query getJob(
+  $locale: I18NLocaleCode
+  $pagination: PaginationArg
+  $filters: JobFiltersInput
+) {
+  jobs(locale: $locale, pagination: $pagination, filters: $filters) {
     data {
       attributes {
         locale
@@ -21,6 +25,14 @@ query getJob($locale: I18NLocaleCode, $filters: JobFiltersInput) {
           }
           text
         }
+      }
+    }
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
       }
     }
   }

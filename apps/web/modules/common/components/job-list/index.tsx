@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 // import NativeSelect from "@/modules/common/components/native-select";
 import { clsx } from "clsx";
 import { useRouter } from "next/router";
 import { debounce } from "lodash";
 import SearchBox from "@/modules/common/components/search-box";
 import PaginationSection from "@/modules/common/components/pagination";
-import { Enum_Componentintegrationenjobs_Style } from "@/generated/graphql";
+import {
+  Enum_Componentintegrationenjobs_Style,
+  GetJobDocument,
+} from "@/generated/graphql";
 import type {
   ComponentIntegrationenJobs,
   JobEntity,
+  JobEntityResponseCollection,
 } from "@/generated/graphql";
 import ApplicationCard from "@/modules/common/components/card/application";
+import { getApolloClient } from "@/lib/with-apollo";
 
 interface JobListProps {
   data: ComponentIntegrationenJobs;
@@ -18,22 +23,20 @@ interface JobListProps {
 
 const JobList = ({ data }: JobListProps) => {
   const router = useRouter();
-  const itemsPerPage = 4;
-  const [active, setActive] = useState(1);
+  const [activePage, setActivePage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(
-    data.jobs?.data?.length
-      ? Math.ceil(data.jobs.data.length / itemsPerPage)
+    data.alle_anzeigen
+      ? (data.jobs as JobEntityResponseCollection).meta.pagination.pageCount
       : 0
   );
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [currentData, setCurrentData] = useState<JobEntity[] | undefined>(
     data.jobs?.data
   );
-  const [currentPagedData, setCurrentPagedData] = useState<JobEntity[]>();
 
   useEffect(() => {
     const handleRouteChange = () => {
-      setActive(1);
+      setActivePage(1);
     };
     router.events.on("routeChangeStart", handleRouteChange);
 
@@ -42,41 +45,80 @@ const JobList = ({ data }: JobListProps) => {
     };
   }, [router.events]);
 
-  useEffect(() => {
-    if (currentData?.length) {
-      const slicedData = currentData.slice(
-        (active - 1) * itemsPerPage,
-        active * itemsPerPage
-      );
-      setCurrentPagedData(slicedData);
-    } else {
-      setCurrentData(undefined);
-    }
-  }, [active, currentData]);
-
-  const activeHandler = (clickedActive: string) => {
-    setActive(parseInt(clickedActive));
+  const activePageHandler = async (clickedActivePage: string) => {
+    setActivePage(parseInt(clickedActivePage));
+    const paginatedData = await fetchJobWithFilter(
+      router.locale ?? "de",
+      searchQuery,
+      parseInt(clickedActivePage)
+    );
+    setTotalPages(
+      (paginatedData.data.jobs as JobEntityResponseCollection).meta.pagination
+        .pageCount
+    );
+    setCurrentData(
+      (paginatedData.data.jobs as JobEntityResponseCollection).data
+    );
   };
 
-  const debouncedSearch = debounce((q: string) => {
-    const filteredListData = data.jobs?.data.filter(
-      (fltData) =>
-        fltData.attributes?.titel
-          .toLocaleLowerCase()
-          .includes(q.toLocaleLowerCase())
+  const debouncedSearch = debounce(async (q: string) => {
+    const debounceData = await fetchJobWithFilter(
+      router.locale ?? "de",
+      q.toLocaleLowerCase(),
+      1
     );
-
     setTotalPages(
-      filteredListData?.length
-        ? Math.ceil(filteredListData.length / itemsPerPage)
-        : 0
+      (debounceData.data.jobs as JobEntityResponseCollection).meta.pagination
+        .pageCount
     );
-    setCurrentData(filteredListData);
+    setCurrentData(
+      (debounceData.data.jobs as JobEntityResponseCollection).data
+    );
+    setActivePage(1);
   }, 800);
 
+  const fetchJobWithFilter = useCallback(
+    (locale: string, qstring: string, actPage?: number) => {
+      const apolloClient = getApolloClient();
+      const jobVariable: {
+        locale: string;
+        pagination: Record<string, unknown>;
+        filters?: any;
+      } = {
+        locale,
+        pagination: {
+          page: actPage ?? activePage,
+          pageSize: 3,
+        },
+      };
+      if (qstring.length) {
+        jobVariable.filters = {
+          or: [
+            {
+              titel: {
+                containsi: qstring,
+              },
+            },
+            {
+              beschreibung: {
+                containsi: qstring,
+              },
+            },
+          ],
+        };
+      }
+      return apolloClient.query({
+        query: GetJobDocument,
+        variables: jobVariable,
+      });
+    },
+    [activePage]
+  );
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    debouncedSearch(e.target.value);
+    setSearchQuery(e.target.value.toLocaleLowerCase());
+    if (e.target.value.length > 3 || !e.target.value)
+      void debouncedSearch(e.target.value);
   };
 
   const flexAlignment = clsx({
@@ -101,14 +143,16 @@ const JobList = ({ data }: JobListProps) => {
             <option value="latestcareer3">Latest Career 3</option>
           </NativeSelect>
         </div> */}
-        <SearchBox
-          onChange={handleSearchChange}
-          placeholder="Search..."
-          type="text"
-          value={searchQuery}
-        />
+        {data.alle_anzeigen && (
+          <SearchBox
+            onChange={handleSearchChange}
+            placeholder="Search..."
+            type="text"
+            value={searchQuery}
+          />
+        )}
       </div>
-      {currentData?.length && (
+      {currentData && currentData.length > 0 && (
         <>
           <div
             className={clsx(
@@ -116,7 +160,7 @@ const JobList = ({ data }: JobListProps) => {
               flexAlignment
             )}
           >
-            {currentPagedData?.map((val, idx) => (
+            {currentData.map((val, idx) => (
               <ApplicationCard
                 componentstyle={data.STYLE}
                 data={val.attributes}
@@ -124,10 +168,10 @@ const JobList = ({ data }: JobListProps) => {
               />
             ))}
           </div>
-          {totalPages > 0 && (
+          {data.alle_anzeigen && (
             <PaginationSection
-              active={active}
-              onClickHandler={activeHandler}
+              active={activePage}
+              onClickHandler={activePageHandler}
               size={totalPages}
               step={1}
             />
