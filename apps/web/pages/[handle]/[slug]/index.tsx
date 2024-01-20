@@ -180,6 +180,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     slugData = jobData?.data;
   } else if (industryDataResponse.industrien?.data?.length) {
     slugData = industryData?.data;
+    // const industryDataComponent = slugData as GetIndustryQuery
   } else {
     return {
       notFound: true,

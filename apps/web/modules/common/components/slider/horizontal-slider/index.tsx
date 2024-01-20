@@ -16,20 +16,6 @@ interface ComponentProps {
 }
 
 const HorizontalSlider = ({ data }: ComponentProps) => {
-  // const [screenWidth, setScreenWidth] = useState(0);
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setScreenWidth(window.innerWidth);
-  //   };
-  //   handleResize();
-  //   window.addEventListener("resize", handleResize);
-
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
   const { t } = useTranslation();
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start" });
 
@@ -105,29 +91,6 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
                       />
                     </div>
                   </div>
-                  // <div className="embla__slide" key={index}>
-                  //   <div className="flex flex-col h-full justify-between rounded-3xl border border-gray-200 px-6 py-12">
-                  //     <div className="typo-copy-normal text-gray-400">
-                  //       {val?.text}
-                  //     </div>
-                  //     <div className="flex items-center mt-6">
-                  //       <div className="flex p-3 mr-3 rounded-full border border-gray-200">
-                  //         {val?.icon?.data?.attributes?.url ? (
-                  //           <Image
-                  //             alt="icon-horizontal"
-                  //             height={48}
-                  //             src={
-                  //               `${serverBaseUrl}${val?.icon?.data?.attributes?.url}` ||
-                  //               ""
-                  //             }
-                  //             width={48}
-                  //           />
-                  //         ) : null}
-                  //       </div>
-                  //       <div className="typo-h4">{val?.ueberschrift}</div>
-                  //     </div>
-                  //   </div>
-                  // </div>
                 ))}
               </div>
             </div>

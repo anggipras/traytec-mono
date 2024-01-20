@@ -1,9 +1,16 @@
+/* eslint-disable no-unsafe-optional-chaining -- disabled no unsafe optional chaining */
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import type { GetStaticProps } from "next";
 import Head from "@/modules/common/components/head";
 import { getApolloClient } from "@/lib/with-apollo";
-import type { ComponentSharedSeo, GetPageQuery } from "@/generated/graphql";
-import { GetPageDocument } from "@/generated/graphql";
+import type {
+  BewertungRelationResponseCollection,
+  ComponentIntegrationenBewertungen,
+  ComponentSharedSeo,
+  GetPageQuery,
+  GetReviewsQuery,
+} from "@/generated/graphql";
+import { GetPageDocument, GetReviewsDocument } from "@/generated/graphql";
 import { useSeo } from "@/lib/hooks/use-seo";
 import SinglePageTemplate from "@/modules/single-page/templates";
 
@@ -19,6 +26,13 @@ const fetchHomePageStatic = (locale: string) => {
       },
       locale,
     },
+  });
+};
+
+const fetchReviewsList = () => {
+  const apolloClient = getApolloClient();
+  return apolloClient.query({
+    query: GetReviewsDocument,
   });
 };
 
@@ -56,9 +70,82 @@ export const getStaticProps: GetStaticProps = async (context) => {
     };
   }
 
+  let modifiedSinglePageByJobs: GetPageQuery = {};
+  if (singlePageResponse.seiten?.data[0].attributes?.inhalte?.length) {
+    const getFilteredBewertungenInhalte =
+      singlePageResponse.seiten?.data[0].attributes?.inhalte?.filter(
+        (bwtVal) => bwtVal?.__typename === "ComponentIntegrationenBewertungen"
+      );
+
+    const changedDataSinglePage = { ...singlePageResponse };
+    const changedDataSingleResponse = [
+      ...singlePageResponse.seiten?.data[0].attributes?.inhalte,
+    ];
+
+    if (
+      getFilteredBewertungenInhalte?.length &&
+      (getFilteredBewertungenInhalte[0] as ComponentIntegrationenBewertungen)
+        .alle_anzeigen
+    ) {
+      const reviewComponent = await fetchReviewsList();
+      const reviewComponentData = reviewComponent.data as GetReviewsQuery;
+
+      const findIdxReviewAtSinglePage =
+        singlePageResponse.seiten?.data[0].attributes?.inhalte?.findIndex(
+          (jobVal) => jobVal?.__typename === "ComponentIntegrationenBewertungen"
+        );
+
+      if (changedDataSingleResponse.length) {
+        const compIntegrationReview = {
+          ...(changedDataSingleResponse[
+            findIdxReviewAtSinglePage
+          ] as ComponentIntegrationenBewertungen),
+        };
+
+        modifiedSinglePageByJobs = {
+          __typename: "Query",
+          seiten: {
+            __typename: "SeiteEntityResponseCollection",
+            data: [
+              {
+                __typename: "SeiteEntity",
+                attributes: {
+                  __typename: "Seite",
+                  slug: changedDataSinglePage.seiten?.data[0].attributes?.slug,
+                  seo: changedDataSinglePage.seiten?.data[0].attributes?.seo,
+                  inhalte:
+                    changedDataSinglePage.seiten?.data[0].attributes?.inhalte?.map(
+                      (val) => {
+                        if (
+                          val?.__typename ===
+                          "ComponentIntegrationenBewertungen"
+                        ) {
+                          return {
+                            __typename: "ComponentIntegrationenBewertungen",
+                            ueberschrift: compIntegrationReview.ueberschrift,
+                            alle_anzeigen: compIntegrationReview.alle_anzeigen,
+                            id: "",
+                            bewertungen:
+                              reviewComponentData.bewertungen as BewertungRelationResponseCollection,
+                          };
+                        }
+                        return val;
+                      }
+                    ),
+                },
+              },
+            ],
+          },
+        };
+      }
+    }
+  }
+
   return {
     props: {
-      singlePageData: singlePageResponse,
+      singlePageData: modifiedSinglePageByJobs.seiten
+        ? modifiedSinglePageByJobs
+        : singlePageResponse,
       ...(await serverSideTranslations(initialLocale, namespaces)),
     },
     revalidate: 1800,

@@ -18165,6 +18165,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "ComponentIntegrationenBewertungen",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "ComponentIntegrationenFormular",
             "ofType": null
           },

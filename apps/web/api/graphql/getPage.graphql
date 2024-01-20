@@ -288,6 +288,27 @@ query getPage(
               }
             }
           }
+          ... on ComponentIntegrationenBewertungen {
+            alle_anzeigen
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            bewertungen {
+              data {
+                attributes {
+                  kommentar
+                  person {
+                    ist_anonym
+                    name
+                    photo_url
+                  }
+                }
+              }
+            }
+          }
           ... on Error {
             code
             message

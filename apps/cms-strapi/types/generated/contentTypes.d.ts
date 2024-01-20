@@ -1418,7 +1418,8 @@ export interface ApiSeiteSeite extends Schema.CollectionType {
         'listen.timeline-liste',
         'sektionen.inhalt-mit-media',
         'listen.industrie-liste',
-        'integrationen.jobs'
+        'integrationen.jobs',
+        'integrationen.bewertungen'
       ]
     > &
       Attribute.SetPluginOptions<{

@@ -5,6 +5,7 @@ import type {
   ComponentHeadingsHeadingMinimalistisch,
   ComponentHeadingsHeadingMitVideo,
   ComponentHerosHero1,
+  ComponentIntegrationenBewertungen,
   ComponentIntegrationenFormular,
   ComponentIntegrationenJobs,
   ComponentListenGridListe,
@@ -29,6 +30,7 @@ import JobList from "@/modules/common/components/job-list";
 import JobDetail from "@/modules/common/components/job-detail";
 import SalesForm from "@/modules/common/components/forms/sales-form/sales-form";
 import IndustryDetail from "@/modules/common/components/industry-detail";
+import HorizontalSliderDefault from "@/modules/common/components/slider/horizontal-slider-default";
 
 export const renderDynamicContent = (contentItem: any) => {
   const { __typename } = contentItem || {};
@@ -126,6 +128,15 @@ export const renderDynamicContent = (contentItem: any) => {
       break;
     case "IndustrieEntity":
       item = <IndustryDetail data={contentItem as IndustrieEntity} />;
+      break;
+    case "ComponentIntegrationenBewertungen":
+      item = (
+        <LayoutContainer>
+          <HorizontalSliderDefault
+            data={contentItem as ComponentIntegrationenBewertungen}
+          />
+        </LayoutContainer>
+      );
       break;
     default:
       console.log("No component found for: ", __typename);
