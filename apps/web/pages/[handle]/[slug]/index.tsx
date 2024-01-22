@@ -7,8 +7,10 @@ import type {
   GetIndustrySlugQuery,
   GetJobQuery,
   GetJobSlugQuery,
+  GetProductsQuery,
   IndustrieEntity,
   JobEntity,
+  ProduktRelationResponseCollection,
   Query,
 } from "@/generated/graphql";
 import {
@@ -16,6 +18,7 @@ import {
   GetIndustrySlugDocument,
   GetJobDocument,
   GetJobSlugDocument,
+  GetProductsDocument,
 } from "@/generated/graphql";
 import { renderDynamicContent } from "@/lib/util/render-dynamic-content";
 
@@ -82,6 +85,20 @@ const fetchIndustryDetail = (slug: string, locale: string) => {
         },
       },
       locale,
+    },
+  });
+};
+
+const fetchProductsDetail = (locale: string) => {
+  const apolloClient = getApolloClient();
+  return apolloClient.query({
+    query: GetProductsDocument,
+    variables: {
+      locale,
+      pagination: {
+        page: 1,
+        pageSize: 4,
+      },
     },
   });
 };
@@ -179,8 +196,47 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (jobDataResponse.jobs?.data?.length) {
     slugData = jobData?.data;
   } else if (industryDataResponse.industrien?.data?.length) {
+    if (
+      industryDataResponse.industrien?.data &&
+      industryDataResponse.industrien?.data.length > 0 &&
+      industryDataResponse.industrien?.data[0].attributes?.alle_anzeigen
+    ) {
+      const productsData = await fetchProductsDetail(locale ?? "de");
+      const productsDataList = productsData.data as GetProductsQuery;
+
+      if (
+        industryDataResponse.industrien.data[0].attributes.produkte?.data &&
+        productsDataList.produkte?.data &&
+        productsDataList.produkte?.data.length > 0
+      ) {
+        const { attributes } = industryDataResponse.industrien.data[0];
+        const changedProducts = {
+          __typename: "Query",
+          industrien: {
+            __typename: "IndustrieEntityResponseCollection",
+            data: [
+              {
+                __typename: "IndustrieEntity",
+                attributes: {
+                  __typename: "Industrie",
+                  alle_anzeigen: attributes.alle_anzeigen,
+                  beschreibung: attributes.beschreibung,
+                  locale: attributes.locale,
+                  produkte: productsData.data
+                    .produkte as ProduktRelationResponseCollection,
+                  slug: attributes.slug,
+                  titel: attributes.titel,
+                  vorschau: attributes.vorschau,
+                },
+              },
+            ],
+            meta: productsDataList.produkte.meta,
+          },
+        };
+        industryData.data = changedProducts;
+      }
+    }
     slugData = industryData?.data;
-    // const industryDataComponent = slugData as GetIndustryQuery
   } else {
     return {
       notFound: true,

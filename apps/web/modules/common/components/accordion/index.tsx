@@ -65,7 +65,13 @@ export default function Accordion({ data, closeMenu }: AccordionpProps) {
                     subVal: { path: string; subMenuName: string },
                     subIdx: number
                   ) => (
-                    <Link href={subVal.path} key={subIdx}>
+                    <Link
+                      href={subVal.path}
+                      key={subIdx}
+                      onClick={() => {
+                        closeMenu();
+                      }}
+                    >
                       <div className="px-6 py-3 typo-copy-small">
                         {subVal.subMenuName}
                       </div>

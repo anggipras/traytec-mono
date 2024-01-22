@@ -124,7 +124,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
                             __typename: "ComponentIntegrationenBewertungen",
                             ueberschrift: compIntegrationReview.ueberschrift,
                             alle_anzeigen: compIntegrationReview.alle_anzeigen,
-                            id: "",
                             bewertungen:
                               reviewComponentData.bewertungen as BewertungRelationResponseCollection,
                           };

@@ -68,14 +68,14 @@ const SubHeader: React.FC<SubHeaderProps> = ({ data }) => {
           data.ausrichtung ===
             Enum_Componentheadingsheadingminimalistisch_Ausrichtung.Zentriert ? (
             <>
-              <div className="absolute top-0 -right-10 medium:right-0">
+              <div className="absolute top-0 bottom-0 -right-32 medium:right-0 medium:bottom-auto">
                 <Image
                   alt="bg_subheader"
                   className="w-full h-full"
                   src={require("@/assets/images/common/img_bg_header_right.svg")}
                 />
               </div>
-              <div className="absolute top-0 -left-10 medium:left-0">
+              <div className="absolute top-0 bottom-0 -left-32 medium:left-0 medium:bottom-auto">
                 <Image
                   alt="bg_subheader"
                   className="w-full h-full"

@@ -1172,6 +1172,13 @@ export interface ApiIndustrieIndustrie extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    alle_anzeigen: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

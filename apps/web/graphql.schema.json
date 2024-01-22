@@ -8405,6 +8405,18 @@
         "description": null,
         "fields": [
           {
+            "name": "alle_anzeigen",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "beschreibung",
             "description": null,
             "args": [],
@@ -8764,6 +8776,18 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "alle_anzeigen",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "BooleanFilterInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "and",
             "description": null,
             "type": {
@@ -8950,6 +8974,18 @@
         "description": null,
         "fields": null,
         "inputFields": [
+          {
+            "name": "alle_anzeigen",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "beschreibung",
             "description": null,

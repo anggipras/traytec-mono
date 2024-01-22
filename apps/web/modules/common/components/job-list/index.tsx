@@ -38,12 +38,13 @@ const JobList = ({ data }: JobListProps) => {
     const handleRouteChange = () => {
       setActivePage(1);
     };
+    setCurrentData(data.jobs?.data);
     router.events.on("routeChangeStart", handleRouteChange);
 
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
-  }, [router.events]);
+  }, [router.events, data]);
 
   const activePageHandler = async (clickedActivePage: string) => {
     setActivePage(parseInt(clickedActivePage));
@@ -88,7 +89,7 @@ const JobList = ({ data }: JobListProps) => {
         locale,
         pagination: {
           page: actPage ?? activePage,
-          pageSize: 3,
+          pageSize: 10,
         },
       };
       if (qstring.length) {

@@ -66,7 +66,7 @@ const fetchJobDetail = (locale: string) => {
       locale,
       pagination: {
         page: 1,
-        pageSize: 3,
+        pageSize: 10,
       },
     },
   });
@@ -189,7 +189,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
                             __typename: "ComponentIntegrationenJobs",
                             STYLE: compIntegrationJobs.STYLE,
                             alle_anzeigen: compIntegrationJobs.alle_anzeigen,
-                            id: "",
                             jobs: jobPageData.jobs as JobRelationResponseCollection,
                           };
                         }

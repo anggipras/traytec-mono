@@ -6,6 +6,7 @@ query getIndustry($filters: IndustrieFiltersInput, $locale: I18NLocaleCode) {
         locale
         slug
         titel
+        alle_anzeigen
         vorschau {
           data {
             attributes {

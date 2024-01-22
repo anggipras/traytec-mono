@@ -415,6 +415,7 @@ const NavBarTemplate = ({
         <Accordion
           closeMenu={() => {
             setCloseNav();
+            setOpenMobNav(false);
           }}
           data={navbarMenu}
         />

@@ -275,6 +275,7 @@ query getPage(
                   beschreibung
                   slug
                   titel
+                  alle_anzeigen
                   vorschau {
                     data {
                       attributes {
