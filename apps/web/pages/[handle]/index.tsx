@@ -145,31 +145,26 @@ export const getStaticProps: GetStaticProps = async (context) => {
       singlePageResponse.seiten?.data[0].attributes?.inhalte?.filter(
         (jobVal) => jobVal?.__typename === "ComponentIntegrationenJobs"
       );
-
     const changedDataSinglePage = { ...singlePageResponse };
     const changedDataSingleResponse = [
       ...singlePageResponse.seiten?.data[0].attributes?.inhalte,
     ];
-
     if (
       getFilteredJobInhalte?.length &&
       (getFilteredJobInhalte[0] as ComponentIntegrationenJobs).alle_anzeigen
     ) {
       const jobPage = await fetchJobDetail(locale ?? "de");
       const jobPageData = jobPage.data as GetJobQuery;
-
       const findIdxJobAtSinglePage =
         singlePageResponse.seiten?.data[0].attributes?.inhalte?.findIndex(
           (jobVal) => jobVal?.__typename === "ComponentIntegrationenJobs"
         );
-
       if (changedDataSingleResponse.length) {
         const compIntegrationJobs = {
           ...(changedDataSingleResponse[
             findIdxJobAtSinglePage
           ] as ComponentIntegrationenJobs),
         };
-
         modifiedSinglePageByJobs = {
           __typename: "Query",
           seiten: {

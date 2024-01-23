@@ -23,7 +23,7 @@ import {
 import { renderDynamicContent } from "@/lib/util/render-dynamic-content";
 
 interface SlugInfo {
-  params: { handle: ""; slug: string };
+  params: { handle: string; slug: string };
   locale: string;
 }
 
@@ -109,28 +109,20 @@ const SlugPage = ({ slugData }) => {
   if (slugQueryData.jobs?.data.length) {
     const slugDetailData = slugData as GetJobQuery;
     return (
-      <>
-        {slugDetailData.jobs?.data?.length && (
-          <div className="medium:pb-32.5">
-            {slugDetailData.jobs?.data.map((val, idx) => (
-              <div key={idx}>{renderDynamicContent(val)}</div>
-            ))}
-          </div>
-        )}
-      </>
+      <div className="medium:pb-32.5">
+        {slugDetailData.jobs?.data.map((val, idx) => (
+          <div key={idx}>{renderDynamicContent(val)}</div>
+        ))}
+      </div>
     );
-  } else if (slugQueryData.industrien?.data.length) {
+  } else if (slugQueryData?.industrien?.data.length) {
     const slugDetailData = slugData as GetIndustryQuery;
     return (
-      <>
-        {slugDetailData.industrien?.data?.length && (
-          <div className="medium:pb-32.5">
-            {slugDetailData.industrien?.data.map((val, idx) => (
-              <div key={idx}>{renderDynamicContent(val)}</div>
-            ))}
-          </div>
-        )}
-      </>
+      <div className="medium:pb-32.5">
+        {slugDetailData.industrien?.data.map((val, idx) => (
+          <div key={idx}>{renderDynamicContent(val)}</div>
+        ))}
+      </div>
     );
   }
 };
@@ -145,24 +137,24 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const paths: SlugInfo[] = [];
     jobDataSlugData.forEach((dt) => {
       paths.push({
-        params: { handle: "", slug: dt.attributes?.slug ?? "" },
+        params: { handle: "/", slug: dt.attributes?.slug ?? "" },
         locale: dt.attributes?.locale ?? "",
       });
       dt.attributes?.localizations?.data.forEach((dtLocal) => {
         paths.push({
-          params: { handle: "", slug: dtLocal.attributes?.slug ?? "" },
+          params: { handle: "/", slug: dtLocal.attributes?.slug ?? "" },
           locale: dtLocal.attributes?.locale ?? "",
         });
       });
     });
     industryDataSlugData.forEach((dt) => {
       paths.push({
-        params: { handle: "", slug: dt.attributes?.slug ?? "" },
+        params: { handle: "/", slug: dt.attributes?.slug ?? "" },
         locale: dt.attributes?.locale ?? "",
       });
       dt.attributes?.localizations?.data.forEach((dtLocal) => {
         paths.push({
-          params: { handle: "", slug: dtLocal.attributes?.slug ?? "" },
+          params: { handle: "/", slug: dtLocal.attributes?.slug ?? "" },
           locale: dtLocal.attributes?.locale ?? "",
         });
       });
@@ -193,9 +185,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const industryDataResponse = industryData?.data as GetIndustryQuery;
 
   let slugData: Query;
-  if (jobDataResponse.jobs?.data?.length) {
+  if (jobDataResponse?.jobs?.data?.length) {
     slugData = jobData?.data;
-  } else if (industryDataResponse.industrien?.data?.length) {
+  } else if (industryDataResponse?.industrien?.data?.length) {
     if (
       industryDataResponse.industrien?.data &&
       industryDataResponse.industrien?.data.length > 0 &&

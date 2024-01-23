@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from "react";
 import LayoutContainer from "@/modules/layout/components/layout-container";
-import SubHeader from "@/modules/common/components/sub-header";
+// import SubHeader from "@/modules/common/components/sub-header";
 import NewsHeadline from "@/modules/news/components/news-headline";
-import NewsList from "@/modules/news/components/news-list";
-import SearchBox from "@/modules/common/components/search-box";
-import NativeSelect from "@/modules/common/components/native-select";
+// import NewsList from "@/modules/news/components/news-list";
+// import SearchBox from "@/modules/common/components/search-box";
+// import NativeSelect from "@/modules/common/components/native-select";
 import Pagination from "@/modules/common/components/pagination";
 
 const NewsTemplate = () => {
@@ -78,20 +78,20 @@ const NewsTemplate = () => {
 
   return (
     <>
-      <SubHeader title="Our News" />
+      {/* <SubHeader title="Our News" /> */}
       <LayoutContainer>
         <div className="my-10 mx-6 medium:mt-20 medium:mx-15 medium:mb-32.5">
-          <div className="flex flex-col medium:flex-row w-full gap-4 medium:gap-0 medium:justify-between">
+          {/* <div className="flex flex-col medium:flex-row w-full gap-4 medium:gap-0 medium:justify-between">
             <NativeSelect placeholder="All Categories">
               <option value="test1">Test 1</option>
               <option value="test2">Test 2</option>
               <option value="test3">Test 3</option>
             </NativeSelect>
             <SearchBox placeholder="Search..." type="text" />
-          </div>
+          </div> */}
           <NewsHeadline newsData={newsData} />
           <div className="border border-gray-100 w-full my-10 medium:my-12" />
-          <NewsList newsData={newsData} />
+          {/* <NewsList newsData={newsData} /> */}
           <div>
             <Pagination
               active={active}
