@@ -165,6 +165,7 @@ const JobList = ({ data }: JobListProps) => {
               <ApplicationCard
                 componentstyle={data.STYLE}
                 data={val.attributes}
+                indexcard={idx}
                 key={idx}
               />
             ))}

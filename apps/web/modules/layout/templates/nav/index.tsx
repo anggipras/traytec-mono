@@ -329,7 +329,7 @@ const NavBarTemplate = ({
                   openMenu !== -1 &&
                   openMenu === menuIdx ? (
                     <div
-                      className="flex overflow-hidden absolute left-0 z-20 origin-top-left rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      className="flex animate-fade-down overflow-hidden absolute left-0 z-20 origin-top-left rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                       role="menu"
                     >
                       <div className="w-3.5 bg-primary-950" />
@@ -383,7 +383,7 @@ const NavBarTemplate = ({
 
               {openLang && (
                 <div
-                  className="absolute w-28 right-0 mt-2 z-20 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  className="absolute animate-fade-down w-28 right-0 mt-2 z-20 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   role="menu"
                 >
                   {webLang.map((val, idx) => {

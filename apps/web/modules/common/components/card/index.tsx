@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { clsx } from "clsx";
 import Image from "next/image";
 import HeadlessModal from "../headless-dialog";
 import RenderHtml from "../render-html";
+import { useIntersectionObs } from "@/lib/hooks/use-intersection-obs";
 
 type CardProps = {
   image?: string;
@@ -14,6 +15,7 @@ type CardProps = {
   titleclass: string;
   cursor?: string;
   additionalclass?: string;
+  indexcard: number;
   textposition?: "text-center" | "text-start";
 } & React.HTMLAttributes<HTMLDivElement>;
 
@@ -22,15 +24,50 @@ const Card: React.FC<CardProps> = ({
   ...props
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const isIntersecting = useIntersectionObs(cardRef);
+  const [screenWidth, setScreenWidth] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  if (isIntersecting) {
+    const multipleNumberByScreen: number = screenWidth > 1279 ? 4 : 2;
+    const groupIndex = Math.floor(props.indexcard / multipleNumberByScreen);
+    const baseValue = groupIndex * multipleNumberByScreen;
+    const resultIdx = props.indexcard - baseValue;
+    setTimeout(() => {
+      cardRef.current?.classList.remove("translate-x-[1rem]", "opacity-0");
+      cardRef.current?.classList.add(
+        "translate-x-0",
+        "opacity-100",
+        "duration-1000"
+      );
+    }, resultIdx * 500);
+  }
 
   return (
     <>
       <div
         aria-hidden
-        className={clsx("flex", props.cursor, props.additionalclass)}
+        className={clsx(
+          "flex opacity-0 translate-x-[1rem]",
+          props.cursor,
+          props.additionalclass
+        )}
         onClick={() => {
           setIsOpen(true);
         }}
+        ref={cardRef}
         {...props}
       >
         {props.image && (

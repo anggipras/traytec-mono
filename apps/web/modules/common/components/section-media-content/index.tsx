@@ -32,7 +32,7 @@ const SectionContentMedia = ({ data }: SectionContentMediaProps) => {
         )}
       </div>
       {data.media.data && (
-        <div className="relative w-full">
+        <div className="relative w-full animate-fade-left">
           <div className="absolute top-0 bottom-0 bg-gray-200 rounded-3xl -rotate-3 w-full" />
           <div className="absolute top-0 bottom-0 bg-gray-200 rounded-3xl rotate-3 w-full" />
           <div className="relative">
@@ -43,8 +43,9 @@ const SectionContentMedia = ({ data }: SectionContentMediaProps) => {
               sizes="100%"
               src={
                 data.media.data?.attributes?.url
-                  ? `${serverBaseUrl?.replace("/api", "")}${data.media.data
-                      ?.attributes?.url}`
+                  ? `${serverBaseUrl?.replace("/api", "")}${
+                      data.media.data?.attributes?.url
+                    }`
                   : ""
               }
               width="0"

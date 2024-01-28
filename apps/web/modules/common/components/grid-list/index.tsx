@@ -29,6 +29,7 @@ const GridList = ({ data }: ComponentProps) => {
               }
               imgclass="px-0 mb-6"
               imgstyle="w-full"
+              indexcard={idx}
               key={idx}
               subcontent={val?.text || ""}
               title={val?.titel || ""}
