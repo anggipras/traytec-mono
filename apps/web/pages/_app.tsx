@@ -2,8 +2,15 @@ import "styles/globals.css";
 import type { AppProps, AppContext } from "next/app";
 import { appWithTranslation } from "next-i18next";
 import App from "next/app";
-import Layout from "@/modules/layout/templates";
 import { QueryClient, QueryClientProvider } from "react-query";
+import Layout from "@/modules/layout/templates";
+import { getApolloClient } from "@/lib/with-apollo";
+import type {
+  GetLocalesQuery,
+  GetPageHandleQuery,
+  SeiteEntity,
+} from "@/generated/graphql";
+import { GetLocalesDocument, GetPageHandleDocument } from "@/generated/graphql";
 
 // Define an interface for components that have a getLayout property
 interface ComponentWithLayout {
@@ -18,16 +25,9 @@ type ExtendedAppProps = AppProps & {
 interface AppOwnProps {
   navigationData?: {
     navbar?: {
-      localeList?: {
-        id: number;
-        name: string;
-        code: string;
-        createdAt: string;
-        updatedAt: string;
-        isDefault: boolean;
-      }[];
+      localeList?: GetLocalesQuery;
+      localeHandle: SeiteEntity[];
     };
-    footer?: [];
   };
 }
 
@@ -55,15 +55,54 @@ const MyApp = ({
   );
 };
 
+const fetchLocalesStatic = async () => {
+  const apolloClient = getApolloClient();
+  const result = await apolloClient.query({
+    query: GetLocalesDocument,
+  });
+
+  if (result.errors) {
+    throw new Error(
+      `GraphQL Error: ${result.errors.map((e) => e.message).join(", ")}`
+    );
+  }
+
+  return result;
+};
+
+const fetchSinglePageHandle = async (locale: string) => {
+  const apolloClient = getApolloClient();
+  const { data } = await apolloClient.query({
+    query: GetPageHandleDocument,
+    variables: {
+      filters: {
+        slug: {
+          notNull: true,
+        },
+      },
+      locale,
+    },
+  });
+
+  const singlePageHandleData = data as GetPageHandleQuery;
+
+  return singlePageHandleData?.seiten?.data;
+};
+
 MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
+  const { locale } = context.ctx;
   const ctx = await App.getInitialProps(context);
 
   try {
-    const response = await fetch("https://strapi.traytec.de/api/i18n/locales");
-    const i18next = await response.json();
+    const localesDataResult = await fetchLocalesStatic();
+    const localeHandlePage = await fetchSinglePageHandle(locale ?? "de");
+    const localesData: GetLocalesQuery = localesDataResult.data;
+    const localeHandleData = localeHandlePage as SeiteEntity[];
+
     const navigationData = {
       navbar: {
-        localeList: i18next,
+        localeList: localesData,
+        localeHandle: localeHandleData,
       },
     };
 

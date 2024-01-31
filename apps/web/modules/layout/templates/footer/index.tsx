@@ -1,7 +1,7 @@
 import React from "react";
 import FooterComponent from "@/modules/layout/components/footer";
 
-const footer = () => {
+const FooterTemplate = () => {
   return (
     <footer>
       <FooterComponent />
@@ -9,4 +9,4 @@ const footer = () => {
   );
 };
 
-export default footer;
+export default FooterTemplate;

@@ -1,8 +1,8 @@
+/* eslint-disable turbo/no-undeclared-env-vars -- disable undeclared env vars */
 const environment = process.env.NEXT_PUBLIC_VERCEL_ENVIRONMENT || "development";
-// const environment = "production"
 
 const defaultConfig = {
-  siteUrl: "http://localhost:8000",
+  siteUrl: "http://localhost:3000",
   graphqlUrl: "http://127.0.0.1:1337/graphql",
   serverBaseUrl: "http://127.0.0.1:1337/api",
   environment,
@@ -20,6 +20,6 @@ const clientConfig =
     ? productionConfig
     : defaultConfig;
 
-console.log("[LOG] ::: clientConfig: ", clientConfig);
+// console.log("[LOG] ::: clientConfig: ", clientConfig);
 
 module.exports = clientConfig;

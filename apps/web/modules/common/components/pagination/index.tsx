@@ -86,9 +86,9 @@ const PaginationSection = (props: PaginationProps) => {
             1
           </div>
 
-          {needStartDots ? (
+          {needStartDots && (
             <span className="hidden medium:flex self-end">...</span>
-          ) : null}
+          )}
           {Array.from({ length: showingNumbers }, (_, i) => {
             const contentNumber = needStartDots
               ? startArrayNumber
@@ -112,9 +112,9 @@ const PaginationSection = (props: PaginationProps) => {
               </div>
             );
           })}
-          {needEndDots ? (
+          {needEndDots && (
             <span className="hidden medium:flex self-end">...</span>
-          ) : null}
+          )}
           <div
             aria-hidden="true"
             className={`hidden medium:flex justify-center items-center border border-gray-200 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ${

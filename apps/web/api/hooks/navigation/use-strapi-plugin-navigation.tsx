@@ -1,8 +1,8 @@
+/* eslint-disable import/no-named-as-default-member -- disable no-named-as-default-member */
 import { useQuery } from "react-query";
-import { GetStrapiPluginNavigationParams } from "../types/strapi-plugin-navigation-types";
-
-import clientConfig from "../../../client.config";
 import qs from "qs";
+import type { GetStrapiPluginNavigationParams } from "../types/strapi-plugin-navigation-types";
+import clientConfig from "../../../client.config";
 
 export const useStrapiPluginNavigationTree = (
   idOrSlug: string,
@@ -13,7 +13,7 @@ export const useStrapiPluginNavigationTree = (
     queryFn: () => {
       let url = `${clientConfig.serverBaseUrl}/navigation/render/${idOrSlug}`;
 
-      let query_ = {
+      const query_ = {
         ...query,
         type: "TREE",
       };
@@ -23,8 +23,6 @@ export const useStrapiPluginNavigationTree = (
       if (params) {
         url = `${url}?${params}`;
       }
-
-      console.log("url >> ", url);
 
       return fetch(url).then((res) => res.json());
     },

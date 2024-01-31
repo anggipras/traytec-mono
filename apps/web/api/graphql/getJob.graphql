@@ -1,0 +1,39 @@
+query getJob(
+  $locale: I18NLocaleCode
+  $pagination: PaginationArg
+  $filters: JobFiltersInput
+) {
+  jobs(locale: $locale, pagination: $pagination, filters: $filters) {
+    data {
+      attributes {
+        locale
+        slug
+        titel
+        art
+        auszug
+        beschreibung
+        publishedAt
+        badges {
+          icon {
+            data {
+              attributes {
+                height
+                url
+                width
+              }
+            }
+          }
+          text
+        }
+      }
+    }
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
+      }
+    }
+  }
+}

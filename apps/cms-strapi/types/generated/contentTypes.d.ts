@@ -1166,6 +1166,19 @@ export interface ApiIndustrieIndustrie extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    vorschau: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    alle_anzeigen: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1321,6 +1334,25 @@ export interface ApiProduktProdukt extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    vorschau: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    beschreibung: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'HTML';
+          preset: 'standard';
+        }
+      > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1393,7 +1425,8 @@ export interface ApiSeiteSeite extends Schema.CollectionType {
         'listen.timeline-liste',
         'sektionen.inhalt-mit-media',
         'listen.industrie-liste',
-        'integrationen.jobs'
+        'integrationen.jobs',
+        'integrationen.bewertungen'
       ]
     > &
       Attribute.SetPluginOptions<{

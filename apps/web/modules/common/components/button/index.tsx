@@ -1,22 +1,27 @@
 import { clsx } from "clsx";
 import React from "react";
+import { Enum_Componentutilsbutton_Variante } from "@/generated/graphql";
 
 export type ButtonProps = {
-  variant?: "primary" | "secondary";
+  variant?: Enum_Componentutilsbutton_Variante;
   size?: "small" | "medium" | "large";
   width?: "w-fit" | "w-full";
+  typebtn?: "button" | "event";
+  onMouseClick?: any;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = ({
   children,
-  variant = "primary",
+  variant = Enum_Componentutilsbutton_Variante.Primary,
   size = "medium",
   width = "w-fit",
+  typebtn = "button",
+  onMouseClick,
   ...props
 }: ButtonProps) => {
   const variantClassname = clsx({
-    "btn-primary": variant === "primary",
-    "btn-secondary": variant === "secondary",
+    "btn-primary": variant === Enum_Componentutilsbutton_Variante.Primary,
+    "btn-secondary": variant === Enum_Componentutilsbutton_Variante.Secondary,
   });
 
   const sizeClassname = clsx({
@@ -32,21 +37,39 @@ const Button = ({
   });
 
   return (
-    <button
-      {...props}
-      className={clsx(
-        "btn",
-        variantClassname,
-        spacingClassname,
-        sizeClassname,
-        width,
-        {
-          "cursor-not-allowed": props.disabled,
-        }
+    <>
+      {typebtn === "event" ? (
+        <button
+          {...props}
+          className={clsx(
+            "btn",
+            variantClassname,
+            "px-6 py-4",
+            sizeClassname,
+            width
+          )}
+          onClick={onMouseClick}
+        >
+          {children}
+        </button>
+      ) : (
+        <button
+          {...props}
+          className={clsx(
+            "btn",
+            variantClassname,
+            spacingClassname,
+            sizeClassname,
+            width,
+            {
+              "cursor-not-allowed": props.disabled,
+            }
+          )}
+        >
+          {children}
+        </button>
       )}
-    >
-      {children}
-    </button>
+    </>
   );
 };
 

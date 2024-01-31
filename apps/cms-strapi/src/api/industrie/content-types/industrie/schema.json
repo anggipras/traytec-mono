@@ -62,6 +62,28 @@
         "preset": "rich"
       },
       "customField": "plugin::ckeditor.CKEditor"
+    },
+    "vorschau": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "alle_anzeigen": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean",
+      "default": false
     }
   }
 }

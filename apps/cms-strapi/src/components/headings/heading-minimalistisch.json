@@ -29,6 +29,13 @@
         "preset": "standard"
       },
       "customField": "plugin::ckeditor.CKEditor"
+    },
+    "bild": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

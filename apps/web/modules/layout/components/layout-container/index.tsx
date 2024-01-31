@@ -1,23 +1,12 @@
 import React from "react";
-import clsx from "clsx";
 
 type Props = {
   children: React.ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-const LayoutContainer: React.FC<Props> = ({
-  children,
-  className,
-  ...props
-}) => {
+const LayoutContainer: React.FC<Props> = ({ children, ...props }) => {
   return (
-    <div
-      className={clsx(
-        "mx-auto max-w-desktop px-md medium:px-0 w-full",
-        className
-      )}
-      {...props}
-    >
+    <div className="mx-auto max-w-desktop medium:px-0 w-full" {...props}>
       {children}
     </div>
   );

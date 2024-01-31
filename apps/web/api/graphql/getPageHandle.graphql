@@ -1,0 +1,58 @@
+query getPageHandle($filters: SeiteFiltersInput, $locale: I18NLocaleCode) {
+  seiten(filters: $filters, locale: $locale) {
+    data {
+      attributes {
+        locale
+        slug
+        titel
+        localizations {
+          data {
+            attributes {
+              locale
+              slug
+              titel
+            }
+          }
+        }
+        inhalte {
+          ... on ComponentIntegrationenJobs {
+            jobs {
+              data {
+                attributes {
+                  locale
+                  slug
+                  localizations {
+                    data {
+                      attributes {
+                        slug
+                        locale
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on ComponentListenIndustrieListe {
+            industrien {
+              data {
+                attributes {
+                  locale
+                  slug
+                  localizations {
+                    data {
+                      attributes {
+                        slug
+                        locale
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

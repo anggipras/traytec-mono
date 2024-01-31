@@ -1,0 +1,14 @@
+query getReviews {
+  bewertungen {
+    data {
+      attributes {
+        kommentar
+        person {
+          ist_anonym
+          name
+          photo_url
+        }
+      }
+    }
+  }
+}
