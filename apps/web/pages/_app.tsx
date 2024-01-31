@@ -2,20 +2,15 @@ import "styles/globals.css";
 import type { AppProps, AppContext } from "next/app";
 import { appWithTranslation } from "next-i18next";
 import App from "next/app";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Layout from "@/modules/layout/templates";
 import { getApolloClient } from "@/lib/with-apollo";
 import type {
-  FormularEntityResponseCollection,
   GetLocalesQuery,
   GetPageHandleQuery,
   SeiteEntity,
 } from "@/generated/graphql";
-import {
-  GetFormDocument,
-  GetLocalesDocument,
-  GetPageHandleDocument,
-} from "@/generated/graphql";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { GetLocalesDocument, GetPageHandleDocument } from "@/generated/graphql";
 
 // Define an interface for components that have a getLayout property
 interface ComponentWithLayout {
@@ -32,9 +27,6 @@ interface AppOwnProps {
     navbar?: {
       localeList?: GetLocalesQuery;
       localeHandle: SeiteEntity[];
-    };
-    footer?: {
-      salesForm: FormularEntityResponseCollection;
     };
   };
 }
@@ -78,21 +70,6 @@ const fetchLocalesStatic = async () => {
   return result;
 };
 
-const fetchSalesForm = async () => {
-  const apolloClient = getApolloClient();
-  const result = await apolloClient.query({
-    query: GetFormDocument,
-  });
-
-  if (result.errors) {
-    throw new Error(
-      `GraphQL Error: ${result.errors.map((e) => e.message).join(", ")}`
-    );
-  }
-
-  return result;
-};
-
 const fetchSinglePageHandle = async (locale: string) => {
   const apolloClient = getApolloClient();
   const { data } = await apolloClient.query({
@@ -118,10 +95,6 @@ MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
 
   try {
     const localesDataResult = await fetchLocalesStatic();
-    const salesFormResult = await fetchSalesForm();
-    const salesFormData = salesFormResult.data
-      .formulare as FormularEntityResponseCollection;
-
     const localeHandlePage = await fetchSinglePageHandle(locale ?? "de");
     const localesData: GetLocalesQuery = localesDataResult.data;
     const localeHandleData = localeHandlePage as SeiteEntity[];
@@ -130,9 +103,6 @@ MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
       navbar: {
         localeList: localesData,
         localeHandle: localeHandleData,
-      },
-      footer: {
-        salesForm: salesFormData,
       },
     };
 

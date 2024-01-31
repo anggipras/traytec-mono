@@ -21,6 +21,11 @@ query getPage(
         slug
         inhalte {
           ... on ComponentHerosHero1 {
+            hero_btn: button {
+              text
+              url
+              variante
+            }
             hintergrund {
               data {
                 attributes {
@@ -36,20 +41,8 @@ query getPage(
               topline
               typ
             }
-            hero_btn: button {
-              text
-              url
-              variante
-            }
           }
           ... on ComponentSliderHorizontalerSlider {
-            sichtbar
-            uberschrift {
-              heading
-              text
-              topline
-              typ
-            }
             cards {
               icon {
                 data {
@@ -63,6 +56,13 @@ query getPage(
               icon_text
               text
               ueberschrift
+            }
+            sichtbar
+            uberschrift {
+              heading
+              text
+              topline
+              typ
             }
           }
           ... on ComponentSliderHorizontalerSliderFokus {
@@ -96,6 +96,56 @@ query getPage(
               typ
             }
           }
+          ... on ComponentIntegrationenFormular {
+            formular {
+              data {
+                attributes {
+                  ueberschrift {
+                    heading
+                    text
+                    topline
+                    typ
+                  }
+                  titel
+                  Fragen {
+                    ... on ComponentFormTextForm {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormLongText {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormDatumUhrzeit {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormDatum {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormMultipleChoice {
+                      frage
+                      moeglichkeit {
+                        antwort
+                        id
+                      }
+                      notwendig
+                    }
+                    ... on ComponentFormUhrzeit {
+                      frage
+                      notwendig
+                    }
+                    ... on Error {
+                      code
+                      message
+                    }
+                  }
+                }
+              }
+            }
+            sichtbar
+          }
           ... on ComponentListenGridListe {
             ueberschrift {
               heading
@@ -122,6 +172,15 @@ query getPage(
             beschreibung
             dekoration_anzeigen
             titel
+            bild {
+              data {
+                attributes {
+                  height
+                  url
+                  width
+                }
+              }
+            }
           }
           ... on ComponentHeadingsHeadingMitVideo {
             ueberschrift {
@@ -142,6 +201,12 @@ query getPage(
             }
           }
           ... on ComponentListenTimelineListe {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
             timeline_karten {
               beschreibung
               media {
@@ -156,14 +221,14 @@ query getPage(
               titel
               zeitpunkt
             }
+          }
+          ... on ComponentSektionenInhaltMitMedia {
             ueberschrift {
               heading
               text
               topline
               typ
             }
-          }
-          ... on ComponentSektionenInhaltMitMedia {
             MEDIA_POSITION
             media {
               data {
@@ -171,23 +236,6 @@ query getPage(
                   height
                   url
                   width
-                }
-              }
-            }
-            ueberschrift {
-              heading
-              text
-              topline
-              typ
-            }
-          }
-          ... on ComponentListenIndustrieListe {
-            industrien {
-              data {
-                attributes {
-                  titel
-                  slug
-                  beschreibung
                 }
               }
             }
@@ -204,6 +252,60 @@ query getPage(
                   publishedAt
                   slug
                   titel
+                  badges {
+                    icon {
+                      data {
+                        attributes {
+                          height
+                          url
+                          width
+                        }
+                      }
+                    }
+                    text
+                  }
+                }
+              }
+            }
+          }
+          ... on ComponentListenIndustrieListe {
+            industrien {
+              data {
+                attributes {
+                  beschreibung
+                  slug
+                  titel
+                  alle_anzeigen
+                  vorschau {
+                    data {
+                      attributes {
+                        height
+                        url
+                        width
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on ComponentIntegrationenBewertungen {
+            alle_anzeigen
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            bewertungen {
+              data {
+                attributes {
+                  kommentar
+                  person {
+                    ist_anonym
+                    name
+                    photo_url
+                  }
                 }
               }
             }

@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 import React, { useCallback, useEffect, useState } from "react";
-import type { EmblaCarouselType } from "embla-carousel-react";
+import type { EmblaCarouselType } from "embla-carousel";
 import Image from "next/image";
 
 interface UsePrevNextButtonsType {

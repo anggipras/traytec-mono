@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 import useEmblaCarousel from "embla-carousel-react";
-import type { EmblaOptionsType } from "embla-carousel-react";
 import Image from "next/image";
+import RenderHtml from "../../render-html";
 import {
   PrevButton,
   NextButton,
@@ -15,25 +15,9 @@ interface ComponentProps {
   data: ComponentSliderHorizontalerSlider;
 }
 
-const OPTIONS: EmblaOptionsType = { align: "start" };
-
 const HorizontalSlider = ({ data }: ComponentProps) => {
-  // const [screenWidth, setScreenWidth] = useState(0);
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setScreenWidth(window.innerWidth);
-  //   };
-  //   handleResize();
-  //   window.addEventListener("resize", handleResize);
-
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
   const { t } = useTranslation();
-  const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start" });
 
   const {
     prevBtnDisabled,
@@ -56,12 +40,11 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
           })}
         </div>
         <div className="flex justify-between items-center">
-          <div className="typo-copy-normal text-gray-400 max-w-[670px]">
-            {t("PAGES.HOME_PAGE.PROCESS.SUBTITLE", {
-              processSubtitle: data.uberschrift?.text,
-            })}
-          </div>
-          {data.cards && data.cards.length > 0 ? (
+          <RenderHtml
+            className="text-gray-400 max-w-[670px]"
+            html={data.uberschrift?.text || ""}
+          />
+          {data.cards?.length && (
             <div className="embla__buttons hidden medium:flex gap-4">
               <PrevButton
                 disabled={prevBtnDisabled}
@@ -72,10 +55,10 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
                 onClick={onNextButtonClick}
               />
             </div>
-          ) : null}
+          )}
         </div>
       </div>
-      {data.cards && data.cards.length > 0 ? (
+      {data.cards?.length && (
         <>
           <div className="embla_nowrap pt-6 pb-4 medium:pt-10 medium:pb-0">
             <div className="embla__viewport" ref={emblaRef}>
@@ -90,8 +73,8 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
                             alt="icon-slider-nowrap"
                             height={24}
                             src={
-                              `${serverBaseUrl}${val?.icon?.data?.attributes?.url}` ||
-                              ""
+                              `${serverBaseUrl?.replace("/api", "")}${val?.icon
+                                ?.data?.attributes?.url}` || ""
                             }
                             width={24}
                           />
@@ -102,36 +85,12 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
                           })}
                         </div>
                       </div>
-                      <div className="typo-copy-normal text-gray-400">
-                        {t("PAGES.HOME_PAGE.PROCESS.LIST.DESCRIPTION", {
-                          listDesc: val?.text,
-                        })}
-                      </div>
+                      <RenderHtml
+                        className="text-gray-400"
+                        html={val?.text || ""}
+                      />
                     </div>
                   </div>
-                  // <div className="embla__slide" key={index}>
-                  //   <div className="flex flex-col h-full justify-between rounded-3xl border border-gray-200 px-6 py-12">
-                  //     <div className="typo-copy-normal text-gray-400">
-                  //       {val?.text}
-                  //     </div>
-                  //     <div className="flex items-center mt-6">
-                  //       <div className="flex p-3 mr-3 rounded-full border border-gray-200">
-                  //         {val?.icon?.data?.attributes?.url ? (
-                  //           <Image
-                  //             alt="icon-horizontal"
-                  //             height={48}
-                  //             src={
-                  //               `${serverBaseUrl}${val?.icon?.data?.attributes?.url}` ||
-                  //               ""
-                  //             }
-                  //             width={48}
-                  //           />
-                  //         ) : null}
-                  //       </div>
-                  //       <div className="typo-h4">{val?.ueberschrift}</div>
-                  //     </div>
-                  //   </div>
-                  // </div>
                 ))}
               </div>
             </div>
@@ -147,7 +106,7 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
             />
           </div>
         </>
-      ) : null}
+      )}
     </div>
   );
 };

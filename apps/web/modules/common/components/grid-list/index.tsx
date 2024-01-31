@@ -21,10 +21,15 @@ const GridList = ({ data }: ComponentProps) => {
           const imageUrl = val?.bild?.data?.attributes?.url;
           return (
             <Card
-              additionalclass="flex-col"
-              image={imageUrl ? `${serverBaseUrl}${imageUrl}` : ""}
+              additionalclass="flex-col justify-between"
+              image={
+                imageUrl
+                  ? `${serverBaseUrl?.replace("/api", "")}${imageUrl}`
+                  : ""
+              }
               imgclass="px-0 mb-6"
               imgstyle="w-full"
+              indexcard={idx}
               key={idx}
               subcontent={val?.text || ""}
               title={val?.titel || ""}

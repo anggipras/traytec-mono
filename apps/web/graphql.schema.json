@@ -2596,6 +2596,18 @@
             "deprecationReason": null
           },
           {
+            "name": "bild",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "UploadFileEntityResponse",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "dekoration_anzeigen",
             "description": null,
             "args": [],
@@ -4815,7 +4827,7 @@
             "deprecationReason": null
           },
           {
-            "name": "test",
+            "name": "text",
             "description": null,
             "args": [],
             "type": {
@@ -4887,7 +4899,7 @@
             "deprecationReason": null
           },
           {
-            "name": "test",
+            "name": "text",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -4934,7 +4946,7 @@
             "deprecationReason": null
           },
           {
-            "name": "test",
+            "name": "text",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8393,6 +8405,18 @@
         "description": null,
         "fields": [
           {
+            "name": "alle_anzeigen",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "beschreibung",
             "description": null,
             "args": [],
@@ -8617,6 +8641,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "vorschau",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "UploadFileEntityResponse",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -8739,6 +8775,18 @@
         "description": null,
         "fields": null,
         "inputFields": [
+          {
+            "name": "alle_anzeigen",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "BooleanFilterInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "and",
             "description": null,
@@ -8927,6 +8975,18 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "alle_anzeigen",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "beschreibung",
             "description": null,
             "type": {
@@ -8996,6 +9056,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vorschau",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
               "ofType": null
             },
             "defaultValue": null,
@@ -15318,6 +15390,18 @@
         "description": null,
         "fields": [
           {
+            "name": "beschreibung",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -15575,6 +15659,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "vorschau",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "UploadFileEntityResponse",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -15708,6 +15804,18 @@
                 "name": "ProduktFiltersInput",
                 "ofType": null
               }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "beschreibung",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "StringFilterInput",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -15873,6 +15981,18 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "beschreibung",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "industrien",
             "description": null,
             "type": {
@@ -15934,6 +16054,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "vorschau",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
               "ofType": null
             },
             "defaultValue": null,
@@ -18065,6 +18197,11 @@
           {
             "kind": "OBJECT",
             "name": "ComponentHerosHero1",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ComponentIntegrationenBewertungen",
             "ofType": null
           },
           {

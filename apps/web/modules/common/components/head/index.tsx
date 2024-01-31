@@ -1,7 +1,7 @@
 import React from "react";
 import NextHead from "next/head";
 import { useRouter } from "next/router";
-import { clientBaseUrl } from "@/client.config";
+import { siteUrl } from "@/client.config";
 
 type HeadProps = {
   title?: string | undefined;
@@ -18,9 +18,8 @@ const Head: React.FC<HeadProps> = ({
   children,
 }) => {
   const { asPath } = useRouter();
-  const SITE_URL = clientBaseUrl;
   const _asPath = asPath.length === 1 ? "" : asPath;
-  const url = `${SITE_URL}${_asPath}`;
+  const url = `${siteUrl}${_asPath}`;
 
   const defaultImgUrl = "";
   return (

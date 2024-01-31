@@ -1,9 +1,11 @@
 import React from "react";
+import { DataProvider } from "../hooks/use-data-context";
 import Hero from "@/modules/common/components/hero-bg";
 import type {
   ComponentHeadingsHeadingMinimalistisch,
   ComponentHeadingsHeadingMitVideo,
   ComponentHerosHero1,
+  ComponentIntegrationenBewertungen,
   ComponentIntegrationenFormular,
   ComponentIntegrationenJobs,
   ComponentListenGridListe,
@@ -12,11 +14,11 @@ import type {
   ComponentSektionenInhaltMitMedia,
   ComponentSliderHorizontalerSlider,
   ComponentSliderHorizontalerSliderFokus,
+  IndustrieEntity,
   JobEntity,
 } from "@/generated/graphql";
 import HorizontalSlider from "@/modules/common/components/slider/horizontal-slider";
 import FocusSlider from "@/modules/common/components/slider/focus-slider";
-import AskQuestion from "@/modules/layout/components/footer/ask-question";
 import LayoutContainer from "@/modules/layout/components/layout-container";
 import GridList from "@/modules/common/components/grid-list";
 import SubHeader from "@/modules/common/components/sub-header";
@@ -26,6 +28,9 @@ import SectionMediaHeader from "@/modules/common/components/section-media-header
 import IndustryList from "@/modules/common/components/industry-list";
 import JobList from "@/modules/common/components/job-list";
 import JobDetail from "@/modules/common/components/job-detail";
+import SalesForm from "@/modules/common/components/forms/sales-form/sales-form";
+import IndustryDetail from "@/modules/common/components/industry-detail";
+import HorizontalSliderDefault from "@/modules/common/components/slider/horizontal-slider-default";
 
 export const renderDynamicContent = (contentItem: any) => {
   const { __typename } = contentItem || {};
@@ -114,7 +119,23 @@ export const renderDynamicContent = (contentItem: any) => {
       break;
     case "ComponentIntegrationenFormular":
       item = (
-        <AskQuestion data={contentItem as ComponentIntegrationenFormular} />
+        <DataProvider>
+          <SalesForm
+            salesform={contentItem as ComponentIntegrationenFormular}
+          />
+        </DataProvider>
+      );
+      break;
+    case "IndustrieEntity":
+      item = <IndustryDetail data={contentItem as IndustrieEntity} />;
+      break;
+    case "ComponentIntegrationenBewertungen":
+      item = (
+        <LayoutContainer>
+          <HorizontalSliderDefault
+            data={contentItem as ComponentIntegrationenBewertungen}
+          />
+        </LayoutContainer>
       );
       break;
     default:

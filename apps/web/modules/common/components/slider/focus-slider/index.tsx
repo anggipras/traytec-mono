@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import type { EmblaOptionsType } from "embla-carousel-react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { flushSync } from "react-dom";
+import Link from "next/link";
+import RenderHtml from "../../render-html";
 import Button from "@/modules/common/components/button";
 import {
   PrevButton,
@@ -17,22 +18,23 @@ interface ComponentProps {
   data: ComponentSliderHorizontalerSliderFokus;
 }
 
-const OPTIONS: EmblaOptionsType = { loop: true };
-const OPTIONS_MOBILE: EmblaOptionsType = {
-  align: "start",
-  containScroll: false,
-  loop: true,
-};
-
 const TWEEN_FACTOR = 2.5;
 
 const numberWithinRange = (number: number, min: number, max: number): number =>
   Math.min(Math.max(number, min), max);
 
 const FocusSlider = ({ data }: ComponentProps) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel(OPTIONS);
-  const [emblaRefMob, emblaApiMob] = useEmblaCarousel(OPTIONS_MOBILE);
-  const [emblaRefProduct, emblaApiProduct] = useEmblaCarousel(OPTIONS_MOBILE);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [emblaRefMob, emblaApiMob] = useEmblaCarousel({
+    align: "start",
+    containScroll: false,
+    loop: true,
+  });
+  const [emblaRefProduct, emblaApiProduct] = useEmblaCarousel({
+    align: "start",
+    containScroll: false,
+    loop: true,
+  });
   const [tweenValues, setTweenValues] = useState<number[]>([]);
   const [screenWidth, setScreenWidth] = useState(0);
 
@@ -104,13 +106,13 @@ const FocusSlider = ({ data }: ComponentProps) => {
 
   return (
     <div className="flex flex-col py-10 medium:pb-0 medium:pt-32.5">
-      {data.ueberschrift ? (
+      {data.ueberschrift && (
         <SectionHeader
           desc={data.ueberschrift?.text}
           intro={data.ueberschrift?.topline}
           title={data.ueberschrift?.heading}
         />
-      ) : null}
+      )}
       {!data.background_anzeigen || !data.karten_ausserhalb_anzeigen ? (
         <div className="flex max-medium:flex-col relative justify-center items-center py-10 medium:p-0 mx-6 medium:mx-0">
           <div className="hidden medium:flex absolute left-0 top-0">
@@ -121,16 +123,17 @@ const FocusSlider = ({ data }: ComponentProps) => {
               src={require("@/assets/images/common/img_bg_linear.svg")}
             />
           </div>
-          {data.cards && data.cards.length > 0 ? (
+          {data.cards?.length && (
             <div className="relative max-w-[670px] pt-0 medium:pt-4">
               <div className="typo-h3 mb-5 text-center">
                 {data.cards[countSlider]?.ueberschrift}
               </div>
-              <div className="typo-copy-normal mb-10 text-gray-400 text-center">
-                {data.cards[countSlider]?.text}
-              </div>
+              <RenderHtml
+                className="mb-10 text-gray-400 text-center"
+                html={data.cards[countSlider]?.text || ""}
+              />
               <div className="embla_main">
-                <div className="embla__buttons flex medium:hidden absolute items-center justify-center left-0 right-0 top-[65%] max-xsmall:top-[58%] gap-3 w-full">
+                <div className="embla__buttons flex medium:hidden absolute items-center justify-center left-0 right-0 top-[70%] max-xsmall:top-[65%] gap-3 w-full">
                   <PrevButton
                     disabled={prevBtnDisabled}
                     onClick={onPrevButtonClick}
@@ -153,7 +156,8 @@ const FocusSlider = ({ data }: ComponentProps) => {
                               sizes="100%"
                               src={
                                 dt?.image?.data?.attributes?.url
-                                  ? `${serverBaseUrl}${dt?.image?.data?.attributes?.url}`
+                                  ? `${serverBaseUrl?.replace("/api", "")}${dt
+                                      ?.image?.data?.attributes?.url}`
                                   : ""
                               }
                               width="0"
@@ -165,10 +169,11 @@ const FocusSlider = ({ data }: ComponentProps) => {
                   </div>
                 </div>
               </div>
-              {data.cards[countSlider]?.vorteile ? (
+              {data.cards[countSlider]?.vorteile && (
                 <div className="flex flex-col medium:flex-row medium:flex-wrap justify-start medium:justify-center mt-20 medium:mt-0 gap-4">
                   {data.cards[countSlider]?.vorteile
-                    ?.split(";")
+                    ?.replace(/(?:<(?:[^>]+)>)/gi, "")
+                    .split(";")
                     .map((det, idxDetail) => {
                       return (
                         <div className="flex items-center" key={idxDetail}>
@@ -184,9 +189,9 @@ const FocusSlider = ({ data }: ComponentProps) => {
                       );
                     })}
                 </div>
-              ) : null}
+              )}
             </div>
-          ) : null}
+          )}
           <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-4 bottom-0 left-0 right-[730px]">
             <PrevButton
               disabled={prevBtnDisabled}
@@ -204,9 +209,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
         <>
           <div className="relative mx-6 medium:mx-0 mt-5 medium:mt-10">
             <div
-              className={`${
-                screenWidth > 1279 ? "embla_industry" : "embla_main"
-              }`}
+              className={screenWidth > 1279 ? "embla_industry" : "embla_main"}
             >
               <div
                 className="embla__viewport"
@@ -228,24 +231,25 @@ const FocusSlider = ({ data }: ComponentProps) => {
                       <div className="px-0 medium:px-12">
                         <div className="flex flex-col justify-center items-center bg-gray-50 rounded-3xl p-6">
                           <div className="flex justify-center items-center p-3 medium:p-10 rounded-full w-fit bg-white mt-3 mb-4">
-                            {val?.image?.data?.attributes?.url ? (
+                            {val?.image?.data?.attributes?.url && (
                               <Image
                                 alt="icon-horizontal-slider"
                                 className="w-8 medium:w-24"
                                 height="0"
                                 sizes="100%"
                                 src={
-                                  `${serverBaseUrl}${val?.image?.data?.attributes?.url}` ||
-                                  ""
+                                  `${serverBaseUrl?.replace("/api", "")}${val
+                                    ?.image?.data?.attributes?.url}` || ""
                                 }
                                 width="0"
                               />
-                            ) : null}
+                            )}
                           </div>
                           <div className="typo-h4">{val?.ueberschrift}</div>
-                          <div className="typo-copy-normal text-gray-400 text-center medium:text-start">
-                            {val?.text}
-                          </div>
+                          <RenderHtml
+                            className="text-gray-400 text-center medium:text-start"
+                            html={val?.text || ""}
+                          />
                         </div>
                       </div>
                     </div>
@@ -276,13 +280,15 @@ const FocusSlider = ({ data }: ComponentProps) => {
               onClick={onNextButtonClick}
             />
           </div>
-          {data.button ? (
-            <div className="hidden medium:flex justify-center mt-10">
-              <Button size="medium" variant={data.button.variante}>
-                <span className="">{data.button.text}</span>
-              </Button>
-            </div>
-          ) : null}
+          {data.button && (
+            <Link className="mt-10" href={data.button.url}>
+              <div className="flex justify-center">
+                <Button size="medium" variant={data.button.variante}>
+                  <span className="">{data.button.text}</span>
+                </Button>
+              </div>
+            </Link>
+          )}
         </>
       )}
     </div>

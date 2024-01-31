@@ -3,11 +3,18 @@ import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import MobileNav from "../../components/mobile-nav";
 import ChevronIcon from "@/modules/common/icons/chevron";
-import type { GetLocalesQuery, SeiteEntity } from "@/generated/graphql";
+import type {
+  GetLocalesQuery,
+  IndustrieEntity,
+  JobEntity,
+  SeiteEntity,
+} from "@/generated/graphql";
 import Accordion from "@/modules/common/components/accordion";
 import type { PathInfo } from "@/types/global";
 import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
+import { useMobileMenu } from "@/context/mobile-menu-context";
 
 interface NavbarTemplateProps {
   localeList?: GetLocalesQuery;
@@ -41,7 +48,7 @@ const NavBarTemplate = ({
   ];
 
   useEffect(() => {
-    if (navbarvalue?.localeHandle && navbarvalue.localeHandle.length > 0) {
+    if (navbarvalue?.localeHandle.length) {
       const filteredHandle = navbarvalue.localeHandle.filter((val) =>
         router.asPath.replace("/", "").includes(val.attributes?.slug || "")
       );
@@ -59,36 +66,48 @@ const NavBarTemplate = ({
             locale: dtLocal.attributes?.locale ?? "",
           });
         });
-        if (dt.attributes?.inhalte && dt.attributes?.inhalte.length > 0) {
+        if (dt.attributes?.inhalte?.length) {
           const nestedSlug = dt.attributes?.inhalte.filter(
             (inhalteVal) =>
-              inhalteVal?.__typename === "ComponentIntegrationenJobs"
+              inhalteVal?.__typename === "ComponentIntegrationenJobs" ||
+              inhalteVal?.__typename === "ComponentListenIndustrieListe"
           );
 
-          if (
-            nestedSlug.length &&
-            nestedSlug[0]?.__typename === "ComponentIntegrationenJobs"
-          ) {
-            nestedSlug[0].jobs?.data.forEach((jobDt) => {
-              if (
-                dt.attributes?.slug &&
-                jobDt.attributes?.slug &&
-                router.asPath.replace("/", "") ===
-                  `${dt.attributes?.slug}/${jobDt.attributes?.slug}`
-              ) {
-                nestedSlugPath.push({
-                  params: {
-                    handle: dt.attributes?.slug,
-                    slug: jobDt.attributes?.slug ? jobDt.attributes?.slug : "",
-                  },
-                  locale: jobDt.attributes?.locale ?? "",
-                });
+          let nestedSlugData: JobEntity[] | IndustrieEntity[] | undefined;
+          if (nestedSlug.length) {
+            if (nestedSlug[0]?.__typename === "ComponentIntegrationenJobs") {
+              nestedSlugData = nestedSlug[0].jobs?.data;
+            } else if (
+              nestedSlug[0]?.__typename === "ComponentListenIndustrieListe"
+            ) {
+              nestedSlugData = nestedSlug[0].industrien?.data;
+            }
+            // else add another typeName that has nestedSlug e.g Industry page
+          }
 
-                jobDt.attributes?.localizations?.data.forEach((jobDtLocal) => {
+          nestedSlugData?.forEach((slugData) => {
+            if (
+              dt.attributes?.slug &&
+              slugData.attributes?.slug &&
+              router.asPath.replace("/", "") ===
+                `${dt.attributes?.slug}/${slugData.attributes?.slug}`
+            ) {
+              nestedSlugPath.push({
+                params: {
+                  handle: dt.attributes?.slug,
+                  slug: slugData.attributes?.slug
+                    ? slugData.attributes?.slug
+                    : "",
+                },
+                locale: slugData.attributes?.locale ?? "",
+              });
+
+              slugData.attributes?.localizations?.data.forEach(
+                (slugDataLocal) => {
                   const filteredParentPath = paths
                     .filter(
                       (filteredPath) =>
-                        filteredPath.locale === jobDtLocal.attributes?.locale
+                        filteredPath.locale === slugDataLocal.attributes?.locale
                     )
                     .map((strPath) => strPath.params.handle);
 
@@ -96,18 +115,17 @@ const NavBarTemplate = ({
                     nestedSlugPath.push({
                       params: {
                         handle: filteredParentPath[0],
-                        slug: jobDtLocal.attributes?.slug
-                          ? jobDtLocal.attributes?.slug
+                        slug: slugDataLocal.attributes?.slug
+                          ? slugDataLocal.attributes?.slug
                           : "",
                       },
-                      locale: jobDtLocal.attributes?.locale ?? "",
+                      locale: slugDataLocal.attributes?.locale ?? "",
                     });
                   }
-                });
-              }
-            });
-          }
-          // else add another typeName that has nestedSlug e.g Industry page
+                }
+              );
+            }
+          });
         }
       });
       setNestedSlug(nestedSlugPath);
@@ -115,70 +133,47 @@ const NavBarTemplate = ({
     }
   }, [navbarvalue?.localeHandle, router.asPath]);
 
+  const navResponse = useStrapiPluginNavigationTree("main-navigation", {
+    // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style -- disable non-nullable-type-assertion-style
+    locale: router.locale as string,
+  });
+  const newNavbarMenu: any = { ...navResponse };
+  let navbarMenu = [
+    {
+      path: "",
+      menuName: "",
+      submenu: [],
+    },
+  ];
+  if (navResponse.status === "success" && newNavbarMenu.navigation?.length) {
+    const mappedNavbarMenu = newNavbarMenu.navigation.map((navVal: any) => {
+      return {
+        path: navVal.path,
+        menuName: navVal.title,
+        submenu: navVal.items.length
+          ? navVal.items.map((itemVal: any) => {
+              return { path: itemVal.path, subMenuName: itemVal.title };
+            })
+          : [],
+      };
+    });
+    navbarMenu = mappedNavbarMenu;
+  }
+
   const [openLang, setOpenLang] = useState(false);
   const [pageHandle, setPageHandle] = useState<PathInfo[]>();
   const [nestedSlug, setNestedSlug] = useState<NestedSlugPathType[]>();
+  const [openMobNav, setOpenMobNav] = useState(false);
   const [openMenu, setOpenMenu] = useState(-1);
-  const [openMobileNavbar, setOpenMobileNavbar] = useState(false);
-
-  const res = useStrapiPluginNavigationTree("main-navigation", {
-    locale: router.locale as string,
-  });
-
-  console.log("> Template nav bar", res);
-  const navbarMenu = [
-    {
-      path: "/products",
-      menuName: "Products",
-      submenu: [
-        "Customer frame system",
-        "Container inserts",
-        "Stackable",
-        "Rotating stackable",
-        "Inserts for various types of packaging",
-      ],
-    },
-    {
-      path: "/domains",
-      menuName: "Domains",
-      submenu: [
-        "Customer frame system",
-        "Container inserts",
-        "Stackable",
-        "Rotating stackable",
-        "Inserts for various types of packaging",
-      ],
-    },
-    {
-      path: "/company",
-      menuName: "Company Information",
-      submenu: [
-        "Customer frame system",
-        "Container inserts",
-        "Stackable",
-        "Rotating stackable",
-        "Inserts for various types of packaging",
-      ],
-    },
-    {
-      path: "/career",
-      menuName: "Career Section",
-      submenu: [
-        "Customer frame system",
-        "Container inserts",
-        "Stackable",
-        "Rotating stackable",
-        "Inserts for various types of packaging",
-      ],
-    },
-  ];
+  const { toggleNav, setOpenNav, setCloseNav } = useMobileMenu();
 
   const setLangSelected = (flag: string) => {
     const selectedHandle = pageHandle?.filter((val) => val.locale === flag);
 
     setOpenLang(false);
-    if (selectedHandle && selectedHandle.length > 0) {
-      if (nestedSlug && nestedSlug.length > 0) {
+    setOpenMobNav(false);
+    if (selectedHandle?.length) {
+      if (nestedSlug?.length) {
         const selectedNestedSlug = nestedSlug.filter(
           (val) => val.locale === flag
         );
@@ -205,8 +200,8 @@ const NavBarTemplate = ({
     }
   };
 
-  const setSubMenu = (val: string) => {
-    console.log("val", val);
+  const setSubMenu = (subMenuPath: string) => {
+    void router.push(subMenuPath);
     setOpenMenu(-1);
   };
 
@@ -254,15 +249,20 @@ const NavBarTemplate = ({
   }, [router.locale]);
 
   const onToggleMobileNavbar = () => {
-    if (!openMobileNavbar) {
+    if (openLang || !openMobNav) {
       setOpenLang(false);
+      setOpenNav();
+      setOpenMobNav(true);
+    } else {
+      setCloseNav();
+      setOpenMobNav(false);
     }
-    setOpenMobileNavbar(!openMobileNavbar);
   };
 
   const onToggleWebLang = () => {
-    if (!openLang) {
-      setOpenMobileNavbar(false);
+    if (!openMobNav) {
+      setCloseNav();
+      setOpenMobNav(false);
     }
     setOpenLang(!openLang);
   };
@@ -294,11 +294,11 @@ const NavBarTemplate = ({
                   <div className="flex items-center cursor-pointer text-gray-700 p-2.5">
                     <div
                       aria-hidden="true"
-                      className={`${
-                        router.pathname.includes(val.path)
+                      className={
+                        router.asPath.includes(val.path)
                           ? "text-primary-950"
                           : "text-gray-700"
-                      }`}
+                      }
                       onClick={() => {
                         void router.push(val.path);
                         setOpenMenu(-1);
@@ -306,31 +306,35 @@ const NavBarTemplate = ({
                     >
                       {val.menuName}
                     </div>
-                    <div
-                      aria-hidden="true"
-                      className="ml-1"
-                      onClick={() => {
-                        setOpenMenu(menuIdx !== -1 ? menuIdx : -1);
-                      }}
-                    >
-                      <ChevronIcon
-                        color={
-                          router.pathname.includes(val.path)
-                            ? "#730033"
-                            : "#12090D"
-                        }
-                      />
-                    </div>
+                    {val.submenu.length ? (
+                      <div
+                        aria-hidden="true"
+                        className="ml-1"
+                        onClick={() => {
+                          setOpenMenu(menuIdx !== -1 ? menuIdx : -1);
+                        }}
+                      >
+                        <ChevronIcon
+                          color={
+                            router.pathname.includes(val.path)
+                              ? "#730033"
+                              : "#12090D"
+                          }
+                        />
+                      </div>
+                    ) : null}
                   </div>
 
-                  {openMenu !== -1 && openMenu === menuIdx ? (
+                  {val.submenu.length &&
+                  openMenu !== -1 &&
+                  openMenu === menuIdx ? (
                     <div
-                      className="flex overflow-hidden absolute left-0 z-20 origin-top-left rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      className="flex animate-fade-down overflow-hidden absolute left-0 z-20 origin-top-left rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                       role="menu"
                     >
                       <div className="w-3.5 bg-primary-950" />
                       <div className="min-w-[200px]" role="none">
-                        {navbarMenu[openMenu].submenu.map((value, idx) => {
+                        {navbarMenu[openMenu].submenu.map((value: any, idx) => {
                           return (
                             <div
                               aria-hidden="true"
@@ -338,12 +342,12 @@ const NavBarTemplate = ({
                               id={`submenu-item-${idx}`}
                               key={value}
                               onClick={() => {
-                                setSubMenu(value);
+                                setSubMenu(value.path);
                               }}
                               role="menuitem"
                             >
                               <div className="text-base hidden medium:block">
-                                {value}
+                                {value.subMenuName}
                               </div>
                             </div>
                           );
@@ -377,16 +381,16 @@ const NavBarTemplate = ({
                 </div>
               </div>
 
-              {openLang ? (
+              {openLang && (
                 <div
-                  className="absolute w-28 right-0 mt-2 z-20 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  className="absolute animate-fade-down w-28 right-0 mt-2 z-20 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   role="menu"
                 >
                   {webLang.map((val, idx) => {
                     return localeOptions(val, idx);
                   })}
                 </div>
-              ) : null}
+              )}
             </div>
             <div
               aria-hidden="true"
@@ -398,7 +402,7 @@ const NavBarTemplate = ({
                 alt="navbar_hmb"
                 className="w-8 ml-1 medium:hidden"
                 src={
-                  openMobileNavbar
+                  toggleNav
                     ? require("@/assets/images/icons/ic_close.svg")
                     : require("@/assets/images/icons/ic_hamburger.svg")
                 }
@@ -407,16 +411,15 @@ const NavBarTemplate = ({
           </div>
         </div>
       </div>
-      {openMobileNavbar ? (
-        <div className="absolute w-screen h-screen bg-gray-50 z-20 pt-3.5 px-6 overflow-y-scroll">
-          <Accordion
-            closeMenu={() => {
-              onToggleMobileNavbar();
-            }}
-            data={navbarMenu}
-          />
-        </div>
-      ) : null}
+      <MobileNav>
+        <Accordion
+          closeMenu={() => {
+            setCloseNav();
+            setOpenMobNav(false);
+          }}
+          data={navbarMenu}
+        />
+      </MobileNav>
     </div>
   );
 };

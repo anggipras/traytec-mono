@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import _ from "lodash";
 import Button from "../../button";
+import RenderHtml from "../../render-html";
 import type {
   ComponentFormMultipleChoice,
   FormularFragenDynamicZone,
@@ -13,6 +14,7 @@ import { useData } from "@/lib/hooks/use-data-context";
 interface FormProps {
   formValue?: Maybe<FormularFragenDynamicZone>;
   scrollNext: Function;
+  scrollPrev: Function;
   formIdx: number;
 }
 
@@ -25,6 +27,7 @@ interface MultipleChoiceCheckProps {
 const SalesFormMultipleChoice = ({
   formValue,
   scrollNext,
+  scrollPrev,
   formIdx,
 }: FormProps) => {
   const multipleChoiceFormValue = formValue as ComponentFormMultipleChoice;
@@ -73,24 +76,28 @@ const SalesFormMultipleChoice = ({
   };
 
   return (
-    <>
+    <div>
+      <RenderHtml
+        className="mx-auto text-center mb-10"
+        html={multipleChoiceFormValue.frage || ""}
+      />
       <div className="grid medium:grid-cols-2 gap-4 medium:gap-5">
-        {multipleChoiceFormValue.moeglichkeit?.length
-          ? multipleChoiceFormValue.moeglichkeit.map((val, idx) => (
-              <div
-                aria-hidden
-                className={`${
-                  multipleChoiceCheckValue[idx]?.checked
-                    ? "bg-primary-800"
-                    : "bg-primary-950"
-                } cursor-pointer rounded-2xl medium:rounded-3xl px-6 py-12 medium:px-8 medium:py-20`}
-                key={idx}
-                onClick={(e) => {
-                  handleOnClickMultipleChoice(e, idx);
-                }}
-                role="button"
-              >
-                {/* <div className="flex justify-start items-center mb-4.5 medium:mb-6">
+        {multipleChoiceFormValue.moeglichkeit?.length &&
+          multipleChoiceFormValue.moeglichkeit.map((val, idx) => (
+            <div
+              aria-hidden
+              className={`${
+                multipleChoiceCheckValue[idx]?.checked
+                  ? "bg-primary-800"
+                  : "bg-primary-950"
+              } cursor-pointer rounded-2xl medium:rounded-3xl px-6 py-12 medium:px-8 medium:py-20`}
+              key={idx}
+              onClick={(e) => {
+                handleOnClickMultipleChoice(e, idx);
+              }}
+              role="button"
+            >
+              {/* <div className="flex justify-start items-center mb-4.5 medium:mb-6">
                   <Image
                     alt="footer_selection"
                     className="w-12 mr-3"
@@ -98,14 +105,25 @@ const SalesFormMultipleChoice = ({
                   />
                   <div className="typo-h5">{val.title}</div>
                 </div> */}
-                <div className="text-start typo-copy-normal leading-6.5">
-                  {val?.antwort}
-                </div>
-              </div>
-            ))
-          : null}
+              <RenderHtml
+                className="text-start leading-6.5"
+                html={val?.antwort || ""}
+              />
+            </div>
+          ))}
       </div>
-      <div className="flex justify-center mt-10">
+      <div className="flex justify-center mt-10 gap-4">
+        {formIdx !== 0 && (
+          <Button
+            onMouseClick={(e: MouseEvent) => scrollPrev(e)}
+            size="medium"
+            typebtn="event"
+            variant={Enum_Componentutilsbutton_Variante.Secondary}
+            width="w-fit"
+          >
+            <span>Back</span>
+          </Button>
+        )}
         <Button
           disabled={multipleChoiceFormValue.notwendig ? !disabledBtn : false}
           onMouseClick={(e: MouseEvent) => scrollNext(e)}
@@ -117,7 +135,7 @@ const SalesFormMultipleChoice = ({
           <span>Continue</span>
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 

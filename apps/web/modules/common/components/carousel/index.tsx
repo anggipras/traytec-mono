@@ -1,5 +1,5 @@
 import useEmblaCarousel from "embla-carousel-react";
-import type { EmblaOptionsType } from "embla-carousel-react";
+import type { EmblaOptionsType } from "embla-carousel";
 import React from "react";
 import {
   PrevButton,

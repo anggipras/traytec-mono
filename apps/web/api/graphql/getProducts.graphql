@@ -1,0 +1,26 @@
+query getProducts($locale: I18NLocaleCode, $pagination: PaginationArg) {
+  produkte(locale: $locale, pagination: $pagination) {
+    data {
+      attributes {
+        beschreibung
+        slug
+        titel
+        vorschau {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+      }
+    }
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
+      }
+    }
+  }
+}

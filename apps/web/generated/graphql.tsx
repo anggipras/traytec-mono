@@ -326,6 +326,7 @@ export type ComponentHeadingsHeadingMinimalistisch = {
   __typename?: 'ComponentHeadingsHeadingMinimalistisch';
   ausrichtung?: Maybe<Enum_Componentheadingsheadingminimalistisch_Ausrichtung>;
   beschreibung?: Maybe<Scalars['String']>;
+  bild?: Maybe<UploadFileEntityResponse>;
   dekoration_anzeigen?: Maybe<Scalars['Boolean']>;
   id: Scalars['ID'];
   titel: Scalars['String'];
@@ -590,20 +591,20 @@ export type ComponentUtilsBadge = {
   __typename?: 'ComponentUtilsBadge';
   icon?: Maybe<UploadFileEntityResponse>;
   id: Scalars['ID'];
-  test: Scalars['String'];
+  text: Scalars['String'];
 };
 
 export type ComponentUtilsBadgeFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentUtilsBadgeFiltersInput>>>;
   not?: InputMaybe<ComponentUtilsBadgeFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentUtilsBadgeFiltersInput>>>;
-  test?: InputMaybe<StringFilterInput>;
+  text?: InputMaybe<StringFilterInput>;
 };
 
 export type ComponentUtilsBadgeInput = {
   icon?: InputMaybe<Scalars['ID']>;
   id?: InputMaybe<Scalars['ID']>;
-  test?: InputMaybe<Scalars['String']>;
+  text?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentUtilsButton = {
@@ -959,6 +960,7 @@ export type IdFilterInput = {
 
 export type Industrie = {
   __typename?: 'Industrie';
+  alle_anzeigen?: Maybe<Scalars['Boolean']>;
   beschreibung?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   locale?: Maybe<Scalars['String']>;
@@ -969,6 +971,7 @@ export type Industrie = {
   slug?: Maybe<Scalars['String']>;
   titel?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  vorschau?: Maybe<UploadFileEntityResponse>;
 };
 
 
@@ -1005,6 +1008,7 @@ export type IndustrieEntityResponseCollection = {
 };
 
 export type IndustrieFiltersInput = {
+  alle_anzeigen?: InputMaybe<BooleanFilterInput>;
   and?: InputMaybe<Array<InputMaybe<IndustrieFiltersInput>>>;
   beschreibung?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -1022,12 +1026,14 @@ export type IndustrieFiltersInput = {
 };
 
 export type IndustrieInput = {
+  alle_anzeigen?: InputMaybe<Scalars['Boolean']>;
   beschreibung?: InputMaybe<Scalars['String']>;
   produkte?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   seo?: InputMaybe<ComponentSharedSeoInput>;
   slug?: InputMaybe<Scalars['String']>;
   titel?: InputMaybe<Scalars['String']>;
+  vorschau?: InputMaybe<Scalars['ID']>;
 };
 
 export type IndustrieRelationResponseCollection = {
@@ -1891,6 +1897,7 @@ export type PaginationArg = {
 
 export type Produkt = {
   __typename?: 'Produkt';
+  beschreibung?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   industrien?: Maybe<IndustrieRelationResponseCollection>;
   locale?: Maybe<Scalars['String']>;
@@ -1900,6 +1907,7 @@ export type Produkt = {
   slug?: Maybe<Scalars['String']>;
   titel?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  vorschau?: Maybe<UploadFileEntityResponse>;
 };
 
 
@@ -1944,6 +1952,7 @@ export type ProduktEntityResponseCollection = {
 
 export type ProduktFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ProduktFiltersInput>>>;
+  beschreibung?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   industrien?: InputMaybe<IndustrieFiltersInput>;
@@ -1959,11 +1968,13 @@ export type ProduktFiltersInput = {
 };
 
 export type ProduktInput = {
+  beschreibung?: InputMaybe<Scalars['String']>;
   industrien?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   seo?: InputMaybe<Array<InputMaybe<ComponentSharedSeoInput>>>;
   slug?: InputMaybe<Scalars['String']>;
   titel?: InputMaybe<Scalars['String']>;
+  vorschau?: InputMaybe<Scalars['ID']>;
 };
 
 export type ProduktRelationResponseCollection = {
@@ -2295,7 +2306,7 @@ export type SeiteFiltersInput = {
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
-export type SeiteInhalteDynamicZone = ComponentHeadingsHeadingMinimalistisch | ComponentHeadingsHeadingMitVideo | ComponentHerosHero1 | ComponentIntegrationenFormular | ComponentIntegrationenJobs | ComponentListenGridListe | ComponentListenIndustrieListe | ComponentListenTimelineListe | ComponentSektionenInhaltMitMedia | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | Error;
+export type SeiteInhalteDynamicZone = ComponentHeadingsHeadingMinimalistisch | ComponentHeadingsHeadingMitVideo | ComponentHerosHero1 | ComponentIntegrationenBewertungen | ComponentIntegrationenFormular | ComponentIntegrationenJobs | ComponentListenGridListe | ComponentListenIndustrieListe | ComponentListenTimelineListe | ComponentSektionenInhaltMitMedia | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | Error;
 
 export type SeiteInput = {
   inhalte?: InputMaybe<Array<Scalars['SeiteInhalteDynamicZoneInput']>>;
@@ -2712,18 +2723,30 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
-export type GetFormQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetIndustryQueryVariables = Exact<{
+  filters?: InputMaybe<IndustrieFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
 
 
-export type GetFormQuery = { __typename?: 'Query', formulare?: { __typename?: 'FormularEntityResponseCollection', data: Array<{ __typename?: 'FormularEntity', attributes?: { __typename?: 'Formular', titel?: string | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, Fragen: Array<{ __typename?: 'ComponentFormDatum', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormDatumUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormLongText', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormMultipleChoice', frage: string, notwendig?: boolean | null, moeglichkeit?: Array<{ __typename?: 'ComponentFormAntwortmoeglichkeit', antwort?: string | null, id: string } | null> | null } | { __typename?: 'ComponentFormTextForm', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'Error', code: string, message?: string | null } | null> } | null }> } | null };
+export type GetIndustryQuery = { __typename?: 'Query', industrien?: { __typename?: 'IndustrieEntityResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', beschreibung?: string | null, locale?: string | null, slug?: string | null, titel?: string | null, alle_anzeigen?: boolean | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null, produkte?: { __typename?: 'ProduktRelationResponseCollection', data: Array<{ __typename?: 'ProduktEntity', attributes?: { __typename?: 'Produkt', beschreibung?: string | null, slug?: string | null, titel?: string | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null }> } | null } | null }> } | null };
+
+export type GetIndustrySlugQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
+}>;
+
+
+export type GetIndustrySlugQuery = { __typename?: 'Query', industrien?: { __typename?: 'IndustrieEntityResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', slug?: string | null, locale?: string | null, localizations?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', slug?: string | null, locale?: string | null } | null }> } | null } | null }> } | null };
 
 export type GetJobQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
   filters?: InputMaybe<JobFiltersInput>;
 }>;
 
 
-export type GetJobQuery = { __typename?: 'Query', jobs?: { __typename?: 'JobEntityResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, titel: string, art: Enum_Job_Art, auszug?: string | null, beschreibung?: string | null, publishedAt?: any | null } | null }> } | null };
+export type GetJobQuery = { __typename?: 'Query', jobs?: { __typename?: 'JobEntityResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, titel: string, art: Enum_Job_Art, auszug?: string | null, beschreibung?: string | null, publishedAt?: any | null, badges?: Array<{ __typename?: 'ComponentUtilsBadge', text: string, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number } } } | null };
 
 export type GetJobSlugQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -2745,7 +2768,7 @@ export type GetPageQueryVariables = Exact<{
 }>;
 
 
-export type GetPageQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', slug?: string | null, seo?: { __typename?: 'ComponentSharedSeo', meta_description: string, meta_title: string, canonical_URL?: string | null, meta_image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch', ausrichtung?: Enum_Componentheadingsheadingminimalistisch_Ausrichtung | null, beschreibung?: string | null, dekoration_anzeigen?: boolean | null, titel: string } | { __typename?: 'ComponentHeadingsHeadingMitVideo', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, heading_media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, height?: number | null, url: string, width?: number | null } | null } | null } | null } | { __typename?: 'ComponentHerosHero1', sichtbar: boolean, hintergrund?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, url: string } | null } | null } | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, hero_btn?: Array<{ __typename?: 'ComponentUtilsButton', text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null> | null } | { __typename?: 'ComponentIntegrationenFormular' } | { __typename?: 'ComponentIntegrationenJobs', STYLE: Enum_Componentintegrationenjobs_Style, alle_anzeigen?: boolean | null, jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', art: Enum_Job_Art, auszug?: string | null, beschreibung?: string | null, publishedAt?: any | null, slug: string, titel: string } | null }> } | null } | { __typename?: 'ComponentListenGridListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, inhalt?: Array<{ __typename?: 'ComponentUtilsGridElement', text?: string | null, titel?: string | null, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentListenIndustrieListe', industrien?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', titel?: string | null, slug?: string | null, beschreibung?: string | null } | null }> } | null } | { __typename?: 'ComponentListenTimelineListe', timeline_karten?: Array<{ __typename?: 'ComponentUtilsTimelineKarte', beschreibung?: string | null, titel: string, zeitpunkt: any, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'ComponentSektionenInhaltMitMedia', MEDIA_POSITION: Enum_Componentsektioneninhaltmitmedia_Media_Position, media: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null }, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'ComponentSliderHorizontalerSlider', sichtbar: boolean, uberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, cards?: Array<{ __typename?: 'ComponentSliderSliderCard', icon_text?: string | null, text?: string | null, ueberschrift?: string | null, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentSliderHorizontalerSliderFokus', background_anzeigen?: boolean | null, karten_ausserhalb_anzeigen?: boolean | null, sichtbar: boolean, button?: { __typename?: 'ComponentUtilsButton', id: string, text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null, cards?: Array<{ __typename?: 'ComponentSliderSliderCard2', text?: string | null, ueberschrift?: string | null, vorteile?: string | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'Error', code: string, message?: string | null } | null> | null } | null }> } | null };
+export type GetPageQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', slug?: string | null, seo?: { __typename?: 'ComponentSharedSeo', meta_description: string, meta_title: string, canonical_URL?: string | null, meta_image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch', ausrichtung?: Enum_Componentheadingsheadingminimalistisch_Ausrichtung | null, beschreibung?: string | null, dekoration_anzeigen?: boolean | null, titel: string, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | { __typename?: 'ComponentHeadingsHeadingMitVideo', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, heading_media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, height?: number | null, url: string, width?: number | null } | null } | null } | null } | { __typename?: 'ComponentHerosHero1', sichtbar: boolean, hero_btn?: Array<{ __typename?: 'ComponentUtilsButton', text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null> | null, hintergrund?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, url: string } | null } | null } | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'ComponentIntegrationenBewertungen', alle_anzeigen?: boolean | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, bewertungen?: { __typename?: 'BewertungRelationResponseCollection', data: Array<{ __typename?: 'BewertungEntity', attributes?: { __typename?: 'Bewertung', kommentar?: string | null, person?: Array<{ __typename?: 'ComponentUtilsGoogleReviewer', ist_anonym?: boolean | null, name?: string | null, photo_url?: string | null } | null> | null } | null }> } | null } | { __typename?: 'ComponentIntegrationenFormular', sichtbar: boolean, formular?: { __typename?: 'FormularEntityResponse', data?: { __typename?: 'FormularEntity', attributes?: { __typename?: 'Formular', titel?: string | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, Fragen: Array<{ __typename?: 'ComponentFormDatum', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormDatumUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormLongText', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormMultipleChoice', frage: string, notwendig?: boolean | null, moeglichkeit?: Array<{ __typename?: 'ComponentFormAntwortmoeglichkeit', antwort?: string | null, id: string } | null> | null } | { __typename?: 'ComponentFormTextForm', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'Error', code: string, message?: string | null } | null> } | null } | null } | null } | { __typename?: 'ComponentIntegrationenJobs', STYLE: Enum_Componentintegrationenjobs_Style, alle_anzeigen?: boolean | null, jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', art: Enum_Job_Art, auszug?: string | null, beschreibung?: string | null, publishedAt?: any | null, slug: string, titel: string, badges?: Array<{ __typename?: 'ComponentUtilsBadge', text: string, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | null }> } | null } | { __typename?: 'ComponentListenGridListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, inhalt?: Array<{ __typename?: 'ComponentUtilsGridElement', text?: string | null, titel?: string | null, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentListenIndustrieListe', industrien?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', beschreibung?: string | null, slug?: string | null, titel?: string | null, alle_anzeigen?: boolean | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null }> } | null } | { __typename?: 'ComponentListenTimelineListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, timeline_karten?: Array<{ __typename?: 'ComponentUtilsTimelineKarte', beschreibung?: string | null, titel: string, zeitpunkt: any, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentSektionenInhaltMitMedia', MEDIA_POSITION: Enum_Componentsektioneninhaltmitmedia_Media_Position, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, media: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } } | { __typename?: 'ComponentSliderHorizontalerSlider', sichtbar: boolean, cards?: Array<{ __typename?: 'ComponentSliderSliderCard', icon_text?: string | null, text?: string | null, ueberschrift?: string | null, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null, uberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'ComponentSliderHorizontalerSliderFokus', background_anzeigen?: boolean | null, karten_ausserhalb_anzeigen?: boolean | null, sichtbar: boolean, button?: { __typename?: 'ComponentUtilsButton', id: string, text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null, cards?: Array<{ __typename?: 'ComponentSliderSliderCard2', text?: string | null, ueberschrift?: string | null, vorteile?: string | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'Error', code: string, message?: string | null } | null> | null } | null }> } | null };
 
 export type GetPageHandleQueryVariables = Exact<{
   filters?: InputMaybe<SeiteFiltersInput>;
@@ -2753,53 +2776,53 @@ export type GetPageHandleQueryVariables = Exact<{
 }>;
 
 
-export type GetPageHandleQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null, localizations?: { __typename?: 'SeiteRelationResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null } | null }> } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch' } | { __typename?: 'ComponentHeadingsHeadingMitVideo' } | { __typename?: 'ComponentHerosHero1' } | { __typename?: 'ComponentIntegrationenFormular' } | { __typename?: 'ComponentIntegrationenJobs', jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, localizations?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', slug: string, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenGridListe' } | { __typename?: 'ComponentListenIndustrieListe' } | { __typename?: 'ComponentListenTimelineListe' } | { __typename?: 'ComponentSektionenInhaltMitMedia' } | { __typename?: 'ComponentSliderHorizontalerSlider' } | { __typename?: 'ComponentSliderHorizontalerSliderFokus' } | { __typename?: 'Error' } | null> | null } | null }> } | null };
+export type GetPageHandleQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null, localizations?: { __typename?: 'SeiteRelationResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null } | null }> } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch' } | { __typename?: 'ComponentHeadingsHeadingMitVideo' } | { __typename?: 'ComponentHerosHero1' } | { __typename?: 'ComponentIntegrationenBewertungen' } | { __typename?: 'ComponentIntegrationenFormular' } | { __typename?: 'ComponentIntegrationenJobs', jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, localizations?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', slug: string, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenGridListe' } | { __typename?: 'ComponentListenIndustrieListe', industrien?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', locale?: string | null, slug?: string | null, localizations?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', slug?: string | null, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenTimelineListe' } | { __typename?: 'ComponentSektionenInhaltMitMedia' } | { __typename?: 'ComponentSliderHorizontalerSlider' } | { __typename?: 'ComponentSliderHorizontalerSliderFokus' } | { __typename?: 'Error' } | null> | null } | null }> } | null };
+
+export type GetProductsQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
+}>;
 
 
-export const GetFormDocument = gql`
-    query getForm {
-  formulare {
+export type GetProductsQuery = { __typename?: 'Query', produkte?: { __typename?: 'ProduktEntityResponseCollection', data: Array<{ __typename?: 'ProduktEntity', attributes?: { __typename?: 'Produkt', beschreibung?: string | null, slug?: string | null, titel?: string | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number } } } | null };
+
+export type GetReviewsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetReviewsQuery = { __typename?: 'Query', bewertungen?: { __typename?: 'BewertungEntityResponseCollection', data: Array<{ __typename?: 'BewertungEntity', attributes?: { __typename?: 'Bewertung', kommentar?: string | null, person?: Array<{ __typename?: 'ComponentUtilsGoogleReviewer', ist_anonym?: boolean | null, name?: string | null, photo_url?: string | null } | null> | null } | null }> } | null };
+
+
+export const GetIndustryDocument = gql`
+    query getIndustry($filters: IndustrieFiltersInput, $locale: I18NLocaleCode) {
+  industrien(filters: $filters, locale: $locale) {
     data {
       attributes {
-        ueberschrift {
-          heading
-          text
-          topline
-          typ
-        }
+        beschreibung
+        locale
+        slug
         titel
-        Fragen {
-          ... on ComponentFormTextForm {
-            frage
-            notwendig
-          }
-          ... on ComponentFormLongText {
-            frage
-            notwendig
-          }
-          ... on ComponentFormDatumUhrzeit {
-            frage
-            notwendig
-          }
-          ... on ComponentFormDatum {
-            frage
-            notwendig
-          }
-          ... on ComponentFormMultipleChoice {
-            frage
-            moeglichkeit {
-              antwort
-              id
+        alle_anzeigen
+        vorschau {
+          data {
+            attributes {
+              url
             }
-            notwendig
           }
-          ... on ComponentFormUhrzeit {
-            frage
-            notwendig
-          }
-          ... on Error {
-            code
-            message
+        }
+        produkte {
+          data {
+            attributes {
+              beschreibung
+              slug
+              titel
+              vorschau {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -2809,34 +2832,85 @@ export const GetFormDocument = gql`
     `;
 
 /**
- * __useGetFormQuery__
+ * __useGetIndustryQuery__
  *
- * To run a query within a React component, call `useGetFormQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetFormQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetIndustryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetIndustryQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetFormQuery({
+ * const { data, loading, error } = useGetIndustryQuery({
  *   variables: {
+ *      filters: // value for 'filters'
+ *      locale: // value for 'locale'
  *   },
  * });
  */
-export function useGetFormQuery(baseOptions?: Apollo.QueryHookOptions<GetFormQuery, GetFormQueryVariables>) {
+export function useGetIndustryQuery(baseOptions?: Apollo.QueryHookOptions<GetIndustryQuery, GetIndustryQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetFormQuery, GetFormQueryVariables>(GetFormDocument, options);
+        return Apollo.useQuery<GetIndustryQuery, GetIndustryQueryVariables>(GetIndustryDocument, options);
       }
-export function useGetFormLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFormQuery, GetFormQueryVariables>) {
+export function useGetIndustryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetIndustryQuery, GetIndustryQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetFormQuery, GetFormQueryVariables>(GetFormDocument, options);
+          return Apollo.useLazyQuery<GetIndustryQuery, GetIndustryQueryVariables>(GetIndustryDocument, options);
         }
-export type GetFormQueryHookResult = ReturnType<typeof useGetFormQuery>;
-export type GetFormLazyQueryHookResult = ReturnType<typeof useGetFormLazyQuery>;
-export type GetFormQueryResult = Apollo.QueryResult<GetFormQuery, GetFormQueryVariables>;
+export type GetIndustryQueryHookResult = ReturnType<typeof useGetIndustryQuery>;
+export type GetIndustryLazyQueryHookResult = ReturnType<typeof useGetIndustryLazyQuery>;
+export type GetIndustryQueryResult = Apollo.QueryResult<GetIndustryQuery, GetIndustryQueryVariables>;
+export const GetIndustrySlugDocument = gql`
+    query getIndustrySlug($locale: I18NLocaleCode, $pagination: PaginationArg) {
+  industrien(locale: $locale, pagination: $pagination) {
+    data {
+      attributes {
+        slug
+        locale
+        localizations {
+          data {
+            attributes {
+              slug
+              locale
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetIndustrySlugQuery__
+ *
+ * To run a query within a React component, call `useGetIndustrySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetIndustrySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetIndustrySlugQuery({
+ *   variables: {
+ *      locale: // value for 'locale'
+ *      pagination: // value for 'pagination'
+ *   },
+ * });
+ */
+export function useGetIndustrySlugQuery(baseOptions?: Apollo.QueryHookOptions<GetIndustrySlugQuery, GetIndustrySlugQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetIndustrySlugQuery, GetIndustrySlugQueryVariables>(GetIndustrySlugDocument, options);
+      }
+export function useGetIndustrySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetIndustrySlugQuery, GetIndustrySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetIndustrySlugQuery, GetIndustrySlugQueryVariables>(GetIndustrySlugDocument, options);
+        }
+export type GetIndustrySlugQueryHookResult = ReturnType<typeof useGetIndustrySlugQuery>;
+export type GetIndustrySlugLazyQueryHookResult = ReturnType<typeof useGetIndustrySlugLazyQuery>;
+export type GetIndustrySlugQueryResult = Apollo.QueryResult<GetIndustrySlugQuery, GetIndustrySlugQueryVariables>;
 export const GetJobDocument = gql`
-    query getJob($locale: I18NLocaleCode, $filters: JobFiltersInput) {
-  jobs(locale: $locale, filters: $filters) {
+    query getJob($locale: I18NLocaleCode, $pagination: PaginationArg, $filters: JobFiltersInput) {
+  jobs(locale: $locale, pagination: $pagination, filters: $filters) {
     data {
       attributes {
         locale
@@ -2846,6 +2920,26 @@ export const GetJobDocument = gql`
         auszug
         beschreibung
         publishedAt
+        badges {
+          icon {
+            data {
+              attributes {
+                height
+                url
+                width
+              }
+            }
+          }
+          text
+        }
+      }
+    }
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
       }
     }
   }
@@ -2865,6 +2959,7 @@ export const GetJobDocument = gql`
  * const { data, loading, error } = useGetJobQuery({
  *   variables: {
  *      locale: // value for 'locale'
+ *      pagination: // value for 'pagination'
  *      filters: // value for 'filters'
  *   },
  * });
@@ -2988,6 +3083,11 @@ export const GetPageDocument = gql`
         slug
         inhalte {
           ... on ComponentHerosHero1 {
+            hero_btn: button {
+              text
+              url
+              variante
+            }
             hintergrund {
               data {
                 attributes {
@@ -3003,20 +3103,8 @@ export const GetPageDocument = gql`
               topline
               typ
             }
-            hero_btn: button {
-              text
-              url
-              variante
-            }
           }
           ... on ComponentSliderHorizontalerSlider {
-            sichtbar
-            uberschrift {
-              heading
-              text
-              topline
-              typ
-            }
             cards {
               icon {
                 data {
@@ -3030,6 +3118,13 @@ export const GetPageDocument = gql`
               icon_text
               text
               ueberschrift
+            }
+            sichtbar
+            uberschrift {
+              heading
+              text
+              topline
+              typ
             }
           }
           ... on ComponentSliderHorizontalerSliderFokus {
@@ -3063,6 +3158,56 @@ export const GetPageDocument = gql`
               typ
             }
           }
+          ... on ComponentIntegrationenFormular {
+            formular {
+              data {
+                attributes {
+                  ueberschrift {
+                    heading
+                    text
+                    topline
+                    typ
+                  }
+                  titel
+                  Fragen {
+                    ... on ComponentFormTextForm {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormLongText {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormDatumUhrzeit {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormDatum {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormMultipleChoice {
+                      frage
+                      moeglichkeit {
+                        antwort
+                        id
+                      }
+                      notwendig
+                    }
+                    ... on ComponentFormUhrzeit {
+                      frage
+                      notwendig
+                    }
+                    ... on Error {
+                      code
+                      message
+                    }
+                  }
+                }
+              }
+            }
+            sichtbar
+          }
           ... on ComponentListenGridListe {
             ueberschrift {
               heading
@@ -3089,6 +3234,15 @@ export const GetPageDocument = gql`
             beschreibung
             dekoration_anzeigen
             titel
+            bild {
+              data {
+                attributes {
+                  height
+                  url
+                  width
+                }
+              }
+            }
           }
           ... on ComponentHeadingsHeadingMitVideo {
             ueberschrift {
@@ -3109,6 +3263,12 @@ export const GetPageDocument = gql`
             }
           }
           ... on ComponentListenTimelineListe {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
             timeline_karten {
               beschreibung
               media {
@@ -3123,14 +3283,14 @@ export const GetPageDocument = gql`
               titel
               zeitpunkt
             }
+          }
+          ... on ComponentSektionenInhaltMitMedia {
             ueberschrift {
               heading
               text
               topline
               typ
             }
-          }
-          ... on ComponentSektionenInhaltMitMedia {
             MEDIA_POSITION
             media {
               data {
@@ -3138,23 +3298,6 @@ export const GetPageDocument = gql`
                   height
                   url
                   width
-                }
-              }
-            }
-            ueberschrift {
-              heading
-              text
-              topline
-              typ
-            }
-          }
-          ... on ComponentListenIndustrieListe {
-            industrien {
-              data {
-                attributes {
-                  titel
-                  slug
-                  beschreibung
                 }
               }
             }
@@ -3171,6 +3314,60 @@ export const GetPageDocument = gql`
                   publishedAt
                   slug
                   titel
+                  badges {
+                    icon {
+                      data {
+                        attributes {
+                          height
+                          url
+                          width
+                        }
+                      }
+                    }
+                    text
+                  }
+                }
+              }
+            }
+          }
+          ... on ComponentListenIndustrieListe {
+            industrien {
+              data {
+                attributes {
+                  beschreibung
+                  slug
+                  titel
+                  alle_anzeigen
+                  vorschau {
+                    data {
+                      attributes {
+                        height
+                        url
+                        width
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on ComponentIntegrationenBewertungen {
+            alle_anzeigen
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            bewertungen {
+              data {
+                attributes {
+                  kommentar
+                  person {
+                    ist_anonym
+                    name
+                    photo_url
+                  }
                 }
               }
             }
@@ -3251,6 +3448,24 @@ export const GetPageHandleDocument = gql`
               }
             }
           }
+          ... on ComponentListenIndustrieListe {
+            industrien {
+              data {
+                attributes {
+                  locale
+                  slug
+                  localizations {
+                    data {
+                      attributes {
+                        slug
+                        locale
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -3286,3 +3501,103 @@ export function useGetPageHandleLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetPageHandleQueryHookResult = ReturnType<typeof useGetPageHandleQuery>;
 export type GetPageHandleLazyQueryHookResult = ReturnType<typeof useGetPageHandleLazyQuery>;
 export type GetPageHandleQueryResult = Apollo.QueryResult<GetPageHandleQuery, GetPageHandleQueryVariables>;
+export const GetProductsDocument = gql`
+    query getProducts($locale: I18NLocaleCode, $pagination: PaginationArg) {
+  produkte(locale: $locale, pagination: $pagination) {
+    data {
+      attributes {
+        beschreibung
+        slug
+        titel
+        vorschau {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+      }
+    }
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetProductsQuery__
+ *
+ * To run a query within a React component, call `useGetProductsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProductsQuery({
+ *   variables: {
+ *      locale: // value for 'locale'
+ *      pagination: // value for 'pagination'
+ *   },
+ * });
+ */
+export function useGetProductsQuery(baseOptions?: Apollo.QueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, options);
+      }
+export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, options);
+        }
+export type GetProductsQueryHookResult = ReturnType<typeof useGetProductsQuery>;
+export type GetProductsLazyQueryHookResult = ReturnType<typeof useGetProductsLazyQuery>;
+export type GetProductsQueryResult = Apollo.QueryResult<GetProductsQuery, GetProductsQueryVariables>;
+export const GetReviewsDocument = gql`
+    query getReviews {
+  bewertungen {
+    data {
+      attributes {
+        kommentar
+        person {
+          ist_anonym
+          name
+          photo_url
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetReviewsQuery__
+ *
+ * To run a query within a React component, call `useGetReviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetReviewsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetReviewsQuery(baseOptions?: Apollo.QueryHookOptions<GetReviewsQuery, GetReviewsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetReviewsQuery, GetReviewsQueryVariables>(GetReviewsDocument, options);
+      }
+export function useGetReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetReviewsQuery, GetReviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetReviewsQuery, GetReviewsQueryVariables>(GetReviewsDocument, options);
+        }
+export type GetReviewsQueryHookResult = ReturnType<typeof useGetReviewsQuery>;
+export type GetReviewsLazyQueryHookResult = ReturnType<typeof useGetReviewsLazyQuery>;
+export type GetReviewsQueryResult = Apollo.QueryResult<GetReviewsQuery, GetReviewsQueryVariables>;
