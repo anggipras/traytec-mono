@@ -77,9 +77,8 @@ const Hero = ({ data }: ComponentProps) => {
             style={{ objectFit: "cover", objectPosition: "center" }}
           >
             <source
-              src={`${serverBaseUrl?.replace("/api", "")}${
-                heroComponent.hintergrund?.data?.attributes?.url
-              }`}
+              src={`${serverBaseUrl?.replace("/api", "")}${heroComponent
+                .hintergrund?.data?.attributes?.url}`}
               type={`video/${heroComponent.hintergrund?.data?.attributes?.ext?.replaceAll(
                 ".",
                 ""
@@ -104,16 +103,12 @@ const Hero = ({ data }: ComponentProps) => {
       <div className="absolute inset-0 max-w-desktop mx-auto h-full">
         <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start h-full max-w-3xl px-6 text-white mx-auto">
           <div className="w-fit px-3.5 py-2 bg-white bg-opacity-25 rounded-md mb-4 animate-fade-down [animation-delay:_500ms]">
-            {t("COMPONENTS.HERO.INTRO", {
-              topLine: heroComponent.ueberschrift?.topline,
-            })}
+            {heroComponent.ueberschrift?.topline}
           </div>
           <div
             className={clsx("mb-4 medium:mb-6 animate-fade-up", heroHeading)}
           >
-            {t("COMPONENTS.HERO.TITLE", {
-              heroHeading: heroComponent.ueberschrift?.heading,
-            })}
+            {heroComponent.ueberschrift?.heading}
           </div>
           <RenderHtml
             className="leading-6.5 mb-4 medium:mb-6 animate-fade-down [animation-delay:_500ms]"
