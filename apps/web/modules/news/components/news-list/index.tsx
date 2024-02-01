@@ -1,6 +1,6 @@
 import React from "react";
-import { useRouter } from "next/navigation";
-import Card from "@/modules/common/components/card";
+// import { useRouter } from "next/navigation";
+// import Card from "@/modules/common/components/card";
 
 interface NewsData {
   newsData: {
@@ -12,12 +12,12 @@ interface NewsData {
   }[];
 }
 
-const NewsList: React.FC<NewsData> = ({ newsData }) => {
-  const router = useRouter();
+const NewsList: React.FC<NewsData> = () => {
+  // const router = useRouter();
 
   return (
     <div className="grid medium:grid-cols-3 gap-6 mb-12">
-      {newsData
+      {/* {newsData
         .filter((_, idx) => idx > 4)
         .map((val, idx) => {
           return (
@@ -37,7 +37,7 @@ const NewsList: React.FC<NewsData> = ({ newsData }) => {
               />
             </div>
           );
-        })}
+        })} */}
     </div>
   );
 };
