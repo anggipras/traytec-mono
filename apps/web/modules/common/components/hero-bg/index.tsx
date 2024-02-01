@@ -117,9 +117,7 @@ const Hero = ({ data }: ComponentProps) => {
           {heroComponent.hero_btn?.map((val, idx) => (
             <Link href={val?.url || ""} key={idx}>
               <Button size="medium" variant={val?.variante} width="w-fit">
-                <span>
-                  {t("COMPONENTS.HERO.BUTTON", { buttonText: val?.text })}
-                </span>
+                <span>{val?.text}</span>
               </Button>
             </Link>
           ))}
