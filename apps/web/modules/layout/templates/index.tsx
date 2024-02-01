@@ -1,4 +1,4 @@
-import "@/styles/globals.css";
+// import "@/styles/globals.css";
 import React from "react";
 import NavbarTemplate from "@/modules/layout/templates/nav";
 import FooterTemplate from "@/modules/layout/templates/footer";

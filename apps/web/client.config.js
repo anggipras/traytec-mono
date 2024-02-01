@@ -1,5 +1,6 @@
 /* eslint-disable turbo/no-undeclared-env-vars -- disable undeclared env vars */
-const environment = process.env.NEXT_PUBLIC_VERCEL_ENVIRONMENT || "development";
+// const environment = process.env.NEXT_PUBLIC_VERCEL_ENVIRONMENT || "development";
+const environment = "production";
 
 const defaultConfig = {
   siteUrl: "http://localhost:3000",
