@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import { clsx } from "clsx";
 import Link from "next/link";
@@ -32,8 +31,6 @@ interface ComponentHero {
 
 const Hero = ({ data }: ComponentProps) => {
   const heroComponent: ComponentHero = { ...data };
-
-  const { t } = useTranslation();
 
   useEffect(() => {
     const videoElement = document.getElementById(
