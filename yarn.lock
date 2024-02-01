@@ -7058,6 +7058,11 @@ embla-carousel@8.0.0-rc19:
   resolved "https://registry.yarnpkg.com/embla-carousel/-/embla-carousel-8.0.0-rc19.tgz#f0d8dbf54f2f8f2cdfe0697f371fe5d5fd4e2dac"
   integrity sha512-PAChVyYoVZo8subkBN8LjZ7+0vk4CmVvMnxH0Y2ux76VUEUBl1wk5xDo8+MUhH5MXU6ZrgkBpMe++bKob1Z+2g==
 
+embla-carousel@^8.0.0-rc15:
+  version "8.0.0-rc22"
+  resolved "https://registry.yarnpkg.com/embla-carousel/-/embla-carousel-8.0.0-rc22.tgz#f5e4447636dce317ae066138a45abe77e08bae4a"
+  integrity sha512-MeXnPT1LShfgAu8qXj3CskayV0R6OkHx7w3cPTx+Q5ZWKyShKpIuu7qVQJ5BoFegalE4n6yxqoQaRuGFbK9pYw==
+
 emittery@^0.12.1:
   version "0.12.1"
   resolved "https://registry.yarnpkg.com/emittery/-/emittery-0.12.1.tgz#cb9a4a18745816f7a1fa03a8953e7eaededb45f2"
@@ -14375,9 +14380,9 @@ ts-node@^10.9.1:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
-"ts-zen@git+https://github.com/strapi/ts-zen.git#66e02232f5997674cc7032ea3ee59d9864863732":
+"ts-zen@https://github.com/strapi/ts-zen#66e02232f5997674cc7032ea3ee59d9864863732":
   version "0.1.7"
-  resolved "git+https://github.com/strapi/ts-zen.git#66e02232f5997674cc7032ea3ee59d9864863732"
+  resolved "https://github.com/strapi/ts-zen#66e02232f5997674cc7032ea3ee59d9864863732"
 
 tsconfig-paths@^3.15.0:
   version "3.15.0"
