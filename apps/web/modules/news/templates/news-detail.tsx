@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import LayoutContainer from "@/modules/layout/components/layout-container";
-import Card from "@/modules/common/components/card";
+// import Card from "@/modules/common/components/card";
 
 const NewsDetailTemplate = () => {
   // this data is later fetch from graphql news detail by req param
@@ -36,33 +36,33 @@ const NewsDetailTemplate = () => {
       },
     ],
   };
-  const sampleLatestNews = [
-    {
-      title:
-        "FachPack 2022 We cordially invite you to visit us in hall 7 at booth",
-      desc: "Nov 27, 2023",
-      image: require("@/assets/images/common/img_example_news.png"),
-      slug: "news-2",
-    },
-    {
-      title: "traytec - developer of identification systems for trays",
-      desc: "Nov 27, 2023",
-      image: require("@/assets/images/common/img_example_news.png"),
-      slug: "news-3",
-    },
-    {
-      title: "FachPack 2019",
-      desc: "Nov 27, 2023",
-      image: require("@/assets/images/common/img_example_news.png"),
-      slug: "news-4",
-    },
-    {
-      title: "traytec awarded as top innovator",
-      desc: "Nov 27, 2023",
-      image: require("@/assets/images/common/img_example_news.png"),
-      slug: "news-5",
-    },
-  ];
+  // const sampleLatestNews = [
+  //   {
+  //     title:
+  //       "FachPack 2022 We cordially invite you to visit us in hall 7 at booth",
+  //     desc: "Nov 27, 2023",
+  //     image: require("@/assets/images/common/img_example_news.png"),
+  //     slug: "news-2",
+  //   },
+  //   {
+  //     title: "traytec - developer of identification systems for trays",
+  //     desc: "Nov 27, 2023",
+  //     image: require("@/assets/images/common/img_example_news.png"),
+  //     slug: "news-3",
+  //   },
+  //   {
+  //     title: "FachPack 2019",
+  //     desc: "Nov 27, 2023",
+  //     image: require("@/assets/images/common/img_example_news.png"),
+  //     slug: "news-4",
+  //   },
+  //   {
+  //     title: "traytec awarded as top innovator",
+  //     desc: "Nov 27, 2023",
+  //     image: require("@/assets/images/common/img_example_news.png"),
+  //     slug: "news-5",
+  //   },
+  // ];
 
   return (
     <LayoutContainer>
@@ -105,7 +105,7 @@ const NewsDetailTemplate = () => {
           </div>
           <div className="w-full medium:max-w-[250px]">
             <div className="typo-h4 mb-2">Latest News</div>
-            {sampleLatestNews.map((val, idx) => {
+            {/* {sampleLatestNews.map((val, idx) => {
               return (
                 <Link href={`/news/${val.slug}`} key={idx}>
                   <div className="py-4 border-b border-gray-200">
@@ -120,7 +120,7 @@ const NewsDetailTemplate = () => {
                   </div>
                 </Link>
               );
-            })}
+            })} */}
           </div>
         </div>
       </div>
