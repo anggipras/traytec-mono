@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       ...(await serverSideTranslations(initialLocale, namespaces)),
     },
-    revalidate: 3600,
+    revalidate: 5,
   };
 };
 

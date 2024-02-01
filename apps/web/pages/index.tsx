@@ -147,7 +147,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         : singlePageResponse,
       ...(await serverSideTranslations(initialLocale, namespaces)),
     },
-    revalidate: 1800,
+    revalidate: 5,
   };
 };
 

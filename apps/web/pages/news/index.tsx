@@ -14,7 +14,7 @@ export async function getStaticProps({ locale }) {
     props: {
       ...(await serverSideTranslations(initialLocale, namespaces)),
     },
-    revalidate: 3600,
+    revalidate: 5,
   };
 }
 
