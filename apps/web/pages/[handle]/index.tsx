@@ -206,7 +206,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         : singlePageResponse,
       ...(await serverSideTranslations(locale ?? "de", ["common"])),
     },
-    revalidate: 1800,
+    revalidate: 5,
   };
 };
 

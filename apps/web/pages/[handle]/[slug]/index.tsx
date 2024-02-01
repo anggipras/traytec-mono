@@ -240,7 +240,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       slugData,
       ...(await serverSideTranslations(locale ?? "de", ["common"])),
     },
-    revalidate: 1800,
+    revalidate: 5,
   };
 };
 
