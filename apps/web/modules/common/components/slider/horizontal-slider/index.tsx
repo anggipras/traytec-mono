@@ -1,5 +1,4 @@
 import React from "react";
-import { useTranslation } from "next-i18next";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import RenderHtml from "../../render-html";
@@ -16,7 +15,6 @@ interface ComponentProps {
 }
 
 const HorizontalSlider = ({ data }: ComponentProps) => {
-  const { t } = useTranslation();
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start" });
 
   const {
@@ -30,14 +28,10 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
     <div className="flex flex-col mx-6 medium:mx-15 py-10 medium:pb-0 medium:pt-32.5">
       <div className="flex flex-col text-center medium:text-start items-center medium:items-stretch">
         <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
-          {t("PAGES.HOME_PAGE.PROCESS.INTRO", {
-            processIntro: data.uberschrift?.topline,
-          })}
+          {data.uberschrift?.topline}
         </div>
         <div className="typo-h2 mb-6 mt-4 max-w-xl">
-          {t("PAGES.HOME_PAGE.PROCESS.TITLE", {
-            processTitle: data.uberschrift?.heading,
-          })}
+          {data.uberschrift?.heading}
         </div>
         <div className="flex justify-between items-center">
           <RenderHtml
@@ -73,17 +67,14 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
                             alt="icon-slider-nowrap"
                             height={24}
                             src={
-                              `${serverBaseUrl?.replace("/api", "")}${val?.icon
-                                ?.data?.attributes?.url}` || ""
+                              `${serverBaseUrl?.replace("/api", "")}${
+                                val?.icon?.data?.attributes?.url
+                              }` || ""
                             }
                             width={24}
                           />
                         </div>
-                        <div className="typo-h5">
-                          {t("PAGES.HOME_PAGE.PROCESS.LIST.TITLE", {
-                            listTitle: val?.ueberschrift,
-                          })}
-                        </div>
+                        <div className="typo-h5">{val?.ueberschrift}</div>
                       </div>
                       <RenderHtml
                         className="text-gray-400"
