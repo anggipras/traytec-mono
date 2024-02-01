@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import { clsx } from "clsx";
 import Link from "next/link";
@@ -32,8 +31,6 @@ interface ComponentHero {
 
 const Hero = ({ data }: ComponentProps) => {
   const heroComponent: ComponentHero = { ...data };
-
-  const { t } = useTranslation();
 
   useEffect(() => {
     const videoElement = document.getElementById(
@@ -104,16 +101,12 @@ const Hero = ({ data }: ComponentProps) => {
       <div className="absolute inset-0 max-w-desktop mx-auto h-full">
         <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start h-full max-w-3xl px-6 text-white mx-auto">
           <div className="w-fit px-3.5 py-2 bg-white bg-opacity-25 rounded-md mb-4 animate-fade-down [animation-delay:_500ms]">
-            {t("COMPONENTS.HERO.INTRO", {
-              topLine: heroComponent.ueberschrift?.topline,
-            })}
+            {heroComponent.ueberschrift?.topline}
           </div>
           <div
             className={clsx("mb-4 medium:mb-6 animate-fade-up", heroHeading)}
           >
-            {t("COMPONENTS.HERO.TITLE", {
-              heroHeading: heroComponent.ueberschrift?.heading,
-            })}
+            {heroComponent.ueberschrift?.heading}
           </div>
           <RenderHtml
             className="leading-6.5 mb-4 medium:mb-6 animate-fade-down [animation-delay:_500ms]"
@@ -122,9 +115,7 @@ const Hero = ({ data }: ComponentProps) => {
           {heroComponent.hero_btn?.map((val, idx) => (
             <Link href={val?.url || ""} key={idx}>
               <Button size="medium" variant={val?.variante} width="w-fit">
-                <span>
-                  {t("COMPONENTS.HERO.BUTTON", { buttonText: val?.text })}
-                </span>
+                <span>{val?.text}</span>
               </Button>
             </Link>
           ))}
