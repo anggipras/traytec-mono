@@ -31,6 +31,9 @@
       "type": "component",
       "repeatable": false,
       "component": "utils.heading"
+    },
+    "email_empfaenger": {
+      "type": "email"
     }
   }
 }
