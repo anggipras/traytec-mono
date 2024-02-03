@@ -34,6 +34,12 @@
     "karten_ausserhalb_anzeigen": {
       "type": "boolean",
       "default": true
+    },
+    "autoplay": {
+      "displayName": "Autoplay Einstellungen",
+      "type": "component",
+      "repeatable": false,
+      "component": "utils.autoplay-einstellungen"
     }
   }
 }

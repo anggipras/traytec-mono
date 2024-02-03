@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_utils_texts",
+  "info": {
+    "displayName": "Text",
+    "icon": "pencil"
+  },
+  "options": {},
+  "attributes": {
+    "inhalt": {
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "rich"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
+    }
+  }
+}

@@ -63,7 +63,8 @@
         "sektionen.inhalt-mit-media",
         "listen.industrie-liste",
         "integrationen.jobs",
-        "integrationen.bewertungen"
+        "integrationen.bewertungen",
+        "utils.text"
       ]
     }
   }

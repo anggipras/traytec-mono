@@ -1,0 +1,46 @@
+{
+  "kind": "singleType",
+  "collectionName": "seiten_einstellungen",
+  "info": {
+    "singularName": "seiten-einstellung",
+    "pluralName": "seiten-einstellungen",
+    "displayName": "Seiten Einstellungen",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "social_media": {
+      "displayName": "Social Media",
+      "type": "component",
+      "repeatable": true,
+      "component": "utils.social-media"
+    },
+    "logo": {
+      "displayName": "Logo",
+      "type": "component",
+      "repeatable": false,
+      "component": "utils.logo"
+    },
+    "footer_text": {
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "standard"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
+    },
+    "name_des_unternehmens": {
+      "type": "string",
+      "required": true
+    },
+    "kontakt": {
+      "displayName": "Kontakt",
+      "type": "component",
+      "repeatable": true,
+      "component": "utils.kontakt"
+    }
+  }
+}

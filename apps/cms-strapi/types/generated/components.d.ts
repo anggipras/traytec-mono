@@ -355,6 +355,7 @@ export interface SliderHorizontalerSliderFokus extends Schema.Component {
       Attribute.DefaultTo<true>;
     background_anzeigen: Attribute.Boolean & Attribute.DefaultTo<true>;
     karten_ausserhalb_anzeigen: Attribute.Boolean & Attribute.DefaultTo<true>;
+    autoplay: Attribute.Component<'utils.autoplay-einstellungen'>;
   };
 }
 
@@ -398,6 +399,7 @@ export interface SliderSliderCard2 extends Schema.Component {
           preset: 'standard';
         }
       >;
+    medien: Attribute.Media;
   };
 }
 
@@ -419,6 +421,18 @@ export interface SliderSliderCard extends Schema.Component {
           preset: 'standard';
         }
       >;
+  };
+}
+
+export interface UtilsAutoplayEinstellungen extends Schema.Component {
+  collectionName: 'components_utils_autoplay_einstellungens';
+  info: {
+    displayName: 'Autoplay Einstellungen';
+    icon: 'play';
+  };
+  attributes: {
+    ist_aktiv: Attribute.Boolean & Attribute.DefaultTo<false>;
+    dauer: Attribute.Integer & Attribute.DefaultTo<5>;
   };
 }
 
@@ -504,6 +518,63 @@ export interface UtilsHeading extends Schema.Component {
   };
 }
 
+export interface UtilsKontakt extends Schema.Component {
+  collectionName: 'components_utils_kontakts';
+  info: {
+    displayName: 'Kontakt';
+    icon: 'phone';
+  };
+  attributes: {
+    type: Attribute.Enumeration<['ADRESSE', 'EMAIL', 'TELEFON']>;
+    inhalt: Attribute.String;
+  };
+}
+
+export interface UtilsLogo extends Schema.Component {
+  collectionName: 'components_utils_logos';
+  info: {
+    displayName: 'Logo';
+    icon: 'landscape';
+  };
+  attributes: {
+    logo_standard: Attribute.Media & Attribute.Required;
+    logo_hell: Attribute.Media;
+    logo_dunkel: Attribute.Media;
+  };
+}
+
+export interface UtilsSocialMedia extends Schema.Component {
+  collectionName: 'components_utils_social_medias';
+  info: {
+    displayName: 'Social Media';
+    icon: 'heart';
+  };
+  attributes: {
+    typ: Attribute.Enumeration<
+      ['META', 'INSTAGRAM', 'X', 'LINKED_IN', 'YOUTUBE']
+    >;
+    url: Attribute.Text;
+  };
+}
+
+export interface UtilsText extends Schema.Component {
+  collectionName: 'components_utils_texts';
+  info: {
+    displayName: 'Text';
+    icon: 'pencil';
+  };
+  attributes: {
+    inhalt: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'HTML';
+          preset: 'rich';
+        }
+      >;
+  };
+}
+
 export interface UtilsTimelineKarte extends Schema.Component {
   collectionName: 'components_utils_timeline_kartes';
   info: {
@@ -551,11 +622,16 @@ declare module '@strapi/types' {
       'slider.horizontaler-slider': SliderHorizontalerSlider;
       'slider.slider-card-2': SliderSliderCard2;
       'slider.slider-card': SliderSliderCard;
+      'utils.autoplay-einstellungen': UtilsAutoplayEinstellungen;
       'utils.badge': UtilsBadge;
       'utils.button': UtilsButton;
       'utils.google-reviewer': UtilsGoogleReviewer;
       'utils.grid-element': UtilsGridElement;
       'utils.heading': UtilsHeading;
+      'utils.kontakt': UtilsKontakt;
+      'utils.logo': UtilsLogo;
+      'utils.social-media': UtilsSocialMedia;
+      'utils.text': UtilsText;
       'utils.timeline-karte': UtilsTimelineKarte;
     }
   }

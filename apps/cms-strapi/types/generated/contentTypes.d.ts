@@ -1426,7 +1426,8 @@ export interface ApiSeiteSeite extends Schema.CollectionType {
         'sektionen.inhalt-mit-media',
         'listen.industrie-liste',
         'integrationen.jobs',
-        'integrationen.bewertungen'
+        'integrationen.bewertungen',
+        'utils.text'
       ]
     > &
       Attribute.SetPluginOptions<{
@@ -1458,6 +1459,48 @@ export interface ApiSeiteSeite extends Schema.CollectionType {
   };
 }
 
+export interface ApiSeitenEinstellungSeitenEinstellung
+  extends Schema.SingleType {
+  collectionName: 'seiten_einstellungen';
+  info: {
+    singularName: 'seiten-einstellung';
+    pluralName: 'seiten-einstellungen';
+    displayName: 'Seiten Einstellungen';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    social_media: Attribute.Component<'utils.social-media', true>;
+    logo: Attribute.Component<'utils.logo'>;
+    footer_text: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'HTML';
+          preset: 'standard';
+        }
+      >;
+    name_des_unternehmens: Attribute.String & Attribute.Required;
+    kontakt: Attribute.Component<'utils.kontakt', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::seiten-einstellung.seiten-einstellung',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::seiten-einstellung.seiten-einstellung',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1486,6 +1529,7 @@ declare module '@strapi/types' {
       'api::job.job': ApiJobJob;
       'api::produkt.produkt': ApiProduktProdukt;
       'api::seite.seite': ApiSeiteSeite;
+      'api::seiten-einstellung.seiten-einstellung': ApiSeitenEinstellungSeitenEinstellung;
     }
   }
 }

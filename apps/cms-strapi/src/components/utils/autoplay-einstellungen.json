@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_utils_autoplay_einstellungens",
+  "info": {
+    "displayName": "Autoplay Einstellungen",
+    "icon": "play"
+  },
+  "options": {},
+  "attributes": {
+    "ist_aktiv": {
+      "type": "boolean",
+      "default": false
+    },
+    "dauer": {
+      "type": "integer",
+      "default": 5
+    }
+  }
+}
