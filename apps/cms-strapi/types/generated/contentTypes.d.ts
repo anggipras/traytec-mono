@@ -1484,6 +1484,7 @@ export interface ApiSeitenEinstellungSeitenEinstellung
       >;
     name_des_unternehmens: Attribute.String & Attribute.Required;
     kontakt: Attribute.Component<'utils.kontakt', true>;
+    karriere: Attribute.Component<'utils.jobs-einstellungen'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

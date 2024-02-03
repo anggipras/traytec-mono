@@ -15,6 +15,8 @@ export interface FormAntwortmoeglichkeit extends Schema.Component {
           preset: 'light';
         }
       >;
+    overwrite_email: Attribute.Email;
+    icon: Attribute.Media;
   };
 }
 
@@ -518,6 +520,25 @@ export interface UtilsHeading extends Schema.Component {
   };
 }
 
+export interface UtilsJobsEinstellungen extends Schema.Component {
+  collectionName: 'components_utils_jobs_einstellungens';
+  info: {
+    displayName: 'Jobs Einstellungen';
+  };
+  attributes: {
+    text: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'HTML';
+          preset: 'rich';
+        }
+      >;
+    button_inhalt: Attribute.String;
+    button_url: Attribute.String;
+  };
+}
+
 export interface UtilsKontakt extends Schema.Component {
   collectionName: 'components_utils_kontakts';
   info: {
@@ -628,6 +649,7 @@ declare module '@strapi/types' {
       'utils.google-reviewer': UtilsGoogleReviewer;
       'utils.grid-element': UtilsGridElement;
       'utils.heading': UtilsHeading;
+      'utils.jobs-einstellungen': UtilsJobsEinstellungen;
       'utils.kontakt': UtilsKontakt;
       'utils.logo': UtilsLogo;
       'utils.social-media': UtilsSocialMedia;

@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_utils_jobs_einstellungens",
+  "info": {
+    "displayName": "Jobs Einstellungen"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "rich"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
+    },
+    "button_inhalt": {
+      "type": "string"
+    },
+    "button_url": {
+      "type": "string"
+    }
+  }
+}
