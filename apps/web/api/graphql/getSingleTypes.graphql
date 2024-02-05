@@ -1,0 +1,48 @@
+query getSingleTypes {
+  seitenEinstellung {
+    data {
+      attributes {
+        createdAt
+        footer_text
+        karriere {
+          button_inhalt
+          button_url
+          text
+        }
+        kontakt {
+          inhalt
+          type
+        }
+        logo {
+          logo_dunkel {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          logo_hell {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          logo_standard {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+        name_des_unternehmens
+        social_media {
+          typ
+          url
+        }
+        updatedAt
+      }
+    }
+  }
+}

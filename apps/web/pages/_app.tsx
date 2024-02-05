@@ -8,9 +8,15 @@ import { getApolloClient } from "@/lib/with-apollo";
 import type {
   GetLocalesQuery,
   GetPageHandleQuery,
+  GetSingleTypesQuery,
   SeiteEntity,
+  SeitenEinstellung,
 } from "@/generated/graphql";
-import { GetLocalesDocument, GetPageHandleDocument } from "@/generated/graphql";
+import {
+  GetLocalesDocument,
+  GetPageHandleDocument,
+  GetSingleTypesDocument,
+} from "@/generated/graphql";
 
 // Define an interface for components that have a getLayout property
 interface ComponentWithLayout {
@@ -27,7 +33,9 @@ interface AppOwnProps {
     navbar?: {
       localeList?: GetLocalesQuery;
       localeHandle: SeiteEntity[];
+      singleType: SeitenEinstellung;
     };
+    footer?: SeitenEinstellung;
   };
 }
 
@@ -89,6 +97,16 @@ const fetchSinglePageHandle = async (locale: string) => {
   return singlePageHandleData?.seiten?.data;
 };
 
+const fetchSingleTypes = async () => {
+  const apolloClient = getApolloClient();
+  const { data } = await apolloClient.query({
+    query: GetSingleTypesDocument,
+  });
+
+  const singleTypesData = data as GetSingleTypesQuery;
+  return singleTypesData.seitenEinstellung;
+};
+
 MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
   const { locale } = context.ctx;
   const ctx = await App.getInitialProps(context);
@@ -98,12 +116,15 @@ MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
     const localeHandlePage = await fetchSinglePageHandle(locale ?? "de");
     const localesData: GetLocalesQuery = localesDataResult.data;
     const localeHandleData = localeHandlePage as SeiteEntity[];
+    const singleTypesResult = await fetchSingleTypes();
 
     const navigationData = {
       navbar: {
         localeList: localesData,
         localeHandle: localeHandleData,
+        singleType: singleTypesResult?.data?.attributes as SeitenEinstellung,
       },
+      footer: singleTypesResult?.data?.attributes as SeitenEinstellung,
     };
 
     return { ...ctx, navigationData };

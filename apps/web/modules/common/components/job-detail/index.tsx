@@ -1,20 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import RenderHtml from "../render-html";
 import Button from "@/modules/common/components/button";
-import type { JobEntity } from "@/generated/graphql";
+import type {
+  GetSingleTypesQuery,
+  JobEntity,
+  SeitenEinstellung,
+} from "@/generated/graphql";
 import {
   Enum_Componentutilsbutton_Variante,
-  Enum_Job_Art,
+  GetSingleTypesDocument,
 } from "@/generated/graphql";
 import { convertISOStringToCustomFormat } from "@/lib/util/date";
 import { serverBaseUrl } from "@/client.config";
+import { getApolloClient } from "@/lib/with-apollo";
 
 interface JobDetailProps {
   data: JobEntity;
 }
 
+const fetchSingleTypes = async () => {
+  const apolloClient = getApolloClient();
+  const singleTypeResp = await apolloClient.query({
+    query: GetSingleTypesDocument,
+  });
+
+  const singleTypesData = singleTypeResp.data as GetSingleTypesQuery;
+  return singleTypesData.seitenEinstellung;
+};
+
 const JobDetail = ({ data }: JobDetailProps) => {
+  const [singleTypeDt, setSingleTypeDt] = useState<SeitenEinstellung>();
+
+  useEffect(() => {
+    fetchSingleTypes()
+      .then((dt) => {
+        setSingleTypeDt(dt?.data?.attributes as SeitenEinstellung);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className="flex flex-col medium:flex-row justify-between mx-6 my-10 medium:mx-15 medium:mt-10 medium:mb-32.5 gap-20 medium:gap-5">
       <div className="flex flex-col w-full">
@@ -56,23 +83,23 @@ const JobDetail = ({ data }: JobDetailProps) => {
           html={data.attributes?.beschreibung || ""}
         />
       </div>
-      <div className="flex flex-col px-10 py-6 bg-gray-50 rounded-3xl w-full medium:max-w-lg h-fit">
-        <div className="typo-h4">
-          Interested to{" "}
-          {data.attributes?.art === Enum_Job_Art.Ausbildung ? "intern" : "work"}{" "}
-          with us ?
+      {singleTypeDt && (
+        <div className="flex flex-col px-10 py-6 bg-gray-50 rounded-3xl w-full medium:max-w-lg h-fit">
+          <RenderHtml
+            className="mb-6"
+            html={singleTypeDt.karriere?.text || ""}
+          />
+          <a href={`mailto:${singleTypeDt.karriere?.button_url}`}>
+            <Button
+              size="small"
+              variant={Enum_Componentutilsbutton_Variante.Secondary}
+              width="w-full"
+            >
+              <span>{singleTypeDt.karriere?.button_inhalt}</span>
+            </Button>
+          </a>
         </div>
-        <div className="typo-copy-normal text-gray-400 mt-4 mb-6">
-          provide your complete application documents and click apply
-        </div>
-        <Button
-          size="small"
-          variant={Enum_Componentutilsbutton_Variante.Secondary}
-          width="w-full"
-        >
-          <span>Apply Now</span>
-        </Button>
-      </div>
+      )}
     </div>
   );
 };

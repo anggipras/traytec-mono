@@ -3,8 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
+import type { SeitenEinstellung } from "@/generated/graphql";
+import { SmallIcon } from "@/types/icon";
+import RenderHtml from "@/modules/common/components/render-html";
+import { serverBaseUrl } from "@/client.config";
 
-const FooterComponent = () => {
+interface FooterComponentProps {
+  footervalue?: SeitenEinstellung;
+}
+
+const FooterComponent = ({ footervalue }: FooterComponentProps) => {
   const router = useRouter();
   const navResponse = useStrapiPluginNavigationTree("main-navigation", {
     // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style -- disable non-nullable-type-assertion-style
@@ -26,25 +34,6 @@ const FooterComponent = () => {
     navbarMenu = mappedNavbarMenu;
   }
 
-  const contactFooter = [
-    {
-      image: require("@/assets/images/icons/ic_location.svg"),
-      ctn: "traytec GmbH Budapester Str. 348455 Bad Bentheim",
-    },
-    {
-      image: require("@/assets/images/icons/ic_phone.svg"),
-      ctn: "+49 (0)5924/99717-0",
-    },
-    {
-      image: require("@/assets/images/icons/ic_phone.svg"),
-      ctn: "+49 (0)5924/99717-10",
-    },
-    {
-      image: require("@/assets/images/icons/ic_email.svg"),
-      ctn: "info@traytec.de",
-    },
-  ];
-
   return (
     <div className="relative bg-primary-900">
       <div className="mx-auto max-w-desktop w-full">
@@ -55,45 +44,48 @@ const FooterComponent = () => {
                 <Link href="/">
                   <Image
                     alt="footer_logo"
-                    className="max-w-[183px]"
-                    src={require("@/assets/images/common/img_footer_logo.png")}
+                    className="w-full h-full"
+                    height="0"
+                    sizes="100%"
+                    src={
+                      footervalue?.logo?.logo_hell
+                        ? `${serverBaseUrl?.replace("/api", "")}${footervalue
+                            .logo.logo_hell.data?.attributes?.url}`
+                        : ""
+                    }
+                    width="0"
                   />
                 </Link>
-                <div className="leading-6.5 text-center medium:text-start">
-                  Company manufacturing Trays, inserts, workpiece containers,
-                  lids, etc. Made from a variety of plastics for all
-                  applications
-                </div>
+                <RenderHtml
+                  className=""
+                  html={footervalue?.footer_text || ""}
+                />
                 <div className="flex">
-                  <div className="mr-6 self-center">
-                    <Image
-                      alt="footer_socmed_ig"
-                      className="w-8"
-                      src={require("@/assets/images/icons/ic_instagram.svg")}
-                    />
-                  </div>
-                  <div className="mr-6 self-center">
-                    <Image
-                      alt="footer_socmed_yt"
-                      className="w-8"
-                      src={require("@/assets/images/icons/ic_youtube.svg")}
-                      width="32"
-                    />
-                  </div>
-                  <div className="mr-6 self-center">
-                    <Image
-                      alt="footer_socmed_ln"
-                      className="w-8"
-                      src={require("@/assets/images/icons/ic_linkedin.svg")}
-                    />
-                  </div>
-                  <div className="mr-6 self-center">
-                    <Image
-                      alt="footer_socmed_fb"
-                      className="w-8"
-                      src={require("@/assets/images/icons/ic_facebook.svg")}
-                    />
-                  </div>
+                  {footervalue?.social_media?.map((val, idx) => {
+                    return (
+                      <div key={idx}>
+                        {val?.typ && (
+                          <div
+                            aria-hidden
+                            className="mr-6 self-center"
+                            onClick={() => {
+                              window.open(val.url || "", "_blank");
+                            }}
+                          >
+                            <Image
+                              alt={`footer_${val.typ}`}
+                              className="w-8"
+                              src={require(
+                                `@/assets/images/icons/${
+                                  SmallIcon[val.typ]
+                                }.svg`
+                              )}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
               <div className="flex flex-col medium:flex-row medium:justify-between">
@@ -107,17 +99,23 @@ const FooterComponent = () => {
                 </div>
                 <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal max-w-[275px]">
                   <div className="typo-h5 mb-2">Contact</div>
-                  {contactFooter.map((val, idx) => {
+                  {footervalue?.kontakt?.map((val, idx) => {
                     return (
-                      <div className="flex" key={`contact-footer-${idx}`}>
-                        <div className="self-start mr-2">
-                          <Image
-                            alt="footer_ic_location"
-                            className="w-8"
-                            src={val.image}
-                          />
-                        </div>
-                        <div className="self-center">{val.ctn}</div>
+                      <div className="flex" key={idx}>
+                        {val?.type && (
+                          <div className="self-start mr-2">
+                            <Image
+                              alt="footer_ic_location"
+                              className="w-8"
+                              src={require(
+                                `@/assets/images/icons/${
+                                  SmallIcon[val.type]
+                                }.svg`
+                              )}
+                            />
+                          </div>
+                        )}
+                        <div className="self-center">{val?.inhalt}</div>
                       </div>
                     );
                   })}
@@ -130,7 +128,8 @@ const FooterComponent = () => {
                 reserved.
               </div>
               <div className="typo-copy-normal">
-                imprint &#124; Generelles Geschäftbedingungen &#124; Datenschutz
+                imprint &#124; <span>Generelles Geschäftbedingungen</span>{" "}
+                &#124; Datenschutz
               </div>
             </div>
           </div>

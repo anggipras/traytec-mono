@@ -2,14 +2,20 @@
 import React from "react";
 import NavbarTemplate from "@/modules/layout/templates/nav";
 import FooterTemplate from "@/modules/layout/templates/footer";
-import type { GetLocalesQuery, SeiteEntity } from "@/generated/graphql";
+import type {
+  GetLocalesQuery,
+  SeiteEntity,
+  SeitenEinstellung,
+} from "@/generated/graphql";
 import MobileMenuContext from "@/context/mobile-menu-context";
 
 interface RootLayoutProps {
   navbar?: {
     localeList?: GetLocalesQuery;
     localeHandle: SeiteEntity[];
+    singleType: SeitenEinstellung;
   };
+  footer?: SeitenEinstellung;
 }
 
 export default function RootLayout({
@@ -25,7 +31,7 @@ export default function RootLayout({
         <NavbarTemplate navbarvalue={initialData?.navbar} />
       </MobileMenuContext>
       {children}
-      <FooterTemplate />
+      <FooterTemplate footervalue={initialData?.footer} />
     </>
   );
 }

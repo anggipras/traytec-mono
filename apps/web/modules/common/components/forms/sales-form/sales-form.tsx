@@ -89,8 +89,13 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
   };
 
   return (
-    <div className="relative bg-primary-900 medium:mb-[-135px] medium:mt-32.5">
-      <div className="mx-auto max-w-desktop w-full">
+    <div
+      className="relative bg-primary-900 medium:mb-[-135px] medium:mt-32.5"
+      id={`#${salesform.formular?.data?.attributes?.titel
+        ?.toLowerCase()
+        .replace(" ", "-")}`}
+    >
+      <div className="w-full">
         <div className="absolute left-0 top-0">
           <Image
             alt="bg_footer_left"
@@ -105,10 +110,10 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
             src={require("@/assets/images/common/img_bg_footer_right.svg")}
           />
         </div>
-        <div className="mx-auto max-w-desktop w-full">
+        <div className="mx-auto w-full">
           <div className="text-white z-10">
             {formResponseData.ueberschrift && (
-              <div className="flex flex-col m-auto items-center text-center max-w-[874px] px-6 pt-10 medium:pt-15">
+              <div className="flex flex-col m-auto items-center text-center max-w-3xl px-6 pt-10 medium:pt-15">
                 {formResponseData.ueberschrift?.heading && (
                   <div className="typo-h2 mb-4 medium:mb-5">
                     {formResponseData.ueberschrift?.heading}
@@ -121,28 +126,27 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
                 )}
               </div>
             )}
-            <div
-              className="m-auto max-w-[874px] px-6 py-10 medium:py-15"
-              id="sales-form-id"
-            >
+            <div className="m-auto px-6 py-10 medium:py-15" id="sales-form-id">
               <div className="embla_main">
                 <div className="embla__viewport" ref={emblaRef}>
                   <div className="embla__container">
                     {formResponseData.Fragen.map((val, idx) => (
                       <div className="embla__slide" key={idx}>
-                        <SalesFormContainer
-                          formIdx={idx}
-                          formValue={val}
-                          scrollNext={scrollNext}
-                          scrollPrev={scrollPrev}
-                        />
+                        <div className="mx-auto max-w-3xl">
+                          <SalesFormContainer
+                            formIdx={idx}
+                            formValue={val}
+                            scrollNext={scrollNext}
+                            scrollPrev={scrollPrev}
+                          />
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
             </div>
-            <div className="w-full">
+            <div className="mx-auto max-w-desktop w-full">
               <hr className="text-white h-2 mx-6 medium:mx-15" />
             </div>
           </div>

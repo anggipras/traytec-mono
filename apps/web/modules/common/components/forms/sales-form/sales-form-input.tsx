@@ -94,7 +94,10 @@ const SalesFormInput = ({
   const formInputComponent = () => {
     return (
       <>
-        <RenderHtml className="mb-6" html={formValue?.frage} />
+        <div className="flex">
+          <div className="mr-3">{formIdx + 1}.</div>
+          <RenderHtml className="mb-6" html={formValue?.frage} />
+        </div>
         <div className="relative w-full">
           {!formValue?.notwendig && (
             <div className="typo-copy-normal text-gray-400 text-start">

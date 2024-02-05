@@ -10,15 +10,18 @@ import type {
   IndustrieEntity,
   JobEntity,
   SeiteEntity,
+  SeitenEinstellung,
 } from "@/generated/graphql";
 import Accordion from "@/modules/common/components/accordion";
 import type { PathInfo } from "@/types/global";
 import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
 import { useMobileMenu } from "@/context/mobile-menu-context";
+import { serverBaseUrl } from "@/client.config";
 
 interface NavbarTemplateProps {
   localeList?: GetLocalesQuery;
   localeHandle: SeiteEntity[];
+  singleType: SeitenEinstellung;
 }
 interface ValueNavbar {
   __typename: string;
@@ -272,11 +275,21 @@ const NavBarTemplate = ({
       <div className="mx-auto max-w-desktop w-full">
         <div className="flex justify-between items-center h-[88px] px-6 py-3.5 medium:px-15 medium:py-6">
           <Link href="/">
-            <Image
-              alt="navbar_logo"
-              className="max-w-[121px] h-auto medium:max-w-[183px]"
-              src={require("@/assets/images/common/img_header_logo.png")}
-            />
+            <div className="max-w-[121px] h-auto medium:max-w-[183px]">
+              <Image
+                alt="footer_logo"
+                className="w-full h-full"
+                height="0"
+                sizes="100%"
+                src={
+                  navbarvalue?.singleType.logo?.logo_standard
+                    ? `${serverBaseUrl?.replace("/api", "")}${navbarvalue
+                        ?.singleType.logo?.logo_standard.data?.attributes?.url}`
+                    : ""
+                }
+                width="0"
+              />
+            </div>
           </Link>
           <div className="hidden medium:flex">
             {navbarMenu.map((val, menuIdx) => {

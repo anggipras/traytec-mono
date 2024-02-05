@@ -1,10 +1,15 @@
 import React from "react";
 import FooterComponent from "@/modules/layout/components/footer";
+import type { SeitenEinstellung } from "@/generated/graphql";
 
-const FooterTemplate = () => {
+interface FooterTemplateProps {
+  footervalue?: SeitenEinstellung;
+}
+
+const FooterTemplate = ({ footervalue }: FooterTemplateProps) => {
   return (
     <footer>
-      <FooterComponent />
+      <FooterComponent footervalue={footervalue} />
     </footer>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { clsx } from "clsx";
-import Link from "next/link";
 import RenderHtml from "../render-html";
 import { Enum_Componentutilsheading_Typ } from "@/generated/graphql";
 import type {
@@ -52,6 +51,15 @@ const Hero = ({ data }: ComponentProps) => {
     hidden: !heroComponent.sichtbar,
     block: heroComponent.sichtbar,
   });
+
+  const scrollToDynamicView = (dt: string) => {
+    const scrolledEl = document.getElementById(dt);
+    if (scrolledEl)
+      scrolledEl.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+  };
 
   return (
     <div
@@ -112,11 +120,17 @@ const Hero = ({ data }: ComponentProps) => {
             html={heroComponent.ueberschrift?.text || ""}
           />
           {heroComponent.hero_btn?.map((val, idx) => (
-            <Link href={val?.url || ""} key={idx}>
-              <Button size="medium" variant={val?.variante} width="w-fit">
-                <span>{val?.text}</span>
-              </Button>
-            </Link>
+            <Button
+              key={idx}
+              onClick={() => {
+                scrollToDynamicView(val?.url ?? "");
+              }}
+              size="medium"
+              variant={val?.variante}
+              width="w-fit"
+            >
+              <span>{val?.text}</span>
+            </Button>
           ))}
         </div>
       </div>

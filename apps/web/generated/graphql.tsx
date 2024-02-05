@@ -2966,6 +2966,11 @@ export type GetReviewsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetReviewsQuery = { __typename?: 'Query', bewertungen?: { __typename?: 'BewertungEntityResponseCollection', data: Array<{ __typename?: 'BewertungEntity', attributes?: { __typename?: 'Bewertung', kommentar?: string | null, person?: Array<{ __typename?: 'ComponentUtilsGoogleReviewer', ist_anonym?: boolean | null, name?: string | null, photo_url?: string | null } | null> | null } | null }> } | null };
 
+export type GetSingleTypesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSingleTypesQuery = { __typename?: 'Query', seitenEinstellung?: { __typename?: 'SeitenEinstellungEntityResponse', data?: { __typename?: 'SeitenEinstellungEntity', attributes?: { __typename?: 'SeitenEinstellung', createdAt?: any | null, footer_text?: string | null, name_des_unternehmens: string, updatedAt?: any | null, karriere?: { __typename?: 'ComponentUtilsJobsEinstellungen', button_inhalt?: string | null, button_url?: string | null, text?: string | null } | null, kontakt?: Array<{ __typename?: 'ComponentUtilsKontakt', inhalt?: string | null, type?: Enum_Componentutilskontakt_Type | null } | null> | null, logo?: { __typename?: 'ComponentUtilsLogo', logo_dunkel?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null }> } | null, logo_hell?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null, logo_standard: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null, social_media?: Array<{ __typename?: 'ComponentUtilsSocialMedia', typ?: Enum_Componentutilssocialmedia_Typ | null, url?: string | null } | null> | null } | null } | null } | null };
+
 
 export const GetIndustryDocument = gql`
     query getIndustry($filters: IndustrieFiltersInput, $locale: I18NLocaleCode) {
@@ -3790,3 +3795,80 @@ export function useGetReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetReviewsQueryHookResult = ReturnType<typeof useGetReviewsQuery>;
 export type GetReviewsLazyQueryHookResult = ReturnType<typeof useGetReviewsLazyQuery>;
 export type GetReviewsQueryResult = Apollo.QueryResult<GetReviewsQuery, GetReviewsQueryVariables>;
+export const GetSingleTypesDocument = gql`
+    query getSingleTypes {
+  seitenEinstellung {
+    data {
+      attributes {
+        createdAt
+        footer_text
+        karriere {
+          button_inhalt
+          button_url
+          text
+        }
+        kontakt {
+          inhalt
+          type
+        }
+        logo {
+          logo_dunkel {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          logo_hell {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          logo_standard {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+        name_des_unternehmens
+        social_media {
+          typ
+          url
+        }
+        updatedAt
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetSingleTypesQuery__
+ *
+ * To run a query within a React component, call `useGetSingleTypesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSingleTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSingleTypesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetSingleTypesQuery(baseOptions?: Apollo.QueryHookOptions<GetSingleTypesQuery, GetSingleTypesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSingleTypesQuery, GetSingleTypesQueryVariables>(GetSingleTypesDocument, options);
+      }
+export function useGetSingleTypesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSingleTypesQuery, GetSingleTypesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSingleTypesQuery, GetSingleTypesQueryVariables>(GetSingleTypesDocument, options);
+        }
+export type GetSingleTypesQueryHookResult = ReturnType<typeof useGetSingleTypesQuery>;
+export type GetSingleTypesLazyQueryHookResult = ReturnType<typeof useGetSingleTypesLazyQuery>;
+export type GetSingleTypesQueryResult = Apollo.QueryResult<GetSingleTypesQuery, GetSingleTypesQueryVariables>;

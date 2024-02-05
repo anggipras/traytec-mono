@@ -4,7 +4,6 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { flushSync } from "react-dom";
-import Link from "next/link";
 import RenderHtml from "../../render-html";
 import Card from "../../card";
 import Button from "@/modules/common/components/button";
@@ -128,6 +127,15 @@ const FocusSlider = ({ data }: ComponentProps) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const scrollToDynamicView = (dt: string) => {
+    const scrolledEl = document.getElementById(dt);
+    if (scrolledEl)
+      scrolledEl.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+  };
 
   return (
     <div className="flex flex-col py-10 medium:pb-0 medium:pt-32.5">
@@ -333,15 +341,19 @@ const FocusSlider = ({ data }: ComponentProps) => {
             />
           </div>
           {data.button && (
-            <Link className="mt-10" href={data.button.url}>
-              <LayoutContainer>
-                <div className="flex justify-center">
-                  <Button size="medium" variant={data.button.variante}>
-                    <span className="">{data.button.text}</span>
-                  </Button>
-                </div>
-              </LayoutContainer>
-            </Link>
+            <LayoutContainer>
+              <div
+                aria-hidden
+                className="flex justify-center mt-10"
+                onClick={() => {
+                  scrollToDynamicView(data.button?.url ?? "");
+                }}
+              >
+                <Button size="medium" variant={data.button.variante}>
+                  <span className="">{data.button.text}</span>
+                </Button>
+              </div>
+            </LayoutContainer>
           )}
         </>
       )}
