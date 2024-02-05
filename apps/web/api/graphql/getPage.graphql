@@ -86,6 +86,16 @@ query getPage(
               text
               ueberschrift
               vorteile
+              medien {
+                data {
+                  attributes {
+                    alternativeText
+                    caption
+                    url
+                    name
+                  }
+                }
+              }
             }
             karten_ausserhalb_anzeigen
             sichtbar
@@ -94,6 +104,10 @@ query getPage(
               text
               topline
               typ
+            }
+            autoplay {
+              ist_aktiv
+              dauer
             }
           }
           ... on ComponentIntegrationenFormular {

@@ -21,7 +21,7 @@ const GridList = ({ data }: ComponentProps) => {
           const imageUrl = val?.bild?.data?.attributes?.url;
           return (
             <Card
-              additionalclass="flex-col justify-between"
+              additionalclass="flex-col justify-start"
               image={
                 imageUrl
                   ? `${serverBaseUrl?.replace("/api", "")}${imageUrl}`

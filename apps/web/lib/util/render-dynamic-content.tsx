@@ -43,20 +43,16 @@ export const renderDynamicContent = (contentItem: any) => {
       break;
     case "ComponentSliderHorizontalerSlider":
       item = (
-        <LayoutContainer>
-          <HorizontalSlider
-            data={contentItem as ComponentSliderHorizontalerSlider}
-          />
-        </LayoutContainer>
+        <HorizontalSlider
+          data={contentItem as ComponentSliderHorizontalerSlider}
+        />
       );
       break;
     case "ComponentSliderHorizontalerSliderFokus":
       item = (
-        <LayoutContainer>
-          <FocusSlider
-            data={contentItem as ComponentSliderHorizontalerSliderFokus}
-          />
-        </LayoutContainer>
+        <FocusSlider
+          data={contentItem as ComponentSliderHorizontalerSliderFokus}
+        />
       );
       break;
     case "ComponentListenGridListe":

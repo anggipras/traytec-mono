@@ -1095,6 +1095,7 @@ export interface ApiFormularFormular extends Schema.CollectionType {
     > &
       Attribute.Required;
     ueberschrift: Attribute.Component<'utils.heading'>;
+    email_empfaenger: Attribute.Email;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

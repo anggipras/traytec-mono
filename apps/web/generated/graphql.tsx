@@ -262,7 +262,9 @@ export type BooleanFilterInput = {
 export type ComponentFormAntwortmoeglichkeit = {
   __typename?: 'ComponentFormAntwortmoeglichkeit';
   antwort?: Maybe<Scalars['String']>;
+  icon?: Maybe<UploadFileEntityResponse>;
   id: Scalars['ID'];
+  overwrite_email?: Maybe<Scalars['String']>;
 };
 
 export type ComponentFormAntwortmoeglichkeitFiltersInput = {
@@ -270,6 +272,7 @@ export type ComponentFormAntwortmoeglichkeitFiltersInput = {
   antwort?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ComponentFormAntwortmoeglichkeitFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentFormAntwortmoeglichkeitFiltersInput>>>;
+  overwrite_email?: InputMaybe<StringFilterInput>;
 };
 
 export type ComponentFormDatum = {
@@ -535,6 +538,7 @@ export type ComponentSliderHorizontalerSliderCardsArgs = {
 
 export type ComponentSliderHorizontalerSliderFokus = {
   __typename?: 'ComponentSliderHorizontalerSliderFokus';
+  autoplay?: Maybe<ComponentUtilsAutoplayEinstellungen>;
   background_anzeigen?: Maybe<Scalars['Boolean']>;
   button?: Maybe<ComponentUtilsButton>;
   cards?: Maybe<Array<Maybe<ComponentSliderSliderCard2>>>;
@@ -564,9 +568,17 @@ export type ComponentSliderSliderCard2 = {
   __typename?: 'ComponentSliderSliderCard2';
   id: Scalars['ID'];
   image?: Maybe<UploadFileEntityResponse>;
+  medien?: Maybe<UploadFileRelationResponseCollection>;
   text?: Maybe<Scalars['String']>;
   ueberschrift?: Maybe<Scalars['String']>;
   vorteile?: Maybe<Scalars['String']>;
+};
+
+
+export type ComponentSliderSliderCard2MedienArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type ComponentSliderSliderCard2FiltersInput = {
@@ -585,6 +597,13 @@ export type ComponentSliderSliderCardFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<ComponentSliderSliderCardFiltersInput>>>;
   text?: InputMaybe<StringFilterInput>;
   ueberschrift?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentUtilsAutoplayEinstellungen = {
+  __typename?: 'ComponentUtilsAutoplayEinstellungen';
+  dauer?: Maybe<Scalars['Int']>;
+  id: Scalars['ID'];
+  ist_aktiv?: Maybe<Scalars['Boolean']>;
 };
 
 export type ComponentUtilsBadge = {
@@ -689,6 +708,91 @@ export type ComponentUtilsHeadingInput = {
   text?: InputMaybe<Scalars['String']>;
   topline?: InputMaybe<Scalars['String']>;
   typ?: InputMaybe<Enum_Componentutilsheading_Typ>;
+};
+
+export type ComponentUtilsJobsEinstellungen = {
+  __typename?: 'ComponentUtilsJobsEinstellungen';
+  button_inhalt?: Maybe<Scalars['String']>;
+  button_url?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  text?: Maybe<Scalars['String']>;
+};
+
+export type ComponentUtilsJobsEinstellungenInput = {
+  button_inhalt?: InputMaybe<Scalars['String']>;
+  button_url?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  text?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentUtilsKontakt = {
+  __typename?: 'ComponentUtilsKontakt';
+  id: Scalars['ID'];
+  inhalt?: Maybe<Scalars['String']>;
+  type?: Maybe<Enum_Componentutilskontakt_Type>;
+};
+
+export type ComponentUtilsKontaktFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentUtilsKontaktFiltersInput>>>;
+  inhalt?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentUtilsKontaktFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentUtilsKontaktFiltersInput>>>;
+  type?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentUtilsKontaktInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  inhalt?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Enum_Componentutilskontakt_Type>;
+};
+
+export type ComponentUtilsLogo = {
+  __typename?: 'ComponentUtilsLogo';
+  id: Scalars['ID'];
+  logo_dunkel?: Maybe<UploadFileRelationResponseCollection>;
+  logo_hell?: Maybe<UploadFileEntityResponse>;
+  logo_standard: UploadFileEntityResponse;
+};
+
+
+export type ComponentUtilsLogoLogo_DunkelArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ComponentUtilsLogoInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  logo_dunkel?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  logo_hell?: InputMaybe<Scalars['ID']>;
+  logo_standard?: InputMaybe<Scalars['ID']>;
+};
+
+export type ComponentUtilsSocialMedia = {
+  __typename?: 'ComponentUtilsSocialMedia';
+  id: Scalars['ID'];
+  typ?: Maybe<Enum_Componentutilssocialmedia_Typ>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type ComponentUtilsSocialMediaFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentUtilsSocialMediaFiltersInput>>>;
+  not?: InputMaybe<ComponentUtilsSocialMediaFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentUtilsSocialMediaFiltersInput>>>;
+  typ?: InputMaybe<StringFilterInput>;
+  url?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentUtilsSocialMediaInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  typ?: InputMaybe<Enum_Componentutilssocialmedia_Typ>;
+  url?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentUtilsText = {
+  __typename?: 'ComponentUtilsText';
+  id: Scalars['ID'];
+  inhalt?: Maybe<Scalars['String']>;
 };
 
 export type ComponentUtilsTimelineKarte = {
@@ -802,6 +906,20 @@ export enum Enum_Componentutilsheading_Typ {
   H2 = 'H2'
 }
 
+export enum Enum_Componentutilskontakt_Type {
+  Adresse = 'ADRESSE',
+  Email = 'EMAIL',
+  Telefon = 'TELEFON'
+}
+
+export enum Enum_Componentutilssocialmedia_Typ {
+  Instagram = 'INSTAGRAM',
+  LinkedIn = 'LINKED_IN',
+  Meta = 'META',
+  X = 'X',
+  Youtube = 'YOUTUBE'
+}
+
 export enum Enum_Job_Art {
   Ausbildung = 'AUSBILDUNG',
   MiniJob = 'MINI_JOB',
@@ -855,6 +973,7 @@ export type Formular = {
   __typename?: 'Formular';
   Fragen: Array<Maybe<FormularFragenDynamicZone>>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  email_empfaenger?: Maybe<Scalars['String']>;
   titel?: Maybe<Scalars['String']>;
   ueberschrift?: Maybe<ComponentUtilsHeading>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -880,6 +999,7 @@ export type FormularEntityResponseCollection = {
 export type FormularFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<FormularFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  email_empfaenger?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<FormularFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<FormularFiltersInput>>>;
@@ -892,11 +1012,12 @@ export type FormularFragenDynamicZone = ComponentFormDatum | ComponentFormDatumU
 
 export type FormularInput = {
   Fragen?: InputMaybe<Array<Scalars['FormularFragenDynamicZoneInput']>>;
+  email_empfaenger?: InputMaybe<Scalars['String']>;
   titel?: InputMaybe<Scalars['String']>;
   ueberschrift?: InputMaybe<ComponentUtilsHeadingInput>;
 };
 
-export type GenericMorph = Bewertung | Blog | BlogKategorie | ComponentFormAntwortmoeglichkeit | ComponentFormDatum | ComponentFormDatumUhrzeit | ComponentFormLongText | ComponentFormMultipleChoice | ComponentFormTextForm | ComponentFormUhrzeit | ComponentHeadingsHeadingMinimalistisch | ComponentHeadingsHeadingMitVideo | ComponentHerosHero1 | ComponentIntegrationenBewertungen | ComponentIntegrationenFormular | ComponentIntegrationenJobs | ComponentListenGridListe | ComponentListenIndustrieListe | ComponentListenTimelineListe | ComponentSektionenInhaltMitMedia | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | ComponentSliderSliderCard | ComponentSliderSliderCard2 | ComponentUtilsBadge | ComponentUtilsButton | ComponentUtilsGoogleReviewer | ComponentUtilsGridElement | ComponentUtilsHeading | ComponentUtilsTimelineKarte | Formular | I18NLocale | Industrie | Job | NavigationAudience | NavigationNavigation | NavigationNavigationItem | NavigationNavigationsItemsRelated | Produkt | Seite | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Bewertung | Blog | BlogKategorie | ComponentFormAntwortmoeglichkeit | ComponentFormDatum | ComponentFormDatumUhrzeit | ComponentFormLongText | ComponentFormMultipleChoice | ComponentFormTextForm | ComponentFormUhrzeit | ComponentHeadingsHeadingMinimalistisch | ComponentHeadingsHeadingMitVideo | ComponentHerosHero1 | ComponentIntegrationenBewertungen | ComponentIntegrationenFormular | ComponentIntegrationenJobs | ComponentListenGridListe | ComponentListenIndustrieListe | ComponentListenTimelineListe | ComponentSektionenInhaltMitMedia | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | ComponentSliderSliderCard | ComponentSliderSliderCard2 | ComponentUtilsAutoplayEinstellungen | ComponentUtilsBadge | ComponentUtilsButton | ComponentUtilsGoogleReviewer | ComponentUtilsGridElement | ComponentUtilsHeading | ComponentUtilsJobsEinstellungen | ComponentUtilsKontakt | ComponentUtilsLogo | ComponentUtilsSocialMedia | ComponentUtilsText | ComponentUtilsTimelineKarte | Formular | I18NLocale | Industrie | Job | NavigationAudience | NavigationNavigation | NavigationNavigationItem | NavigationNavigationsItemsRelated | Produkt | Seite | SeitenEinstellung | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -1209,6 +1330,7 @@ export type Mutation = {
   deleteNavigationNavigationsItemsRelated?: Maybe<NavigationNavigationsItemsRelatedEntityResponse>;
   deleteProdukt?: Maybe<ProduktEntityResponse>;
   deleteSeite?: Maybe<SeiteEntityResponse>;
+  deleteSeitenEinstellung?: Maybe<SeitenEinstellungEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Delete an existing role */
@@ -1239,6 +1361,7 @@ export type Mutation = {
   updateNavigationNavigationsItemsRelated?: Maybe<NavigationNavigationsItemsRelatedEntityResponse>;
   updateProdukt?: Maybe<ProduktEntityResponse>;
   updateSeite?: Maybe<SeiteEntityResponse>;
+  updateSeitenEinstellung?: Maybe<SeitenEinstellungEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Update an existing role */
@@ -1591,6 +1714,11 @@ export type MutationUpdateSeiteArgs = {
   data: SeiteInput;
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationUpdateSeitenEinstellungArgs = {
+  data: SeitenEinstellungInput;
 };
 
 
@@ -2016,6 +2144,7 @@ export type Query = {
   produkte?: Maybe<ProduktEntityResponseCollection>;
   seite?: Maybe<SeiteEntityResponse>;
   seiten?: Maybe<SeiteEntityResponseCollection>;
+  seitenEinstellung?: Maybe<SeitenEinstellungEntityResponse>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
   uploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -2306,7 +2435,7 @@ export type SeiteFiltersInput = {
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
-export type SeiteInhalteDynamicZone = ComponentHeadingsHeadingMinimalistisch | ComponentHeadingsHeadingMitVideo | ComponentHerosHero1 | ComponentIntegrationenBewertungen | ComponentIntegrationenFormular | ComponentIntegrationenJobs | ComponentListenGridListe | ComponentListenIndustrieListe | ComponentListenTimelineListe | ComponentSektionenInhaltMitMedia | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | Error;
+export type SeiteInhalteDynamicZone = ComponentHeadingsHeadingMinimalistisch | ComponentHeadingsHeadingMitVideo | ComponentHerosHero1 | ComponentIntegrationenBewertungen | ComponentIntegrationenFormular | ComponentIntegrationenJobs | ComponentListenGridListe | ComponentListenIndustrieListe | ComponentListenTimelineListe | ComponentSektionenInhaltMitMedia | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | ComponentUtilsText | Error;
 
 export type SeiteInput = {
   inhalte?: InputMaybe<Array<Scalars['SeiteInhalteDynamicZoneInput']>>;
@@ -2319,6 +2448,52 @@ export type SeiteInput = {
 export type SeiteRelationResponseCollection = {
   __typename?: 'SeiteRelationResponseCollection';
   data: Array<SeiteEntity>;
+};
+
+export type SeitenEinstellung = {
+  __typename?: 'SeitenEinstellung';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  footer_text?: Maybe<Scalars['String']>;
+  karriere?: Maybe<ComponentUtilsJobsEinstellungen>;
+  kontakt?: Maybe<Array<Maybe<ComponentUtilsKontakt>>>;
+  logo?: Maybe<ComponentUtilsLogo>;
+  name_des_unternehmens: Scalars['String'];
+  social_media?: Maybe<Array<Maybe<ComponentUtilsSocialMedia>>>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type SeitenEinstellungKontaktArgs = {
+  filters?: InputMaybe<ComponentUtilsKontaktFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type SeitenEinstellungSocial_MediaArgs = {
+  filters?: InputMaybe<ComponentUtilsSocialMediaFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type SeitenEinstellungEntity = {
+  __typename?: 'SeitenEinstellungEntity';
+  attributes?: Maybe<SeitenEinstellung>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type SeitenEinstellungEntityResponse = {
+  __typename?: 'SeitenEinstellungEntityResponse';
+  data?: Maybe<SeitenEinstellungEntity>;
+};
+
+export type SeitenEinstellungInput = {
+  footer_text?: InputMaybe<Scalars['String']>;
+  karriere?: InputMaybe<ComponentUtilsJobsEinstellungenInput>;
+  kontakt?: InputMaybe<Array<InputMaybe<ComponentUtilsKontaktInput>>>;
+  logo?: InputMaybe<ComponentUtilsLogoInput>;
+  name_des_unternehmens?: InputMaybe<Scalars['String']>;
+  social_media?: InputMaybe<Array<InputMaybe<ComponentUtilsSocialMediaInput>>>;
 };
 
 export type StringFilterInput = {
@@ -2768,7 +2943,7 @@ export type GetPageQueryVariables = Exact<{
 }>;
 
 
-export type GetPageQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', slug?: string | null, seo?: { __typename?: 'ComponentSharedSeo', meta_description: string, meta_title: string, canonical_URL?: string | null, meta_image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch', ausrichtung?: Enum_Componentheadingsheadingminimalistisch_Ausrichtung | null, beschreibung?: string | null, dekoration_anzeigen?: boolean | null, titel: string, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | { __typename?: 'ComponentHeadingsHeadingMitVideo', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, heading_media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, height?: number | null, url: string, width?: number | null } | null } | null } | null } | { __typename?: 'ComponentHerosHero1', sichtbar: boolean, hero_btn?: Array<{ __typename?: 'ComponentUtilsButton', text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null> | null, hintergrund?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, url: string } | null } | null } | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'ComponentIntegrationenBewertungen', alle_anzeigen?: boolean | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, bewertungen?: { __typename?: 'BewertungRelationResponseCollection', data: Array<{ __typename?: 'BewertungEntity', attributes?: { __typename?: 'Bewertung', kommentar?: string | null, person?: Array<{ __typename?: 'ComponentUtilsGoogleReviewer', ist_anonym?: boolean | null, name?: string | null, photo_url?: string | null } | null> | null } | null }> } | null } | { __typename?: 'ComponentIntegrationenFormular', sichtbar: boolean, formular?: { __typename?: 'FormularEntityResponse', data?: { __typename?: 'FormularEntity', attributes?: { __typename?: 'Formular', titel?: string | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, Fragen: Array<{ __typename?: 'ComponentFormDatum', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormDatumUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormLongText', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormMultipleChoice', frage: string, notwendig?: boolean | null, moeglichkeit?: Array<{ __typename?: 'ComponentFormAntwortmoeglichkeit', antwort?: string | null, id: string } | null> | null } | { __typename?: 'ComponentFormTextForm', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'Error', code: string, message?: string | null } | null> } | null } | null } | null } | { __typename?: 'ComponentIntegrationenJobs', STYLE: Enum_Componentintegrationenjobs_Style, alle_anzeigen?: boolean | null, jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', art: Enum_Job_Art, auszug?: string | null, beschreibung?: string | null, publishedAt?: any | null, slug: string, titel: string, badges?: Array<{ __typename?: 'ComponentUtilsBadge', text: string, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | null }> } | null } | { __typename?: 'ComponentListenGridListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, inhalt?: Array<{ __typename?: 'ComponentUtilsGridElement', text?: string | null, titel?: string | null, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentListenIndustrieListe', industrien?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', beschreibung?: string | null, slug?: string | null, titel?: string | null, alle_anzeigen?: boolean | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null }> } | null } | { __typename?: 'ComponentListenTimelineListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, timeline_karten?: Array<{ __typename?: 'ComponentUtilsTimelineKarte', beschreibung?: string | null, titel: string, zeitpunkt: any, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentSektionenInhaltMitMedia', MEDIA_POSITION: Enum_Componentsektioneninhaltmitmedia_Media_Position, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, media: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } } | { __typename?: 'ComponentSliderHorizontalerSlider', sichtbar: boolean, cards?: Array<{ __typename?: 'ComponentSliderSliderCard', icon_text?: string | null, text?: string | null, ueberschrift?: string | null, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null, uberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'ComponentSliderHorizontalerSliderFokus', background_anzeigen?: boolean | null, karten_ausserhalb_anzeigen?: boolean | null, sichtbar: boolean, button?: { __typename?: 'ComponentUtilsButton', id: string, text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null, cards?: Array<{ __typename?: 'ComponentSliderSliderCard2', text?: string | null, ueberschrift?: string | null, vorteile?: string | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'Error', code: string, message?: string | null } | null> | null } | null }> } | null };
+export type GetPageQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', slug?: string | null, seo?: { __typename?: 'ComponentSharedSeo', meta_description: string, meta_title: string, canonical_URL?: string | null, meta_image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch', ausrichtung?: Enum_Componentheadingsheadingminimalistisch_Ausrichtung | null, beschreibung?: string | null, dekoration_anzeigen?: boolean | null, titel: string, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | { __typename?: 'ComponentHeadingsHeadingMitVideo', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, heading_media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, height?: number | null, url: string, width?: number | null } | null } | null } | null } | { __typename?: 'ComponentHerosHero1', sichtbar: boolean, hero_btn?: Array<{ __typename?: 'ComponentUtilsButton', text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null> | null, hintergrund?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, url: string } | null } | null } | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'ComponentIntegrationenBewertungen', alle_anzeigen?: boolean | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, bewertungen?: { __typename?: 'BewertungRelationResponseCollection', data: Array<{ __typename?: 'BewertungEntity', attributes?: { __typename?: 'Bewertung', kommentar?: string | null, person?: Array<{ __typename?: 'ComponentUtilsGoogleReviewer', ist_anonym?: boolean | null, name?: string | null, photo_url?: string | null } | null> | null } | null }> } | null } | { __typename?: 'ComponentIntegrationenFormular', sichtbar: boolean, formular?: { __typename?: 'FormularEntityResponse', data?: { __typename?: 'FormularEntity', attributes?: { __typename?: 'Formular', titel?: string | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, Fragen: Array<{ __typename?: 'ComponentFormDatum', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormDatumUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormLongText', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormMultipleChoice', frage: string, notwendig?: boolean | null, moeglichkeit?: Array<{ __typename?: 'ComponentFormAntwortmoeglichkeit', antwort?: string | null, id: string } | null> | null } | { __typename?: 'ComponentFormTextForm', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'Error', code: string, message?: string | null } | null> } | null } | null } | null } | { __typename?: 'ComponentIntegrationenJobs', STYLE: Enum_Componentintegrationenjobs_Style, alle_anzeigen?: boolean | null, jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', art: Enum_Job_Art, auszug?: string | null, beschreibung?: string | null, publishedAt?: any | null, slug: string, titel: string, badges?: Array<{ __typename?: 'ComponentUtilsBadge', text: string, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | null }> } | null } | { __typename?: 'ComponentListenGridListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, inhalt?: Array<{ __typename?: 'ComponentUtilsGridElement', text?: string | null, titel?: string | null, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentListenIndustrieListe', industrien?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', beschreibung?: string | null, slug?: string | null, titel?: string | null, alle_anzeigen?: boolean | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null }> } | null } | { __typename?: 'ComponentListenTimelineListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, timeline_karten?: Array<{ __typename?: 'ComponentUtilsTimelineKarte', beschreibung?: string | null, titel: string, zeitpunkt: any, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentSektionenInhaltMitMedia', MEDIA_POSITION: Enum_Componentsektioneninhaltmitmedia_Media_Position, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, media: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } } | { __typename?: 'ComponentSliderHorizontalerSlider', sichtbar: boolean, cards?: Array<{ __typename?: 'ComponentSliderSliderCard', icon_text?: string | null, text?: string | null, ueberschrift?: string | null, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null, uberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'ComponentSliderHorizontalerSliderFokus', background_anzeigen?: boolean | null, karten_ausserhalb_anzeigen?: boolean | null, sichtbar: boolean, button?: { __typename?: 'ComponentUtilsButton', id: string, text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null, cards?: Array<{ __typename?: 'ComponentSliderSliderCard2', text?: string | null, ueberschrift?: string | null, vorteile?: string | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null, medien?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, caption?: string | null, url: string, name: string } | null }> } | null } | null> | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, autoplay?: { __typename?: 'ComponentUtilsAutoplayEinstellungen', ist_aktiv?: boolean | null, dauer?: number | null } | null } | { __typename?: 'ComponentUtilsText' } | { __typename?: 'Error', code: string, message?: string | null } | null> | null } | null }> } | null };
 
 export type GetPageHandleQueryVariables = Exact<{
   filters?: InputMaybe<SeiteFiltersInput>;
@@ -2776,7 +2951,7 @@ export type GetPageHandleQueryVariables = Exact<{
 }>;
 
 
-export type GetPageHandleQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null, localizations?: { __typename?: 'SeiteRelationResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null } | null }> } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch' } | { __typename?: 'ComponentHeadingsHeadingMitVideo' } | { __typename?: 'ComponentHerosHero1' } | { __typename?: 'ComponentIntegrationenBewertungen' } | { __typename?: 'ComponentIntegrationenFormular' } | { __typename?: 'ComponentIntegrationenJobs', jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, localizations?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', slug: string, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenGridListe' } | { __typename?: 'ComponentListenIndustrieListe', industrien?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', locale?: string | null, slug?: string | null, localizations?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', slug?: string | null, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenTimelineListe' } | { __typename?: 'ComponentSektionenInhaltMitMedia' } | { __typename?: 'ComponentSliderHorizontalerSlider' } | { __typename?: 'ComponentSliderHorizontalerSliderFokus' } | { __typename?: 'Error' } | null> | null } | null }> } | null };
+export type GetPageHandleQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null, localizations?: { __typename?: 'SeiteRelationResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null } | null }> } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch' } | { __typename?: 'ComponentHeadingsHeadingMitVideo' } | { __typename?: 'ComponentHerosHero1' } | { __typename?: 'ComponentIntegrationenBewertungen' } | { __typename?: 'ComponentIntegrationenFormular' } | { __typename?: 'ComponentIntegrationenJobs', jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, localizations?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', slug: string, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenGridListe' } | { __typename?: 'ComponentListenIndustrieListe', industrien?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', locale?: string | null, slug?: string | null, localizations?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', slug?: string | null, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenTimelineListe' } | { __typename?: 'ComponentSektionenInhaltMitMedia' } | { __typename?: 'ComponentSliderHorizontalerSlider' } | { __typename?: 'ComponentSliderHorizontalerSliderFokus' } | { __typename?: 'ComponentUtilsText' } | { __typename?: 'Error' } | null> | null } | null }> } | null };
 
 export type GetProductsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -3148,6 +3323,16 @@ export const GetPageDocument = gql`
               text
               ueberschrift
               vorteile
+              medien {
+                data {
+                  attributes {
+                    alternativeText
+                    caption
+                    url
+                    name
+                  }
+                }
+              }
             }
             karten_ausserhalb_anzeigen
             sichtbar
@@ -3156,6 +3341,10 @@ export const GetPageDocument = gql`
               text
               topline
               typ
+            }
+            autoplay {
+              ist_aktiv
+              dauer
             }
           }
           ... on ComponentIntegrationenFormular {

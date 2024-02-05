@@ -53,12 +53,6 @@ const Hero = ({ data }: ComponentProps) => {
     block: heroComponent.sichtbar,
   });
 
-  console.log(
-    `${serverBaseUrl?.replace("/api", "")}${heroComponent.hintergrund?.data
-      ?.attributes?.url}`,
-    serverBaseUrl
-  );
-
   return (
     <div
       className={clsx(

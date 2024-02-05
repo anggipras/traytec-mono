@@ -9,6 +9,7 @@ import {
 } from "@/modules/common/components/carousel/next-prev-btn";
 import type { ComponentSliderHorizontalerSlider } from "@/generated/graphql";
 import { serverBaseUrl } from "@/client.config";
+import LayoutContainer from "@/modules/layout/components/layout-container";
 
 interface ComponentProps {
   data: ComponentSliderHorizontalerSlider;
@@ -25,36 +26,40 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
   } = usePrevNextButtons(emblaApi);
 
   return (
-    <div className="flex flex-col mx-6 medium:mx-15 py-10 medium:pb-0 medium:pt-32.5">
-      <div className="flex flex-col text-center medium:text-start items-center medium:items-stretch">
-        <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
-          {data.uberschrift?.topline}
-        </div>
-        <div className="typo-h2 mb-6 mt-4 max-w-xl">
-          {data.uberschrift?.heading}
-        </div>
-        <div className="flex justify-between items-center">
-          <RenderHtml
-            className="text-gray-400 max-w-[670px]"
-            html={data.uberschrift?.text || ""}
-          />
-          {data.cards?.length && (
-            <div className="embla__buttons hidden medium:flex gap-4">
-              <PrevButton
-                disabled={prevBtnDisabled}
-                onClick={onPrevButtonClick}
-              />
-              <NextButton
-                disabled={nextBtnDisabled}
-                onClick={onNextButtonClick}
-              />
+    <div className="medium:pb-0 medium:pt-32.5">
+      <LayoutContainer>
+        <div className="mx-6 medium:mx-15 py-10">
+          <div className="flex flex-col text-center medium:text-start items-center medium:items-stretch">
+            <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
+              {data.uberschrift?.topline}
             </div>
-          )}
+            <div className="typo-h2 mb-6 mt-4 max-w-xl">
+              {data.uberschrift?.heading}
+            </div>
+            <div className="flex justify-between items-center">
+              <RenderHtml
+                className="text-gray-400 max-w-[670px]"
+                html={data.uberschrift?.text || ""}
+              />
+              {data.cards?.length && (
+                <div className="embla__buttons hidden medium:flex gap-4">
+                  <PrevButton
+                    disabled={prevBtnDisabled}
+                    onClick={onPrevButtonClick}
+                  />
+                  <NextButton
+                    disabled={nextBtnDisabled}
+                    onClick={onNextButtonClick}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
+      </LayoutContainer>
       {data.cards?.length && (
         <>
-          <div className="embla_nowrap pt-6 pb-4 medium:pt-10 medium:pb-0">
+          <div className="embla_nowrap px-6 medium:px-15 pt-6 pb-4 medium:pt-10 medium:pb-0">
             <div className="embla__viewport" ref={emblaRef}>
               <div className="embla__container">
                 {data.cards?.map((val, index) => (
@@ -67,9 +72,8 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
                             alt="icon-slider-nowrap"
                             height={24}
                             src={
-                              `${serverBaseUrl?.replace("/api", "")}${
-                                val?.icon?.data?.attributes?.url
-                              }` || ""
+                              `${serverBaseUrl?.replace("/api", "")}${val?.icon
+                                ?.data?.attributes?.url}` || ""
                             }
                             width={24}
                           />

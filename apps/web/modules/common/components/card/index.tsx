@@ -64,14 +64,17 @@ const Card: React.FC<CardProps> = ({
           props.cursor,
           props.additionalclass
         )}
-        onClick={() => {
-          setIsOpen(true);
-        }}
         ref={cardRef}
         {...props}
       >
         {props.image && (
-          <div className={props.imgclass}>
+          <div
+            aria-hidden
+            className={clsx("cursor-pointer", props.imgclass)}
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
             <Image
               alt="card-img"
               className={props.imgstyle}
@@ -104,7 +107,7 @@ const Card: React.FC<CardProps> = ({
         {props.image && (
           <div className={props.imgclass}>
             <Image
-              alt="card-img"
+              alt="card-img-popup"
               className={props.imgstyle}
               height="0"
               sizes="100%"
