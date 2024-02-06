@@ -133,7 +133,6 @@ const FocusSlider = ({ data }: ComponentProps) => {
     if (scrolledEl)
       scrolledEl.scrollIntoView({
         behavior: "smooth",
-        block: "center",
       });
   };
 

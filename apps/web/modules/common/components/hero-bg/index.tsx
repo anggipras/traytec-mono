@@ -57,7 +57,6 @@ const Hero = ({ data }: ComponentProps) => {
     if (scrolledEl)
       scrolledEl.scrollIntoView({
         behavior: "smooth",
-        block: "center",
       });
   };
 
