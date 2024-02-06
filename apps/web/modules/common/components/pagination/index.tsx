@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary -- disable nested ternary */
 /* eslint-disable @typescript-eslint/no-non-null-assertion -- Remove non null assertion for pagination */
 import React, { useEffect, useState } from "react";
 import ChevronIcon from "@/modules/common/icons/chevron";
@@ -48,30 +49,34 @@ const PaginationSection = (props: PaginationProps) => {
 
   return (
     <div className="flex justify-center items-center list-none select-none w-full">
-      <div
-        aria-hidden="true"
-        className="hidden medium:flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full mr-3 prev arrow-icon"
-        onClick={() => {
-          onClickHandler(1);
-        }}
-      >
-        <ChevronIcon direction="left" doubleIcon />
-      </div>
-      {active > 1 ? (
+      {size > 1 && (
         <div
           aria-hidden="true"
-          className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full mr-6 prev arrow-icon"
+          className="hidden medium:flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full mr-3 prev arrow-icon"
           onClick={() => {
-            onClickHandler(active - 1);
+            onClickHandler(1);
           }}
         >
-          <ChevronIcon direction="left" />
-        </div>
-      ) : (
-        <div className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full mr-6 prev arrow-icon disabled">
-          <ChevronIcon direction="left" />
+          <ChevronIcon direction="left" doubleIcon />
         </div>
       )}
+      {size > 1 ? (
+        active > 1 ? (
+          <div
+            aria-hidden="true"
+            className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full mr-6 prev arrow-icon"
+            onClick={() => {
+              onClickHandler(active - 1);
+            }}
+          >
+            <ChevronIcon direction="left" />
+          </div>
+        ) : (
+          <div className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full mr-6 prev arrow-icon disabled">
+            <ChevronIcon direction="left" />
+          </div>
+        )
+      ) : null}
       {size > showingNumbers + startNumber ? (
         <div className="flex gap-3.5">
           <div
@@ -148,30 +153,34 @@ const PaginationSection = (props: PaginationProps) => {
           }
         </div>
       )}
-      {active < size ? (
+      {size > 1 ? (
+        active < size ? (
+          <div
+            aria-hidden="true"
+            className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ml-6 next arrow-icon"
+            onClick={() => {
+              onClickHandler(active + 1);
+            }}
+          >
+            <ChevronIcon direction="right" />
+          </div>
+        ) : (
+          <div className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ml-6 next arrow-icon disabled">
+            <ChevronIcon direction="right" />
+          </div>
+        )
+      ) : null}
+      {size > 1 && (
         <div
           aria-hidden="true"
-          className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ml-6 next arrow-icon"
+          className="hidden medium:flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ml-3 next arrow-icon"
           onClick={() => {
-            onClickHandler(active + 1);
+            onClickHandler(size);
           }}
         >
-          <ChevronIcon direction="right" />
-        </div>
-      ) : (
-        <div className="flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ml-6 next arrow-icon disabled">
-          <ChevronIcon direction="right" />
+          <ChevronIcon direction="right" doubleIcon />
         </div>
       )}
-      <div
-        aria-hidden="true"
-        className="hidden medium:flex justify-center items-center border border-gray-500 hover:bg-primary-950 hover:text-white w-10 h-10 rounded-full ml-3 next arrow-icon"
-        onClick={() => {
-          onClickHandler(size);
-        }}
-      >
-        <ChevronIcon direction="right" doubleIcon />
-      </div>
     </div>
   );
 };

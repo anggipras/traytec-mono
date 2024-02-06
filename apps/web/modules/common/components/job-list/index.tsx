@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps -- disable exh deps */
 import React, { useCallback, useEffect, useState } from "react";
-// import NativeSelect from "@/modules/common/components/native-select";
 import { clsx } from "clsx";
 import { useRouter } from "next/router";
 import { debounce } from "lodash";
+import NativeSelect from "@/modules/common/components/native-select";
 import SearchBox from "@/modules/common/components/search-box";
 import PaginationSection from "@/modules/common/components/pagination";
 import {
@@ -33,6 +34,7 @@ const JobList = ({ data }: JobListProps) => {
   const [currentData, setCurrentData] = useState<JobEntity[] | undefined>(
     data.jobs?.data
   );
+  const [selectOption, setSelectOption] = useState<string>("");
 
   useEffect(() => {
     const handleRouteChange = () => {
@@ -46,12 +48,34 @@ const JobList = ({ data }: JobListProps) => {
     };
   }, [router.events, data]);
 
+  useEffect(() => {
+    if (selectOption.length) {
+      const selectedOptResp = async () => {
+        const selectedOptData = await fetchJobWithFilter(
+          router.locale ?? "de",
+          searchQuery,
+          activePage,
+          selectOption
+        );
+        setTotalPages(
+          (selectedOptData.data.jobs as JobEntityResponseCollection).meta
+            .pagination.pageCount
+        );
+        setCurrentData(
+          (selectedOptData.data.jobs as JobEntityResponseCollection).data
+        );
+      };
+      void selectedOptResp();
+    }
+  }, [selectOption]);
+
   const activePageHandler = async (clickedActivePage: string) => {
     setActivePage(parseInt(clickedActivePage));
     const paginatedData = await fetchJobWithFilter(
       router.locale ?? "de",
       searchQuery,
-      parseInt(clickedActivePage)
+      parseInt(clickedActivePage),
+      selectOption
     );
     setTotalPages(
       (paginatedData.data.jobs as JobEntityResponseCollection).meta.pagination
@@ -66,8 +90,10 @@ const JobList = ({ data }: JobListProps) => {
     const debounceData = await fetchJobWithFilter(
       router.locale ?? "de",
       q.toLocaleLowerCase(),
-      1
+      1,
+      selectOption
     );
+
     setTotalPages(
       (debounceData.data.jobs as JobEntityResponseCollection).meta.pagination
         .pageCount
@@ -79,7 +105,7 @@ const JobList = ({ data }: JobListProps) => {
   }, 800);
 
   const fetchJobWithFilter = useCallback(
-    (locale: string, qstring: string, actPage?: number) => {
+    (locale: string, qstring: string, actPage?: number, optstring?: string) => {
       const apolloClient = getApolloClient();
       const jobVariable: {
         locale: string;
@@ -92,7 +118,20 @@ const JobList = ({ data }: JobListProps) => {
           pageSize: 10,
         },
       };
-      if (qstring.length) {
+      if (qstring.length && optstring?.length && optstring !== "ALL") {
+        jobVariable.filters = {
+          or: [
+            {
+              titel: {
+                containsi: qstring,
+              },
+              art: {
+                eq: optstring,
+              },
+            },
+          ],
+        };
+      } else if (qstring.length && optstring?.length && optstring === "ALL") {
         jobVariable.filters = {
           or: [
             {
@@ -100,20 +139,26 @@ const JobList = ({ data }: JobListProps) => {
                 containsi: qstring,
               },
             },
+          ],
+        };
+      } else if (optstring?.length && optstring !== "ALL" && !qstring.length) {
+        jobVariable.filters = {
+          or: [
             {
-              beschreibung: {
-                containsi: qstring,
+              art: {
+                eq: optstring,
               },
             },
           ],
         };
       }
+
       return apolloClient.query({
         query: GetJobDocument,
         variables: jobVariable,
       });
     },
-    [activePage]
+    [activePage, selectOption]
   );
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,30 +174,33 @@ const JobList = ({ data }: JobListProps) => {
       data.STYLE === Enum_Componentintegrationenjobs_Style.Grid,
   });
 
+  const artData = [
+    { name: "Alle", value: "ALL" },
+    { name: "Vollzeit", value: "VOLLZEIT" },
+    { name: "Teilzeit", value: "TEILZEIT" },
+    { name: "Ausbildung", value: "AUSBILDUNG" },
+    { name: "Mini Job", value: "MINI-JOB" },
+  ];
+
+  const selectJobEnum = (dt: Record<string, string>) => {
+    setSelectOption(dt.value);
+  };
+
   return (
     <div className="my-10 mx-6 medium:mx-15 medium:mt-32.5">
-      <div className="flex flex-col medium:flex-row medium:justify-end w-full gap-4 medium:gap-0">
-        {/* <div className="flex flex-col medium:flex-row gap-4 medium:gap-6">
-          <NativeSelect placeholder="All Careers">
-            <option value="allcareer1">All Career 1</option>
-            <option value="allcareer2">All Career 2</option>
-            <option value="allcareer3">All Career 3</option>
-          </NativeSelect>
-          <NativeSelect placeholder="Latest Careers">
-            <option value="latestcareer1">Latest Career 1</option>
-            <option value="latestcareer2">Latest Career 2</option>
-            <option value="latestcareer3">Latest Career 3</option>
-          </NativeSelect>
-        </div> */}
-        {data.alle_anzeigen && (
+      {data.alle_anzeigen && (
+        <div className="flex flex-col medium:flex-row medium:justify-between w-full gap-4 medium:gap-0">
+          <div className="flex flex-col medium:flex-row gap-4 medium:gap-6">
+            <NativeSelect data={artData} onSelectDt={selectJobEnum} />
+          </div>
           <SearchBox
             onChange={handleSearchChange}
             placeholder="Search..."
             type="text"
             value={searchQuery}
           />
-        )}
-      </div>
+        </div>
+      )}
       {currentData && currentData.length > 0 && (
         <>
           <div
