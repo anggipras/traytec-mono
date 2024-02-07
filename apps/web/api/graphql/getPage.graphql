@@ -143,6 +143,16 @@ query getPage(
                       moeglichkeit {
                         antwort
                         id
+                        overwrite_email
+                        icon {
+                          data {
+                            attributes {
+                              alternativeText
+                              caption
+                              url
+                            }
+                          }
+                        }
                       }
                       notwendig
                     }
@@ -155,6 +165,7 @@ query getPage(
                       message
                     }
                   }
+                  email_empfaenger
                 }
               }
             }
@@ -327,6 +338,9 @@ query getPage(
           ... on Error {
             code
             message
+          }
+          ... on ComponentUtilsText {
+            text_content: inhalt
           }
         }
       }

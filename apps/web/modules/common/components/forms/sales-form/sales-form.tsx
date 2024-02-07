@@ -18,6 +18,7 @@ interface SalesFormProps {
 interface MultipleChoiceCheckProps {
   id?: string | null;
   answer?: string | null;
+  email?: string | null;
   checked: boolean;
 }
 
@@ -43,6 +44,7 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
           formMultipleChoiceData.push({
             id: valFrageData?.id,
             answer: valFrageData?.antwort,
+            email: valFrageData?.overwrite_email,
             checked: false,
           });
         });

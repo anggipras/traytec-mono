@@ -14,6 +14,7 @@ import type {
   ComponentSektionenInhaltMitMedia,
   ComponentSliderHorizontalerSlider,
   ComponentSliderHorizontalerSliderFokus,
+  ComponentUtilsText,
   IndustrieEntity,
   JobEntity,
 } from "@/generated/graphql";
@@ -31,6 +32,7 @@ import JobDetail from "@/modules/common/components/job-detail";
 import SalesForm from "@/modules/common/components/forms/sales-form/sales-form";
 import IndustryDetail from "@/modules/common/components/industry-detail";
 import HorizontalSliderDefault from "@/modules/common/components/slider/horizontal-slider-default";
+import GeneralContent from "@/modules/common/components/general-content";
 
 export const renderDynamicContent = (contentItem: any) => {
   const { __typename } = contentItem || {};
@@ -131,6 +133,13 @@ export const renderDynamicContent = (contentItem: any) => {
           <HorizontalSliderDefault
             data={contentItem as ComponentIntegrationenBewertungen}
           />
+        </LayoutContainer>
+      );
+      break;
+    case "ComponentUtilsText":
+      item = (
+        <LayoutContainer>
+          <GeneralContent data={contentItem as ComponentUtilsText} />
         </LayoutContainer>
       );
       break;

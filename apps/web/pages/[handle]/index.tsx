@@ -82,13 +82,7 @@ const SinglePage = ({ singlePageData }) => {
     <>
       <Head description={seo.description} image={seo.image} title={seo.title} />
       {singlePage.seiten?.data?.length && (
-        <div
-          className={
-            singlePage.seiten?.data[0].attributes?.inhalte?.length === 1
-              ? "medium:pb-32.5"
-              : ""
-          }
-        >
+        <div className="medium:pb-32.5">
           <SinglePageTemplate data={singlePage} />
         </div>
       )}
