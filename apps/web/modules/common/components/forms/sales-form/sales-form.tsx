@@ -119,7 +119,7 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
 
   return (
     <div
-      className="relative bg-primary-900 medium:mb-[-135px] medium:mt-32.5"
+      className="relative bg-primary-900 medium:mb-[-135px] medium:mt-32.5 scroll-mt-[88px]"
       id={`#${salesform.formular?.data?.attributes?.titel
         ?.toLowerCase()
         .replace(" ", "-")}`}

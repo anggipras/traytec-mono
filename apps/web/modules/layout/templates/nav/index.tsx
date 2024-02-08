@@ -308,7 +308,7 @@ const NavBarTemplate = ({
                     <div
                       aria-hidden="true"
                       className={
-                        router.asPath.includes(val.path)
+                        router.asPath === val.path
                           ? "text-primary-950"
                           : "text-gray-700"
                       }
