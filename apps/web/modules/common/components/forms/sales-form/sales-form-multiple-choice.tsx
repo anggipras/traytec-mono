@@ -95,9 +95,9 @@ const SalesFormMultipleChoice = ({
             <div
               aria-hidden
               className={`${
-                multipleChoiceCheckValue[idx]?.checked
-                  ? "bg-primary-900 border-white"
-                  : "bg-gray-700 border-gray-400 hover:border-white"
+                !multipleChoiceCheckValue[idx]?.checked
+                  ? "bg-gray-900/20 border-primary-200"
+                  : "bg-gray-700/70 border-gray-400 hover:border-primary-200"
               } group transition-colors cursor-pointer rounded-2xl medium:rounded-3xl px-6 py-12 medium:px-8 border`}
               key={idx}
               onClick={(e) => {
@@ -124,9 +124,9 @@ const SalesFormMultipleChoice = ({
                 />
                 <div
                   className={`${
-                    multipleChoiceCheckValue[idx]?.checked
-                      ? "text-primary-100"
-                      : "text-gray-300 group-hover:text-white"
+                    !multipleChoiceCheckValue[idx]?.checked
+                      ? "text-white"
+                      : "text-white group-hover:text-white"
                   } transition-colors ml-3 typo-h5`}
                 >
                   {val?.icon?.data?.attributes?.caption}
@@ -134,9 +134,9 @@ const SalesFormMultipleChoice = ({
               </div>
               <RenderHtml
                 className={`${
-                  multipleChoiceCheckValue[idx]?.checked
-                    ? "text-primary-300"
-                    : "text-gray-400 group-hover:text-gray-200"
+                  !multipleChoiceCheckValue[idx]?.checked
+                    ? "text-primary-100"
+                    : "text-gray-100 group-hover:text-gray-200"
                 } transition-colors text-start leading-6.5`}
                 html={val?.antwort || ""}
               />

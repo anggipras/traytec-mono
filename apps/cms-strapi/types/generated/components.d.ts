@@ -20,6 +20,25 @@ export interface FormAntwortmoeglichkeit extends Schema.Component {
   };
 }
 
+export interface FormDaten extends Schema.Component {
+  collectionName: 'components_form_datens';
+  info: {
+    displayName: 'Daten';
+    icon: 'cloud';
+  };
+  attributes: {
+    notwendig: Attribute.Boolean & Attribute.DefaultTo<false>;
+    frage: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'HTML';
+          preset: 'light';
+        }
+      >;
+  };
+}
+
 export interface FormDatumUhrzeit extends Schema.Component {
   collectionName: 'components_form_datum_uhrzeits';
   info: {
@@ -621,6 +640,7 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'form.antwortmoeglichkeit': FormAntwortmoeglichkeit;
+      'form.daten': FormDaten;
       'form.datum-uhrzeit': FormDatumUhrzeit;
       'form.datum': FormDatum;
       'form.long-text': FormLongText;

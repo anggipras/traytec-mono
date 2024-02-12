@@ -1,21 +1,29 @@
-import React from "react";
+/* eslint-disable import/no-named-as-default-member -- disable no named as default member */
+/* eslint-disable @typescript-eslint/non-nullable-type-assertion-style -- disable non-nullable type assertion style */
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import qs from "qs";
 import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
 import type { SeitenEinstellung } from "@/generated/graphql";
 import { SmallIcon } from "@/types/icon";
 import RenderHtml from "@/modules/common/components/render-html";
-import { serverBaseUrl } from "@/client.config";
+import clientConfig, { serverBaseUrl } from "@/client.config";
 
 interface FooterComponentProps {
   footervalue?: SeitenEinstellung;
 }
 
 const FooterComponent = ({ footervalue }: FooterComponentProps) => {
+  const [footerNavMenu, setFooterNavMenu] = useState([
+    {
+      path: "",
+      menuName: "",
+    },
+  ]);
   const router = useRouter();
   const navResponse = useStrapiPluginNavigationTree("main-navigation", {
-    // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style -- disable non-nullable-type-assertion-style
     locale: router.locale as string,
   });
   const newNavbarMenu: any = { ...navResponse };
@@ -33,6 +41,29 @@ const FooterComponent = ({ footervalue }: FooterComponentProps) => {
     });
     navbarMenu = mappedNavbarMenu;
   }
+
+  useEffect(() => {
+    const fetchFooterNav = async () => {
+      let url = `${clientConfig.serverBaseUrl}/navigation/render/footer-navigation`;
+      const query_ = {
+        locale: router.locale as string,
+        type: "TREE",
+      };
+      const params = qs.stringify(query_);
+      if (params) {
+        url = `${url}?${params}`;
+      }
+      const fetchData = await fetch(url);
+      const fetchDataJSON = await fetchData.json();
+      if (fetchDataJSON.length) {
+        const mappedFooterNavMenu = fetchDataJSON.map((footerNavVal: any) => {
+          return { path: footerNavVal.path, menuName: footerNavVal.title };
+        });
+        setFooterNavMenu(mappedFooterNavMenu);
+      }
+    };
+    void fetchFooterNav();
+  }, [router.locale]);
 
   return (
     <div className="relative bg-primary-900">
@@ -127,9 +158,14 @@ const FooterComponent = ({ footervalue }: FooterComponentProps) => {
                 traytec GmbH {new Date().getFullYear().toString()}. All rights
                 reserved.
               </div>
-              <div className="typo-copy-normal">
-                imprint &#124; <span>Generelles Geschäftbedingungen</span>{" "}
-                &#124; Datenschutz
+              <div className="flex typo-copy-normal">
+                {footerNavMenu.map((ftNav, ftIdx) => {
+                  return (
+                    <Link href={ftNav.path} key={ftIdx}>
+                      &#160; {ftNav.menuName} &#124;
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>
