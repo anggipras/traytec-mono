@@ -67,7 +67,7 @@ const FooterComponent = ({ footervalue }: FooterComponentProps) => {
                         {val?.typ && (
                           <div
                             aria-hidden
-                            className="mr-6 self-center"
+                            className="cursor-pointer mr-6 self-center"
                             onClick={() => {
                               window.open(val.url || "", "_blank");
                             }}
