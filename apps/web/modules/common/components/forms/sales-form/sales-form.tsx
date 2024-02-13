@@ -57,7 +57,8 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
         valFrage?.__typename === "ComponentFormLongText" ||
         valFrage?.__typename === "ComponentFormDatumUhrzeit" ||
         valFrage?.__typename === "ComponentFormDatum" ||
-        valFrage?.__typename === "ComponentFormUhrzeit"
+        valFrage?.__typename === "ComponentFormUhrzeit" ||
+        valFrage?.__typename === "ComponentFormDaten"
       ) {
         fragenData.push({
           _typename: valFrage?.__typename,
@@ -100,7 +101,17 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
         setStepQ(stepFormData);
       }
     } else {
-      console.log("submitData", formData);
+      const inputFileFilter = formData.filter(
+        (fmVal) => fmVal._typename === "ComponentFormDaten"
+      );
+
+      if (inputFileFilter.length) {
+        const formDataAppend = new FormData();
+        Object.keys(inputFileFilter[0].formDataValue).forEach((key) => {
+          const inputFilterValue = inputFileFilter[0].formDataValue[key];
+          formDataAppend.append("files", inputFilterValue);
+        });
+      }
     }
     scrollIntoTop();
   }, [emblaApi]);

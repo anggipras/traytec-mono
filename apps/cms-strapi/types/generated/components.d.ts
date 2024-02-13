@@ -25,10 +25,12 @@ export interface FormDaten extends Schema.Component {
   info: {
     displayName: 'Daten';
     icon: 'cloud';
+    description: '';
   };
   attributes: {
     notwendig: Attribute.Boolean & Attribute.DefaultTo<false>;
     frage: Attribute.RichText &
+      Attribute.Required &
       Attribute.CustomField<
         'plugin::ckeditor.CKEditor',
         {
