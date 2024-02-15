@@ -143,12 +143,26 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
           formDataAppend.append("files", inputFilterValue);
         });
       }
+      const emailFilterValidation = formData.filter(
+        (fmVal) =>
+          fmVal._typename === "ComponentFormTextForm" &&
+          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.exec(
+            fmVal.formDataValue as string
+          )
+      );
 
       const emailData = {
         to: formResponseData.email_empfaenger,
-        from: "noreply@nosc.ai",
-        replyTo: "email",
-        subject: "this is subject",
+        from: emailFilterValidation.length
+          ? (
+              emailFilterValidation as {
+                _typename: string | undefined;
+                title: string;
+                formDataValue: any;
+              }[]
+            )[0].formDataValue
+          : "",
+        subject: "This is the subject for test email",
         text: mappedFormData,
       };
 
