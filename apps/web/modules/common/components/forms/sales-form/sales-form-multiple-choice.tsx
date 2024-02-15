@@ -84,10 +84,7 @@ const SalesFormMultipleChoice = ({
     <div>
       <div className="flex mb-10">
         <div className="mr-3">{formIdx + 1}.</div>
-        <RenderHtml
-          className="mx-auto"
-          html={multipleChoiceFormValue.frage || ""}
-        />
+        <RenderHtml html={multipleChoiceFormValue.frage || ""} />
       </div>
       <div className="grid medium:grid-cols-2 gap-4 medium:gap-5">
         {multipleChoiceFormValue.moeglichkeit?.length &&

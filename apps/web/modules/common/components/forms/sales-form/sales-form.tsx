@@ -10,6 +10,7 @@ import type {
   Formular,
 } from "@/generated/graphql";
 import { useData } from "@/lib/hooks/use-data-context";
+import { sendEmail } from "@/api/rest/strapi";
 
 interface SalesFormProps {
   salesform: ComponentIntegrationenFormular;
@@ -26,6 +27,13 @@ interface FormStep {
   status: "complete" | "current" | "upcoming";
 }
 
+interface MultipleChoiceType {
+  id: string;
+  answer: string;
+  email: string;
+  checked: boolean;
+}
+
 const SalesForm = ({ salesform }: SalesFormProps) => {
   const { formData, setSharedFormData } = useData();
   const [stepQ, setStepQ] = useState<FormStep[]>();
@@ -34,6 +42,7 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
   useEffect(() => {
     const fragenData: {
       _typename: string | undefined;
+      title: string;
       formDataValue: any;
     }[] = [];
     const formStep: FormStep[] = [];
@@ -49,7 +58,8 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
           });
         });
         fragenData.push({
-          _typename: valFrage?.__typename,
+          _typename: valFrage.__typename,
+          title: valFrage.frage,
           formDataValue: formMultipleChoiceData,
         });
       } else if (
@@ -61,7 +71,8 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
         valFrage?.__typename === "ComponentFormDaten"
       ) {
         fragenData.push({
-          _typename: valFrage?.__typename,
+          _typename: valFrage.__typename,
+          title: valFrage.frage,
           formDataValue: "",
         });
       }
@@ -101,17 +112,53 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
         setStepQ(stepFormData);
       }
     } else {
+      const mappedFormData: string = formData
+        .map((formValue) => {
+          if (formValue._typename === "ComponentFormMultipleChoice") {
+            const interestedIn = (
+              formValue.formDataValue as MultipleChoiceType[]
+            )
+              .filter((mpVal) => mpVal.checked)
+              .map((filteredMC) => removeHtmlTags(filteredMC.answer))
+              .join("\n");
+            return `${removeHtmlTags(formValue.title)}: ${interestedIn}`;
+          } else if (formValue._typename === "ComponentFormDaten") {
+            return `${removeHtmlTags(formValue.title)}: warsawa`;
+          } else if (formValue._typename === "ComponentFormDatumUhrzeit") {
+            const parsedDate = new Date(formValue.formDataValue).toDateString();
+            return `${removeHtmlTags(formValue.title)}: ${parsedDate}`;
+          }
+          return `${removeHtmlTags(formValue.title)}: ${
+            formValue.formDataValue
+          }`;
+        })
+        .join("\n\n");
       const inputFileFilter = formData.filter(
         (fmVal) => fmVal._typename === "ComponentFormDaten"
       );
-
+      const formDataAppend = new FormData();
       if (inputFileFilter.length) {
-        const formDataAppend = new FormData();
         Object.keys(inputFileFilter[0].formDataValue).forEach((key) => {
           const inputFilterValue = inputFileFilter[0].formDataValue[key];
           formDataAppend.append("files", inputFilterValue);
         });
       }
+
+      const emailData = {
+        to: formResponseData.email_empfaenger,
+        from: "noreply@nosc.ai",
+        replyTo: "email",
+        subject: "this is subject",
+        text: mappedFormData,
+      };
+
+      sendEmail(emailData)
+        ?.then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     scrollIntoTop();
   }, [emblaApi]);
@@ -126,6 +173,10 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
       inquiryElement.scrollIntoView({
         behavior: "smooth",
       });
+  };
+
+  const removeHtmlTags = (htmlString: string): string => {
+    return htmlString.replace(/<[^>]*>/g, "");
   };
 
   return (
@@ -155,7 +206,7 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
         </div>
         <div className="text-white z-10">
           {formResponseData.ueberschrift && (
-            <div className="flex flex-col m-auto items-center text-center max-w-3xl px-6 pt-10 medium:pt-15">
+            <div className="flex flex-col m-auto max-w-3xl pt-10 medium:pt-15">
               {formResponseData.ueberschrift?.heading && (
                 <div className="typo-h2 mb-4 medium:mb-5">
                   {formResponseData.ueberschrift?.heading}
