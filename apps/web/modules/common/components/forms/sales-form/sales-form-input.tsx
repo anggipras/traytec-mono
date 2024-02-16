@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Button from "../../button";
 import RenderHtml from "../../render-html";
 import type {
+  ComponentFormDaten,
   ComponentFormDatum,
   ComponentFormDatumUhrzeit,
   ComponentFormLongText,
@@ -21,6 +22,7 @@ interface FormProps {
     | ComponentFormLongText
     | ComponentFormTextForm
     | ComponentFormUhrzeit
+    | ComponentFormDaten
     | null
     | undefined;
   scrollNext: Function;
@@ -36,6 +38,7 @@ const SalesFormInput = ({
 }: FormProps) => {
   const __typename = formValue?.__typename;
   const [formInputValue, setFormInputValue] = useState<string>("");
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const reqField = formValue?.notwendig || false;
   const { formData, setSharedFormData } = useData();
 
@@ -47,6 +50,13 @@ const SalesFormInput = ({
     setFormInputValue(e.target.value);
     const spreadOutFromData = [...formData];
     spreadOutFromData[formIdx].formDataValue = e.target.value;
+    setSharedFormData(spreadOutFromData);
+  };
+
+  const setInputFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedFiles(e.target.files);
+    const spreadOutFromData = [...formData];
+    spreadOutFromData[formIdx].formDataValue = e.target.files;
     setSharedFormData(spreadOutFromData);
   };
 
@@ -68,6 +78,22 @@ const SalesFormInput = ({
             setFormValue(e);
           }}
           rows={10}
+        />
+      );
+    } else if (__typename === "ComponentFormDaten") {
+      return (
+        <input
+          className="block mt-2 w-fit text-sm text-white
+          file:mr-4 file:py-2 file:px-4 file:rounded-md
+          file:border-0 file:text-sm file:font-semibold
+          file:bg-primary-50 file:text-primary-900
+          hover:file:bg-primary-100 hover:file:cursor-pointer"
+          id="multiple_files"
+          multiple
+          onChange={(e) => {
+            setInputFiles(e);
+          }}
+          type="file"
         />
       );
     }
@@ -130,7 +156,9 @@ const SalesFormInput = ({
             formData.length - 1 === formIdx
               ? false
               : reqField
-                ? !formInputValue
+                ? selectedFiles
+                  ? !(selectedFiles.length > 0)
+                  : !formInputValue
                 : false
           }
           onMouseClick={(e: MouseEvent) => scrollNext(e)}

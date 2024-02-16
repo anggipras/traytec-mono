@@ -42,9 +42,9 @@
   --slide-size: 33.33%;
   --slide-height: 19rem;
 }
-.embla_industry {
+.embla_focus_slider {
   --slide-spacing: 1rem;
-  --slide-size: 50%;
+  --slide-size: 600px;
   --slide-height: 19rem;
 }
 .embla__viewport {
@@ -103,4 +103,10 @@
 .embla__button__svg {
   width: 65%;
   height: 65%;
+}
+.embla__class-names {
+  transition: opacity 0.2s ease-in-out;
+}
+.embla__class-names:not(.is-snapped) {
+  opacity: 0.16;
 }

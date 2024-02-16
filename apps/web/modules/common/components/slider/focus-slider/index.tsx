@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { EmblaOptionsType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
+import ClassNames from "embla-carousel-class-names";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
-import { flushSync } from "react-dom";
 import RenderHtml from "../../render-html";
 import Card from "../../card";
 import Button from "@/modules/common/components/button";
@@ -21,14 +21,9 @@ interface ComponentProps {
   data: ComponentSliderHorizontalerSliderFokus;
 }
 
-const TWEEN_FACTOR = 2.5;
-
-const numberWithinRange = (number: number, min: number, max: number): number =>
-  Math.min(Math.max(number, min), max);
-
 const FocusSlider = ({ data }: ComponentProps) => {
   const emblaOptions: EmblaOptionsType = {
-    align: "start",
+    align: "center",
     containScroll: false,
     loop: true,
   };
@@ -42,52 +37,14 @@ const FocusSlider = ({ data }: ComponentProps) => {
           }),
         ]
       : [];
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions, [ClassNames()]);
   const [emblaRefMob, emblaApiMob] = useEmblaCarousel(emblaOptions);
   const [emblaRefProduct, emblaApiProduct] = useEmblaCarousel(
     emblaOptions,
     autoplayOption
   );
-  const [tweenValues, setTweenValues] = useState<number[]>([]);
   const [screenWidth, setScreenWidth] = useState(0);
   const [countSlider, setCountSlider] = useState(0);
-
-  const onScroll = useCallback(() => {
-    if (!emblaApi) return;
-
-    const engine = emblaApi.internalEngine();
-    const scrollProgress = emblaApi.scrollProgress();
-
-    const styles = emblaApi.scrollSnapList().map((scrollSnap, index) => {
-      let diffToTarget = scrollSnap - scrollProgress;
-
-      if (engine.options.loop) {
-        engine.slideLooper.loopPoints.forEach((loopItem) => {
-          const target = loopItem.target();
-          if (index === loopItem.index && target !== 0) {
-            const sign = Math.sign(target);
-            if (sign === -1) diffToTarget = scrollSnap - (1 + scrollProgress);
-            if (sign === 1) diffToTarget = scrollSnap + (1 - scrollProgress);
-          }
-        });
-      }
-      const tweenValue = 1 - Math.abs(diffToTarget * TWEEN_FACTOR);
-      return numberWithinRange(tweenValue, 0, 1);
-    });
-    setTweenValues(styles);
-  }, [emblaApi, setTweenValues]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    onScroll();
-    emblaApi.on("scroll", () => {
-      flushSync(() => {
-        onScroll();
-      });
-    });
-    emblaApi.on("reInit", onScroll);
-  }, [emblaApi, onScroll]);
 
   let basedOnDesign: any;
   if (!data.background_anzeigen || !data.karten_ausserhalb_anzeigen) {
@@ -268,7 +225,9 @@ const FocusSlider = ({ data }: ComponentProps) => {
         <>
           <div className="relative mx-6 medium:mx-0 mt-5 medium:mt-10">
             <div
-              className={screenWidth > 1279 ? "embla_industry" : "embla_main"}
+              className={
+                screenWidth > 1279 ? "embla_focus_slider" : "embla_main"
+              }
             >
               <div
                 className="embla__viewport"
@@ -277,15 +236,10 @@ const FocusSlider = ({ data }: ComponentProps) => {
                 <div className="embla__container">
                   {data.cards?.map((val, index) => (
                     <div
-                      className="embla__slide"
+                      className={`embla__slide ${
+                        screenWidth > 1279 ? "embla__class-names" : null
+                      }`}
                       key={index}
-                      style={{
-                        ...(screenWidth > 1279
-                          ? tweenValues.length && {
-                              opacity: tweenValues[index],
-                            }
-                          : null),
-                      }}
                     >
                       <div className="px-0 medium:px-12">
                         <div className="flex flex-col justify-center items-center bg-gray-50 rounded-3xl p-6">
@@ -316,13 +270,13 @@ const FocusSlider = ({ data }: ComponentProps) => {
                 </div>
               </div>
             </div>
-            <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-0 bottom-0 left-0 right-[50vw]">
+            <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-0 bottom-0 left-0 right-[600px]">
               <PrevButton
                 disabled={prevBtnDisabled}
                 onClick={onPrevButtonClick}
               />
             </div>
-            <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-0 bottom-0 left-[50vw] right-0">
+            <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-0 bottom-0 left-[600px] right-0">
               <NextButton
                 disabled={nextBtnDisabled}
                 onClick={onNextButtonClick}

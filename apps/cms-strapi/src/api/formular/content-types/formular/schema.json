@@ -23,7 +23,8 @@
         "form.datum-uhrzeit",
         "form.datum",
         "form.multiple-choice",
-        "form.uhrzeit"
+        "form.uhrzeit",
+        "form.daten"
       ],
       "required": true
     },

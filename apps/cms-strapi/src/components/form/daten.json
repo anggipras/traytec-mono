@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_form_datens",
+  "info": {
+    "displayName": "Daten",
+    "icon": "cloud",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "notwendig": {
+      "type": "boolean",
+      "default": false
+    },
+    "frage": {
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "light"
+      },
+      "customField": "plugin::ckeditor.CKEditor",
+      "required": true
+    }
+  }
+}

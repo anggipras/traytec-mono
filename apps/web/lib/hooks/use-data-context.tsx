@@ -8,6 +8,7 @@ interface DataContextProps {
 
 interface FormDataProps {
   _typename: string | undefined;
+  title: string;
   formDataValue: any;
 }
 

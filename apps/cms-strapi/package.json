@@ -9,13 +9,13 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
   "dependencies": {
     "@ckeditor/strapi-plugin-ckeditor": "^0.0.10",
     "@strapi/plugin-graphql": "4.4.5",
     "@strapi/plugin-i18n": "4.14.0",
     "@strapi/plugin-seo": "^1.7.7",
     "@strapi/plugin-users-permissions": "4.14.0",
+    "@strapi/provider-email-amazon-ses": "^4.20.1",
     "@strapi/strapi": "4.14.0",
     "axios": "^1.6.2",
     "codemirror": "5.65.11",

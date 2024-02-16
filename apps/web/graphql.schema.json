@@ -2217,6 +2217,61 @@
       },
       {
         "kind": "OBJECT",
+        "name": "ComponentFormDaten",
+        "description": null,
+        "fields": [
+          {
+            "name": "frage",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "notwendig",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "ComponentFormDatum",
         "description": null,
         "fields": [
@@ -8399,6 +8454,11 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "ComponentFormDaten",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "ComponentFormDatum",
             "ofType": null
           },
@@ -8538,6 +8598,11 @@
           {
             "kind": "OBJECT",
             "name": "ComponentFormAntwortmoeglichkeit",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ComponentFormDaten",
             "ofType": null
           },
           {

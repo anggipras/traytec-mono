@@ -160,6 +160,10 @@ query getPage(
                       frage
                       notwendig
                     }
+                    ... on ComponentFormDaten {
+                      frage
+                      notwendig
+                    }
                     ... on Error {
                       code
                       message

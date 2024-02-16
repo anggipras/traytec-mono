@@ -12,18 +12,14 @@ export const useStrapiPluginNavigationTree = (
     queryKey: ["strapi-plugin-navigation", query],
     queryFn: () => {
       let url = `${clientConfig.serverBaseUrl}/navigation/render/${idOrSlug}`;
-
       const query_ = {
         ...query,
         type: "TREE",
       };
-
       const params = qs.stringify(query_);
-
       if (params) {
         url = `${url}?${params}`;
       }
-
       return fetch(url).then((res) => res.json());
     },
   });

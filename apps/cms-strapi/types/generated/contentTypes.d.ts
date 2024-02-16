@@ -1090,7 +1090,8 @@ export interface ApiFormularFormular extends Schema.CollectionType {
         'form.datum-uhrzeit',
         'form.datum',
         'form.multiple-choice',
-        'form.uhrzeit'
+        'form.uhrzeit',
+        'form.daten'
       ]
     > &
       Attribute.Required;

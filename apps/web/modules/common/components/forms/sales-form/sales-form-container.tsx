@@ -36,7 +36,8 @@ const SalesFormContainer = ({
     __typename === "ComponentFormDatumUhrzeit" ||
     __typename === "ComponentFormTextForm" ||
     __typename === "ComponentFormDatum" ||
-    __typename === "ComponentFormUhrzeit"
+    __typename === "ComponentFormUhrzeit" ||
+    __typename === "ComponentFormDaten"
   ) {
     item = (
       <SalesFormInput
