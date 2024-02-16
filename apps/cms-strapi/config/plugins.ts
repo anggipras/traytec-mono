@@ -28,15 +28,20 @@ module.exports = ({ env }) => ({
     enabled: true,
   },
   upload: {
-    enabled: true,
     config: {
-      provider: "strapi-provider-upload-do",
+      provider: "aws-s3",
       providerOptions: {
-        key: env("DO_SPACE_ACCESS_KEY"),
-        secret: env("DO_SPACE_SECRET_KEY"),
+        accessKeyId: env("DO_SPACE_ACCESS_KEY"),
+        secretAccessKey: env("DO_SPACE_SECRET_KEY"),
         endpoint: env("DO_SPACE_ENDPOINT"),
-        space: env("DO_SPACE_BUCKET"),
-        directory: env("DO_SPACE_DIRECTORY"),
+        params: {
+          Bucket: env("DO_SPACE_BUCKET"),
+        },
+      },
+      actionOptions: {
+        upload: {},
+        uploadStream: {},
+        delete: {},
       },
     },
   },

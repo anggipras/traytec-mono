@@ -23,7 +23,7 @@
     "pg": "^8.8.0",
     "pg-connection-string": "^2.6.2",
     "strapi-plugin-navigation": "^2.3.2",
-    "strapi-provider-upload-do": "^3.6.9"
+    "strapi-provider-upload-do": "^3.6.6"
   },
   "author": {
     "name": "NoscAi GmbH"

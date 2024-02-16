@@ -4,8 +4,24 @@ export default [
     name: "strapi::security",
     config: {
       contentSecurityPolicy: {
+        useDefaults: true,
         directives: {
-          "img-src": ["*"],
+          "connect-src": ["'self'", "https:"],
+          "img-src": [
+            "'self'",
+            "data:",
+            "blob:",
+            "dl.airtable.com",
+            "*.digitaloceanspaces.com",
+          ],
+          "media-src": [
+            "'self'",
+            "data:",
+            "blob:",
+            "dl.airtable.com",
+            "*.digitaloceanspaces.com",
+          ],
+          upgradeInsecureRequests: null,
         },
       },
     },
