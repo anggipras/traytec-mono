@@ -40,50 +40,52 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
   const formResponseData = salesform.formular?.data?.attributes as Formular;
 
   useEffect(() => {
-    const fragenData: {
-      _typename: string | undefined;
-      title: string;
-      formDataValue: any;
-    }[] = [];
-    const formStep: FormStep[] = [];
-    formResponseData.Fragen.forEach((valFrage, idx) => {
-      if (valFrage?.__typename === "ComponentFormMultipleChoice") {
-        const formMultipleChoiceData: MultipleChoiceCheckProps[] = [];
-        valFrage.moeglichkeit?.forEach((valFrageData) => {
-          formMultipleChoiceData.push({
-            id: valFrageData?.id,
-            answer: valFrageData?.antwort,
-            email: valFrageData?.overwrite_email,
-            checked: false,
+    if (formResponseData) {
+      const fragenData: {
+        _typename: string | undefined;
+        title: string;
+        formDataValue: any;
+      }[] = [];
+      const formStep: FormStep[] = [];
+      formResponseData.Fragen.forEach((valFrage, idx) => {
+        if (valFrage?.__typename === "ComponentFormMultipleChoice") {
+          const formMultipleChoiceData: MultipleChoiceCheckProps[] = [];
+          valFrage.moeglichkeit?.forEach((valFrageData) => {
+            formMultipleChoiceData.push({
+              id: valFrageData?.id,
+              answer: valFrageData?.antwort,
+              email: valFrageData?.overwrite_email,
+              checked: false,
+            });
           });
-        });
-        fragenData.push({
-          _typename: valFrage.__typename,
-          title: valFrage.frage,
-          formDataValue: formMultipleChoiceData,
-        });
-      } else if (
-        valFrage?.__typename === "ComponentFormTextForm" ||
-        valFrage?.__typename === "ComponentFormLongText" ||
-        valFrage?.__typename === "ComponentFormDatumUhrzeit" ||
-        valFrage?.__typename === "ComponentFormDatum" ||
-        valFrage?.__typename === "ComponentFormUhrzeit" ||
-        valFrage?.__typename === "ComponentFormDaten"
-      ) {
-        fragenData.push({
-          _typename: valFrage.__typename,
-          title: valFrage.frage,
-          formDataValue: "",
-        });
-      }
-      if (idx === 0) {
-        formStep.push({ status: "current" });
-      } else {
-        formStep.push({ status: "upcoming" });
-      }
-    });
-    setStepQ(formStep);
-    setSharedFormData(fragenData);
+          fragenData.push({
+            _typename: valFrage.__typename,
+            title: valFrage.frage,
+            formDataValue: formMultipleChoiceData,
+          });
+        } else if (
+          valFrage?.__typename === "ComponentFormTextForm" ||
+          valFrage?.__typename === "ComponentFormLongText" ||
+          valFrage?.__typename === "ComponentFormDatumUhrzeit" ||
+          valFrage?.__typename === "ComponentFormDatum" ||
+          valFrage?.__typename === "ComponentFormUhrzeit" ||
+          valFrage?.__typename === "ComponentFormDaten"
+        ) {
+          fragenData.push({
+            _typename: valFrage.__typename,
+            title: valFrage.frage,
+            formDataValue: "",
+          });
+        }
+        if (idx === 0) {
+          formStep.push({ status: "current" });
+        } else {
+          formStep.push({ status: "upcoming" });
+        }
+      });
+      setStepQ(formStep);
+      setSharedFormData(fragenData);
+    }
   }, []);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -211,43 +213,47 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
         <div className="pt-10">
           <CircleStep data={stepQ} />
         </div>
-        <div className="text-white z-10">
-          {formResponseData.ueberschrift && (
-            <div className="flex flex-col m-auto max-w-3xl pt-10 medium:pt-15">
-              {formResponseData.ueberschrift?.heading && (
-                <div className="typo-h2 mb-4 medium:mb-5">
-                  {formResponseData.ueberschrift?.heading}
-                </div>
-              )}
-              {formResponseData.ueberschrift?.text && (
-                <RenderHtml html={formResponseData.ueberschrift?.text || ""} />
-              )}
-            </div>
-          )}
-          <div className="m-auto px-6 py-10 medium:py-15">
-            <div className="embla_main">
-              <div className="embla__viewport" ref={emblaRef}>
-                <div className="embla__container">
-                  {formResponseData.Fragen.map((val, idx) => (
-                    <div className="embla__slide" key={idx}>
-                      <div className="mx-auto max-w-3xl">
-                        <SalesFormContainer
-                          formIdx={idx}
-                          formValue={val}
-                          scrollNext={scrollNext}
-                          scrollPrev={scrollPrev}
-                        />
+        {formResponseData && (
+          <div className="text-white z-10">
+            {formResponseData.ueberschrift && (
+              <div className="flex flex-col m-auto max-w-3xl pt-10 medium:pt-15">
+                {formResponseData.ueberschrift?.heading && (
+                  <div className="typo-h2 mb-4 medium:mb-5">
+                    {formResponseData.ueberschrift?.heading}
+                  </div>
+                )}
+                {formResponseData.ueberschrift?.text && (
+                  <RenderHtml
+                    html={formResponseData.ueberschrift?.text || ""}
+                  />
+                )}
+              </div>
+            )}
+            <div className="m-auto px-6 py-10 medium:py-15">
+              <div className="embla_main">
+                <div className="embla__viewport" ref={emblaRef}>
+                  <div className="embla__container">
+                    {formResponseData.Fragen.map((val, idx) => (
+                      <div className="embla__slide" key={idx}>
+                        <div className="mx-auto max-w-3xl">
+                          <SalesFormContainer
+                            formIdx={idx}
+                            formValue={val}
+                            scrollNext={scrollNext}
+                            scrollPrev={scrollPrev}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
+            <div className="mx-auto max-w-desktop w-full">
+              <hr className="text-white h-2 mx-6 medium:mx-15" />
+            </div>
           </div>
-          <div className="mx-auto max-w-desktop w-full">
-            <hr className="text-white h-2 mx-6 medium:mx-15" />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

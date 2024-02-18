@@ -10,11 +10,13 @@ interface ComponentProps {
 const GridList = ({ data }: ComponentProps) => {
   return (
     <div className="flex flex-col items-center mx-6 medium:mx-15 py-10 medium:pb-0 medium:pt-32.5">
-      <SectionHeader
-        desc={data.ueberschrift?.text}
-        intro={data.ueberschrift?.topline}
-        title={data.ueberschrift?.heading}
-      />
+      {data.ueberschrift && (
+        <SectionHeader
+          desc={data.ueberschrift?.text}
+          intro={data.ueberschrift?.topline}
+          title={data.ueberschrift?.heading}
+        />
+      )}
       <div className="grid grid-cols-2 medium:grid-cols-4 gap-5 mt-10 w-full">
         {data.inhalt?.map((val, idx) => {
           return (

@@ -27,10 +27,12 @@ const SectionMediaHeader = ({ data }: SectionMediaHeaderProps) => {
   return (
     <div className="relative bg-gray-50 py-10">
       <LayoutContainer>
-        <SectionHeader
-          desc={headingVideoComponent.ueberschrift?.text}
-          title={headingVideoComponent.ueberschrift?.heading}
-        />
+        {headingVideoComponent.ueberschrift && (
+          <SectionHeader
+            desc={headingVideoComponent.ueberschrift?.text}
+            title={headingVideoComponent.ueberschrift?.heading}
+          />
+        )}
         {headingVideoComponent.heading_media?.data?.attributes?.url && (
           <div className="px-0 medium:px-44 mt-6 w-full">
             <video className="w-full aspect-video medium:rounded-3xl" controls>

@@ -46,12 +46,16 @@ const HorizontalSliderDefault = ({ data }: ComponentProps) => {
   return (
     <div className="flex flex-col mx-6 medium:mx-15 py-10 medium:pb-0 medium:pt-32.5">
       <div className="flex flex-col text-center medium:text-start items-center medium:items-stretch">
-        <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
-          {data.ueberschrift?.topline}
-        </div>
-        <div className="typo-h2 mb-6 mt-4 max-w-xl">
-          {data.ueberschrift?.heading}
-        </div>
+        {data.ueberschrift && (
+          <>
+            <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
+              {data.ueberschrift?.topline}
+            </div>
+            <div className="typo-h2 mb-6 mt-4 max-w-xl">
+              {data.ueberschrift?.heading}
+            </div>
+          </>
+        )}
         <div className="flex justify-between items-center">
           <RenderHtml
             className="text-gray-400 max-w-[670px]"

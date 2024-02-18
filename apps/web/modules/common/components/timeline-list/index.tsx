@@ -10,10 +10,12 @@ interface TimelineItemData {
 const TimelineList = ({ data }: TimelineItemData) => {
   return (
     <div className="px-6 medium:px-0 py-10 medium:pb-0 medium:pt-32.5">
-      <SectionHeader
-        desc={data.ueberschrift?.text}
-        title={data.ueberschrift?.heading}
-      />
+      {data.ueberschrift && (
+        <SectionHeader
+          desc={data.ueberschrift?.text}
+          title={data.ueberschrift?.heading}
+        />
+      )}
       {data.timeline_karten?.length && (
         <div className="flex flex-col relative mt-6 medium:mt-24">
           {data.timeline_karten?.map((dt, idx) => (

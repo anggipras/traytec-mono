@@ -104,18 +104,25 @@ const Hero = ({ data }: ComponentProps) => {
 
       <div className="absolute inset-0 max-w-desktop mx-auto h-full">
         <div className="flex relative flex-col justify-center text-center medium:text-start items-center medium:items-start h-full max-w-3xl px-6 text-white mx-auto">
-          <div className="w-fit px-3.5 py-2 bg-white bg-opacity-25 rounded-md mb-4 animate-fade-down [animation-delay:_500ms]">
-            {heroComponent.ueberschrift?.topline}
-          </div>
-          <div
-            className={clsx("mb-4 medium:mb-6 animate-fade-up", heroHeading)}
-          >
-            {heroComponent.ueberschrift?.heading}
-          </div>
-          <RenderHtml
-            className="leading-6.5 mb-4 medium:mb-6 animate-fade-down [animation-delay:_500ms]"
-            html={heroComponent.ueberschrift?.text || ""}
-          />
+          {heroComponent.ueberschrift && (
+            <>
+              <div className="w-fit px-3.5 py-2 bg-white bg-opacity-25 rounded-md mb-4 animate-fade-down [animation-delay:_500ms]">
+                {heroComponent.ueberschrift?.topline}
+              </div>
+              <div
+                className={clsx(
+                  "mb-4 medium:mb-6 animate-fade-up",
+                  heroHeading
+                )}
+              >
+                {heroComponent.ueberschrift?.heading}
+              </div>
+              <RenderHtml
+                className="leading-6.5 mb-4 medium:mb-6 animate-fade-down [animation-delay:_500ms]"
+                html={heroComponent.ueberschrift?.text || ""}
+              />
+            </>
+          )}
           {heroComponent.hero_btn?.map((val, idx) => (
             <Button
               key={idx}
