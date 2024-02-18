@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 import { serverBaseUrl } from "@/client.config";
 
 export const sendEmail = (data: any) => {
@@ -7,32 +7,13 @@ export const sendEmail = (data: any) => {
   }
 
   return new Promise((resolve, reject) => {
-    const requestOptions = {
-      method: "POST",
-      // headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    };
-    fetch(`${serverBaseUrl}/email`, requestOptions)
-      .then((response) => {
-        return response.json();
-      })
+    axios
+      .post(`${serverBaseUrl}/email`, data)
       .then((dt) => {
-        console.log(dt);
         resolve(dt);
       })
-      .catch((err) => {
-        console.log(err);
-        reject(err);
+      .catch((error) => {
+        reject(error);
       });
-
-    // axios lib would be removed later
-    // axios
-    //   .post(`${serverBaseUrl}/email`, data)
-    //   .then((dt) => {
-    //     resolve(dt);
-    //   })
-    //   .catch((error) => {
-    //     reject(error);
-    //   });
   });
 };

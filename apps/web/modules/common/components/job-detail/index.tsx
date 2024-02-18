@@ -12,7 +12,6 @@ import {
   GetSingleTypesDocument,
 } from "@/generated/graphql";
 import { convertISOStringToCustomFormat } from "@/lib/util/date";
-import { serverBaseUrl } from "@/client.config";
 import { getApolloClient } from "@/lib/with-apollo";
 
 interface JobDetailProps {
@@ -56,12 +55,7 @@ const JobDetail = ({ data }: JobDetailProps) => {
                     className="w-full h-full"
                     height="0"
                     sizes="100%"
-                    src={
-                      badg?.icon?.data?.attributes?.url
-                        ? `${serverBaseUrl?.replace("/api", "")}${badg?.icon
-                            ?.data?.attributes?.url}`
-                        : ""
-                    }
+                    src={badg?.icon?.data?.attributes?.url ?? ""}
                     width="0"
                   />
                 </div>

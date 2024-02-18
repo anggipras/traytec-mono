@@ -9,7 +9,7 @@ import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi
 import type { SeitenEinstellung } from "@/generated/graphql";
 import { SmallIcon } from "@/types/icon";
 import RenderHtml from "@/modules/common/components/render-html";
-import clientConfig, { serverBaseUrl } from "@/client.config";
+import clientConfig from "@/client.config";
 
 interface FooterComponentProps {
   footervalue?: SeitenEinstellung;
@@ -79,10 +79,7 @@ const FooterComponent = ({ footervalue }: FooterComponentProps) => {
                     height="0"
                     sizes="100%"
                     src={
-                      footervalue?.logo?.logo_hell
-                        ? `${serverBaseUrl?.replace("/api", "")}${footervalue
-                            .logo.logo_hell.data?.attributes?.url}`
-                        : ""
+                      footervalue?.logo?.logo_hell?.data?.attributes?.url ?? ""
                     }
                     width="0"
                   />

@@ -2,7 +2,6 @@ import React from "react";
 import SectionHeader from "../section-header";
 import Card from "../card";
 import type { ComponentListenGridListe } from "@/generated/graphql";
-import { serverBaseUrl } from "@/client.config";
 
 interface ComponentProps {
   data: ComponentListenGridListe;
@@ -18,15 +17,10 @@ const GridList = ({ data }: ComponentProps) => {
       />
       <div className="grid grid-cols-2 medium:grid-cols-4 gap-5 mt-10 w-full">
         {data.inhalt?.map((val, idx) => {
-          const imageUrl = val?.bild?.data?.attributes?.url;
           return (
             <Card
               additionalclass="flex-col justify-start"
-              image={
-                imageUrl
-                  ? `${serverBaseUrl?.replace("/api", "")}${imageUrl}`
-                  : ""
-              }
+              image={val?.bild?.data?.attributes?.url ?? ""}
               imgclass="px-0 mb-6"
               imgstyle="w-full"
               indexcard={idx}

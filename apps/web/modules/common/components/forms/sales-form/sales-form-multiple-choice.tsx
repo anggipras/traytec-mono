@@ -11,7 +11,6 @@ import type {
 } from "@/generated/graphql";
 import { Enum_Componentutilsbutton_Variante } from "@/generated/graphql";
 import { useData } from "@/lib/hooks/use-data-context";
-import { serverBaseUrl } from "@/client.config";
 
 interface FormProps {
   formValue?: Maybe<FormularFragenDynamicZone>;
@@ -111,12 +110,7 @@ const SalesFormMultipleChoice = ({
                   className="w-5"
                   height="0"
                   sizes="100%"
-                  src={
-                    val?.icon
-                      ? `${serverBaseUrl?.replace("/api", "")}${val?.icon.data
-                          ?.attributes?.url}`
-                      : ""
-                  }
+                  src={val?.icon?.data?.attributes?.url ?? ""}
                   width="0"
                 />
                 <div

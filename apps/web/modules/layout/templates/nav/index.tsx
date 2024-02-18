@@ -16,7 +16,6 @@ import Accordion from "@/modules/common/components/accordion";
 import type { PathInfo } from "@/types/global";
 import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
 import { useMobileMenu } from "@/context/mobile-menu-context";
-import { serverBaseUrl } from "@/client.config";
 
 interface NavbarTemplateProps {
   localeList?: GetLocalesQuery;
@@ -282,10 +281,8 @@ const NavBarTemplate = ({
                 height="0"
                 sizes="100%"
                 src={
-                  navbarvalue?.singleType.logo?.logo_standard
-                    ? `${serverBaseUrl?.replace("/api", "")}${navbarvalue
-                        ?.singleType.logo?.logo_standard.data?.attributes?.url}`
-                    : ""
+                  navbarvalue?.singleType.logo?.logo_standard.data?.attributes
+                    ?.url ?? ""
                 }
                 width="0"
               />

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_utils_embla_optionens",
+  "info": {
+    "displayName": "embla_optionen"
+  },
+  "options": {},
+  "attributes": {
+    "start_index": {
+      "type": "integer",
+      "min": 0
+    },
+    "loop": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

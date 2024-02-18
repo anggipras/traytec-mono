@@ -3,7 +3,6 @@ import Image from "next/image";
 import React, { useRef } from "react";
 import RenderHtml from "../render-html";
 import { useIntersectionObs } from "@/lib/hooks/use-intersection-obs";
-import { serverBaseUrl } from "@/client.config";
 import type { ComponentUtilsTimelineKarte } from "@/generated/graphql";
 import { formatDate } from "@/lib/util/date";
 
@@ -29,7 +28,9 @@ const TimelineCard = ({ data, idxprops }: TimelineCardProps) => {
   }
   return (
     <div
-      className={`rounded-3xl border border-gray-200 overflow-hidden w-full opacity-0 ${idxprops % 2 === 0 ? "translate-x-[1rem]" : "translate-x-[-1rem]"}`}
+      className={`rounded-3xl border border-gray-200 overflow-hidden w-full opacity-0 ${
+        idxprops % 2 === 0 ? "translate-x-[1rem]" : "translate-x-[-1rem]"
+      }`}
       ref={timelineRef}
     >
       {data?.media && (
@@ -39,13 +40,7 @@ const TimelineCard = ({ data, idxprops }: TimelineCardProps) => {
             className="w-full"
             height="0"
             sizes="100%"
-            src={
-              data?.media?.data?.attributes?.url
-                ? `${serverBaseUrl?.replace("/api", "")}${
-                    data?.media?.data?.attributes?.url
-                  }`
-                : ""
-            }
+            src={data?.media?.data?.attributes?.url ?? ""}
             style={{ objectFit: "cover", objectPosition: "center" }}
             width="0"
           />

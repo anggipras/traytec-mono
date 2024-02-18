@@ -7,7 +7,6 @@ import {
   Enum_Componentheadingsheadingminimalistisch_Ausrichtung,
   type ComponentHeadingsHeadingMinimalistisch,
 } from "@/generated/graphql";
-import { serverBaseUrl } from "@/client.config";
 
 interface SubHeaderProps {
   data: ComponentHeadingsHeadingMinimalistisch;
@@ -44,12 +43,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({ data }) => {
                   className="w-full h-full"
                   height="0"
                   sizes="100%"
-                  src={
-                    data.bild?.data?.attributes?.url
-                      ? `${serverBaseUrl?.replace("/api", "")}${data.bild?.data
-                          ?.attributes?.url}`
-                      : ""
-                  }
+                  src={data.bild?.data?.attributes?.url ?? ""}
                   width="0"
                 />
               </div>

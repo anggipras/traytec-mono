@@ -7,10 +7,6 @@ module.exports = ({ env }) => ({
   navigation: {
     enabled: true,
   },
-  editorjs: {
-    enabled: true,
-    resolve: "./src/plugins/strapi-plugin-react-editorjs",
-  },
   graphql: {
     enabled: true,
     config: {

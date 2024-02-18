@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import type { EmblaOptionsType } from "embla-carousel";
 import RenderHtml from "../../render-html";
 import {
   PrevButton,
@@ -14,6 +15,11 @@ interface ComponentProps {
 }
 
 const HorizontalSliderDefault = ({ data }: ComponentProps) => {
+  const emblaOptions: EmblaOptionsType = {
+    align: "start",
+    loop: data.embla_optionen?.loop ?? false,
+    startIndex: data.embla_optionen?.start_index ?? 0,
+  };
   const [screenWidth, setScreenWidth] = useState(0);
 
   useEffect(() => {
@@ -28,7 +34,7 @@ const HorizontalSliderDefault = ({ data }: ComponentProps) => {
     };
   }, []);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start" });
+  const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions);
 
   const {
     prevBtnDisabled,

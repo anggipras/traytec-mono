@@ -6,7 +6,6 @@ import {
   Enum_Componentutilsheading_Typ,
   type ComponentSektionenInhaltMitMedia,
 } from "@/generated/graphql";
-import { serverBaseUrl } from "@/client.config";
 
 interface SectionContentMediaProps {
   data: ComponentSektionenInhaltMitMedia;
@@ -41,13 +40,7 @@ const SectionContentMedia = ({ data }: SectionContentMediaProps) => {
               className="w-full rounded-3xl"
               height="0"
               sizes="100%"
-              src={
-                data.media.data?.attributes?.url
-                  ? `${serverBaseUrl?.replace("/api", "")}${
-                      data.media.data?.attributes?.url
-                    }`
-                  : ""
-              }
+              src={data.media.data?.attributes?.url ?? ""}
               width="0"
             />
           </div>

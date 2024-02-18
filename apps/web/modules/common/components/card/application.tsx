@@ -10,7 +10,6 @@ import {
   Enum_Componentintegrationenjobs_Style,
 } from "@/generated/graphql";
 import { convertISOStringToCustomFormat } from "@/lib/util/date";
-import { serverBaseUrl } from "@/client.config";
 import { useIntersectionObs } from "@/lib/hooks/use-intersection-obs";
 
 interface AppCardProps {
@@ -111,13 +110,7 @@ const ApplicationCard = ({
                     className="w-full h-full"
                     height="0"
                     sizes="100%"
-                    src={
-                      badg?.icon?.data?.attributes?.url
-                        ? `${serverBaseUrl?.replace("/api", "")}${
-                            badg?.icon?.data?.attributes?.url
-                          }`
-                        : ""
-                    }
+                    src={badg?.icon?.data?.attributes?.url ?? ""}
                     width="0"
                   />
                 </div>

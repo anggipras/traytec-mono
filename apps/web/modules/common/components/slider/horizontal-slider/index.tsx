@@ -1,6 +1,7 @@
 import React from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import type { EmblaOptionsType } from "embla-carousel";
 import RenderHtml from "../../render-html";
 import {
   PrevButton,
@@ -8,7 +9,6 @@ import {
   usePrevNextButtons,
 } from "@/modules/common/components/carousel/next-prev-btn";
 import type { ComponentSliderHorizontalerSlider } from "@/generated/graphql";
-import { serverBaseUrl } from "@/client.config";
 import LayoutContainer from "@/modules/layout/components/layout-container";
 
 interface ComponentProps {
@@ -16,7 +16,12 @@ interface ComponentProps {
 }
 
 const HorizontalSlider = ({ data }: ComponentProps) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start" });
+  const emblaOptions: EmblaOptionsType = {
+    align: "start",
+    loop: data.embla_optionen?.loop ?? false,
+    startIndex: data.embla_optionen?.start_index ?? 0,
+  };
+  const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions);
 
   const {
     prevBtnDisabled,
@@ -71,10 +76,7 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
                           <Image
                             alt="icon-slider-nowrap"
                             height={24}
-                            src={
-                              `${serverBaseUrl?.replace("/api", "")}${val?.icon
-                                ?.data?.attributes?.url}` || ""
-                            }
+                            src={val?.icon?.data?.attributes?.url ?? ""}
                             width={24}
                           />
                         </div>

@@ -21,6 +21,12 @@
       "type": "boolean",
       "default": true,
       "required": true
+    },
+    "embla_optionen": {
+      "displayName": "embla_optionen",
+      "type": "component",
+      "repeatable": false,
+      "component": "utils.embla-optionen"
     }
   }
 }

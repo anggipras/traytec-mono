@@ -14,7 +14,6 @@ import {
 } from "@/modules/common/components/carousel/next-prev-btn";
 import SectionHeader from "@/modules/common/components/section-header";
 import type { ComponentSliderHorizontalerSliderFokus } from "@/generated/graphql";
-import { serverBaseUrl } from "@/client.config";
 import LayoutContainer from "@/modules/layout/components/layout-container";
 
 interface ComponentProps {
@@ -25,7 +24,8 @@ const FocusSlider = ({ data }: ComponentProps) => {
   const emblaOptions: EmblaOptionsType = {
     align: "center",
     containScroll: false,
-    loop: true,
+    loop: data.embla_optionen?.loop ?? false,
+    startIndex: data.embla_optionen?.start_index ?? 0,
   };
   const autoplayOption =
     data.autoplay?.ist_aktiv && data.autoplay.dauer
@@ -136,12 +136,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
                                 className="w-full"
                                 height="0"
                                 sizes="100%"
-                                src={
-                                  dt?.image?.data?.attributes?.url
-                                    ? `${serverBaseUrl?.replace("/api", "")}${dt
-                                        ?.image?.data?.attributes?.url}`
-                                    : ""
-                                }
+                                src={dt?.image?.data?.attributes?.url ?? ""}
                                 width="0"
                               />
                             </div>
@@ -200,15 +195,10 @@ const FocusSlider = ({ data }: ComponentProps) => {
           <div className="grid grid-cols-2 medium:grid-cols-4 gap-5 mx-6 medium:mx-15 mt-10 w-full">
             {data.cards?.length &&
               data.cards[countSlider]?.medien?.data.map((medDt, medIdx) => {
-                const imageUrl = medDt.attributes?.url;
                 return (
                   <Card
                     additionalclass="flex-col justify-start"
-                    image={
-                      imageUrl
-                        ? `${serverBaseUrl?.replace("/api", "")}${imageUrl}`
-                        : ""
-                    }
+                    image={medDt.attributes?.url ?? ""}
                     imgclass="px-0 mb-6"
                     imgstyle="w-full"
                     indexcard={medIdx}
@@ -250,10 +240,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
                                 className="w-8 medium:w-24"
                                 height="0"
                                 sizes="100%"
-                                src={
-                                  `${serverBaseUrl?.replace("/api", "")}${val
-                                    ?.image?.data?.attributes?.url}` || ""
-                                }
+                                src={val?.image?.data?.attributes?.url}
                                 width="0"
                               />
                             )}

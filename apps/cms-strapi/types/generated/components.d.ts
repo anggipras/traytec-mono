@@ -227,6 +227,7 @@ export interface IntegrationenBewertungen extends Schema.Component {
       'api::bewertung.bewertung'
     >;
     ueberschrift: Attribute.Component<'utils.heading'>;
+    embla_optionen: Attribute.Component<'utils.embla-optionen'>;
   };
 }
 
@@ -379,6 +380,7 @@ export interface SliderHorizontalerSliderFokus extends Schema.Component {
     background_anzeigen: Attribute.Boolean & Attribute.DefaultTo<true>;
     karten_ausserhalb_anzeigen: Attribute.Boolean & Attribute.DefaultTo<true>;
     autoplay: Attribute.Component<'utils.autoplay-einstellungen'>;
+    embla_optionen: Attribute.Component<'utils.embla-optionen'>;
   };
 }
 
@@ -394,6 +396,7 @@ export interface SliderHorizontalerSlider extends Schema.Component {
     sichtbar: Attribute.Boolean &
       Attribute.Required &
       Attribute.DefaultTo<true>;
+    embla_optionen: Attribute.Component<'utils.embla-optionen'>;
   };
 }
 
@@ -482,6 +485,20 @@ export interface UtilsButton extends Schema.Component {
       Attribute.Required &
       Attribute.DefaultTo<'PRIMARY'>;
     url: Attribute.String & Attribute.Required;
+  };
+}
+
+export interface UtilsEmblaOptionen extends Schema.Component {
+  collectionName: 'components_utils_embla_optionens';
+  info: {
+    displayName: 'embla_optionen';
+  };
+  attributes: {
+    start_index: Attribute.Integer &
+      Attribute.SetMinMax<{
+        min: 0;
+      }>;
+    loop: Attribute.Boolean & Attribute.DefaultTo<false>;
   };
 }
 
@@ -668,6 +685,7 @@ declare module '@strapi/types' {
       'utils.autoplay-einstellungen': UtilsAutoplayEinstellungen;
       'utils.badge': UtilsBadge;
       'utils.button': UtilsButton;
+      'utils.embla-optionen': UtilsEmblaOptionen;
       'utils.google-reviewer': UtilsGoogleReviewer;
       'utils.grid-element': UtilsGridElement;
       'utils.heading': UtilsHeading;

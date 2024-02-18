@@ -12,7 +12,6 @@ import type {
   UploadFileEntityResponse,
 } from "@/generated/graphql";
 import Button from "@/modules/common/components/button";
-import { serverBaseUrl } from "@/client.config";
 import imgBgHeroLeft from "@/assets/images/common/img_bg_hero_left.svg";
 
 interface ComponentProps {
@@ -81,8 +80,7 @@ const Hero = ({ data }: ComponentProps) => {
             style={{ objectFit: "cover", objectPosition: "center" }}
           >
             <source
-              src={`${serverBaseUrl?.replace("/api", "")}${heroComponent
-                .hintergrund?.data?.attributes?.url}`}
+              src={heroComponent.hintergrund?.data?.attributes?.url}
               type={`video/${heroComponent.hintergrund?.data?.attributes?.ext?.replaceAll(
                 ".",
                 ""

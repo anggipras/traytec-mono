@@ -64,6 +64,10 @@ query getPage(
               topline
               typ
             }
+            embla_optionen {
+              loop
+              start_index
+            }
           }
           ... on ComponentSliderHorizontalerSliderFokus {
             background_anzeigen
@@ -108,6 +112,10 @@ query getPage(
             autoplay {
               ist_aktiv
               dauer
+            }
+            embla_optionen {
+              loop
+              start_index
             }
           }
           ... on ComponentIntegrationenFormular {
@@ -337,6 +345,10 @@ query getPage(
                   }
                 }
               }
+            }
+            embla_optionen {
+              loop
+              start_index
             }
           }
           ... on Error {

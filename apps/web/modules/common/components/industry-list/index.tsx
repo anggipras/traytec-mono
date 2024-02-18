@@ -6,7 +6,6 @@ import type {
   ComponentListenIndustrieListe,
   IndustrieEntity,
 } from "@/generated/graphql";
-import { serverBaseUrl } from "@/client.config";
 // import SectionHeader from "@/modules/common/components/section-header";
 
 interface IndustryListProps {
@@ -112,12 +111,7 @@ const IndustryList = ({ data }: IndustryListProps) => {
               className="medium:max-w-none w-auto medium:h-full"
               height="0"
               sizes="100%"
-              src={
-                val.attributes?.vorschau
-                  ? `${serverBaseUrl?.replace("/api", "")}${val.attributes
-                      ?.vorschau.data?.attributes?.url}`
-                  : ""
-              }
+              src={val.attributes?.vorschau.data?.attributes?.url ?? ""}
               width="0"
             />
           </div>

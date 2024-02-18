@@ -5,12 +5,13 @@
 export default {
   send: async (ctx) => {
     const { body } = ctx.request;
-    const { to, from, subject, text } = JSON.parse(body);
+    const { to, from, replyTo, subject, text } = body;
 
     try {
       await strapi.plugins["email"].services.email.send({
         to,
         from,
+        replyTo,
         subject,
         text,
       });
