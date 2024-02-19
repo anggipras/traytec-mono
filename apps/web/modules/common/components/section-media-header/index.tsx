@@ -8,7 +8,6 @@ import type {
   Scalars,
   UploadFileEntityResponse,
 } from "@/generated/graphql";
-import { serverBaseUrl } from "@/client.config";
 
 interface SectionMediaHeaderProps {
   data: ComponentHeadingsHeadingMitVideo;
@@ -38,11 +37,9 @@ const SectionMediaHeader = ({ data }: SectionMediaHeaderProps) => {
             <video className="w-full aspect-video medium:rounded-3xl" controls>
               <track kind="captions" />
               <source
-                src={`${serverBaseUrl?.replace(
-                  "/api",
-                  ""
-                )}${headingVideoComponent.heading_media?.data?.attributes
-                  ?.url}`}
+                src={
+                  headingVideoComponent.heading_media.data.attributes.url ?? ""
+                }
                 type={`video/${headingVideoComponent.heading_media?.data?.attributes?.ext?.replaceAll(
                   ".",
                   ""
