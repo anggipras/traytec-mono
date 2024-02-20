@@ -2,13 +2,17 @@ import React from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import type { EmblaOptionsType } from "embla-carousel";
+import { clsx } from "clsx";
 import RenderHtml from "../../render-html";
 import {
   PrevButton,
   NextButton,
   usePrevNextButtons,
 } from "@/modules/common/components/carousel/next-prev-btn";
-import type { ComponentSliderHorizontalerSlider } from "@/generated/graphql";
+import {
+  Enum_Componentutilsheading_Typ,
+  type ComponentSliderHorizontalerSlider,
+} from "@/generated/graphql";
 import LayoutContainer from "@/modules/layout/components/layout-container";
 
 interface ComponentProps {
@@ -30,6 +34,11 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
 
+  const textSizeByTyp = clsx({
+    "typo-h1": data.uberschrift?.typ === Enum_Componentutilsheading_Typ.H1,
+    "typo-h2": data.uberschrift?.typ === Enum_Componentutilsheading_Typ.H2,
+  });
+
   return (
     <div className="medium:pb-0 medium:pt-32.5">
       <LayoutContainer>
@@ -38,7 +47,7 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
             <div className="w-fit px-3.5 py-2 bg-pink-100 rounded-full text-rose-800">
               {data.uberschrift?.topline}
             </div>
-            <div className="typo-h2 mb-6 mt-4 max-w-xl">
+            <div className={clsx("mb-6 mt-4 max-w-xl", textSizeByTyp)}>
               {data.uberschrift?.heading}
             </div>
             <div className="flex justify-between items-center">

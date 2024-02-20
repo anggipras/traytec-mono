@@ -14,6 +14,7 @@ const TimelineList = ({ data }: TimelineItemData) => {
         <SectionHeader
           desc={data.ueberschrift?.text}
           title={data.ueberschrift?.heading}
+          typ={data.ueberschrift.typ}
         />
       )}
       {data.timeline_karten?.length && (

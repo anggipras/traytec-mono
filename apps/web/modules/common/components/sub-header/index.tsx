@@ -48,7 +48,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({ data }) => {
                 />
               </div>
             )}
-            <div className={clsx("typo-h2", textAlignment)}>{data.titel}</div>
+            <div className={clsx("typo-h1", textAlignment)}>{data.titel}</div>
             <div
               className={clsx(
                 "text-gray-400 mt-5 medium:max-w-4xl",

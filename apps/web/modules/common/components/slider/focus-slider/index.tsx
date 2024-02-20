@@ -101,6 +101,7 @@ const FocusSlider = ({ data }: ComponentProps) => {
             desc={data.ueberschrift?.text}
             intro={data.ueberschrift?.topline}
             title={data.ueberschrift?.heading}
+            typ={data.ueberschrift.typ}
           />
         </LayoutContainer>
       )}

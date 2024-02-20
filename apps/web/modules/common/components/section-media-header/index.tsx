@@ -30,6 +30,7 @@ const SectionMediaHeader = ({ data }: SectionMediaHeaderProps) => {
           <SectionHeader
             desc={headingVideoComponent.ueberschrift?.text}
             title={headingVideoComponent.ueberschrift?.heading}
+            typ={headingVideoComponent.ueberschrift.typ}
           />
         )}
         {headingVideoComponent.heading_media?.data?.attributes?.url && (

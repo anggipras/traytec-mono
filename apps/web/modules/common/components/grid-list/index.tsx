@@ -15,6 +15,7 @@ const GridList = ({ data }: ComponentProps) => {
           desc={data.ueberschrift?.text}
           intro={data.ueberschrift?.topline}
           title={data.ueberschrift?.heading}
+          typ={data.ueberschrift.typ}
         />
       )}
       <div className="grid grid-cols-2 medium:grid-cols-4 gap-5 mt-10 w-full">

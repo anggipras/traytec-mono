@@ -1,3 +1,4 @@
+/* eslint-disable prefer-named-capture-group -- disable prefer named capture group */
 import React from "react";
 
 interface RenderHTMLProps {
@@ -20,7 +21,10 @@ const RenderHtml = ({ html, className }: RenderHTMLProps) => {
             return result;
           })
           .replace(/<h3(?:.*?)<\/h3>/g, (match: string) => {
-            const result = match.replace(/<h3/g, `<h3 class="typo-h3"`);
+            const result = match.replace(
+              /<h3/g,
+              `<h3 class="typo-h3" style="font-size: 24px;"`
+            );
             return result;
           })
           .replace(/<h4(?:.*?)<\/h4>/g, (match: string) => {
@@ -41,7 +45,13 @@ const RenderHtml = ({ html, className }: RenderHTMLProps) => {
             /<blockquote/g,
             '<blockquote class="bg-primary-100 p-5 border-l-2 border-primary-200"'
           )
-          .replace(/<img/g, '<img class="mb-sm"'),
+          .replace(/<img/g, '<img class="mb-sm"')
+          .replace(
+            /<a\s+(?:[^>]+?\s)?href="(https?:\/\/[^\s"]+)"(?:[^>]*?)>(.*?)<\/a>/g,
+            (match, href, text) => {
+              return `<a href="${href}" target="_blank">${text}</a>`;
+            }
+          ),
       }}
     />
   );

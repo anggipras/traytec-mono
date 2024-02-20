@@ -19,7 +19,7 @@ const GeneralContent = ({ data }: ComponentProps) => {
 
   return (
     <RenderHtml
-      className="px-6 py-10 medium:pt-32.5"
+      className="px-6 py-10 medium:p-15"
       html={mappedUtilsTextData.text_content || ""}
     />
   );
