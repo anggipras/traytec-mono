@@ -22,6 +22,7 @@ const Button = ({
   const variantClassname = clsx({
     "btn-primary": variant === Enum_Componentutilsbutton_Variante.Primary,
     "btn-secondary": variant === Enum_Componentutilsbutton_Variante.Secondary,
+    "btn-tertiary": variant === Enum_Componentutilsbutton_Variante.Text,
   });
 
   const sizeClassname = clsx({

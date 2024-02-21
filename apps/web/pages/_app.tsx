@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import Layout from "@/modules/layout/templates";
 import { getApolloClient } from "@/lib/with-apollo";
 import type {
+  GetCookieModalQuery,
   GetLocalesQuery,
   GetPageHandleQuery,
   GetSingleTypesQuery,
@@ -13,6 +14,7 @@ import type {
   SeitenEinstellung,
 } from "@/generated/graphql";
 import {
+  GetCookieModalDocument,
   GetLocalesDocument,
   GetPageHandleDocument,
   GetSingleTypesDocument,
@@ -36,6 +38,7 @@ interface AppOwnProps {
       singleType: SeitenEinstellung;
     };
     footer?: SeitenEinstellung;
+    cookie?: GetCookieModalQuery;
   };
 }
 
@@ -107,16 +110,26 @@ const fetchSingleTypes = async () => {
   return singleTypesData.seitenEinstellung;
 };
 
+const fetchCookieData = async () => {
+  const apolloClient = getApolloClient();
+  const { data } = await apolloClient.query({
+    query: GetCookieModalDocument,
+  });
+
+  return data as GetCookieModalQuery;
+};
+
 MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
   const { locale } = context.ctx;
   const ctx = await App.getInitialProps(context);
-
+  
   try {
     const localesDataResult = await fetchLocalesStatic();
     const localeHandlePage = await fetchSinglePageHandle(locale ?? "de");
     const localesData: GetLocalesQuery = localesDataResult.data;
     const localeHandleData = localeHandlePage as SeiteEntity[];
     const singleTypesResult = await fetchSingleTypes();
+    const cookieDataResult = await fetchCookieData();
 
     const navigationData = {
       navbar: {
@@ -125,6 +138,7 @@ MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
         singleType: singleTypesResult?.data?.attributes as SeitenEinstellung,
       },
       footer: singleTypesResult?.data?.attributes as SeitenEinstellung,
+      cookie: cookieDataResult,
     };
 
     return { ...ctx, navigationData };

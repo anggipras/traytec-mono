@@ -23,6 +23,7 @@
     "googleapis": "^129.0.0",
     "pg": "^8.8.0",
     "pg-connection-string": "^2.6.2",
+    "strapi-plugin-cookie-manager": "^1.2.2",
     "strapi-plugin-navigation": "^2.3.2",
     "strapi-provider-upload-do": "^3.6.6"
   },

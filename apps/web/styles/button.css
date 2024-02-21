@@ -51,15 +51,15 @@
   }
 
   /* Tertiary Button */
-  /* .btn-tertiary {
-    @apply bg-accent-light text-primary-900;
+  .btn-tertiary {
+    @apply bg-white text-primary-900;
   }
   .btn-tertiary:hover {
-    @apply bg-accent-dark;
+    @apply bg-gray-100;
   }
   .btn-tertiary:disabled {
     @apply bg-gray-200 text-gray-400;
-  } */
+  }
 
   /* Danger Button */
   /* .btn-danger {

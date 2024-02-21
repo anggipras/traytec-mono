@@ -455,6 +455,27 @@ export type ComponentSektionenInhaltMitMedia = {
   ueberschrift?: Maybe<ComponentUtilsHeading>;
 };
 
+export type ComponentSharedCookieButton = {
+  __typename?: 'ComponentSharedCookieButton';
+  buttonType?: Maybe<Enum_Componentsharedcookiebutton_Buttontype>;
+  id: Scalars['ID'];
+  label?: Maybe<Scalars['String']>;
+};
+
+export type ComponentSharedCookieButtonFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSharedCookieButtonFiltersInput>>>;
+  buttonType?: InputMaybe<StringFilterInput>;
+  label?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentSharedCookieButtonFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentSharedCookieButtonFiltersInput>>>;
+};
+
+export type ComponentSharedCookieButtonInput = {
+  buttonType?: InputMaybe<Enum_Componentsharedcookiebutton_Buttontype>;
+  id?: InputMaybe<Scalars['ID']>;
+  label?: InputMaybe<Scalars['String']>;
+};
+
 export type ComponentSharedMetaSocial = {
   __typename?: 'ComponentSharedMetaSocial';
   description: Scalars['String'];
@@ -830,6 +851,221 @@ export type ComponentUtilsTimelineKarteFiltersInput = {
   zeitpunkt?: InputMaybe<DateFilterInput>;
 };
 
+export type Cookie = {
+  __typename?: 'Cookie';
+  category?: Maybe<CookieCategoryEntityResponse>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  description: Scalars['String'];
+  duration?: Maybe<Scalars['JSON']>;
+  host: Scalars['String'];
+  isVisible: Scalars['Boolean'];
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<CookieRelationResponseCollection>;
+  name: Scalars['String'];
+  party: Enum_Cookie_Party;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type CookieLocalizationsArgs = {
+  filters?: InputMaybe<CookieFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type CookieCategory = {
+  __typename?: 'CookieCategory';
+  cookies?: Maybe<CookieRelationResponseCollection>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  description: Scalars['String'];
+  isNecessary: Scalars['Boolean'];
+  key?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<CookieCategoryRelationResponseCollection>;
+  name: Scalars['String'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type CookieCategoryCookiesArgs = {
+  filters?: InputMaybe<CookieFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type CookieCategoryLocalizationsArgs = {
+  filters?: InputMaybe<CookieCategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type CookieCategoryEntity = {
+  __typename?: 'CookieCategoryEntity';
+  attributes?: Maybe<CookieCategory>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type CookieCategoryEntityResponse = {
+  __typename?: 'CookieCategoryEntityResponse';
+  data?: Maybe<CookieCategoryEntity>;
+};
+
+export type CookieCategoryEntityResponseCollection = {
+  __typename?: 'CookieCategoryEntityResponseCollection';
+  data: Array<CookieCategoryEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type CookieCategoryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<CookieCategoryFiltersInput>>>;
+  cookies?: InputMaybe<CookieFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  isNecessary?: InputMaybe<BooleanFilterInput>;
+  key?: InputMaybe<StringFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<CookieCategoryFiltersInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<CookieCategoryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<CookieCategoryFiltersInput>>>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type CookieCategoryInput = {
+  cookies?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  description?: InputMaybe<Scalars['String']>;
+  isNecessary?: InputMaybe<Scalars['Boolean']>;
+  key?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type CookieCategoryRelationResponseCollection = {
+  __typename?: 'CookieCategoryRelationResponseCollection';
+  data: Array<CookieCategoryEntity>;
+};
+
+export type CookieEntity = {
+  __typename?: 'CookieEntity';
+  attributes?: Maybe<Cookie>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type CookieEntityResponse = {
+  __typename?: 'CookieEntityResponse';
+  data?: Maybe<CookieEntity>;
+};
+
+export type CookieEntityResponseCollection = {
+  __typename?: 'CookieEntityResponseCollection';
+  data: Array<CookieEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type CookieFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<CookieFiltersInput>>>;
+  category?: InputMaybe<CookieCategoryFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  duration?: InputMaybe<JsonFilterInput>;
+  host?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  isVisible?: InputMaybe<BooleanFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<CookieFiltersInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<CookieFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<CookieFiltersInput>>>;
+  party?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type CookieInput = {
+  category?: InputMaybe<Scalars['ID']>;
+  description?: InputMaybe<Scalars['String']>;
+  duration?: InputMaybe<Scalars['JSON']>;
+  host?: InputMaybe<Scalars['String']>;
+  isVisible?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
+  party?: InputMaybe<Enum_Cookie_Party>;
+};
+
+export type CookiePopup = {
+  __typename?: 'CookiePopup';
+  buttons?: Maybe<Array<Maybe<ComponentSharedCookieButton>>>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  description?: Maybe<Scalars['String']>;
+  hasCustomizability: Scalars['Boolean'];
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<CookiePopupRelationResponseCollection>;
+  title?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type CookiePopupButtonsArgs = {
+  filters?: InputMaybe<ComponentSharedCookieButtonFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type CookiePopupLocalizationsArgs = {
+  filters?: InputMaybe<CookiePopupFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type CookiePopupEntity = {
+  __typename?: 'CookiePopupEntity';
+  attributes?: Maybe<CookiePopup>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type CookiePopupEntityResponse = {
+  __typename?: 'CookiePopupEntityResponse';
+  data?: Maybe<CookiePopupEntity>;
+};
+
+export type CookiePopupEntityResponseCollection = {
+  __typename?: 'CookiePopupEntityResponseCollection';
+  data: Array<CookiePopupEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type CookiePopupFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<CookiePopupFiltersInput>>>;
+  buttons?: InputMaybe<ComponentSharedCookieButtonFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  hasCustomizability?: InputMaybe<BooleanFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<CookiePopupFiltersInput>;
+  not?: InputMaybe<CookiePopupFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<CookiePopupFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type CookiePopupInput = {
+  buttons?: InputMaybe<Array<InputMaybe<ComponentSharedCookieButtonInput>>>;
+  description?: InputMaybe<Scalars['String']>;
+  hasCustomizability?: InputMaybe<Scalars['Boolean']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type CookiePopupRelationResponseCollection = {
+  __typename?: 'CookiePopupRelationResponseCollection';
+  data: Array<CookiePopupEntity>;
+};
+
+export type CookieRelationResponseCollection = {
+  __typename?: 'CookieRelationResponseCollection';
+  data: Array<CookieEntity>;
+};
+
 export type DateFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
@@ -907,6 +1143,12 @@ export enum Enum_Componentsektioneninhaltmitmedia_Media_Position {
   Rechts = 'RECHTS'
 }
 
+export enum Enum_Componentsharedcookiebutton_Buttontype {
+  Primary = 'Primary',
+  Secondary = 'Secondary',
+  Text = 'Text'
+}
+
 export enum Enum_Componentsharedmetasocial_Social_Network {
   Facebook = 'Facebook',
   Twitter = 'Twitter'
@@ -935,6 +1177,12 @@ export enum Enum_Componentutilssocialmedia_Typ {
   Meta = 'META',
   X = 'X',
   Youtube = 'YOUTUBE'
+}
+
+export enum Enum_Cookie_Party {
+  FirstParty = 'First_party',
+  SecondParty = 'Second_party',
+  ThirdParty = 'Third_party'
 }
 
 export enum Enum_Job_Art {
@@ -1028,7 +1276,7 @@ export type FormularInput = {
   ueberschrift?: InputMaybe<ComponentUtilsHeadingInput>;
 };
 
-export type GenericMorph = Bewertung | Blog | BlogKategorie | ComponentFormAntwortmoeglichkeit | ComponentFormDaten | ComponentFormDatum | ComponentFormDatumUhrzeit | ComponentFormLongText | ComponentFormMultipleChoice | ComponentFormTextForm | ComponentFormUhrzeit | ComponentHeadingsHeadingMinimalistisch | ComponentHeadingsHeadingMitVideo | ComponentHerosHero1 | ComponentIntegrationenBewertungen | ComponentIntegrationenFormular | ComponentIntegrationenJobs | ComponentListenGridListe | ComponentListenIndustrieListe | ComponentListenTimelineListe | ComponentSektionenInhaltMitMedia | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | ComponentSliderSliderCard | ComponentSliderSliderCard2 | ComponentUtilsAutoplayEinstellungen | ComponentUtilsBadge | ComponentUtilsButton | ComponentUtilsEmblaOptionen | ComponentUtilsGoogleReviewer | ComponentUtilsGridElement | ComponentUtilsHeading | ComponentUtilsJobsEinstellungen | ComponentUtilsKontakt | ComponentUtilsLogo | ComponentUtilsSocialMedia | ComponentUtilsText | ComponentUtilsTimelineKarte | Formular | I18NLocale | Industrie | Job | Produkt | Seite | SeitenEinstellung | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Bewertung | Blog | BlogKategorie | ComponentFormAntwortmoeglichkeit | ComponentFormDaten | ComponentFormDatum | ComponentFormDatumUhrzeit | ComponentFormLongText | ComponentFormMultipleChoice | ComponentFormTextForm | ComponentFormUhrzeit | ComponentHeadingsHeadingMinimalistisch | ComponentHeadingsHeadingMitVideo | ComponentHerosHero1 | ComponentIntegrationenBewertungen | ComponentIntegrationenFormular | ComponentIntegrationenJobs | ComponentListenGridListe | ComponentListenIndustrieListe | ComponentListenTimelineListe | ComponentSektionenInhaltMitMedia | ComponentSharedCookieButton | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | ComponentSliderSliderCard | ComponentSliderSliderCard2 | ComponentUtilsAutoplayEinstellungen | ComponentUtilsBadge | ComponentUtilsButton | ComponentUtilsEmblaOptionen | ComponentUtilsGoogleReviewer | ComponentUtilsGridElement | ComponentUtilsHeading | ComponentUtilsJobsEinstellungen | ComponentUtilsKontakt | ComponentUtilsLogo | ComponentUtilsSocialMedia | ComponentUtilsText | ComponentUtilsTimelineKarte | Cookie | CookieCategory | CookiePopup | Formular | I18NLocale | Industrie | Job | Produkt | Seite | SeitenEinstellung | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -1310,6 +1558,12 @@ export type Mutation = {
   createBlogKategorie?: Maybe<BlogKategorieEntityResponse>;
   createBlogKategorieLocalization?: Maybe<BlogKategorieEntityResponse>;
   createBlogLocalization?: Maybe<BlogEntityResponse>;
+  createCookie?: Maybe<CookieEntityResponse>;
+  createCookieCategory?: Maybe<CookieCategoryEntityResponse>;
+  createCookieCategoryLocalization?: Maybe<CookieCategoryEntityResponse>;
+  createCookieLocalization?: Maybe<CookieEntityResponse>;
+  createCookiePopup?: Maybe<CookiePopupEntityResponse>;
+  createCookiePopupLocalization?: Maybe<CookiePopupEntityResponse>;
   createFormular?: Maybe<FormularEntityResponse>;
   createIndustrie?: Maybe<IndustrieEntityResponse>;
   createIndustrieLocalization?: Maybe<IndustrieEntityResponse>;
@@ -1328,6 +1582,9 @@ export type Mutation = {
   deleteBewertung?: Maybe<BewertungEntityResponse>;
   deleteBlog?: Maybe<BlogEntityResponse>;
   deleteBlogKategorie?: Maybe<BlogKategorieEntityResponse>;
+  deleteCookie?: Maybe<CookieEntityResponse>;
+  deleteCookieCategory?: Maybe<CookieCategoryEntityResponse>;
+  deleteCookiePopup?: Maybe<CookiePopupEntityResponse>;
   deleteFormular?: Maybe<FormularEntityResponse>;
   deleteIndustrie?: Maybe<IndustrieEntityResponse>;
   deleteJob?: Maybe<JobEntityResponse>;
@@ -1354,6 +1611,9 @@ export type Mutation = {
   updateBewertung?: Maybe<BewertungEntityResponse>;
   updateBlog?: Maybe<BlogEntityResponse>;
   updateBlogKategorie?: Maybe<BlogKategorieEntityResponse>;
+  updateCookie?: Maybe<CookieEntityResponse>;
+  updateCookieCategory?: Maybe<CookieCategoryEntityResponse>;
+  updateCookiePopup?: Maybe<CookiePopupEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateFormular?: Maybe<FormularEntityResponse>;
   updateIndustrie?: Maybe<IndustrieEntityResponse>;
@@ -1404,6 +1664,45 @@ export type MutationCreateBlogKategorieLocalizationArgs = {
 
 export type MutationCreateBlogLocalizationArgs = {
   data?: InputMaybe<BlogInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateCookieArgs = {
+  data: CookieInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateCookieCategoryArgs = {
+  data: CookieCategoryInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateCookieCategoryLocalizationArgs = {
+  data?: InputMaybe<CookieCategoryInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateCookieLocalizationArgs = {
+  data?: InputMaybe<CookieInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateCookiePopupArgs = {
+  data: CookiePopupInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateCookiePopupLocalizationArgs = {
+  data?: InputMaybe<CookiePopupInput>;
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1498,6 +1797,24 @@ export type MutationDeleteBlogArgs = {
 
 
 export type MutationDeleteBlogKategorieArgs = {
+  id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationDeleteCookieArgs = {
+  id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationDeleteCookieCategoryArgs = {
+  id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationDeleteCookiePopupArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1607,6 +1924,27 @@ export type MutationUpdateBlogArgs = {
 
 export type MutationUpdateBlogKategorieArgs = {
   data: BlogKategorieInput;
+  id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationUpdateCookieArgs = {
+  data: CookieInput;
+  id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationUpdateCookieCategoryArgs = {
+  data: CookieCategoryInput;
+  id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationUpdateCookiePopupArgs = {
+  data: CookiePopupInput;
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1842,6 +2180,12 @@ export type Query = {
   blogKategorie?: Maybe<BlogKategorieEntityResponse>;
   blogKategories?: Maybe<BlogKategorieEntityResponseCollection>;
   blogs?: Maybe<BlogEntityResponseCollection>;
+  cookie?: Maybe<CookieEntityResponse>;
+  cookieCategories?: Maybe<CookieCategoryEntityResponseCollection>;
+  cookieCategory?: Maybe<CookieCategoryEntityResponse>;
+  cookiePopup?: Maybe<CookiePopupEntityResponse>;
+  cookiePopups?: Maybe<CookiePopupEntityResponseCollection>;
+  cookies?: Maybe<CookieEntityResponseCollection>;
   formular?: Maybe<FormularEntityResponse>;
   formulare?: Maybe<FormularEntityResponseCollection>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
@@ -1907,6 +2251,48 @@ export type QueryBlogsArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryCookieArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type QueryCookieCategoriesArgs = {
+  filters?: InputMaybe<CookieCategoryFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryCookieCategoryArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type QueryCookiePopupArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type QueryCookiePopupsArgs = {
+  filters?: InputMaybe<CookiePopupFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryCookiesArgs = {
+  filters?: InputMaybe<CookieFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
@@ -2580,6 +2966,11 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type GetCookieModalQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCookieModalQuery = { __typename?: 'Query', cookiePopups?: { __typename?: 'CookiePopupEntityResponseCollection', data: Array<{ __typename?: 'CookiePopupEntity', id?: string | null, attributes?: { __typename?: 'CookiePopup', title?: string | null, description?: string | null } | null }> } | null, cookieCategories?: { __typename?: 'CookieCategoryEntityResponseCollection', data: Array<{ __typename?: 'CookieCategoryEntity', id?: string | null, attributes?: { __typename?: 'CookieCategory', name: string, description: string, cookies?: { __typename?: 'CookieRelationResponseCollection', data: Array<{ __typename?: 'CookieEntity', id?: string | null, attributes?: { __typename?: 'Cookie', name: string, description: string, host: string, party: Enum_Cookie_Party, isVisible: boolean, duration?: any | null, locale?: string | null } | null }> } | null } | null }> } | null };
+
 export type GetIndustryQueryVariables = Exact<{
   filters?: InputMaybe<IndustrieFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -2654,6 +3045,69 @@ export type GetSingleTypesQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetSingleTypesQuery = { __typename?: 'Query', seitenEinstellung?: { __typename?: 'SeitenEinstellungEntityResponse', data?: { __typename?: 'SeitenEinstellungEntity', attributes?: { __typename?: 'SeitenEinstellung', createdAt?: any | null, footer_text?: string | null, name_des_unternehmens: string, updatedAt?: any | null, karriere?: { __typename?: 'ComponentUtilsJobsEinstellungen', button_inhalt?: string | null, button_url?: string | null, text?: string | null } | null, kontakt?: Array<{ __typename?: 'ComponentUtilsKontakt', inhalt?: string | null, type?: Enum_Componentutilskontakt_Type | null } | null> | null, logo?: { __typename?: 'ComponentUtilsLogo', logo_dunkel?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null }> } | null, logo_hell?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null, logo_standard: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null, social_media?: Array<{ __typename?: 'ComponentUtilsSocialMedia', typ?: Enum_Componentutilssocialmedia_Typ | null, url?: string | null } | null> | null } | null } | null } | null };
 
 
+export const GetCookieModalDocument = gql`
+    query getCookieModal {
+  cookiePopups {
+    data {
+      id
+      attributes {
+        title
+        description
+      }
+    }
+  }
+  cookieCategories {
+    data {
+      id
+      attributes {
+        name
+        description
+        cookies {
+          data {
+            id
+            attributes {
+              name
+              description
+              host
+              party
+              isVisible
+              duration
+              locale
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetCookieModalQuery__
+ *
+ * To run a query within a React component, call `useGetCookieModalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCookieModalQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCookieModalQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetCookieModalQuery(baseOptions?: Apollo.QueryHookOptions<GetCookieModalQuery, GetCookieModalQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCookieModalQuery, GetCookieModalQueryVariables>(GetCookieModalDocument, options);
+      }
+export function useGetCookieModalLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCookieModalQuery, GetCookieModalQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCookieModalQuery, GetCookieModalQueryVariables>(GetCookieModalDocument, options);
+        }
+export type GetCookieModalQueryHookResult = ReturnType<typeof useGetCookieModalQuery>;
+export type GetCookieModalLazyQueryHookResult = ReturnType<typeof useGetCookieModalLazyQuery>;
+export type GetCookieModalQueryResult = Apollo.QueryResult<GetCookieModalQuery, GetCookieModalQueryVariables>;
 export const GetIndustryDocument = gql`
     query getIndustry($filters: IndustrieFiltersInput, $locale: I18NLocaleCode) {
   industrien(filters: $filters, locale: $locale) {

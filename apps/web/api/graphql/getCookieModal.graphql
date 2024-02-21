@@ -1,0 +1,34 @@
+query getCookieModal {
+  cookiePopups {
+    data {
+      id
+      attributes {
+        title
+        description
+      }
+    }
+  }
+  cookieCategories {
+    data {
+      id
+      attributes {
+        name
+        description
+        cookies {
+          data {
+            id
+            attributes {
+              name
+              description
+              host
+              party
+              isVisible
+              duration
+              locale
+            }
+          }
+        }
+      }
+    }
+  }
+}
