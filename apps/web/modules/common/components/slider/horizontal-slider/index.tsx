@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import type { EmblaOptionsType } from "embla-carousel";
@@ -26,6 +26,19 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
     startIndex: data.embla_optionen?.start_index ?? 0,
   };
   const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions);
+  const [screenWidth, setScreenWidth] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const {
     prevBtnDisabled,
@@ -40,7 +53,7 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
   });
 
   return (
-    <div className="medium:pb-0 medium:pt-32.5">
+    <div className="flex flex-col medium:pb-0 medium:pt-32.5 mx-auto max-w-desktop">
       <LayoutContainer>
         <div className="mx-6 medium:mx-15 py-10">
           <div className="flex flex-col text-center medium:text-start items-center medium:items-stretch">
@@ -73,7 +86,15 @@ const HorizontalSlider = ({ data }: ComponentProps) => {
       </LayoutContainer>
       {data.cards?.length && (
         <>
-          <div className="embla_nowrap px-6 medium:px-15 pt-6 pb-4 medium:pt-10 medium:pb-0">
+          <div
+            className="embla_nowrap px-6 flex-grow relative left-0 right-0 medium:pl-15 medium:pr-0 pt-6 pb-4 medium:pt-10 medium:pb-0"
+            style={{
+              width:
+                screenWidth > 1319
+                  ? "calc(100% + ((100vw - 1320px) / 2))"
+                  : "100%",
+            }}
+          >
             <div className="embla__viewport" ref={emblaRef}>
               <div className="embla__container">
                 {data.cards?.map((val, index) => (

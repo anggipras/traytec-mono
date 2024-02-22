@@ -45,7 +45,6 @@ const RenderHtml = ({ html, className }: RenderHTMLProps) => {
             /<blockquote/g,
             '<blockquote class="bg-primary-100 p-5 border-l-2 border-primary-200"'
           )
-          .replace(/<img/g, '<img class="mb-sm"')
           .replace(
             /<a\s+(?:[^>]+?\s)?href="(https?:\/\/[^\s"]+)"(?:[^>]*?)>(.*?)<\/a>/g,
             (match, href, text) => {
