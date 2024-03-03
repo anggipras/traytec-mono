@@ -2029,6 +2029,7 @@ export type MutationUploadArgs = {
 
 export type NavigationItem = {
   __typename?: 'NavigationItem';
+  audience?: Maybe<Array<Maybe<Scalars['String']>>>;
   createdAt?: Maybe<Scalars['String']>;
   createdBy?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['String']>;
@@ -2051,7 +2052,7 @@ export type NavigationItem = {
   updated_by?: Maybe<Scalars['String']>;
 };
 
-export type NavigationItemRelated = Blog | BlogKategorie | Industrie | Job | Produkt | Seite;
+export type NavigationItemRelated = Industrie | Produkt;
 
 export type NavigationItemRelatedData = {
   __typename?: 'NavigationItemRelatedData';

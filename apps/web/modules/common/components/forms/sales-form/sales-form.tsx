@@ -11,6 +11,7 @@ import type {
 } from "@/generated/graphql";
 import { useData } from "@/lib/hooks/use-data-context";
 import { sendEmail } from "@/api/rest/strapi";
+import LayoutContainer from "@/modules/layout/components/layout-container";
 
 interface SalesFormProps {
   salesform: ComponentIntegrationenFormular;
@@ -216,7 +217,7 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
         {formResponseData && (
           <div className="text-white z-10">
             {formResponseData.ueberschrift && (
-              <div className="flex flex-col m-auto max-w-3xl pt-10 medium:pt-15">
+              <LayoutContainer className="flex flex-col m-auto max-w-3xl pt-10 medium:pt-15 px-6">
                 {formResponseData.ueberschrift?.heading && (
                   <div className="typo-h2 mb-4 medium:mb-5">
                     {formResponseData.ueberschrift?.heading}
@@ -227,7 +228,7 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
                     html={formResponseData.ueberschrift?.text || ""}
                   />
                 )}
-              </div>
+              </LayoutContainer>
             )}
             <div className="m-auto px-6 py-10 medium:py-15">
               <div className="embla_main">
