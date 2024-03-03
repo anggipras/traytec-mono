@@ -173,7 +173,7 @@ const ModalCookie: React.FC<ModalCookieProps> = ({ data, isOpen, close }) => {
                   <Button
                     disabled={!isBottomReached}
                     onClick={handleAcceptAll}
-                    variant={Enum_Componentutilsbutton_Variante.Text}
+                    variant={Enum_Componentutilsbutton_Variante.Primary}
                     width="w-full"
                   >
                     Allow All
@@ -182,7 +182,7 @@ const ModalCookie: React.FC<ModalCookieProps> = ({ data, isOpen, close }) => {
                   <Button
                     disabled={!isBottomReached}
                     onClick={handleDeclineUnnecessary}
-                    variant={Enum_Componentutilsbutton_Variante.Primary}
+                    variant={Enum_Componentutilsbutton_Variante.Text}
                     width="w-full"
                   >
                     Accept only necessary
