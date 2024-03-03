@@ -34,11 +34,18 @@
       "customField": "plugin::ckeditor.CKEditor"
     },
     "medien": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
+    },
+    "button_text": {
+      "type": "string"
+    },
+    "button_url": {
+      "type": "string"
     }
   }
 }

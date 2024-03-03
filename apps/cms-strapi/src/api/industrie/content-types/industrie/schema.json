@@ -67,9 +67,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -84,6 +82,29 @@
       },
       "type": "boolean",
       "default": false
+    },
+    "inhalte": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "dynamiczone",
+      "components": [
+        "heros.hero-1",
+        "slider.horizontaler-slider",
+        "slider.horizontaler-slider-fokus",
+        "integrationen.formular",
+        "listen.grid-liste",
+        "headings.heading-minimalistisch",
+        "headings.heading-mit-video",
+        "listen.timeline-liste",
+        "sektionen.inhalt-mit-media",
+        "listen.industrie-liste",
+        "integrationen.jobs",
+        "integrationen.bewertungen",
+        "utils.text"
+      ]
     }
   }
 }
