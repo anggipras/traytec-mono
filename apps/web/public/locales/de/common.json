@@ -1,28 +1,16 @@
 {
-  "COMPONENTS": {
-    "HERO": {
-      "INTRO": "{{topLine}}",
-      "TITLE": "{{heroHeading}}",
-      "SUBTITLE": "{{heroText}}",
-      "BUTTON": "{{buttonText}}"
-    },
-    "SECTION_HEADING": {
-      "INTRO": "{{sectionHeadingIntro}}",
-      "TITLE": "{{sectionHeadingTitle}}",
-      "DESCRIPTION": "{{sectionHeadingDesc}}"
-    }
+  "CONTACT": "Kontakt",
+  "NAVIGATION": "Navigation",
+  "FORM_BUTTON": {
+    "BACK": "Zuruck",
+    "NEXT": "Weiter",
+    "SUBMIT": "Absenden"
   },
-  "PAGES": {
-    "HOME_PAGE": {
-      "PROCESS": {
-        "INTRO": "{{processIntro}}",
-        "TITLE": "{{processTitle}}",
-        "SUBTITLE": "{{processSubtitle}}",
-        "LIST": {
-          "TITLE": "{{listTitle}}",
-          "DESCRIPTION": "{{listDesc}}"
-        }
-      }
-    }
+  "COOKIES": {
+    "ACCEPT_ALL": "Alles akzeptieren",
+    "ACCEPT_ONLY": "Nur notwendige akzeptieren",
+    "SAVE_COOKIE": "Cookie-Einstellungen speichern",
+    "MANAGE_COOKIE": "Cookies verwalten",
+    "READ_UNTIL_THE_END": "Lesen Sie bitte unsere Cookie-Richtlinien bis zum Schluss"
   }
 }

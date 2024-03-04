@@ -438,6 +438,8 @@ export interface SliderSliderCard2 extends Schema.Component {
         }
       >;
     medien: Attribute.Media;
+    button_text: Attribute.String;
+    button_url: Attribute.String;
   };
 }
 

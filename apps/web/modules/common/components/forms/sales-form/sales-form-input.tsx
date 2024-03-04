@@ -2,6 +2,7 @@
 /* eslint-disable no-nested-ternary -- disable nested ternary on jsx */
 /* eslint-disable @typescript-eslint/ban-types -- disable ban types */
 import React, { useState } from "react";
+import { useTranslation } from "next-i18next";
 import Button from "../../button";
 import RenderHtml from "../../render-html";
 import type {
@@ -36,6 +37,7 @@ const SalesFormInput = ({
   scrollPrev,
   formIdx,
 }: FormProps) => {
+  const { t } = useTranslation();
   const __typename = formValue?.__typename;
   const [formInputValue, setFormInputValue] = useState<string>("");
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
@@ -148,7 +150,7 @@ const SalesFormInput = ({
             variant={Enum_Componentutilsbutton_Variante.Secondary}
             width="w-fit"
           >
-            <span>Back</span>
+            <span>{t("FORM_BUTTON.BACK")}</span>
           </Button>
         )}
         <Button
@@ -167,7 +169,11 @@ const SalesFormInput = ({
           variant={Enum_Componentutilsbutton_Variante.Secondary}
           width="w-fit"
         >
-          <span>{formData.length - 1 === formIdx ? "Submit" : "Continue"}</span>
+          <span>
+            {formData.length - 1 === formIdx
+              ? t("FORM_BUTTON.SUBMIT")
+              : t("FORM_BUTTON.NEXT")}
+          </span>
         </Button>
       </div>
     </div>

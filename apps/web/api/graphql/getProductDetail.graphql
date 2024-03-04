@@ -1,32 +1,14 @@
-query getIndustry($filters: IndustrieFiltersInput, $locale: I18NLocaleCode) {
-  industrien(filters: $filters, locale: $locale) {
+query getProductDetail($filters: ProduktFiltersInput, $locale: I18NLocaleCode) {
+  produkte(filters: $filters, locale: $locale) {
     data {
       attributes {
         beschreibung
-        locale
         slug
         titel
-        alle_anzeigen
         vorschau {
           data {
             attributes {
               url
-            }
-          }
-        }
-        produkte {
-          data {
-            attributes {
-              beschreibung
-              slug
-              titel
-              vorschau {
-                data {
-                  attributes {
-                    url
-                  }
-                }
-              }
             }
           }
         }

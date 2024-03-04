@@ -1399,6 +1399,28 @@ export interface ApiIndustrieIndustrie extends Schema.CollectionType {
         };
       }> &
       Attribute.DefaultTo<false>;
+    inhalte: Attribute.DynamicZone<
+      [
+        'heros.hero-1',
+        'slider.horizontaler-slider',
+        'slider.horizontaler-slider-fokus',
+        'integrationen.formular',
+        'listen.grid-liste',
+        'headings.heading-minimalistisch',
+        'headings.heading-mit-video',
+        'listen.timeline-liste',
+        'sektionen.inhalt-mit-media',
+        'listen.industrie-liste',
+        'integrationen.jobs',
+        'integrationen.bewertungen',
+        'utils.text'
+      ]
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1568,6 +1590,28 @@ export interface ApiProduktProdukt extends Schema.CollectionType {
           preset: 'standard';
         }
       > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    inhalte: Attribute.DynamicZone<
+      [
+        'heros.hero-1',
+        'slider.horizontaler-slider',
+        'slider.horizontaler-slider-fokus',
+        'integrationen.formular',
+        'listen.grid-liste',
+        'headings.heading-minimalistisch',
+        'headings.heading-mit-video',
+        'listen.timeline-liste',
+        'sektionen.inhalt-mit-media',
+        'listen.industrie-liste',
+        'integrationen.jobs',
+        'integrationen.bewertungen',
+        'utils.text'
+      ]
+    > &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

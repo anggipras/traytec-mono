@@ -17,7 +17,9 @@ export type Scalars = {
   DateTime: any;
   FormularFragenDynamicZoneInput: any;
   I18NLocaleCode: any;
+  IndustrieInhalteDynamicZoneInput: any;
   JSON: any;
+  ProduktInhalteDynamicZoneInput: any;
   SeiteInhalteDynamicZoneInput: any;
   Upload: any;
 };
@@ -597,6 +599,8 @@ export type ComponentSliderSliderCard = {
 
 export type ComponentSliderSliderCard2 = {
   __typename?: 'ComponentSliderSliderCard2';
+  button_text?: Maybe<Scalars['String']>;
+  button_url?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   image?: Maybe<UploadFileEntityResponse>;
   medien?: Maybe<UploadFileRelationResponseCollection>;
@@ -614,6 +618,8 @@ export type ComponentSliderSliderCard2MedienArgs = {
 
 export type ComponentSliderSliderCard2FiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentSliderSliderCard2FiltersInput>>>;
+  button_text?: InputMaybe<StringFilterInput>;
+  button_url?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ComponentSliderSliderCard2FiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentSliderSliderCard2FiltersInput>>>;
   text?: InputMaybe<StringFilterInput>;
@@ -1343,6 +1349,7 @@ export type Industrie = {
   alle_anzeigen?: Maybe<Scalars['Boolean']>;
   beschreibung?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  inhalte?: Maybe<Array<Maybe<IndustrieInhalteDynamicZone>>>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<IndustrieRelationResponseCollection>;
   produkte?: Maybe<ProduktRelationResponseCollection>;
@@ -1405,9 +1412,12 @@ export type IndustrieFiltersInput = {
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
+export type IndustrieInhalteDynamicZone = ComponentHeadingsHeadingMinimalistisch | ComponentHeadingsHeadingMitVideo | ComponentHerosHero1 | ComponentIntegrationenBewertungen | ComponentIntegrationenFormular | ComponentIntegrationenJobs | ComponentListenGridListe | ComponentListenIndustrieListe | ComponentListenTimelineListe | ComponentSektionenInhaltMitMedia | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | ComponentUtilsText | Error;
+
 export type IndustrieInput = {
   alle_anzeigen?: InputMaybe<Scalars['Boolean']>;
   beschreibung?: InputMaybe<Scalars['String']>;
+  inhalte?: InputMaybe<Array<Scalars['IndustrieInhalteDynamicZoneInput']>>;
   produkte?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   seo?: InputMaybe<ComponentSharedSeoInput>;
@@ -2029,7 +2039,6 @@ export type MutationUploadArgs = {
 
 export type NavigationItem = {
   __typename?: 'NavigationItem';
-  audience?: Maybe<Array<Maybe<Scalars['String']>>>;
   createdAt?: Maybe<Scalars['String']>;
   createdBy?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['String']>;
@@ -2052,7 +2061,7 @@ export type NavigationItem = {
   updated_by?: Maybe<Scalars['String']>;
 };
 
-export type NavigationItemRelated = Industrie | Produkt;
+export type NavigationItemRelated = Blog | BlogKategorie | Industrie | Job | Produkt | Seite;
 
 export type NavigationItemRelatedData = {
   __typename?: 'NavigationItemRelatedData';
@@ -2086,6 +2095,7 @@ export type Produkt = {
   beschreibung?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   industrien?: Maybe<IndustrieRelationResponseCollection>;
+  inhalte?: Maybe<Array<Maybe<ProduktInhalteDynamicZone>>>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<ProduktRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']>;
@@ -2153,9 +2163,12 @@ export type ProduktFiltersInput = {
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
+export type ProduktInhalteDynamicZone = ComponentHeadingsHeadingMinimalistisch | ComponentHeadingsHeadingMitVideo | ComponentHerosHero1 | ComponentIntegrationenBewertungen | ComponentIntegrationenFormular | ComponentIntegrationenJobs | ComponentListenGridListe | ComponentListenIndustrieListe | ComponentListenTimelineListe | ComponentSektionenInhaltMitMedia | ComponentSliderHorizontalerSlider | ComponentSliderHorizontalerSliderFokus | ComponentUtilsText | Error;
+
 export type ProduktInput = {
   beschreibung?: InputMaybe<Scalars['String']>;
   industrien?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  inhalte?: InputMaybe<Array<Scalars['ProduktInhalteDynamicZoneInput']>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   seo?: InputMaybe<Array<InputMaybe<ComponentSharedSeoInput>>>;
   slug?: InputMaybe<Scalars['String']>;
@@ -2978,7 +2991,7 @@ export type GetIndustryQueryVariables = Exact<{
 }>;
 
 
-export type GetIndustryQuery = { __typename?: 'Query', industrien?: { __typename?: 'IndustrieEntityResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', beschreibung?: string | null, locale?: string | null, slug?: string | null, titel?: string | null, alle_anzeigen?: boolean | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null, produkte?: { __typename?: 'ProduktRelationResponseCollection', data: Array<{ __typename?: 'ProduktEntity', attributes?: { __typename?: 'Produkt', beschreibung?: string | null, slug?: string | null, titel?: string | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null }> } | null } | null }> } | null };
+export type GetIndustryQuery = { __typename?: 'Query', industrien?: { __typename?: 'IndustrieEntityResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', beschreibung?: string | null, locale?: string | null, slug?: string | null, titel?: string | null, alle_anzeigen?: boolean | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null, produkte?: { __typename?: 'ProduktRelationResponseCollection', data: Array<{ __typename?: 'ProduktEntity', attributes?: { __typename?: 'Produkt', beschreibung?: string | null, slug?: string | null, titel?: string | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null } | null }> } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch', ausrichtung?: Enum_Componentheadingsheadingminimalistisch_Ausrichtung | null, beschreibung?: string | null, dekoration_anzeigen?: boolean | null, titel: string, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | { __typename?: 'ComponentHeadingsHeadingMitVideo', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, heading_media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, height?: number | null, url: string, width?: number | null } | null } | null } | null } | { __typename?: 'ComponentHerosHero1', sichtbar: boolean, hero_btn?: Array<{ __typename?: 'ComponentUtilsButton', text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null> | null, hintergrund?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, url: string } | null } | null } | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'ComponentIntegrationenBewertungen', alle_anzeigen?: boolean | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, bewertungen?: { __typename?: 'BewertungRelationResponseCollection', data: Array<{ __typename?: 'BewertungEntity', attributes?: { __typename?: 'Bewertung', kommentar?: string | null, person?: Array<{ __typename?: 'ComponentUtilsGoogleReviewer', ist_anonym?: boolean | null, name?: string | null, photo_url?: string | null } | null> | null } | null }> } | null, embla_optionen?: { __typename?: 'ComponentUtilsEmblaOptionen', loop?: boolean | null, start_index?: number | null } | null } | { __typename?: 'ComponentIntegrationenFormular', sichtbar: boolean, formular?: { __typename?: 'FormularEntityResponse', data?: { __typename?: 'FormularEntity', attributes?: { __typename?: 'Formular', titel?: string | null, email_empfaenger?: string | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, Fragen: Array<{ __typename?: 'ComponentFormDaten', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormDatum', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormDatumUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormLongText', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormMultipleChoice', frage: string, notwendig?: boolean | null, moeglichkeit?: Array<{ __typename?: 'ComponentFormAntwortmoeglichkeit', antwort?: string | null, id: string, overwrite_email?: string | null, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, caption?: string | null, url: string } | null } | null } | null } | null> | null } | { __typename?: 'ComponentFormTextForm', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'Error', code: string, message?: string | null } | null> } | null } | null } | null } | { __typename?: 'ComponentIntegrationenJobs' } | { __typename?: 'ComponentListenGridListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, inhalt?: Array<{ __typename?: 'ComponentUtilsGridElement', text?: string | null, titel?: string | null, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentListenIndustrieListe', industrien?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', beschreibung?: string | null, slug?: string | null, titel?: string | null, alle_anzeigen?: boolean | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null }> } | null } | { __typename?: 'ComponentListenTimelineListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, timeline_karten?: Array<{ __typename?: 'ComponentUtilsTimelineKarte', beschreibung?: string | null, titel: string, zeitpunkt: any, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentSektionenInhaltMitMedia', MEDIA_POSITION: Enum_Componentsektioneninhaltmitmedia_Media_Position, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, media: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } } | { __typename?: 'ComponentSliderHorizontalerSlider', sichtbar: boolean, cards?: Array<{ __typename?: 'ComponentSliderSliderCard', icon_text?: string | null, text?: string | null, ueberschrift?: string | null, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null, uberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, embla_optionen?: { __typename?: 'ComponentUtilsEmblaOptionen', loop?: boolean | null, start_index?: number | null } | null } | { __typename?: 'ComponentSliderHorizontalerSliderFokus', background_anzeigen?: boolean | null, karten_ausserhalb_anzeigen?: boolean | null, sichtbar: boolean, button?: { __typename?: 'ComponentUtilsButton', id: string, text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null, cards?: Array<{ __typename?: 'ComponentSliderSliderCard2', text?: string | null, ueberschrift?: string | null, vorteile?: string | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null, medien?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, caption?: string | null, url: string, name: string } | null }> } | null } | null> | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, autoplay?: { __typename?: 'ComponentUtilsAutoplayEinstellungen', ist_aktiv?: boolean | null, dauer?: number | null } | null, embla_optionen?: { __typename?: 'ComponentUtilsEmblaOptionen', loop?: boolean | null, start_index?: number | null } | null } | { __typename?: 'ComponentUtilsText', text_content?: string | null } | { __typename?: 'Error', code: string, message?: string | null } | null> | null } | null }> } | null };
 
 export type GetIndustrySlugQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -3026,6 +3039,22 @@ export type GetPageHandleQueryVariables = Exact<{
 
 
 export type GetPageHandleQuery = { __typename?: 'Query', seiten?: { __typename?: 'SeiteEntityResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null, localizations?: { __typename?: 'SeiteRelationResponseCollection', data: Array<{ __typename?: 'SeiteEntity', attributes?: { __typename?: 'Seite', locale?: string | null, slug?: string | null, titel?: string | null } | null }> } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch' } | { __typename?: 'ComponentHeadingsHeadingMitVideo' } | { __typename?: 'ComponentHerosHero1' } | { __typename?: 'ComponentIntegrationenBewertungen' } | { __typename?: 'ComponentIntegrationenFormular' } | { __typename?: 'ComponentIntegrationenJobs', jobs?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', locale?: string | null, slug: string, localizations?: { __typename?: 'JobRelationResponseCollection', data: Array<{ __typename?: 'JobEntity', attributes?: { __typename?: 'Job', slug: string, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenGridListe' } | { __typename?: 'ComponentListenIndustrieListe', industrien?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', locale?: string | null, slug?: string | null, localizations?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', slug?: string | null, locale?: string | null } | null }> } | null } | null }> } | null } | { __typename?: 'ComponentListenTimelineListe' } | { __typename?: 'ComponentSektionenInhaltMitMedia' } | { __typename?: 'ComponentSliderHorizontalerSlider' } | { __typename?: 'ComponentSliderHorizontalerSliderFokus' } | { __typename?: 'ComponentUtilsText' } | { __typename?: 'Error' } | null> | null } | null }> } | null };
+
+export type GetProductDetailQueryVariables = Exact<{
+  filters?: InputMaybe<ProduktFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type GetProductDetailQuery = { __typename?: 'Query', produkte?: { __typename?: 'ProduktEntityResponseCollection', data: Array<{ __typename?: 'ProduktEntity', attributes?: { __typename?: 'Produkt', beschreibung?: string | null, slug?: string | null, titel?: string | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } | null, inhalte?: Array<{ __typename?: 'ComponentHeadingsHeadingMinimalistisch', ausrichtung?: Enum_Componentheadingsheadingminimalistisch_Ausrichtung | null, beschreibung?: string | null, dekoration_anzeigen?: boolean | null, titel: string, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | { __typename?: 'ComponentHeadingsHeadingMitVideo', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, heading_media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, height?: number | null, url: string, width?: number | null } | null } | null } | null } | { __typename?: 'ComponentHerosHero1', sichtbar: boolean, hero_btn?: Array<{ __typename?: 'ComponentUtilsButton', text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null> | null, hintergrund?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', ext?: string | null, url: string } | null } | null } | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null } | { __typename?: 'ComponentIntegrationenBewertungen', alle_anzeigen?: boolean | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, bewertungen?: { __typename?: 'BewertungRelationResponseCollection', data: Array<{ __typename?: 'BewertungEntity', attributes?: { __typename?: 'Bewertung', kommentar?: string | null, person?: Array<{ __typename?: 'ComponentUtilsGoogleReviewer', ist_anonym?: boolean | null, name?: string | null, photo_url?: string | null } | null> | null } | null }> } | null, embla_optionen?: { __typename?: 'ComponentUtilsEmblaOptionen', loop?: boolean | null, start_index?: number | null } | null } | { __typename?: 'ComponentIntegrationenFormular', sichtbar: boolean, formular?: { __typename?: 'FormularEntityResponse', data?: { __typename?: 'FormularEntity', attributes?: { __typename?: 'Formular', titel?: string | null, email_empfaenger?: string | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, Fragen: Array<{ __typename?: 'ComponentFormDaten', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormDatum', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormDatumUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormLongText', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormMultipleChoice', frage: string, notwendig?: boolean | null, moeglichkeit?: Array<{ __typename?: 'ComponentFormAntwortmoeglichkeit', antwort?: string | null, id: string, overwrite_email?: string | null, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, caption?: string | null, url: string } | null } | null } | null } | null> | null } | { __typename?: 'ComponentFormTextForm', frage: string, notwendig?: boolean | null } | { __typename?: 'ComponentFormUhrzeit', frage: string, notwendig?: boolean | null } | { __typename?: 'Error', code: string, message?: string | null } | null> } | null } | null } | null } | { __typename?: 'ComponentIntegrationenJobs' } | { __typename?: 'ComponentListenGridListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, inhalt?: Array<{ __typename?: 'ComponentUtilsGridElement', text?: string | null, titel?: string | null, bild?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentListenIndustrieListe', industrien?: { __typename?: 'IndustrieRelationResponseCollection', data: Array<{ __typename?: 'IndustrieEntity', attributes?: { __typename?: 'Industrie', beschreibung?: string | null, slug?: string | null, titel?: string | null, alle_anzeigen?: boolean | null, vorschau?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null }> } | null } | { __typename?: 'ComponentListenTimelineListe', ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, timeline_karten?: Array<{ __typename?: 'ComponentUtilsTimelineKarte', beschreibung?: string | null, titel: string, zeitpunkt: any, media?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null } | { __typename?: 'ComponentSektionenInhaltMitMedia', MEDIA_POSITION: Enum_Componentsektioneninhaltmitmedia_Media_Position, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, media: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } } | { __typename?: 'ComponentSliderHorizontalerSlider', sichtbar: boolean, cards?: Array<{ __typename?: 'ComponentSliderSliderCard', icon_text?: string | null, text?: string | null, ueberschrift?: string | null, icon?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null } | null> | null, uberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, embla_optionen?: { __typename?: 'ComponentUtilsEmblaOptionen', loop?: boolean | null, start_index?: number | null } | null } | { __typename?: 'ComponentSliderHorizontalerSliderFokus', background_anzeigen?: boolean | null, karten_ausserhalb_anzeigen?: boolean | null, sichtbar: boolean, button?: { __typename?: 'ComponentUtilsButton', id: string, text: string, url: string, variante: Enum_Componentutilsbutton_Variante } | null, cards?: Array<{ __typename?: 'ComponentSliderSliderCard2', text?: string | null, ueberschrift?: string | null, vorteile?: string | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', height?: number | null, url: string, width?: number | null } | null } | null } | null, medien?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', alternativeText?: string | null, caption?: string | null, url: string, name: string } | null }> } | null } | null> | null, ueberschrift?: { __typename?: 'ComponentUtilsHeading', heading?: string | null, text?: string | null, topline?: string | null, typ: Enum_Componentutilsheading_Typ } | null, autoplay?: { __typename?: 'ComponentUtilsAutoplayEinstellungen', ist_aktiv?: boolean | null, dauer?: number | null } | null, embla_optionen?: { __typename?: 'ComponentUtilsEmblaOptionen', loop?: boolean | null, start_index?: number | null } | null } | { __typename?: 'ComponentUtilsText', text_content?: string | null } | { __typename?: 'Error', code: string, message?: string | null } | null> | null } | null }> } | null };
+
+export type GetProductSlugQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
+}>;
+
+
+export type GetProductSlugQuery = { __typename?: 'Query', produkte?: { __typename?: 'ProduktEntityResponseCollection', data: Array<{ __typename?: 'ProduktEntity', attributes?: { __typename?: 'Produkt', slug?: string | null, locale?: string | null, localizations?: { __typename?: 'ProduktRelationResponseCollection', data: Array<{ __typename?: 'ProduktEntity', attributes?: { __typename?: 'Produkt', slug?: string | null, locale?: string | null } | null }> } | null } | null }> } | null };
 
 export type GetProductsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -3140,6 +3169,318 @@ export const GetIndustryDocument = gql`
                 }
               }
             }
+          }
+        }
+        inhalte {
+          ... on ComponentHerosHero1 {
+            hero_btn: button {
+              text
+              url
+              variante
+            }
+            hintergrund {
+              data {
+                attributes {
+                  ext
+                  url
+                }
+              }
+            }
+            sichtbar
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+          }
+          ... on ComponentSliderHorizontalerSlider {
+            cards {
+              icon {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              icon_text
+              text
+              ueberschrift
+            }
+            sichtbar
+            uberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            embla_optionen {
+              loop
+              start_index
+            }
+          }
+          ... on ComponentSliderHorizontalerSliderFokus {
+            background_anzeigen
+            button {
+              id
+              text
+              url
+              variante
+            }
+            cards {
+              image {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              text
+              ueberschrift
+              vorteile
+              medien {
+                data {
+                  attributes {
+                    alternativeText
+                    caption
+                    url
+                    name
+                  }
+                }
+              }
+            }
+            karten_ausserhalb_anzeigen
+            sichtbar
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            autoplay {
+              ist_aktiv
+              dauer
+            }
+            embla_optionen {
+              loop
+              start_index
+            }
+          }
+          ... on ComponentIntegrationenFormular {
+            formular {
+              data {
+                attributes {
+                  ueberschrift {
+                    heading
+                    text
+                    topline
+                    typ
+                  }
+                  titel
+                  Fragen {
+                    ... on ComponentFormTextForm {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormLongText {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormDatumUhrzeit {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormDatum {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormMultipleChoice {
+                      frage
+                      moeglichkeit {
+                        antwort
+                        id
+                        overwrite_email
+                        icon {
+                          data {
+                            attributes {
+                              alternativeText
+                              caption
+                              url
+                            }
+                          }
+                        }
+                      }
+                      notwendig
+                    }
+                    ... on ComponentFormUhrzeit {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormDaten {
+                      frage
+                      notwendig
+                    }
+                    ... on Error {
+                      code
+                      message
+                    }
+                  }
+                  email_empfaenger
+                }
+              }
+            }
+            sichtbar
+          }
+          ... on ComponentListenGridListe {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            inhalt {
+              bild {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              text
+              titel
+            }
+          }
+          ... on ComponentHeadingsHeadingMinimalistisch {
+            ausrichtung
+            beschreibung
+            dekoration_anzeigen
+            titel
+            bild {
+              data {
+                attributes {
+                  height
+                  url
+                  width
+                }
+              }
+            }
+          }
+          ... on ComponentHeadingsHeadingMitVideo {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            heading_media: media {
+              data {
+                attributes {
+                  ext
+                  height
+                  url
+                  width
+                }
+              }
+            }
+          }
+          ... on ComponentListenTimelineListe {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            timeline_karten {
+              beschreibung
+              media {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              titel
+              zeitpunkt
+            }
+          }
+          ... on ComponentSektionenInhaltMitMedia {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            MEDIA_POSITION
+            media {
+              data {
+                attributes {
+                  height
+                  url
+                  width
+                }
+              }
+            }
+          }
+          ... on ComponentListenIndustrieListe {
+            industrien {
+              data {
+                attributes {
+                  beschreibung
+                  slug
+                  titel
+                  alle_anzeigen
+                  vorschau {
+                    data {
+                      attributes {
+                        height
+                        url
+                        width
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on ComponentIntegrationenBewertungen {
+            alle_anzeigen
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            bewertungen {
+              data {
+                attributes {
+                  kommentar
+                  person {
+                    ist_anonym
+                    name
+                    photo_url
+                  }
+                }
+              }
+            }
+            embla_optionen {
+              loop
+              start_index
+            }
+          }
+          ... on ComponentUtilsText {
+            text_content: inhalt
+          }
+          ... on Error {
+            code
+            message
           }
         }
       }
@@ -3862,6 +4203,416 @@ export function useGetPageHandleLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetPageHandleQueryHookResult = ReturnType<typeof useGetPageHandleQuery>;
 export type GetPageHandleLazyQueryHookResult = ReturnType<typeof useGetPageHandleLazyQuery>;
 export type GetPageHandleQueryResult = Apollo.QueryResult<GetPageHandleQuery, GetPageHandleQueryVariables>;
+export const GetProductDetailDocument = gql`
+    query getProductDetail($filters: ProduktFiltersInput, $locale: I18NLocaleCode) {
+  produkte(filters: $filters, locale: $locale) {
+    data {
+      attributes {
+        beschreibung
+        slug
+        titel
+        vorschau {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        inhalte {
+          ... on ComponentHerosHero1 {
+            hero_btn: button {
+              text
+              url
+              variante
+            }
+            hintergrund {
+              data {
+                attributes {
+                  ext
+                  url
+                }
+              }
+            }
+            sichtbar
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+          }
+          ... on ComponentSliderHorizontalerSlider {
+            cards {
+              icon {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              icon_text
+              text
+              ueberschrift
+            }
+            sichtbar
+            uberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            embla_optionen {
+              loop
+              start_index
+            }
+          }
+          ... on ComponentSliderHorizontalerSliderFokus {
+            background_anzeigen
+            button {
+              id
+              text
+              url
+              variante
+            }
+            cards {
+              image {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              text
+              ueberschrift
+              vorteile
+              medien {
+                data {
+                  attributes {
+                    alternativeText
+                    caption
+                    url
+                    name
+                  }
+                }
+              }
+            }
+            karten_ausserhalb_anzeigen
+            sichtbar
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            autoplay {
+              ist_aktiv
+              dauer
+            }
+            embla_optionen {
+              loop
+              start_index
+            }
+          }
+          ... on ComponentIntegrationenFormular {
+            formular {
+              data {
+                attributes {
+                  ueberschrift {
+                    heading
+                    text
+                    topline
+                    typ
+                  }
+                  titel
+                  Fragen {
+                    ... on ComponentFormTextForm {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormLongText {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormDatumUhrzeit {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormDatum {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormMultipleChoice {
+                      frage
+                      moeglichkeit {
+                        antwort
+                        id
+                        overwrite_email
+                        icon {
+                          data {
+                            attributes {
+                              alternativeText
+                              caption
+                              url
+                            }
+                          }
+                        }
+                      }
+                      notwendig
+                    }
+                    ... on ComponentFormUhrzeit {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormDaten {
+                      frage
+                      notwendig
+                    }
+                    ... on Error {
+                      code
+                      message
+                    }
+                  }
+                  email_empfaenger
+                }
+              }
+            }
+            sichtbar
+          }
+          ... on ComponentListenGridListe {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            inhalt {
+              bild {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              text
+              titel
+            }
+          }
+          ... on ComponentHeadingsHeadingMinimalistisch {
+            ausrichtung
+            beschreibung
+            dekoration_anzeigen
+            titel
+            bild {
+              data {
+                attributes {
+                  height
+                  url
+                  width
+                }
+              }
+            }
+          }
+          ... on ComponentHeadingsHeadingMitVideo {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            heading_media: media {
+              data {
+                attributes {
+                  ext
+                  height
+                  url
+                  width
+                }
+              }
+            }
+          }
+          ... on ComponentListenTimelineListe {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            timeline_karten {
+              beschreibung
+              media {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              titel
+              zeitpunkt
+            }
+          }
+          ... on ComponentSektionenInhaltMitMedia {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            MEDIA_POSITION
+            media {
+              data {
+                attributes {
+                  height
+                  url
+                  width
+                }
+              }
+            }
+          }
+          ... on ComponentListenIndustrieListe {
+            industrien {
+              data {
+                attributes {
+                  beschreibung
+                  slug
+                  titel
+                  alle_anzeigen
+                  vorschau {
+                    data {
+                      attributes {
+                        height
+                        url
+                        width
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on ComponentIntegrationenBewertungen {
+            alle_anzeigen
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            bewertungen {
+              data {
+                attributes {
+                  kommentar
+                  person {
+                    ist_anonym
+                    name
+                    photo_url
+                  }
+                }
+              }
+            }
+            embla_optionen {
+              loop
+              start_index
+            }
+          }
+          ... on ComponentUtilsText {
+            text_content: inhalt
+          }
+          ... on Error {
+            code
+            message
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetProductDetailQuery__
+ *
+ * To run a query within a React component, call `useGetProductDetailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProductDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProductDetailQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useGetProductDetailQuery(baseOptions?: Apollo.QueryHookOptions<GetProductDetailQuery, GetProductDetailQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProductDetailQuery, GetProductDetailQueryVariables>(GetProductDetailDocument, options);
+      }
+export function useGetProductDetailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductDetailQuery, GetProductDetailQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProductDetailQuery, GetProductDetailQueryVariables>(GetProductDetailDocument, options);
+        }
+export type GetProductDetailQueryHookResult = ReturnType<typeof useGetProductDetailQuery>;
+export type GetProductDetailLazyQueryHookResult = ReturnType<typeof useGetProductDetailLazyQuery>;
+export type GetProductDetailQueryResult = Apollo.QueryResult<GetProductDetailQuery, GetProductDetailQueryVariables>;
+export const GetProductSlugDocument = gql`
+    query getProductSlug($locale: I18NLocaleCode, $pagination: PaginationArg) {
+  produkte(locale: $locale, pagination: $pagination) {
+    data {
+      attributes {
+        slug
+        locale
+        localizations {
+          data {
+            attributes {
+              slug
+              locale
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetProductSlugQuery__
+ *
+ * To run a query within a React component, call `useGetProductSlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProductSlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProductSlugQuery({
+ *   variables: {
+ *      locale: // value for 'locale'
+ *      pagination: // value for 'pagination'
+ *   },
+ * });
+ */
+export function useGetProductSlugQuery(baseOptions?: Apollo.QueryHookOptions<GetProductSlugQuery, GetProductSlugQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProductSlugQuery, GetProductSlugQueryVariables>(GetProductSlugDocument, options);
+      }
+export function useGetProductSlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductSlugQuery, GetProductSlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProductSlugQuery, GetProductSlugQueryVariables>(GetProductSlugDocument, options);
+        }
+export type GetProductSlugQueryHookResult = ReturnType<typeof useGetProductSlugQuery>;
+export type GetProductSlugLazyQueryHookResult = ReturnType<typeof useGetProductSlugLazyQuery>;
+export type GetProductSlugQueryResult = Apollo.QueryResult<GetProductSlugQuery, GetProductSlugQueryVariables>;
 export const GetProductsDocument = gql`
     query getProducts($locale: I18NLocaleCode, $pagination: PaginationArg) {
   produkte(locale: $locale, pagination: $pagination) {

@@ -2,10 +2,7 @@
 import React from "react";
 import SalesFormMultipleChoice from "./sales-form-multiple-choice";
 import SalesFormInput from "./sales-form-input";
-import {
-  type FormularFragenDynamicZone,
-  type Maybe,
-} from "@/generated/graphql";
+import type { FormularFragenDynamicZone, Maybe } from "@/generated/graphql";
 
 interface StepFormProps {
   formValue?: Maybe<FormularFragenDynamicZone>;

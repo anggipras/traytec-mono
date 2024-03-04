@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import compact from "lodash/compact";
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 import Button from "../../button";
 import RenderHtml from "../../render-html";
 import type {
@@ -32,6 +33,7 @@ const SalesFormMultipleChoice = ({
   scrollPrev,
   formIdx,
 }: FormProps) => {
+  const { t } = useTranslation();
   const multipleChoiceFormValue = formValue as ComponentFormMultipleChoice;
   const [multipleChoiceCheckValue, setMultipleChoiceCheckValue] = useState<
     MultipleChoiceCheckProps[]
@@ -143,7 +145,7 @@ const SalesFormMultipleChoice = ({
             variant={Enum_Componentutilsbutton_Variante.Secondary}
             width="w-fit"
           >
-            <span>Back</span>
+            <span>{t("FORM_BUTTON.BACK")}</span>
           </Button>
         )}
         <Button
@@ -154,7 +156,11 @@ const SalesFormMultipleChoice = ({
           variant={Enum_Componentutilsbutton_Variante.Secondary}
           width="w-fit"
         >
-          <span>{formData.length - 1 === formIdx ? "Submit" : "Continue"}</span>
+          <span>
+            {formData.length - 1 === formIdx
+              ? t("FORM_BUTTON.SUBMIT")
+              : t("FORM_BUTTON.NEXT")}
+          </span>
         </Button>
       </div>
     </div>
