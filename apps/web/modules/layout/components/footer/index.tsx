@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import qs from "qs";
+import { useTranslation } from "next-i18next";
 import { useStrapiPluginNavigationTree } from "@/api/hooks/navigation/use-strapi-plugin-navigation";
 import type { SeitenEinstellung } from "@/generated/graphql";
 import { SmallIcon } from "@/types/icon";
@@ -16,6 +17,7 @@ interface FooterComponentProps {
 }
 
 const FooterComponent = ({ footervalue }: FooterComponentProps) => {
+  const { t } = useTranslation("common");
   const [footerNavMenu, setFooterNavMenu] = useState([
     {
       path: "",
@@ -119,7 +121,7 @@ const FooterComponent = ({ footervalue }: FooterComponentProps) => {
               <div className="flex flex-col medium:flex-row medium:justify-between">
                 <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal mr-5">
                   <div className="typo-h5 mb-2 capitalize">
-                    {footervalue?.navigation_ueberschrift}
+                    {t("NAVIGATION")}
                   </div>
                   {navbarMenu.map((footerNav, idx) => (
                     <Link href={footerNav.path} key={idx}>
@@ -128,9 +130,7 @@ const FooterComponent = ({ footervalue }: FooterComponentProps) => {
                   ))}
                 </div>
                 <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal max-w-[275px]">
-                  <div className="typo-h5 mb-2 capitalize">
-                    {footervalue?.kontakt_ueberschrift}
-                  </div>
+                  <div className="typo-h5 mb-2 capitalize">{t("CONTACT")}</div>
                   {footervalue?.kontakt?.map((val, idx) => {
                     return (
                       <div className="flex" key={idx}>

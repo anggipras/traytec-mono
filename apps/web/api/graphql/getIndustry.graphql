@@ -30,6 +30,318 @@ query getIndustry($filters: IndustrieFiltersInput, $locale: I18NLocaleCode) {
             }
           }
         }
+        inhalte {
+          ... on ComponentHerosHero1 {
+            hero_btn: button {
+              text
+              url
+              variante
+            }
+            hintergrund {
+              data {
+                attributes {
+                  ext
+                  url
+                }
+              }
+            }
+            sichtbar
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+          }
+          ... on ComponentSliderHorizontalerSlider {
+            cards {
+              icon {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              icon_text
+              text
+              ueberschrift
+            }
+            sichtbar
+            uberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            embla_optionen {
+              loop
+              start_index
+            }
+          }
+          ... on ComponentSliderHorizontalerSliderFokus {
+            background_anzeigen
+            button {
+              id
+              text
+              url
+              variante
+            }
+            cards {
+              image {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              text
+              ueberschrift
+              vorteile
+              medien {
+                data {
+                  attributes {
+                    alternativeText
+                    caption
+                    url
+                    name
+                  }
+                }
+              }
+            }
+            karten_ausserhalb_anzeigen
+            sichtbar
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            autoplay {
+              ist_aktiv
+              dauer
+            }
+            embla_optionen {
+              loop
+              start_index
+            }
+          }
+          ... on ComponentIntegrationenFormular {
+            formular {
+              data {
+                attributes {
+                  ueberschrift {
+                    heading
+                    text
+                    topline
+                    typ
+                  }
+                  titel
+                  Fragen {
+                    ... on ComponentFormTextForm {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormLongText {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormDatumUhrzeit {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormDatum {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormMultipleChoice {
+                      frage
+                      moeglichkeit {
+                        antwort
+                        id
+                        overwrite_email
+                        icon {
+                          data {
+                            attributes {
+                              alternativeText
+                              caption
+                              url
+                            }
+                          }
+                        }
+                      }
+                      notwendig
+                    }
+                    ... on ComponentFormUhrzeit {
+                      frage
+                      notwendig
+                    }
+                    ... on ComponentFormDaten {
+                      frage
+                      notwendig
+                    }
+                    ... on Error {
+                      code
+                      message
+                    }
+                  }
+                  email_empfaenger
+                }
+              }
+            }
+            sichtbar
+          }
+          ... on ComponentListenGridListe {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            inhalt {
+              bild {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              text
+              titel
+            }
+          }
+          ... on ComponentHeadingsHeadingMinimalistisch {
+            ausrichtung
+            beschreibung
+            dekoration_anzeigen
+            titel
+            bild {
+              data {
+                attributes {
+                  height
+                  url
+                  width
+                }
+              }
+            }
+          }
+          ... on ComponentHeadingsHeadingMitVideo {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            heading_media: media {
+              data {
+                attributes {
+                  ext
+                  height
+                  url
+                  width
+                }
+              }
+            }
+          }
+          ... on ComponentListenTimelineListe {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            timeline_karten {
+              beschreibung
+              media {
+                data {
+                  attributes {
+                    height
+                    url
+                    width
+                  }
+                }
+              }
+              titel
+              zeitpunkt
+            }
+          }
+          ... on ComponentSektionenInhaltMitMedia {
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            MEDIA_POSITION
+            media {
+              data {
+                attributes {
+                  height
+                  url
+                  width
+                }
+              }
+            }
+          }
+          ... on ComponentListenIndustrieListe {
+            industrien {
+              data {
+                attributes {
+                  beschreibung
+                  slug
+                  titel
+                  alle_anzeigen
+                  vorschau {
+                    data {
+                      attributes {
+                        height
+                        url
+                        width
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on ComponentIntegrationenBewertungen {
+            alle_anzeigen
+            ueberschrift {
+              heading
+              text
+              topline
+              typ
+            }
+            bewertungen {
+              data {
+                attributes {
+                  kommentar
+                  person {
+                    ist_anonym
+                    name
+                    photo_url
+                  }
+                }
+              }
+            }
+            embla_optionen {
+              loop
+              start_index
+            }
+          }
+          ... on ComponentUtilsText {
+            text_content: inhalt
+          }
+          ... on Error {
+            code
+            message
+          }
+        }
       }
     }
   }

@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from "react";
 import compact from "lodash/compact";
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 import Button from "../../button";
 import RenderHtml from "../../render-html";
 import type {
   ComponentFormMultipleChoice,
-  ComponentUtilsFormButton,
   FormularFragenDynamicZone,
   Maybe,
 } from "@/generated/graphql";
@@ -14,7 +14,6 @@ import { Enum_Componentutilsbutton_Variante } from "@/generated/graphql";
 import { useData } from "@/lib/hooks/use-data-context";
 
 interface FormProps {
-  formBtn?: Maybe<ComponentUtilsFormButton>;
   formValue?: Maybe<FormularFragenDynamicZone>;
   scrollNext: Function;
   scrollPrev: Function;
@@ -29,12 +28,12 @@ interface MultipleChoiceCheckProps {
 }
 
 const SalesFormMultipleChoice = ({
-  formBtn,
   formValue,
   scrollNext,
   scrollPrev,
   formIdx,
 }: FormProps) => {
+  const { t } = useTranslation();
   const multipleChoiceFormValue = formValue as ComponentFormMultipleChoice;
   const [multipleChoiceCheckValue, setMultipleChoiceCheckValue] = useState<
     MultipleChoiceCheckProps[]
@@ -146,7 +145,7 @@ const SalesFormMultipleChoice = ({
             variant={Enum_Componentutilsbutton_Variante.Secondary}
             width="w-fit"
           >
-            <span>{formBtn?.zuruck}</span>
+            <span>{t("FORM_BUTTON.BACK")}</span>
           </Button>
         )}
         <Button
@@ -159,8 +158,8 @@ const SalesFormMultipleChoice = ({
         >
           <span>
             {formData.length - 1 === formIdx
-              ? formBtn?.absenden
-              : formBtn?.weiter}
+              ? t("FORM_BUTTON.SUBMIT")
+              : t("FORM_BUTTON.NEXT")}
           </span>
         </Button>
       </div>

@@ -7,6 +7,7 @@ import type {
   GetIndustrySlugQuery,
   GetJobQuery,
   GetJobSlugQuery,
+  GetProductDetailQuery,
   GetProductSlugQuery,
   GetProductsQuery,
   IndustrieEntity,
@@ -20,6 +21,7 @@ import {
   GetIndustrySlugDocument,
   GetJobDocument,
   GetJobSlugDocument,
+  GetProductDetailDocument,
   GetProductSlugDocument,
   GetProductsDocument,
 } from "@/generated/graphql";
@@ -108,6 +110,21 @@ const fetchIndustryDetail = (slug: string, locale: string) => {
   });
 };
 
+const fetchProductDetail = (slug: string, locale: string) => {
+  const apolloClient = getApolloClient();
+  return apolloClient.query({
+    query: GetProductDetailDocument,
+    variables: {
+      filters: {
+        slug: {
+          eq: slug,
+        },
+      },
+      locale,
+    },
+  });
+};
+
 const fetchProductsDetail = (locale: string) => {
   const apolloClient = getApolloClient();
   return apolloClient.query({
@@ -139,8 +156,26 @@ const SlugPage = ({ slugData }) => {
     return (
       <div className="medium:pb-32.5">
         {slugDetailData.industrien?.data.map((val, idx) => (
-          <div key={idx}>{renderDynamicContent(val)}</div>
+          <>
+            <div key={idx}>{renderDynamicContent(val)}</div>
+            {val.attributes?.inhalte &&
+              val.attributes?.inhalte.length > 0 &&
+              val.attributes.inhalte.map((inhalteIndustry, industryId) => (
+                <div key={industryId}>
+                  {renderDynamicContent(inhalteIndustry)}
+                </div>
+              ))}
+          </>
         ))}
+      </div>
+    );
+  } else if (slugQueryData.produkte?.data.length) {
+    const slugDetailData = slugData as GetProductDetailQuery;
+    return (
+      <div className="medium:pb-32.5">
+        {slugDetailData.produkte?.data[0].attributes?.inhalte?.map(
+          (val, idx) => <div key={idx}>{renderDynamicContent(val)}</div>
+        )}
       </div>
     );
   }
@@ -217,9 +252,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const industryData = await fetchIndustryDetail(slug, locale ?? "de");
   const industryDataResponse = industryData?.data as GetIndustryQuery;
 
+  const productData = await fetchProductDetail(slug, locale ?? "de");
+  const productDataResponse = productData?.data as GetProductDetailQuery;
+
   let slugData: Query;
   if (jobDataResponse?.jobs?.data?.length) {
-    slugData = jobData?.data;
+    slugData = jobData.data;
   } else if (industryDataResponse?.industrien?.data?.length) {
     if (
       industryDataResponse.industrien?.data &&
@@ -252,6 +290,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
                   slug: attributes.slug,
                   titel: attributes.titel,
                   vorschau: attributes.vorschau,
+                  inhalte: attributes.inhalte,
                 },
               },
             ],
@@ -262,6 +301,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       }
     }
     slugData = industryData?.data;
+  } else if (productDataResponse.produkte?.data.length) {
+    slugData = productData.data;
   } else {
     return {
       notFound: true,

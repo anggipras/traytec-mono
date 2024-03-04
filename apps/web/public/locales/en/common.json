@@ -1,28 +1,16 @@
 {
-  "COMPONENTS": {
-    "HERO": {
-      "INTRO": "{{topLine}}",
-      "TITLE": "{{heroHeading}}",
-      "SUBTITLE": "{{heroText}}",
-      "BUTTON": "{{buttonText}}"
-    },
-    "SECTION_HEADING": {
-      "INTRO": "{{sectionHeadingIntro}}",
-      "TITLE": "{{sectionHeadingTitle}}",
-      "DESCRIPTION": "{{sectionHeadingDesc}}"
-    }
+  "CONTACT": "Contact",
+  "NAVIGATION": "Navigation",
+  "FORM_BUTTON": {
+    "BACK": "Back",
+    "NEXT": "Continue",
+    "SUBMIT": "Submit"
   },
-  "PAGES": {
-    "HOME_PAGE": {
-      "PROCESS": {
-        "INTRO": "{{processIntro}}",
-        "TITLE": "{{processTitle}}",
-        "SUBTITLE": "{{processSubtitle}}",
-        "LIST": {
-          "TITLE": "{{listTitle}}",
-          "DESCRIPTION": "{{listDesc}}"
-        }
-      }
-    }
+  "COOKIES": {
+    "ACCEPT_ALL": "Allow All",
+    "ACCEPT_ONLY": "Accept Only Necessary",
+    "SAVE_COOKIE": "Save Cookie Settings",
+    "MANAGE_COOKIE": "Manage Cookies",
+    "READ_UNTIL_THE_END": "Please read our cookie policy until the end."
   }
 }

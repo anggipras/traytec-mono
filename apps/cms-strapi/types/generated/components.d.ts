@@ -516,19 +516,6 @@ export interface UtilsEmblaOptionen extends Schema.Component {
   };
 }
 
-export interface UtilsFormButton extends Schema.Component {
-  collectionName: 'components_utils_form_buttons';
-  info: {
-    displayName: 'Formular_Button';
-    description: '';
-  };
-  attributes: {
-    weiter: Attribute.String;
-    zuruck: Attribute.String;
-    absenden: Attribute.String;
-  };
-}
-
 export interface UtilsGoogleReviewer extends Schema.Component {
   collectionName: 'components_utils_google_reviewers';
   info: {
@@ -714,7 +701,6 @@ declare module '@strapi/types' {
       'utils.badge': UtilsBadge;
       'utils.button': UtilsButton;
       'utils.embla-optionen': UtilsEmblaOptionen;
-      'utils.form-button': UtilsFormButton;
       'utils.google-reviewer': UtilsGoogleReviewer;
       'utils.grid-element': UtilsGridElement;
       'utils.heading': UtilsHeading;
