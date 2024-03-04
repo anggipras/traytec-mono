@@ -238,6 +238,7 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
                       <div className="embla__slide" key={idx}>
                         <div className="mx-auto max-w-3xl">
                           <SalesFormContainer
+                            formBtn={formResponseData.Formular_Button}
                             formIdx={idx}
                             formValue={val}
                             scrollNext={scrollNext}

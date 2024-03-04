@@ -47,6 +47,12 @@
       "type": "component",
       "repeatable": false,
       "component": "utils.jobs-einstellungen"
+    },
+    "navigation_ueberschrift": {
+      "type": "string"
+    },
+    "kontakt_ueberschrift": {
+      "type": "string"
     }
   }
 }

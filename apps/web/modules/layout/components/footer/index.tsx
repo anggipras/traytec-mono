@@ -118,7 +118,9 @@ const FooterComponent = ({ footervalue }: FooterComponentProps) => {
               </div>
               <div className="flex flex-col medium:flex-row medium:justify-between">
                 <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal mr-5">
-                  <div className="typo-h5 mb-2">Navigation</div>
+                  <div className="typo-h5 mb-2 capitalize">
+                    {footervalue?.navigation_ueberschrift}
+                  </div>
                   {navbarMenu.map((footerNav, idx) => (
                     <Link href={footerNav.path} key={idx}>
                       {footerNav.menuName}
@@ -126,7 +128,9 @@ const FooterComponent = ({ footervalue }: FooterComponentProps) => {
                   ))}
                 </div>
                 <div className="flex flex-col mt-6 medium:mt-0 gap-3.5 medium:gap-4 typo-copy-normal max-w-[275px]">
-                  <div className="typo-h5 mb-2">Contact</div>
+                  <div className="typo-h5 mb-2 capitalize">
+                    {footervalue?.kontakt_ueberschrift}
+                  </div>
                   {footervalue?.kontakt?.map((val, idx) => {
                     return (
                       <div className="flex" key={idx}>

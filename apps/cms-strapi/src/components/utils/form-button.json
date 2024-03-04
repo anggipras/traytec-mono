@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_utils_form_buttons",
+  "info": {
+    "displayName": "Formular_Button",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "weiter": {
+      "type": "string"
+    },
+    "zuruck": {
+      "type": "string"
+    },
+    "absenden": {
+      "type": "string"
+    }
+  }
+}

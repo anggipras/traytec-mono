@@ -42,6 +42,8 @@ query getSingleTypes {
           url
         }
         updatedAt
+        navigation_ueberschrift
+        kontakt_ueberschrift
       }
     }
   }

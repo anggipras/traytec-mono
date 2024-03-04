@@ -35,6 +35,12 @@
     },
     "email_empfaenger": {
       "type": "email"
+    },
+    "Formular_Button": {
+      "displayName": "Form_Button",
+      "type": "component",
+      "repeatable": false,
+      "component": "utils.form-button"
     }
   }
 }

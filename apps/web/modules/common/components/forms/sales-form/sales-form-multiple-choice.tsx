@@ -6,6 +6,7 @@ import Button from "../../button";
 import RenderHtml from "../../render-html";
 import type {
   ComponentFormMultipleChoice,
+  ComponentUtilsFormButton,
   FormularFragenDynamicZone,
   Maybe,
 } from "@/generated/graphql";
@@ -13,6 +14,7 @@ import { Enum_Componentutilsbutton_Variante } from "@/generated/graphql";
 import { useData } from "@/lib/hooks/use-data-context";
 
 interface FormProps {
+  formBtn?: Maybe<ComponentUtilsFormButton>;
   formValue?: Maybe<FormularFragenDynamicZone>;
   scrollNext: Function;
   scrollPrev: Function;
@@ -27,6 +29,7 @@ interface MultipleChoiceCheckProps {
 }
 
 const SalesFormMultipleChoice = ({
+  formBtn,
   formValue,
   scrollNext,
   scrollPrev,
@@ -143,7 +146,7 @@ const SalesFormMultipleChoice = ({
             variant={Enum_Componentutilsbutton_Variante.Secondary}
             width="w-fit"
           >
-            <span>Back</span>
+            <span>{formBtn?.zuruck}</span>
           </Button>
         )}
         <Button
@@ -154,7 +157,11 @@ const SalesFormMultipleChoice = ({
           variant={Enum_Componentutilsbutton_Variante.Secondary}
           width="w-fit"
         >
-          <span>{formData.length - 1 === formIdx ? "Submit" : "Continue"}</span>
+          <span>
+            {formData.length - 1 === formIdx
+              ? formBtn?.absenden
+              : formBtn?.weiter}
+          </span>
         </Button>
       </div>
     </div>

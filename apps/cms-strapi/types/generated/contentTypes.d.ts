@@ -1315,6 +1315,7 @@ export interface ApiFormularFormular extends Schema.CollectionType {
       Attribute.Required;
     ueberschrift: Attribute.Component<'utils.heading'>;
     email_empfaenger: Attribute.Email;
+    Formular_Button: Attribute.Component<'utils.form-button'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1749,6 +1750,8 @@ export interface ApiSeitenEinstellungSeitenEinstellung
     name_des_unternehmens: Attribute.String & Attribute.Required;
     kontakt: Attribute.Component<'utils.kontakt', true>;
     karriere: Attribute.Component<'utils.jobs-einstellungen'>;
+    navigation_ueberschrift: Attribute.String;
+    kontakt_ueberschrift: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

@@ -178,6 +178,11 @@ query getPage(
                     }
                   }
                   email_empfaenger
+                  Formular_Button {
+                    absenden
+                    weiter
+                    zuruck
+                  }
                 }
               }
             }

@@ -2,12 +2,14 @@
 import React from "react";
 import SalesFormMultipleChoice from "./sales-form-multiple-choice";
 import SalesFormInput from "./sales-form-input";
-import {
-  type FormularFragenDynamicZone,
-  type Maybe,
+import type {
+  ComponentUtilsFormButton,
+  FormularFragenDynamicZone,
+  Maybe,
 } from "@/generated/graphql";
 
 interface StepFormProps {
+  formBtn?: Maybe<ComponentUtilsFormButton>;
   formValue?: Maybe<FormularFragenDynamicZone>;
   scrollPrev: Function;
   scrollNext: Function;
@@ -15,6 +17,7 @@ interface StepFormProps {
 }
 
 const SalesFormContainer = ({
+  formBtn,
   formValue,
   scrollPrev,
   scrollNext,
@@ -25,6 +28,7 @@ const SalesFormContainer = ({
   if (__typename === "ComponentFormMultipleChoice") {
     item = (
       <SalesFormMultipleChoice
+        formBtn={formBtn}
         formIdx={formIdx}
         formValue={formValue}
         scrollNext={scrollNext}
@@ -41,6 +45,7 @@ const SalesFormContainer = ({
   ) {
     item = (
       <SalesFormInput
+        formBtn={formBtn}
         formIdx={formIdx}
         formValue={formValue}
         scrollNext={scrollNext}

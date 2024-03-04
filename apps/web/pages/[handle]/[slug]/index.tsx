@@ -7,9 +7,11 @@ import type {
   GetIndustrySlugQuery,
   GetJobQuery,
   GetJobSlugQuery,
+  GetProductSlugQuery,
   GetProductsQuery,
   IndustrieEntity,
   JobEntity,
+  ProduktEntity,
   ProduktRelationResponseCollection,
   Query,
 } from "@/generated/graphql";
@@ -18,6 +20,7 @@ import {
   GetIndustrySlugDocument,
   GetJobDocument,
   GetJobSlugDocument,
+  GetProductSlugDocument,
   GetProductsDocument,
 } from "@/generated/graphql";
 import { renderDynamicContent } from "@/lib/util/render-dynamic-content";
@@ -57,6 +60,22 @@ const fetchIndustryDetailSlug = async () => {
   const industryDataSlugData = data as GetIndustrySlugQuery;
 
   return industryDataSlugData.industrien?.data;
+};
+
+const fetchProductDetailSlug = async () => {
+  const apolloClient = getApolloClient();
+  const { data } = await apolloClient.query({
+    query: GetProductSlugDocument,
+    variables: {
+      pagination: {
+        limit: 100,
+      },
+    },
+  });
+
+  const productDataSlugData = data as GetProductSlugQuery;
+
+  return productDataSlugData.produkte?.data;
 };
 
 const fetchJobDetail = (slug: string, locale: string) => {
@@ -133,6 +152,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const jobDataSlugData = jobDataSlug as JobEntity[];
     const industryDataSlug = await fetchIndustryDetailSlug();
     const industryDataSlugData = industryDataSlug as IndustrieEntity[];
+    const productDataSlug = await fetchProductDetailSlug();
+    const productDataSlugData = productDataSlug as ProduktEntity[];
 
     const paths: SlugInfo[] = [];
     jobDataSlugData.forEach((dt) => {
@@ -148,6 +169,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
       });
     });
     industryDataSlugData.forEach((dt) => {
+      paths.push({
+        params: { handle: "/", slug: dt.attributes?.slug ?? "" },
+        locale: dt.attributes?.locale ?? "",
+      });
+      dt.attributes?.localizations?.data.forEach((dtLocal) => {
+        paths.push({
+          params: { handle: "/", slug: dtLocal.attributes?.slug ?? "" },
+          locale: dtLocal.attributes?.locale ?? "",
+        });
+      });
+    });
+    productDataSlugData.forEach((dt) => {
       paths.push({
         params: { handle: "/", slug: dt.attributes?.slug ?? "" },
         locale: dt.attributes?.locale ?? "",
