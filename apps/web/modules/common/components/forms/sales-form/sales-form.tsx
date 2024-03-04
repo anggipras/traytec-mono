@@ -12,6 +12,9 @@ import type {
 import { useData } from "@/lib/hooks/use-data-context";
 import { sendEmail } from "@/api/rest/strapi";
 import LayoutContainer from "@/modules/layout/components/layout-container";
+import Lottie from "react-lottie";
+import * as animationData from "@/assets/lottie/checkmark-icon.json";
+import { useTranslation } from "next-i18next";
 
 interface SalesFormProps {
   salesform: ComponentIntegrationenFormular;
@@ -37,8 +40,10 @@ interface MultipleChoiceType {
 
 const SalesForm = ({ salesform }: SalesFormProps) => {
   const { formData, setSharedFormData } = useData();
+  const [formIsSubmitted, setFormIsSubmitted] = useState(false);
   const [stepQ, setStepQ] = useState<FormStep[]>();
   const formResponseData = salesform.formular?.data?.attributes as Formular;
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (formResponseData) {
@@ -158,13 +163,14 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
         to: "noreply@nosc.ai",
         from: "noreply@traytec.de",
         replyTo: formResponseData.email_empfaenger,
-        subject: "New Inquiry for Traytec",
+        subject: "Neue Anfrage von der Webseite",
         text: mappedFormData,
       };
 
       sendEmail(emailData)
         ?.then((response) => {
           console.log(response);
+          setFormIsSubmitted(true);
         })
         .catch((err) => {
           console.log(err);
@@ -219,7 +225,7 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
             {formResponseData.ueberschrift && (
               <LayoutContainer className="flex flex-col m-auto max-w-3xl pt-10 medium:pt-15 px-6">
                 {formResponseData.ueberschrift?.heading && (
-                  <div className="typo-h2 mb-4 medium:mb-5">
+                  <div className="typo-h2 mb-4 medium:mb-5 text-center">
                     {formResponseData.ueberschrift?.heading}
                   </div>
                 )}
@@ -230,26 +236,51 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
                 )}
               </LayoutContainer>
             )}
-            <div className="m-auto px-6 py-10 medium:py-15">
-              <div className="embla_main">
-                <div className="embla__viewport" ref={emblaRef}>
-                  <div className="embla__container">
-                    {formResponseData.Fragen.map((val, idx) => (
-                      <div className="embla__slide" key={idx}>
-                        <div className="mx-auto max-w-3xl">
-                          <SalesFormContainer
-                            formIdx={idx}
-                            formValue={val}
-                            scrollNext={scrollNext}
-                            scrollPrev={scrollPrev}
-                          />
+            {formIsSubmitted ? (
+              <div className="m-auto py-10 medium:py-15 flex flex-col justify-center items-center text-center">
+                <Lottie
+                  options={{
+                    loop: false,
+                    autoplay: true,
+                    animationData: animationData,
+
+                    rendererSettings: {
+                      preserveAspectRatio: "xMidYMid slice",
+                    },
+                  }}
+                  height={300}
+                  width={300}
+                />
+
+                <h2 className="typo-h3 text-gray-100/70">
+                  {t("FORM.SEND_SUCCESS.HEADING")}
+                </h2>
+                <p className="text-gray-100/50">
+                  {t("FORM.SEND_SUCCESS.TEXT")}
+                </p>
+              </div>
+            ) : (
+              <div className="m-auto px-6 py-10 medium:py-15">
+                <div className="embla_main">
+                  <div className="embla__viewport" ref={emblaRef}>
+                    <div className="embla__container">
+                      {formResponseData.Fragen.map((val, idx) => (
+                        <div className="embla__slide" key={idx}>
+                          <div className="mx-auto max-w-3xl">
+                            <SalesFormContainer
+                              formIdx={idx}
+                              formValue={val}
+                              scrollNext={scrollNext}
+                              scrollPrev={scrollPrev}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
             <div className="mx-auto max-w-desktop w-full">
               <hr className="text-white h-2 mx-6 medium:mx-15" />
             </div>

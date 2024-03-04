@@ -1,6 +1,12 @@
 {
   "CONTACT": "Kontakt",
   "NAVIGATION": "Navigation",
+  "FORM": {
+    "SEND_SUCCESS": {
+      "HEADING": "Ihre Anfrage wurde erfolgreich versendet.",
+      "TEXT": "Vielen Dank für Ihre Anfrage. Wir werden uns in Kürze bei Ihnen melden."
+    }
+  },
   "FORM_BUTTON": {
     "BACK": "Zuruck",
     "NEXT": "Weiter",
