@@ -129,27 +129,6 @@ const FocusSliderWithAutoplay = ({ data }: ComponentProps) => {
                 onClick={onNextButtonClick}
               />
             </div>
-            {/* {data.cards[countSlider]?.vorteile && (
-              <div className="flex flex-col medium:flex-row medium:flex-wrap justify-start medium:justify-center gap-4">
-                {data.cards[countSlider]?.vorteile
-                  ?.replace(/(?:<(?:[^>]+)>)/gi, "")
-                  .split(";")
-                  .map((det, idxDetail) => {
-                    return (
-                      <div className="flex items-center" key={idxDetail}>
-                        <Image
-                          alt="ic_check"
-                          className="w-6"
-                          src={require("@/assets/images/icons/ic_check.svg")}
-                        />
-                        <div className="typo-copy-normal text-gray-400 ml-2">
-                          {det}
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-            )} */}
           </div>
         )}
         <div className="embla__buttons w-fit h-fit hidden medium:flex absolute items-center justify-center left-[230px]">
