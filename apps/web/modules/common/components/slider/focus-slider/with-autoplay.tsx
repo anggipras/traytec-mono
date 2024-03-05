@@ -96,6 +96,27 @@ const FocusSliderWithAutoplay = ({ data }: ComponentProps) => {
                     );
                   })}
                 </div>
+                {data.cards[countSlider]?.vorteile && (
+                  <div className="flex flex-col medium:flex-row medium:flex-wrap justify-start medium:justify-center gap-4">
+                    {data.cards[countSlider]?.vorteile
+                      ?.replace(/(?:<(?:[^>]+)>)/gi, "")
+                      .split(";")
+                      .map((det, idxDetail) => {
+                        return (
+                          <div className="flex items-center" key={idxDetail}>
+                            <Image
+                              alt="ic_check"
+                              className="w-6"
+                              src={require("@/assets/images/icons/ic_check.svg")}
+                            />
+                            <div className="typo-copy-normal text-gray-400 ml-2">
+                              {det}
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                )}
               </div>
             </div>
             <div className="embla__buttons flex medium:hidden items-center justify-center left-0 right-0 gap-3 w-full">
@@ -108,7 +129,7 @@ const FocusSliderWithAutoplay = ({ data }: ComponentProps) => {
                 onClick={onNextButtonClick}
               />
             </div>
-            {data.cards[countSlider]?.vorteile && (
+            {/* {data.cards[countSlider]?.vorteile && (
               <div className="flex flex-col medium:flex-row medium:flex-wrap justify-start medium:justify-center gap-4">
                 {data.cards[countSlider]?.vorteile
                   ?.replace(/(?:<(?:[^>]+)>)/gi, "")
@@ -128,13 +149,13 @@ const FocusSliderWithAutoplay = ({ data }: ComponentProps) => {
                     );
                   })}
               </div>
-            )}
+            )} */}
           </div>
         )}
-        <div className="embla__buttons -z-10 hidden medium:flex absolute items-center justify-center top-4 bottom-0 left-0 right-[730px]">
+        <div className="embla__buttons w-fit h-fit hidden medium:flex absolute items-center justify-center left-[230px]">
           <PrevButton disabled={prevBtnDisabled} onClick={onPrevButtonClick} />
         </div>
-        <div className="embla__buttons -z-10 hidden medium:flex absolute items-center justify-center top-4 bottom-0 left-[730px] right-0">
+        <div className="embla__buttons w-fit h-fit hidden medium:flex absolute items-center justify-center right-[230px]">
           <NextButton disabled={nextBtnDisabled} onClick={onNextButtonClick} />
         </div>
       </div>
