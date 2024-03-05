@@ -190,7 +190,7 @@ const ModalCookie: React.FC<ModalCookieProps> = ({ data, isOpen, close }) => {
                     width="w-full"
                   >
                     Nur notwendige akzeptieren
-                    {t("COOKIES.ACCEPT_ONLY")}
+                    {/* {t("COOKIES.ACCEPT_ONLY")} */}
                   </Button>
                 </div>
                 <div className="mt-5 sm:mt-6 w-full">
