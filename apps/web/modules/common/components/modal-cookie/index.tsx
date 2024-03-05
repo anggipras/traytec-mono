@@ -198,7 +198,8 @@ const ModalCookie: React.FC<ModalCookieProps> = ({ data, isOpen, close }) => {
                     {({ open }) => (
                       <>
                         <Disclosure.Button className="flex justify-between gap-x-2 items-center px-4 py-2 text-left typo-h3 transition-colors focus:outline-none focus-visible:ring focus-visible:ring-primary-500 focus-visible:ring-opacity-75  w-full">
-                          <span>{t("COOKIES.MANAGE_COOKIE")}</span>
+                          {/* <span>{t("COOKIES.MANAGE_COOKIE")}</span> */}
+                          Cookies verwalten
                           <div className={open ? "rotate-180 transform" : ""}>
                             <ChevronIcon direction="up" size="30" />
                           </div>
