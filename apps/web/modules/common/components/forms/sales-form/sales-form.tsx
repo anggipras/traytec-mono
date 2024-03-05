@@ -43,7 +43,7 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
   const [formIsSubmitted, setFormIsSubmitted] = useState(false);
   const [stepQ, setStepQ] = useState<FormStep[]>();
   const formResponseData = salesform.formular?.data?.attributes as Formular;
-  const { t } = useTranslation();
+  const { t } = useTranslation("common");;
 
   useEffect(() => {
     if (formResponseData) {

@@ -33,7 +33,7 @@ const SalesFormMultipleChoice = ({
   scrollPrev,
   formIdx,
 }: FormProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("common");;
   const multipleChoiceFormValue = formValue as ComponentFormMultipleChoice;
   const [multipleChoiceCheckValue, setMultipleChoiceCheckValue] = useState<
     MultipleChoiceCheckProps[]
