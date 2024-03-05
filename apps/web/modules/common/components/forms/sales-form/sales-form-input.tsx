@@ -37,7 +37,7 @@ const SalesFormInput = ({
   scrollPrev,
   formIdx,
 }: FormProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("common");
   const __typename = formValue?.__typename;
   const [formInputValue, setFormInputValue] = useState<string>("");
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
@@ -150,7 +150,8 @@ const SalesFormInput = ({
             variant={Enum_Componentutilsbutton_Variante.Secondary}
             width="w-fit"
           >
-            <span>{t("FORM_BUTTON.BACK")}</span>
+            Zurück
+            {/* <span>{t("FORM_BUTTON.BACK")}</span> */}
           </Button>
         )}
         <Button
@@ -171,8 +172,10 @@ const SalesFormInput = ({
         >
           <span>
             {formData.length - 1 === formIdx
-              ? t("FORM_BUTTON.SUBMIT")
-              : t("FORM_BUTTON.NEXT")}
+              ? // ? t("FORM_BUTTON.SUBMIT")
+                // : t("FORM_BUTTON.NEXT")}
+                "Absenden"
+              : "Weiter"}
           </span>
         </Button>
       </div>

@@ -168,7 +168,8 @@ const ModalCookie: React.FC<ModalCookieProps> = ({ data, isOpen, close }) => {
                 </div>
                 {!isBottomReached && (
                   <p className="typo-copy-small text-rose-700">
-                    {t("COOKIES.READ_UNTIL_THE_END")}
+                    Lesen Sie bitte unsere Cookie-Richtlinien bis zum Schluss
+                    {/* {t("COOKIES.READ_UNTIL_THE_END")} */}
                   </p>
                 )}
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
@@ -178,7 +179,8 @@ const ModalCookie: React.FC<ModalCookieProps> = ({ data, isOpen, close }) => {
                     variant={Enum_Componentutilsbutton_Variante.Primary}
                     width="w-full"
                   >
-                    {t("COOKIES.ACCEPT_ALL")}
+                    Alles akzeptieren
+                    {/* {t("COOKIES.ACCEPT_ALL")} */}
                   </Button>
 
                   <Button
@@ -187,6 +189,7 @@ const ModalCookie: React.FC<ModalCookieProps> = ({ data, isOpen, close }) => {
                     variant={Enum_Componentutilsbutton_Variante.Text}
                     width="w-full"
                   >
+                    Nur notwendige akzeptieren
                     {t("COOKIES.ACCEPT_ONLY")}
                   </Button>
                 </div>
@@ -400,7 +403,8 @@ const ModalCookie: React.FC<ModalCookieProps> = ({ data, isOpen, close }) => {
                               }}
                               width="w-full"
                             >
-                              {t("COOKIES.SAVE_COOKIE")}
+                              Cookie-Einstellungen speichern
+                              {/* {t("COOKIES.SAVE_COOKIE")} */}
                             </Button>
                           </div>
                         </Disclosure.Panel>

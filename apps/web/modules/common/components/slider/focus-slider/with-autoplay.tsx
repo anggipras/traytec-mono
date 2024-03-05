@@ -131,10 +131,12 @@ const FocusSliderWithAutoplay = ({ data }: ComponentProps) => {
             )}
           </div>
         )}
-        <div className="embla__buttons -z-10 hidden medium:flex absolute items-center justify-center top-4 bottom-0 left-0 right-[730px]">
+        {/* <div className="embla__buttons -z-10 hidden medium:flex absolute items-center justify-center top-4 bottom-0 left-0 right-[730px]"> */}
+        <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-4 bottom-0 left-0 right-[730px]">
           <PrevButton disabled={prevBtnDisabled} onClick={onPrevButtonClick} />
         </div>
-        <div className="embla__buttons -z-10 hidden medium:flex absolute items-center justify-center top-4 bottom-0 left-[730px] right-0">
+        {/* <div className="embla__buttons -z-10 hidden medium:flex absolute items-center justify-center top-4 bottom-0 left-[730px] right-0"> */}
+        <div className="embla__buttons hidden medium:flex absolute items-center justify-center top-4 bottom-0 left-[730px] right-0">
           <NextButton disabled={nextBtnDisabled} onClick={onNextButtonClick} />
         </div>
       </div>

@@ -43,7 +43,7 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
   const [formIsSubmitted, setFormIsSubmitted] = useState(false);
   const [stepQ, setStepQ] = useState<FormStep[]>();
   const formResponseData = salesform.formular?.data?.attributes as Formular;
-  const { t } = useTranslation("common");;
+  const { t } = useTranslation("common");
 
   useEffect(() => {
     if (formResponseData) {
@@ -253,10 +253,13 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
                 />
 
                 <h2 className="typo-h3 text-gray-100/70">
-                  {t("FORM.SEND_SUCCESS.HEADING")}
+                  {/* {t("FORM.SEND_SUCCESS.HEADING")} */}
+                  Ihre Anfrage wurde erfolgreich versendet.
                 </h2>
                 <p className="text-gray-100/50">
-                  {t("FORM.SEND_SUCCESS.TEXT")}
+                  {/* {t("FORM.SEND_SUCCESS.TEXT")} */}
+                  Vielen Dank für Ihre Anfrage. Wir werden uns in Kürze bei
+                  Ihnen melden.
                 </p>
               </div>
             ) : (

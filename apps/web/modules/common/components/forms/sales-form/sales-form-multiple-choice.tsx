@@ -33,7 +33,7 @@ const SalesFormMultipleChoice = ({
   scrollPrev,
   formIdx,
 }: FormProps) => {
-  const { t } = useTranslation("common");;
+  const { t } = useTranslation("common");
   const multipleChoiceFormValue = formValue as ComponentFormMultipleChoice;
   const [multipleChoiceCheckValue, setMultipleChoiceCheckValue] = useState<
     MultipleChoiceCheckProps[]
@@ -145,7 +145,8 @@ const SalesFormMultipleChoice = ({
             variant={Enum_Componentutilsbutton_Variante.Secondary}
             width="w-fit"
           >
-            <span>{t("FORM_BUTTON.BACK")}</span>
+            {/* <span>{t("FORM_BUTTON.BACK")}</span> */}
+            Zurück
           </Button>
         )}
         <Button
@@ -158,8 +159,10 @@ const SalesFormMultipleChoice = ({
         >
           <span>
             {formData.length - 1 === formIdx
-              ? t("FORM_BUTTON.SUBMIT")
-              : t("FORM_BUTTON.NEXT")}
+              ? // ? t("FORM_BUTTON.SUBMIT")
+                // : t("FORM_BUTTON.NEXT")}
+                "Absenden"
+              : "Weiter"}
           </span>
         </Button>
       </div>
