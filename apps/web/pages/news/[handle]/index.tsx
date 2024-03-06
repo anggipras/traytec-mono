@@ -1,6 +1,6 @@
 import React from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import NewsDetailTemplate from "@/modules/news/templates/news-detail";
 
 const NewsDetail = () => {
@@ -31,14 +31,14 @@ export const getStaticPaths: GetStaticPaths = () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const { locale } = context;
-  const initialLocale = locale ?? "de";
-  const namespaces = ["common"];
+export const getStaticProps: GetStaticProps = () => {
+  // const { locale } = context;
+  // const initialLocale = locale ?? "de";
+  // const namespaces = ["common"];
 
   return {
     props: {
-      ...(await serverSideTranslations(initialLocale, namespaces)),
+      // ...(await serverSideTranslations(initialLocale, namespaces)),
     },
     revalidate: 5,
   };

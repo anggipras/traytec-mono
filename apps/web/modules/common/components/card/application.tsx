@@ -24,7 +24,7 @@ const ApplicationCard = ({
   componentstyle = Enum_Componentintegrationenjobs_Style.Grid,
   ...props
 }: AppCardProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("common");
   const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);
   const isIntersecting = useIntersectionObs(cardRef);

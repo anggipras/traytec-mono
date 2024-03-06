@@ -24,7 +24,7 @@ interface JobListProps {
 }
 
 const JobList = ({ data }: JobListProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("common");
   const router = useRouter();
   const [activePage, setActivePage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(

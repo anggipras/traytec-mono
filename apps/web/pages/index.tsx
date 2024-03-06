@@ -56,7 +56,6 @@ const HomePage = ({ singlePageData }) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const initialLocale = context.locale ?? "de";
-  const namespaces = ["common"];
 
   const singlePage = await fetchHomePageStatic(initialLocale);
   const singlePageResponse = singlePage?.data as GetPageQuery;
@@ -145,7 +144,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       singlePageData: modifiedSinglePageByJobs.seiten
         ? modifiedSinglePageByJobs
         : singlePageResponse,
-      ...(await serverSideTranslations(initialLocale, namespaces)),
+      ...(await serverSideTranslations(initialLocale, ["common"])),
     },
     revalidate: 5,
   };

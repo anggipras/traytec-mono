@@ -1,8 +1,12 @@
+const path = require("path");
+
 const i18nConfig = {
   i18n: {
     defaultLocale: "de",
-    locales: ["en", "de"],
-    localeDetection: false,
+    locales: ["de", "en"],
+    localePath: path.resolve("./public/locales"),
+    reloadOnPrerender: true,
+    // localeDetection: false,
   },
 };
 

@@ -1,6 +1,5 @@
 import "styles/globals.css";
 import type { AppProps, AppContext } from "next/app";
-import type { UserConfig } from "next-i18next";
 import { appWithTranslation } from "next-i18next";
 import App from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -21,13 +20,6 @@ import {
   GetPageHandleDocument,
   GetSingleTypesDocument,
 } from "@/generated/graphql";
-
-const emptyInitialI18NextConfig: UserConfig = {
-  i18n: {
-    defaultLocale: nextI18NextConfig.i18n.defaultLocale,
-    locales: nextI18NextConfig.i18n.locales,
-  },
-};
 
 // Define an interface for components that have a getLayout property
 interface ComponentWithLayout {
@@ -157,4 +149,4 @@ MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
   }
 };
 
-export default appWithTranslation(MyApp, emptyInitialI18NextConfig);
+export default appWithTranslation(MyApp, nextI18NextConfig);
