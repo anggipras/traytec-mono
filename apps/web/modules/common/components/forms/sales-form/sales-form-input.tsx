@@ -39,7 +39,7 @@ const SalesFormInput = ({
   scrollPrev,
   formIdx,
 }: FormProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("common");
   const __typename = formValue?.__typename;
   const [formInputValue, setFormInputValue] = useState<string>("");
   const [startDate, setStartDate] = useState(new Date());
