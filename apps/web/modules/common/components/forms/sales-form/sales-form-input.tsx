@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/ban-types -- disable ban types */
 import React, { useState } from "react";
 import { useTranslation } from "next-i18next";
+import DatePicker from "react-datepicker";
 import Button from "../../button";
 import RenderHtml from "../../render-html";
 import type {
@@ -15,6 +16,7 @@ import type {
 } from "@/generated/graphql";
 import { Enum_Componentutilsbutton_Variante } from "@/generated/graphql";
 import { useData } from "@/lib/hooks/use-data-context";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface FormProps {
   formValue?:
@@ -40,6 +42,7 @@ const SalesFormInput = ({
   const { t } = useTranslation();
   const __typename = formValue?.__typename;
   const [formInputValue, setFormInputValue] = useState<string>("");
+  const [startDate, setStartDate] = useState(new Date());
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const reqField = formValue?.notwendig || false;
   const { formData, setSharedFormData } = useData();
@@ -55,11 +58,26 @@ const SalesFormInput = ({
     setSharedFormData(spreadOutFromData);
   };
 
+  const setFormDate = (date: Date) => {
+    setStartDate(date);
+    setFormInputValue(date.toISOString());
+    const spreadOutFromData = [...formData];
+    spreadOutFromData[formIdx].formDataValue = date;
+    setSharedFormData(spreadOutFromData);
+  };
+
   const setInputFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFiles(e.target.files);
     const spreadOutFromData = [...formData];
     spreadOutFromData[formIdx].formDataValue = e.target.files;
     setSharedFormData(spreadOutFromData);
+  };
+
+  const filterPassedTime = (time: Date): boolean => {
+    const currentDate = new Date();
+    const selectedDate = new Date(time);
+
+    return currentDate.getTime() < selectedDate.getTime();
   };
 
   const renderFormInputType = () => {
@@ -100,22 +118,34 @@ const SalesFormInput = ({
       );
     }
     return (
-      <input
-        className="text-black"
-        id="dateTimePicker"
-        min={new Date().toISOString().slice(0, -8)}
-        onChange={(e) => {
-          setFormValue(e);
+      <DatePicker
+        className="text-black rounded-md bg-gray-50 outline-none focus:bg-white focus:ring-2 focus:ring-primary-700"
+        dateFormat="MMMM d, yyyy h:mm aa"
+        filterTime={filterPassedTime}
+        minDate={new Date()}
+        onChange={(date) => {
+          date && setFormDate(date);
         }}
-        type={
-          __typename === "ComponentFormDatumUhrzeit"
-            ? "datetime-local"
-            : __typename === "ComponentFormUhrzeit"
-              ? "time"
-              : "date"
-        }
-        value={formInputValue}
+        selected={startDate}
+        showIcon
+        showTimeSelect
       />
+      // <input
+      //   className="text-black"
+      //   id="dateTimePicker"
+      //   min={new Date().toISOString().slice(0, -8)}
+      //   onChange={(e) => {
+      //     setFormValue(e);
+      //   }}
+      //   type={
+      //     __typename === "ComponentFormDatumUhrzeit"
+      //       ? "datetime-local"
+      //       : __typename === "ComponentFormUhrzeit"
+      //         ? "time"
+      //         : "date"
+      //   }
+      //   value={formInputValue}
+      // />
     );
   };
 
@@ -150,7 +180,7 @@ const SalesFormInput = ({
             variant={Enum_Componentutilsbutton_Variante.Secondary}
             width="w-fit"
           >
-            <span>{t("FORM_BUTTON.BACK")}</span>
+            <span>{t("form-button.back")}</span>
           </Button>
         )}
         <Button
@@ -171,8 +201,8 @@ const SalesFormInput = ({
         >
           <span>
             {formData.length - 1 === formIdx
-              ? t("FORM_BUTTON.SUBMIT")
-              : t("FORM_BUTTON.NEXT")}
+              ? t("form-button.submit")
+              : t("form-button.next")}
           </span>
         </Button>
       </div>

@@ -1,22 +1,33 @@
 {
-  "CONTACT": "Kontakt",
-  "NAVIGATION": "Navigation",
-  "FORM": {
-    "SEND_SUCCESS": {
-      "HEADING": "Ihre Anfrage wurde erfolgreich versendet.",
-      "TEXT": "Vielen Dank für Ihre Anfrage. Wir werden uns in Kürze bei Ihnen melden."
+  "contact": "Kontakt",
+  "navigation": "Navigation",
+  "form": {
+    "send-success": {
+      "heading": "Ihre Anfrage wurde erfolgreich versendet.",
+      "text": "Vielen Dank für Ihre Anfrage. Wir werden uns in Kürze bei Ihnen melden."
     }
   },
-  "FORM_BUTTON": {
-    "BACK": "Zuruck",
-    "NEXT": "Weiter",
-    "SUBMIT": "Absenden"
+  "form-button": {
+    "back": "Zuruck",
+    "next": "Weiter",
+    "submit": "Absenden"
   },
-  "COOKIES": {
-    "ACCEPT_ALL": "Alles akzeptieren",
-    "ACCEPT_ONLY": "Nur notwendige akzeptieren",
-    "SAVE_COOKIE": "Cookie-Einstellungen speichern",
-    "MANAGE_COOKIE": "Cookies verwalten",
-    "READ_UNTIL_THE_END": "Lesen Sie bitte unsere Cookie-Richtlinien bis zum Schluss"
+  "cookies": {
+    "accept-all": "Alles akzeptieren",
+    "accept-only": "Nur notwendige akzeptieren",
+    "save-cookie": "Cookie-Einstellungen speichern",
+    "manage-cookie": "Cookies verwalten",
+    "read-until-the-end": "Lesen Sie bitte unsere Cookie-Richtlinien bis zum Schluss"
+  },
+  "career-button": {
+    "apply": "Jetzt Bewerben",
+    "detail": "Karrieredetails"
+  },
+  "career-selection": {
+    "all": "Alle",
+    "fullTime": "Vollzeit",
+    "partTime": "Teilzeit",
+    "ausbildung": "Ausbildung",
+    "miniJob": "Mini Job"
   }
 }

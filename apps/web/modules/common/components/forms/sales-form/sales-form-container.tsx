@@ -1,8 +1,12 @@
-/* eslint-disable @typescript-eslint/ban-types -- test */
+/* eslint-disable @typescript-eslint/ban-types -- disable ban types */
 import React from "react";
+import dynamic from "next/dynamic";
 import SalesFormMultipleChoice from "./sales-form-multiple-choice";
-import SalesFormInput from "./sales-form-input";
 import type { FormularFragenDynamicZone, Maybe } from "@/generated/graphql";
+
+const SalesFormInput = dynamic(() => import("./sales-form-input"), {
+  ssr: false,
+});
 
 interface StepFormProps {
   formValue?: Maybe<FormularFragenDynamicZone>;

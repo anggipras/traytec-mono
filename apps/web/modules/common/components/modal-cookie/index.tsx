@@ -168,7 +168,7 @@ const ModalCookie: React.FC<ModalCookieProps> = ({ data, isOpen, close }) => {
                 </div>
                 {!isBottomReached && (
                   <p className="typo-copy-small text-rose-700">
-                    {t("COOKIES.READ_UNTIL_THE_END")}
+                    {t("cookies.read-until-the-end")}
                   </p>
                 )}
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
@@ -178,7 +178,7 @@ const ModalCookie: React.FC<ModalCookieProps> = ({ data, isOpen, close }) => {
                     variant={Enum_Componentutilsbutton_Variante.Primary}
                     width="w-full"
                   >
-                    {t("COOKIES.ACCEPT_ALL")}
+                    {t("cookies.accept-all")}
                   </Button>
 
                   <Button
@@ -187,7 +187,7 @@ const ModalCookie: React.FC<ModalCookieProps> = ({ data, isOpen, close }) => {
                     variant={Enum_Componentutilsbutton_Variante.Text}
                     width="w-full"
                   >
-                    {t("COOKIES.ACCEPT_ONLY")}
+                    {t("cookies.accept-only")}
                   </Button>
                 </div>
                 <div className="mt-5 sm:mt-6 w-full">
@@ -195,7 +195,7 @@ const ModalCookie: React.FC<ModalCookieProps> = ({ data, isOpen, close }) => {
                     {({ open }) => (
                       <>
                         <Disclosure.Button className="flex justify-between gap-x-2 items-center px-4 py-2 text-left typo-h3 transition-colors focus:outline-none focus-visible:ring focus-visible:ring-primary-500 focus-visible:ring-opacity-75  w-full">
-                          <span>{t("COOKIES.MANAGE_COOKIE")}</span>
+                          <span>{t("cookies.manage-cookie")}</span>
                           <div className={open ? "rotate-180 transform" : ""}>
                             <ChevronIcon direction="up" size="30" />
                           </div>
@@ -400,7 +400,7 @@ const ModalCookie: React.FC<ModalCookieProps> = ({ data, isOpen, close }) => {
                               }}
                               width="w-full"
                             >
-                              {t("COOKIES.SAVE_COOKIE")}
+                              {t("cookies.save-cookie")}
                             </Button>
                           </div>
                         </Disclosure.Panel>

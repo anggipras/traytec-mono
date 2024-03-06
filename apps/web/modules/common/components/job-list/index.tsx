@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { clsx } from "clsx";
 import { useRouter } from "next/router";
 import { debounce } from "lodash";
+import { useTranslation } from "next-i18next";
 import NativeSelect from "@/modules/common/components/native-select";
 import SearchBox from "@/modules/common/components/search-box";
 import PaginationSection from "@/modules/common/components/pagination";
@@ -23,6 +24,7 @@ interface JobListProps {
 }
 
 const JobList = ({ data }: JobListProps) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [activePage, setActivePage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(
@@ -175,11 +177,11 @@ const JobList = ({ data }: JobListProps) => {
   });
 
   const artData = [
-    { name: "Alle", value: "ALL" },
-    { name: "Vollzeit", value: "VOLLZEIT" },
-    { name: "Teilzeit", value: "TEILZEIT" },
-    { name: "Ausbildung", value: "AUSBILDUNG" },
-    { name: "Mini Job", value: "MINI-JOB" },
+    { name: t("career-selection.all"), value: "ALL" },
+    { name: t("career-selection.fullTime"), value: "VOLLZEIT" },
+    { name: t("career-selection.partTime"), value: "TEILZEIT" },
+    { name: t("career-selection.ausbildung"), value: "AUSBILDUNG" },
+    { name: t("career-selection.miniJob"), value: "MINI-JOB" },
   ];
 
   const selectJobEnum = (dt: Record<string, string>) => {

@@ -145,7 +145,7 @@ const SalesFormMultipleChoice = ({
             variant={Enum_Componentutilsbutton_Variante.Secondary}
             width="w-fit"
           >
-            <span>{t("FORM_BUTTON.BACK")}</span>
+            <span>{t("form-button.back")}</span>
           </Button>
         )}
         <Button
@@ -158,8 +158,8 @@ const SalesFormMultipleChoice = ({
         >
           <span>
             {formData.length - 1 === formIdx
-              ? t("FORM_BUTTON.SUBMIT")
-              : t("FORM_BUTTON.NEXT")}
+              ? t("form-button.submit")
+              : t("form-button.next")}
           </span>
         </Button>
       </div>

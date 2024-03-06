@@ -2,6 +2,7 @@ import { clsx } from "clsx";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 import Button from "../button";
 import RenderHtml from "../render-html";
 import type { Job, Maybe } from "@/generated/graphql";
@@ -23,6 +24,7 @@ const ApplicationCard = ({
   componentstyle = Enum_Componentintegrationenjobs_Style.Grid,
   ...props
 }: AppCardProps) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);
   const isIntersecting = useIntersectionObs(cardRef);
@@ -133,14 +135,14 @@ const ApplicationCard = ({
             size="medium"
             variant={Enum_Componentutilsbutton_Variante.Primary}
           >
-            <span className="">Detail Career</span>
+            <span className="">{t("career-button.detail")}</span>
           </Button>
         )}
         <Button
           size="medium"
           variant={Enum_Componentutilsbutton_Variante.Secondary}
         >
-          <span className="">Apply Now</span>
+          <span className="">{t("career-button.apply")}</span>
         </Button>
       </div>
     </div>

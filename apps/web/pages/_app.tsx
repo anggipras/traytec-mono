@@ -1,8 +1,10 @@
 import "styles/globals.css";
 import type { AppProps, AppContext } from "next/app";
+import type { UserConfig } from "next-i18next";
 import { appWithTranslation } from "next-i18next";
 import App from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
+import nextI18NextConfig from "../next-i18next.config.js";
 import Layout from "@/modules/layout/templates";
 import { getApolloClient } from "@/lib/with-apollo";
 import type {
@@ -19,6 +21,13 @@ import {
   GetPageHandleDocument,
   GetSingleTypesDocument,
 } from "@/generated/graphql";
+
+const emptyInitialI18NextConfig: UserConfig = {
+  i18n: {
+    defaultLocale: nextI18NextConfig.i18n.defaultLocale,
+    locales: nextI18NextConfig.i18n.locales,
+  },
+};
 
 // Define an interface for components that have a getLayout property
 interface ComponentWithLayout {
@@ -122,7 +131,7 @@ const fetchCookieData = async () => {
 MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
   const { locale } = context.ctx;
   const ctx = await App.getInitialProps(context);
-  
+
   try {
     const localesDataResult = await fetchLocalesStatic();
     const localeHandlePage = await fetchSinglePageHandle(locale ?? "de");
@@ -148,4 +157,4 @@ MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
   }
 };
 
-export default appWithTranslation(MyApp);
+export default appWithTranslation(MyApp, emptyInitialI18NextConfig);

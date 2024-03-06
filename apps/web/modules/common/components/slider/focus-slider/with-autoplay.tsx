@@ -55,7 +55,7 @@ const FocusSliderWithAutoplay = ({ data }: ComponentProps) => {
   }, [countSlider, data.cards?.length, emblaApi]);
 
   const toggleAutoplay = useCallback(() => {
-    const autoplay = emblaApi?.plugins()?.autoplay;
+    const autoplay: any = emblaApi?.plugins()?.autoplay;
     if (!autoplay) return;
 
     autoplay.isPlaying() ? autoplay.stop() : autoplay.play();
