@@ -2,6 +2,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
+import Lottie from "react-lottie";
+import { useTranslation } from "next-i18next";
 import RenderHtml from "../../render-html";
 import CircleStep from "../../step/circle";
 import SalesFormContainer from "./sales-form-container";
@@ -12,9 +14,7 @@ import type {
 import { useData } from "@/lib/hooks/use-data-context";
 import { sendEmail } from "@/api/rest/strapi";
 import LayoutContainer from "@/modules/layout/components/layout-container";
-import Lottie from "react-lottie";
 import * as animationData from "@/assets/lottie/checkmark-icon.json";
-import { useTranslation } from "next-i18next";
 
 interface SalesFormProps {
   salesform: ComponentIntegrationenFormular;
@@ -131,9 +131,11 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
               .join("\n");
             return `${removeHtmlTags(formValue.title)}: ${interestedIn}`;
           } else if (formValue._typename === "ComponentFormDaten") {
-            return `${removeHtmlTags(formValue.title)}: warsawa`;
+            return `${removeHtmlTags(formValue.title)}: file test`;
           } else if (formValue._typename === "ComponentFormDatumUhrzeit") {
-            const parsedDate = new Date(formValue.formDataValue).toDateString();
+            const parsedDate = new Date(
+              formValue.formDataValue
+            ).toLocaleString();
             return `${removeHtmlTags(formValue.title)}: ${parsedDate}`;
           }
           return `${removeHtmlTags(formValue.title)}: ${
@@ -239,27 +241,24 @@ const SalesForm = ({ salesform }: SalesFormProps) => {
             {formIsSubmitted ? (
               <div className="m-auto py-10 medium:py-15 flex flex-col justify-center items-center text-center">
                 <Lottie
+                  height={300}
                   options={{
                     loop: false,
                     autoplay: true,
-                    animationData: animationData,
+                    animationData,
 
                     rendererSettings: {
                       preserveAspectRatio: "xMidYMid slice",
                     },
                   }}
-                  height={300}
                   width={300}
                 />
 
                 <h2 className="typo-h3 text-gray-100/70">
-                  {/* {t("FORM.SEND_SUCCESS.HEADING")} */}
-                  Ihre Anfrage wurde erfolgreich versendet.
+                  {t("form.send-success.heading")}
                 </h2>
                 <p className="text-gray-100/50">
-                  {/* {t("FORM.SEND_SUCCESS.TEXT")} */}
-                  Vielen Dank für Ihre Anfrage. Wir werden uns in Kürze bei
-                  Ihnen melden.
+                  {t("form.send-success.text")}
                 </p>
               </div>
             ) : (
