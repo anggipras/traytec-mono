@@ -1,7 +1,9 @@
 /* eslint-disable no-unsafe-optional-chaining -- disabled no unsafe optional chaining */
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps -- disable exh deps */
+import React, { useEffect } from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 import Head from "@/modules/common/components/head";
 import { getApolloClient } from "@/lib/with-apollo";
 import type {
@@ -73,6 +75,16 @@ const fetchJobDetail = (locale: string) => {
 };
 
 const SinglePage = ({ singlePageData }) => {
+  const { i18n } = useTranslation(["lazy-reload-page", "common"], {
+    bindI18n: "languageChanged loaded",
+  });
+  useEffect(() => {
+    void i18n.reloadResources(i18n.resolvedLanguage, [
+      "lazy-reload-page",
+      "common",
+    ]);
+  }, []);
+
   const singlePage = singlePageData as GetPageQuery;
   const seo = useSeo(
     singlePage.seiten?.data[0].attributes?.seo as ComponentSharedSeo
@@ -204,7 +216,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
       singlePageData: modifiedSinglePageByJobs.seiten
         ? modifiedSinglePageByJobs
         : singlePageResponse,
-      ...(await serverSideTranslations(locale ?? "de", ["common"])),
+      ...(await serverSideTranslations(locale ?? "de", [
+        "lazy-reload-page",
+        "common",
+      ])),
     },
     revalidate: 5,
   };

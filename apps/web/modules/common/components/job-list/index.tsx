@@ -24,7 +24,9 @@ interface JobListProps {
 }
 
 const JobList = ({ data }: JobListProps) => {
-  const { t } = useTranslation("common");
+  const { t, i18n } = useTranslation(["lazy-reload-page", "common"], {
+    bindI18n: "languageChanged loaded",
+  });
   const router = useRouter();
   const [activePage, setActivePage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(
@@ -37,6 +39,13 @@ const JobList = ({ data }: JobListProps) => {
     data.jobs?.data
   );
   const [selectOption, setSelectOption] = useState<string>("");
+
+  useEffect(() => {
+    void i18n.reloadResources(i18n.resolvedLanguage, [
+      "lazy-reload-page",
+      "common",
+    ]);
+  }, []);
 
   useEffect(() => {
     const handleRouteChange = () => {

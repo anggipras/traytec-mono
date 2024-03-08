@@ -1,0 +1,33 @@
+{
+  "contact": "Contact",
+  "navigation": "Navigation",
+  "form": {
+    "send-success": {
+      "heading": "Your message has been sent successfully.",
+      "text": "Thank you for your message. We will get back to you as soon as possible."
+    }
+  },
+  "form-button": {
+    "back": "Back",
+    "next": "Continue",
+    "submit": "Submit"
+  },
+  "cookies": {
+    "accept-all": "Allow All",
+    "accept-only": "Accept Only Necessary",
+    "save-cookie": "Save Cookie Settings",
+    "manage-cookie": "Manage Cookies",
+    "read-until-the-end": "Please read our cookie policy until the end."
+  },
+  "career-button": {
+    "apply": "Apply Now",
+    "detail": "Career Detail"
+  },
+  "career-selection": {
+    "all": "All",
+    "fullTime": "Full Time",
+    "partTime": "Part Time",
+    "ausbildung": "Ausbildung",
+    "miniJob": "Mini Job"
+  }
+}
