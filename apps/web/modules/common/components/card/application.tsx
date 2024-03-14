@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps -- disable exh deps */
 import { clsx } from "clsx";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
@@ -25,20 +24,11 @@ const ApplicationCard = ({
   componentstyle = Enum_Componentintegrationenjobs_Style.Grid,
   ...props
 }: AppCardProps) => {
-  const { t, i18n } = useTranslation(["lazy-reload-page", "common"], {
-    bindI18n: "languageChanged loaded",
-  });
+  const { t } = useTranslation("common");
   const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);
   const isIntersecting = useIntersectionObs(cardRef);
   const [screenWidth, setScreenWidth] = useState(0);
-
-  useEffect(() => {
-    void i18n.reloadResources(i18n.resolvedLanguage, [
-      "lazy-reload-page",
-      "common",
-    ]);
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
