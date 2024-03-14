@@ -2,8 +2,8 @@ const i18nConfig = {
   i18n: {
     defaultLocale: "de",
     locales: ["de", "en"],
-    reloadOnPrerender: true,
-    localeDetection: false,
+    // reloadOnPrerender: true,
+    // localeDetection: false,
   },
 };
 
