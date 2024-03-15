@@ -3,6 +3,7 @@ import type { AppProps, AppContext } from "next/app";
 import { appWithTranslation } from "next-i18next";
 import App from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
+import nextI18NextConfig from "../next-i18next.config.js";
 import Layout from "@/modules/layout/templates";
 import { getApolloClient } from "@/lib/with-apollo";
 import type {
@@ -148,4 +149,4 @@ MyApp.getInitialProps = async (context: AppContext): Promise<AppOwnProps> => {
   }
 };
 
-export default appWithTranslation(MyApp);
+export default appWithTranslation(MyApp, nextI18NextConfig);
